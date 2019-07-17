@@ -10,19 +10,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                <label asp-for="ToList()[0].Id"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IBAN)
+                <label asp-for="ToList()[0].IBAN"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Balance)
+                <label asp-for="ToList()[0].Balance"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Currency)
+                <label asp-for="ToList()[0].Currency"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AccountStatus)
+                <label asp-for="ToList()[0].AccountStatus"></label>
             </th>
             <th></th>
         </tr>

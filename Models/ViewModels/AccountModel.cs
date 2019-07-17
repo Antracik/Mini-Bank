@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,8 @@ namespace Mini_Bank.Models
         public string IBAN { get; set; }
         public decimal Balance { get; set; }
         public CurrencyModel.Currency Currency{ get; set; }
+
+        [DisplayName("Account Status")]
         public StatusModel.Status AccountStatus{ get; set; }
 
         public AccountModel(int id, string iBAN, decimal balance, CurrencyModel.Currency currency, StatusModel.Status accountStatus)
@@ -21,5 +24,8 @@ namespace Mini_Bank.Models
             Currency = currency;
             AccountStatus = accountStatus;
         }
+
+        public AccountModel() { }
+
     }
 }
