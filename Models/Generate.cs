@@ -20,7 +20,6 @@ namespace Mini_Bank.Models
 
             Random random = new Random();
 
-            /// GENERATE stuff for testing purposes
             /// GENERATE Accounts if not yet generate
             _accounts = new List<AccountModel>();
 
@@ -55,6 +54,7 @@ namespace Mini_Bank.Models
                 return _registrants;
 
             Random random = new Random();
+
             /// GENERATE Wallets AND Accounts if not yet generated
             _wallets = GetWallets();
 
