@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Mini_Bank.Models.UserModel>
+﻿@model List<Mini_Bank.Models.UserModel>
 
 @{
     ViewData["Title"] = "DisplayUsers";
@@ -10,16 +10,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                <label asp-for="@Model.FirstOrDefault().Id"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                <label asp-for="@Model.FirstOrDefault().Email"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Password)
+                <label asp-for="@Model.FirstOrDefault().Password"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsAdmin)
+                <label asp-for="@Model.FirstOrDefault().IsAdmin"></label>
             </th>
             <th></th>
         </tr>
@@ -28,20 +28,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @item.Id
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @item.Email
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Password)
+                @item.Password
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsAdmin)
+                @item.IsAdmin
             </td>
             <td>
-                
-                @Html.ActionLink("Details", "DetailsUser", new { id=item.Id }) 
+                <a asp-controller="User" asp-action="DetailsUser" asp-route-id="@item.Id">Details</a>
             </td>
         </tr>
 }

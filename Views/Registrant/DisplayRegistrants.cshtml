@@ -1,48 +1,49 @@
-﻿@model IEnumerable<Mini_Bank.Models.RegistrantModel>
+﻿@model List<Mini_Bank.Models.RegistrantModel>
 
 @{
     ViewData["Title"] = "DisplayRegistrants";
 }
 
-<h1>DisplayRegistrants</h1>
+<h1>Registrants</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                <label asp-for="@Model.FirstOrDefault().Id"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <label asp-for="@Model.FirstOrDefault().Name"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Country)
+                <label asp-for="@Model.FirstOrDefault().Country"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                <label asp-for="@Model.FirstOrDefault().Address"></label>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "DetailsRegistrant", new { id=item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Country
+                </td>
+                <td>
+                    @item.Address
+                </td>
+                <td>
+                    <a asp-controller="Registrant" asp-action="DetailsRegistrant" asp-route-Id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -1,0 +1,28 @@
+﻿@model Mini_Bank.Models.AccountModel
+
+@*
+<table class="table">
+    <tbody>
+        <tr>
+            <td>
+                @Model.Id
+            </td>
+            <td>
+                @Model.IBAN
+            </td>
+            <td>
+                <label asp-for="Balance"></label>
+            </td>
+            <td>
+                <label asp-for="Currency"></label>
+            </td>
+            <td>
+                <label asp-for="AccountStatus"></label>
+            </td>
+            <td>
+                <a asp-controller="Account" asp-action="DisplayAccount" asp-route-id="@Model.Id">Details</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+*@
