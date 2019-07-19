@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mini_Bank.Models
 {
@@ -6,6 +7,8 @@ namespace Mini_Bank.Models
     {
         public int Id { get; set; }
         public string IBAN { get; set; }
+
+        [DataType(DataType.Currency)]
         public decimal Balance { get; set; }
         public CurrencyModel.Currency Currency{ get; set; }
 
@@ -20,8 +23,6 @@ namespace Mini_Bank.Models
             Currency = currency;
             AccountStatus = accountStatus;
         }
-
-        public AccountModel() { }
 
     }
 }

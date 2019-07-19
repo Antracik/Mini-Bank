@@ -6,7 +6,6 @@ namespace Mini_Bank.Models
         public enum Status
         {
             Okay,
-            AwaitingAuthorization,
             Blocked
         }
 
