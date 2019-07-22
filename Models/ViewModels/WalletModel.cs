@@ -1,20 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace Mini_Bank.Models
 {
+    [DataContract]
     public class WalletModel
     {
+        [DataMember]
         public int Id { get; set; }
+
+        [DataMember]
         public int Number { get; set; }
 
+        [DataMember]
         [DisplayName("Wallet Status")]
         public StatusModel.Status WalletStatus { get; set; }
 
+        [DataMember]
         [DisplayName("Verified")]
         public bool IsVerified { get; set; }
 
         //Relation
+        [DataMember]
         public int ReginstrantId { get; set; }
 
         public WalletModel(int id, int number, StatusModel.Status walletStatus, int reginstrantId, bool isVerified = false)

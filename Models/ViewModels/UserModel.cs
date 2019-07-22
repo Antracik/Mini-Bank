@@ -1,13 +1,21 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace Mini_Bank.Models
 {
+    [DataContract]
     public class UserModel
     {
+        [DataMember]
         public int Id { get; set; }
+
+        [DataMember]
         public string Email { get; set; }
+
+        [DataMember]
         public string Password { get; set; }
 
+        [DataMember]
         [DisplayName("Admin")]
         public bool IsAdmin { get; set; }
 

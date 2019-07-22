@@ -27,7 +27,7 @@ namespace Mini_Bank.Models
 
             _users = new List<UserModel>();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
               _users.Add(new UserModel( i, "user" + i + "@domain.com", "totallyAPassword"));
 
             return _users;
@@ -61,9 +61,13 @@ namespace Mini_Bank.Models
 
             _wallets = new List<WalletModel>();
 
-            for (int i = 0; i < 15; i++)
+            int ID = 0;
+            for (int i = 0; i < _registrants.Count; i++)
             {
-                _wallets.Add(new WalletModel(i, random.Next(0, 9999), (StatusModel.Status)random.Next(0, 2), random.Next(0, _registrants.Count - 1)));
+                for (int j = 0; j < 3; j++)
+                {
+                    _wallets.Add(new WalletModel(ID++, random.Next(0, 9999), (StatusModel.Status)random.Next(0, 2), i));
+                }
             }
 
             return _wallets;
@@ -80,9 +84,13 @@ namespace Mini_Bank.Models
 
             _accounts = new List<AccountModel>();
 
-            for (int i = 0; i < 30; i++)
+            int ID = 0;
+            for (int i = 0; i < _wallets.Count; i++)
             {
-                _accounts.Add(new AccountModel(i, "IBAN" + random.Next(), random.Next(0, 9999), random.Next(0, _wallets.Count - 1), (CurrencyModel.Currency)random.Next(0, 3), (StatusModel.Status)random.Next(0, 2)));
+                for (int j = 0; j < 3; j++)
+                {
+                    _accounts.Add(new AccountModel(ID++, "IBAN" + random.Next(), random.Next(0, 9999), i, (CurrencyModel.Currency)random.Next(0, 3), (StatusModel.Status)random.Next(0, 2)));
+                }
             }
 
             return _accounts;
@@ -98,6 +106,8 @@ namespace Mini_Bank.Models
             GenerateWallets(regenerate);
             GenerateAccounts(regenerate);
         }
+
+
 
         /// BELOW GENERATION CODE WILL POSSIBLY BE USED IN FUTURE
 

@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Mini_Bank.Models;
+using System.IO;
+using Mini_Bank.Models.Repository;
+using System;
 
 namespace Mini_Bank.Controllers
 {
@@ -9,11 +12,14 @@ namespace Mini_Bank.Controllers
     {
         public IActionResult Index()
         {
-            Generate.GenAll();
             List<UserModel> users =  Generate.GenerateUsers();
             List<RegistrantModel> registrants = Generate.GenerateRegistrants();
             List<WalletModel> wallets = Generate.GenerateWallets();
             List<AccountModel> accounts = Generate.GenerateAccounts();
+
+            FileRepository<AccountModel>.AddRange(accounts);
+
+            accounts = FileRepository<AccountModel>.Read();
 
             return View();
         }

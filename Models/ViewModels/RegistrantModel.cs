@@ -1,15 +1,25 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Mini_Bank.Models
 {
+    [DataContract]
     public class RegistrantModel
     {
+        [DataMember]
         public int Id { get; set; }
+
+        [DataMember]
         public string Name { get; set; }
+
+        [DataMember]
         public string Country { get; set; }
+
+        [DataMember]
         public string Address { get; set; }
 
         //RELATION
+        [DataMember]
         public int UserId { get; set; }
 
         public RegistrantModel(int id, string name, string country, string address, int userId)
