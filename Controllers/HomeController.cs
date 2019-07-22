@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Mini_Bank.Models;
 
@@ -8,6 +9,12 @@ namespace Mini_Bank.Controllers
     {
         public IActionResult Index()
         {
+            Generate.GenAll();
+            List<UserModel> users =  Generate.GenerateUsers();
+            List<RegistrantModel> registrants = Generate.GenerateRegistrants();
+            List<WalletModel> wallets = Generate.GenerateWallets();
+            List<AccountModel> accounts = Generate.GenerateAccounts();
+
             return View();
         }
 

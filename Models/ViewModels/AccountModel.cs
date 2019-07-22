@@ -15,11 +15,15 @@ namespace Mini_Bank.Models
         [DisplayName("Account Status")]
         public StatusModel.Status AccountStatus{ get; set; }
 
-        public AccountModel(int id, string iBAN, decimal balance, CurrencyModel.Currency currency, StatusModel.Status accountStatus)
+        //RELATION
+        public int WalletId { get; set; }
+
+        public AccountModel(int id, string iBAN, decimal balance, int walletId, CurrencyModel.Currency currency, StatusModel.Status accountStatus)
         {
             Id = id;
             IBAN = iBAN;
             Balance = balance;
+            WalletId = walletId;
             Currency = currency;
             AccountStatus = accountStatus;
         }

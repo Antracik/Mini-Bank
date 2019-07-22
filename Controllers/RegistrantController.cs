@@ -13,12 +13,12 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DetailsRegistrant(int id)
         {
-            return View(Generate.GetRegistrants().FirstOrDefault(registrant => registrant.Id == id));
+            return View(); //return View(Generate.GetRegistrants().FirstOrDefault(registrant => registrant.Id == id));
         }
 
         public IActionResult DisplayRegistrants()
         {
-            return View(Generate.GetRegistrants());
+            return View(); //return View(Generate.GetRegistrants());
         }
 
     }

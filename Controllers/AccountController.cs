@@ -13,12 +13,12 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DisplayAccounts()
         {
-            return View(Generate.GetAccounts());
+            return View();  //return View(Generate.GetAccounts());
         }
 
         public IActionResult DetailsAccount(int id)
         {
-            return View(Generate.GetAccounts().FirstOrDefault(account => account.Id == id));
+            return View(); //return View(Generate.GetAccounts().FirstOrDefault(account => account.Id == id));
         }
 
     }

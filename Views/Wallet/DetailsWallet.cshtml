@@ -36,9 +36,10 @@
         </dd>
     </dl>
 </div>
+@*
 @if (Model.Accounts.Count > 0)
 {
-    <partial name="~/Views/Account/DisplayAccounts.cshtml" model="@Model.Accounts"/>
+    @*<partial name="~/Views/Account/DisplayAccounts.cshtml" model="@Model.Accounts"/>
 }
 else
 {
@@ -47,3 +48,4 @@ else
 <div>
     <a asp-action="DisplayWallets">Back to Wallet List</a>
 </div>
+*@

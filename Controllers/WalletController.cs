@@ -13,12 +13,12 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DetailsWallet(int id)
         {
-            return View(Generate.GetWallets().FirstOrDefault(wallet => wallet.Id == id));
+            return View(); //return View(Generate.GetWallets().FirstOrDefault(wallet => wallet.Id == id));
         }
 
         public IActionResult DisplayWallets()
         {
-            return View(Generate.GetWallets());
+            return View(); //return View(Generate.GetWallets());
         }
     }
 }

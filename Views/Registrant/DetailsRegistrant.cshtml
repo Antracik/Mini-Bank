@@ -36,10 +36,12 @@
         </dd>
     </dl>
 </div>
+@*
 @if(Model.Wallets.Count > 0)
 {
     <partial name="~/Views/Wallet/DisplayWallets.cshtml" model="Model.Wallets" />
 }
+*@
 <div>
     <a asp-action="DisplayRegistrants">Back to Registrant List</a>
 </div>

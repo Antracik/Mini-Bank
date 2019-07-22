@@ -8,15 +8,31 @@ namespace Mini_Bank.Models
         public string Name { get; set; }
         public string Country { get; set; }
         public string Address { get; set; }
-        public List<WalletModel> Wallets{ get; set; }
 
-        public RegistrantModel(int id, string name, string country, string address, List<WalletModel> wallets)
+        //RELATION
+        public int UserId { get; set; }
+
+        public RegistrantModel(int id, string name, string country, string address, int userId)
         {
             Id = id;
             Name = name;
             Country = country;
             Address = address;
-            Wallets = wallets;
+            UserId = userId;
         }
+
+        //FOR LATER USE
+        //public List<WalletModel> Wallets{ get; set; }
+
+        //public RegistrantModel(int id, string name, string country, string address, List<WalletModel> wallets)
+        //{
+        //    Id = id;
+        //    Name = name;
+        //    Country = country;
+        //    Address = address;
+        //    Wallets = wallets;
+        //}
+
+
     }
 }

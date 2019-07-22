@@ -4,7 +4,11 @@ using System.Collections.Generic;
 namespace Mini_Bank.Models
 {
     /// <summary>
-    /// Static class used for testing. Generates nonsensical data for the supported models 
+    /// Static class used for testing. Generates nonsensical data for the supported models.
+    /// Due to the need to work with files for the new assignment
+    /// the generate functions need to be rewritten in order to work properly.
+    /// They should be called hierarchically starting from GenerateUsers, Generate Registrants,
+    /// GenerateWallets and finally GenerateAccounts
     /// </summary>
     public static class Generate
     {
@@ -12,78 +16,162 @@ namespace Mini_Bank.Models
         private static List<RegistrantModel> _registrants = null;
         private static List<WalletModel> _wallets = null;
         private static List<AccountModel> _accounts = null;
+        private static bool _generated;
 
-        public static List<AccountModel> GetAccounts()
+        public static List<UserModel> GenerateUsers(bool regenerate = false)
         {
-            if (_accounts != null)
-                return _accounts;
+            _generated = regenerate;
 
-            Random random = new Random();
+            if (_users != null || _generated)
+                return _users;
 
-            /// GENERATE Accounts if not yet generate
-            _accounts = new List<AccountModel>();
-
-            for (int i = 0; i < 3; i++)
-                _accounts.Add(new AccountModel(random.Next(0, 999), "IBAN" + random.Next(), random.Next(0, 9999), (CurrencyModel.Currency)random.Next(0, 2), (StatusModel.Status)random.Next(0, 2)));
-
-            return _accounts;
-        }
-
-        public static List<WalletModel> GetWallets()
-        {
-            if (_wallets != null)
-                return _wallets;
-
-            Random random = new Random();
-
-            /// GENERATE Accounts if not yet generated
-            _accounts = GetAccounts();
-
-            /// GENERATE Wallets if not yet generated
-            _wallets = new List<WalletModel>();
+            _users = new List<UserModel>();
 
             for (int i = 0; i < 5; i++)
-                _wallets.Add(new WalletModel(random.Next(0,9999), random.Next(0, 9999), (StatusModel.Status)random.Next(0, 2), _accounts));
+              _users.Add(new UserModel( i, "user" + i + "@domain.com", "totallyAPassword"));
 
-            return _wallets;
+            return _users;
         }
 
-        public static List<RegistrantModel> GetRegistrants()
+        public static List<RegistrantModel> GenerateRegistrants(bool regenerate = false)
         {
-            if (_registrants != null)
+            _generated = regenerate;
+
+            if (_registrants != null || _generated)
                 return _registrants;
 
-            Random random = new Random();
-
-            /// GENERATE Wallets AND Accounts if not yet generated
-            _wallets = GetWallets();
-
-            /// GENERATE Registrants if not yet generated
             _registrants = new List<RegistrantModel>();
 
-            for (int i = 0; i < 10; i++)
-                _registrants.Add(new RegistrantModel(random.Next(0, 9999), "Registrant Name " + random.Next(0, 9999), "Registrant Country " + random.Next(0, 9999), "Registrant Address " + random.Next(0, 9999), _wallets));
+            foreach(var user in GenerateUsers())
+            {
+                _registrants.Add(new RegistrantModel(user.Id, "Registrant name + " + user.Id, "Country" + user.Id, "Address" + user.Id, user.Id));
+            }
 
             return _registrants;
         }
 
-        public static List<UserModel> GetUsers()
+        public static List<WalletModel> GenerateWallets(bool regenerate = false)
         {
-            if (_users != null)
-                return _users;
+            _generated = regenerate;
+
+            if (_wallets != null || _generated)
+                return _wallets;
 
             Random random = new Random();
-            
-            /// GENERATE Wallets AND Accounts AND Registrants if not yet generated
-            _registrants = GetRegistrants();
 
-            /// GENERATE Users if not yet generated;
-            _users = new List<UserModel>();
+            _wallets = new List<WalletModel>();
 
-            for (int i = 0; i < 10; i++)
-                _users.Add(new UserModel(random.Next(0, 9999), "user" + i + "@domain.com", "totally a password", _registrants[i]));
+            for (int i = 0; i < 15; i++)
+            {
+                _wallets.Add(new WalletModel(i, random.Next(0, 9999), (StatusModel.Status)random.Next(0, 2), random.Next(0, _registrants.Count - 1)));
+            }
 
-            return _users;
+            return _wallets;
         }
+
+        public static List<AccountModel> GenerateAccounts(bool regenerate = false)
+        {
+            _generated = regenerate;
+
+            if (_accounts != null || _generated)
+                return _accounts;
+
+            Random random = new Random();
+
+            _accounts = new List<AccountModel>();
+
+            for (int i = 0; i < 30; i++)
+            {
+                _accounts.Add(new AccountModel(i, "IBAN" + random.Next(), random.Next(0, 9999), random.Next(0, _wallets.Count - 1), (CurrencyModel.Currency)random.Next(0, 3), (StatusModel.Status)random.Next(0, 2)));
+            }
+
+            return _accounts;
+        }
+
+        /// <summary>
+        /// Calls all the newer generation functions for testing purposes
+        /// </summary>
+        public static void GenAll(bool regenerate = false)
+        {
+            GenerateUsers(regenerate);
+            GenerateRegistrants(regenerate);
+            GenerateWallets(regenerate);
+            GenerateAccounts(regenerate);
+        }
+
+        /// BELOW GENERATION CODE WILL POSSIBLY BE USED IN FUTURE
+
+        //public static List<AccountModel> GetAccounts()
+        //{
+        //    if (_accounts != null)
+        //        return _accounts;
+
+        //    Random random = new Random();
+
+        //    /// GENERATE Accounts if not yet generate
+        //    _accounts = new List<AccountModel>();
+
+        //    for (int i = 0; i < 3; i++)
+        //        _accounts.Add(new AccountModel(random.Next(0, 999), "IBAN" + random.Next(), random.Next(0, 9999), (CurrencyModel.Currency)random.Next(0, 2), (StatusModel.Status)random.Next(0, 2)));
+
+        //    return _accounts;
+        //}
+
+        //public static List<WalletModel> GetWallets()
+        //{
+        //    if (_wallets != null)
+        //        return _wallets;
+
+        //    Random random = new Random();
+
+        //    /// GENERATE Accounts if not yet generated
+        //    _accounts = GetAccounts();
+
+        //    /// GENERATE Wallets if not yet generated
+        //    _wallets = new List<WalletModel>();
+
+        //    for (int i = 0; i < 5; i++)
+        //        _wallets.Add(new WalletModel(random.Next(0, 9999), random.Next(0, 9999), (StatusModel.Status)random.Next(0, 2), _accounts));
+
+        //    return _wallets;
+        //}
+
+        //public static List<RegistrantModel> GetRegistrants()
+        //{
+        //    if (_registrants != null)
+        //        return _registrants;
+
+        //    Random random = new Random();
+
+        //    /// GENERATE Wallets AND Accounts if not yet generated
+        //    _wallets = GetWallets();
+
+        //    /// GENERATE Registrants if not yet generated
+        //    _registrants = new List<RegistrantModel>();
+
+        //    for (int i = 0; i < 10; i++)
+        //        _registrants.Add(new RegistrantModel(random.Next(0, 9999), "Registrant Name " + random.Next(0, 9999), "Registrant Country " + random.Next(0, 9999), "Registrant Address " + random.Next(0, 9999), _wallets));
+
+        //    return _registrants;
+        //}
+
+        //public static List<UserModel> GetUsers()
+        //{
+        //    if (_users != null)
+        //        return _users;
+
+        //    Random random = new Random();
+
+        //    /// GENERATE Wallets AND Accounts AND Registrants if not yet generated
+        //    _registrants = GetRegistrants();
+
+        //    /// GENERATE Users if not yet generated;
+        //    _users = new List<UserModel>();
+
+        //    for (int i = 0; i < 10; i++)
+        //        _users.Add(new UserModel(random.Next(0, 9999), "user" + i + "@domain.com", "totally a password", _registrants[i]));
+
+        //    return _users;
+        //}
     }
 }
