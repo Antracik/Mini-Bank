@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using Mini_Bank.Models.ViewModels;
 
-namespace Mini_Bank.Models
+namespace Mini_Bank.Models 
 {
     [DataContract]
-    public class AccountModel
+    public class AccountModel : IBaseModel
     {
         [DataMember]
         public int Id { get; set; }

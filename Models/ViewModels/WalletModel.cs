@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Mini_Bank.Models.ViewModels;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace Mini_Bank.Models
 {
     [DataContract]
-    public class WalletModel
+    public class WalletModel : IBaseModel
     {
         [DataMember]
         public int Id { get; set; }

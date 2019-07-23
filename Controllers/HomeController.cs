@@ -17,9 +17,10 @@ namespace Mini_Bank.Controllers
             List<WalletModel> wallets = Generate.GenerateWallets();
             List<AccountModel> accounts = Generate.GenerateAccounts();
 
-            FileRepository<AccountModel>.AddRange(accounts);
+            FileRepository<RegistrantModel>.AddRange(registrants);
+            FileRepository<RegistrantModel>.AddItem(registrants[0]);
 
-            accounts = FileRepository<AccountModel>.Read();
+            registrants = FileRepository<RegistrantModel>.Read() as List<RegistrantModel>;
 
             return View();
         }
