@@ -6,13 +6,21 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using Mini_Bank.Models.ViewModels;
+using System.Threading;
 
 namespace Mini_Bank.Models.Repository
 {
-    public class FileRepository<T> where T : IBaseModel
+    public class FileRepository<T> : IRepository<T> where T : IBaseModel
     {
+        private Semaphore semaphore = new Semaphore(1, 1);
+        private List<T> _cachedRepo;
 
-        private static string GetDirectoryPath()
+        public FileRepository()
+        {
+            Read();
+        }
+
+        private string GetDirectoryPath()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -35,9 +43,9 @@ namespace Mini_Bank.Models.Repository
             return path;
         }
 
-        public static void AddItem(T item)
+        public void AddItem(T item)
         {
-            IEnumerable<T> itemList = Enumerable.Empty<T>();
+            List<T> itemList;
             string fileName = item.GetType().Name;
             var ser = new DataContractJsonSerializer(typeof(List<T>));
             MemoryStream stream = new MemoryStream();
@@ -47,9 +55,11 @@ namespace Mini_Bank.Models.Repository
 
             path = Path.Combine(path, fileName);
 
-            itemList = Read();
+            semaphore.WaitOne();
 
-            itemList = itemList.Append(item).ToList();
+            itemList = Read();
+            itemList.Add(item);
+
             ser.WriteObject(stream, itemList);
 
             using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
@@ -57,24 +67,26 @@ namespace Mini_Bank.Models.Repository
                 stream.WriteTo(fs);
             }
 
+            semaphore.Release();
         }
 
-        public static void AddRange(IEnumerable<T> rangeList)
+        public void AddRange(IEnumerable<T> rangeList)
         {
-            IEnumerable<T> itemList = Enumerable.Empty<T>();
+            List<T> itemList;
             var ser = new DataContractJsonSerializer(typeof(List<T>));
             MemoryStream stream = new MemoryStream();
-            string fileName = itemList.GetType().Name;
+            string fileName = rangeList.GetType().GenericTypeArguments[0].Name;
             string path = GetDirectoryPath();
 
-            fileName = fileName.Replace("[]", ".json");
+            fileName += ".json";
             
             path = Path.Combine(path, fileName);
 
+            semaphore.WaitOne();
+            
             itemList = Read();
-
-            itemList = itemList.Concat(rangeList).ToList();
-
+            itemList.AddRange(rangeList);
+           
             ser.WriteObject(stream, itemList);
 
             using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
@@ -82,16 +94,17 @@ namespace Mini_Bank.Models.Repository
                 stream.WriteTo(fs);
             }
 
+            semaphore.Release();
         }
 
-        public static IEnumerable<T> Read()
+        public List<T> Read()
         {
-            IEnumerable<T> itemList = Enumerable.Empty<T>();
+            List<T> itemList = new List<T>();
             var ser = new DataContractJsonSerializer(typeof(List<T>));
-            string fileName = itemList.GetType().Name;
+            string fileName = itemList.GetType().GenericTypeArguments[0].Name;
             string path = GetDirectoryPath();
 
-            fileName = fileName.Replace("[]", ".json");
+            fileName += ".json";
 
             path = Path.Combine(path, fileName);
 
@@ -101,11 +114,18 @@ namespace Mini_Bank.Models.Repository
                 {
                     StreamReader streamReader = new StreamReader(fs);
 
-                    itemList = ser.ReadObject(streamReader.BaseStream) as IEnumerable<T>;
+                    itemList = ser.ReadObject(streamReader.BaseStream) as List<T>;
                 }
             }
 
+            _cachedRepo = itemList;
+
             return itemList;
+        }
+
+        public List<T> GetCachedRepo()
+        {
+            return _cachedRepo;
         }
     }
 }

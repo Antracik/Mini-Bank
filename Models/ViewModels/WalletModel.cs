@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using Mini_Bank.Models.Repository;
+using System.Linq;
 
 namespace Mini_Bank.Models
 {
@@ -48,4 +50,5 @@ namespace Mini_Bank.Models
         //    IsVerified = isVerified;
         //}
     }
+
 }

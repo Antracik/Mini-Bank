@@ -1,6 +1,8 @@
 ﻿using Mini_Bank.Models.ViewModels;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Mini_Bank.Models.Repository;
+using System.Linq;
 
 namespace Mini_Bank.Models
 {
@@ -45,5 +47,17 @@ namespace Mini_Bank.Models
         //}
 
 
+    }
+
+    public static class WalletExtension
+    {
+        public static IEnumerable<WalletModel> GetRegistrantWallets(this RegistrantModel source)
+        {
+            return from wallets in new FileRepository<WalletModel>().Read()
+                    where wallets.ReginstrantId == source.Id
+                    select wallets;
+            
+            //return FileRepository<WalletModel>.Read().Where(w => w.ReginstrantId == source.Id).ToList();
+        }
     }
 }

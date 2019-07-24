@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Mini_Bank.Models;
+using Mini_Bank.Models.Repository;
 
 namespace Mini_Bank
 {
@@ -31,8 +33,12 @@ namespace Mini_Bank
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSingleton<IRepository<AccountModel>>(new FileRepository<AccountModel>());
+            services.AddSingleton<IRepository<WalletModel>>(new FileRepository<WalletModel>());
+            services.AddSingleton<IRepository<UserModel>>(new FileRepository<UserModel>());
+            services.AddSingleton<IRepository<RegistrantModel>>(new FileRepository<RegistrantModel>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +58,7 @@ namespace Mini_Bank
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            
 
             app.UseMvc(routes =>
             {
