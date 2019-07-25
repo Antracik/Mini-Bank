@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Mini_Bank.Models;
-using Mini_Bank.Models.Repository;
+using Mini_Bank.FileRepo;
 
 namespace Mini_Bank
 {
@@ -35,10 +34,8 @@ namespace Mini_Bank
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddSingleton<IRepository<AccountModel>>(new FileRepository<AccountModel>());
-            services.AddSingleton<IRepository<WalletModel>>(new FileRepository<WalletModel>());
-            services.AddSingleton<IRepository<UserModel>>(new FileRepository<UserModel>());
-            services.AddSingleton<IRepository<RegistrantModel>>(new FileRepository<RegistrantModel>());
+            services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

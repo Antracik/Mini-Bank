@@ -1,4 +1,4 @@
-﻿@model Mini_Bank.Models.WalletModel
+﻿@model Mini_Bank.FileRepo.Models.WalletRepoModel
 
 @{
     ViewData["Title"] = "DetailsWallets";
@@ -44,8 +44,8 @@
 else
 {
     <h4>Wallet has no accounts associated with it</h4>
-}
+}*@
+
 <div>
     <a asp-action="DisplayWallets">Back to Wallet List</a>
 </div>
-*@

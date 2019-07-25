@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mini_Bank.FileRepo.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Mini_Bank.Models
@@ -12,45 +13,45 @@ namespace Mini_Bank.Models
     /// </summary>
     public static class Generate
     {
-        private static List<UserModel> _users = null;
-        private static List<RegistrantModel> _registrants = null;
-        private static List<WalletModel> _wallets = null;
-        private static List<AccountModel> _accounts = null;
+        private static List<UserRepoModel> _users = null;
+        private static List<RegistrantRepoModel> _registrants = null;
+        private static List<WalletRepoModel> _wallets = null;
+        private static List<AccountRepoModel> _accounts = null;
         private static bool _generated;
 
-        public static List<UserModel> GenerateUsers(bool regenerate = false)
+        public static List<UserRepoModel> GenerateUsers(bool regenerate = false)
         {
             _generated = regenerate;
 
             if (_users != null || _generated)
                 return _users;
 
-            _users = new List<UserModel>();
+            _users = new List<UserRepoModel>();
 
             for (int i = 0; i < 3; i++)
-              _users.Add(new UserModel( i, "user" + i + "@domain.com", "totallyAPassword"));
+              _users.Add(new UserRepoModel( i, "user" + i + "@domain.com", "totallyAPassword"));
 
             return _users;
         }
 
-        public static List<RegistrantModel> GenerateRegistrants(bool regenerate = false)
+        public static List<RegistrantRepoModel> GenerateRegistrants(bool regenerate = false)
         {
             _generated = regenerate;
 
             if (_registrants != null || _generated)
                 return _registrants;
 
-            _registrants = new List<RegistrantModel>();
+            _registrants = new List<RegistrantRepoModel>();
 
             foreach(var user in GenerateUsers())
             {
-                _registrants.Add(new RegistrantModel(user.Id, "Registrant name + " + user.Id, "Country" + user.Id, "Address" + user.Id, user.Id));
+                _registrants.Add(new RegistrantRepoModel(user.Id, "Registrant name + " + user.Id, "Country" + user.Id, "Address" + user.Id, user.Id));
             }
 
             return _registrants;
         }
 
-        public static List<WalletModel> GenerateWallets(bool regenerate = false)
+        public static List<WalletRepoModel> GenerateWallets(bool regenerate = false)
         {
             _generated = regenerate;
 
@@ -59,21 +60,21 @@ namespace Mini_Bank.Models
 
             Random random = new Random();
 
-            _wallets = new List<WalletModel>();
+            _wallets = new List<WalletRepoModel>();
 
             int ID = 0;
             for (int i = 0; i < _registrants.Count; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    _wallets.Add(new WalletModel(ID++, random.Next(0, 9999), (StatusModel.Status)random.Next(0, 2), i));
+                    _wallets.Add(new WalletRepoModel(ID++, random.Next(0, 9999), (StatusModel.Status)random.Next(0, 2), i));
                 }
             }
 
             return _wallets;
         }
 
-        public static List<AccountModel> GenerateAccounts(bool regenerate = false)
+        public static List<AccountRepoModel> GenerateAccounts(bool regenerate = false)
         {
             _generated = regenerate;
 
@@ -82,14 +83,14 @@ namespace Mini_Bank.Models
 
             Random random = new Random();
 
-            _accounts = new List<AccountModel>();
+            _accounts = new List<AccountRepoModel>();
 
             int ID = 0;
             for (int i = 0; i < _wallets.Count; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    _accounts.Add(new AccountModel(ID++, "IBAN" + random.Next(), random.Next(0, 9999), i, (CurrencyModel.Currency)random.Next(0, 3), (StatusModel.Status)random.Next(0, 2)));
+                    _accounts.Add(new AccountRepoModel(ID++, "IBAN" + random.Next(), random.Next(0, 9999), i, (CurrencyModel.Currency)random.Next(0, 3), (StatusModel.Status)random.Next(0, 2)));
                 }
             }
 

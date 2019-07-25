@@ -1,20 +1,23 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mini_Bank.FileRepo;
+using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Models;
-using Mini_Bank.Models.Repository;
 
 namespace Mini_Bank.Controllers
 {
     public class WalletController : Controller
     {
         private readonly ILogger<WalletController> _logger;
-        private readonly IRepository<WalletModel> _wallets;
+        private readonly IRepository<WalletRepoModel> _wallets;
+        private readonly IRepository<AccountRepoModel> _accounts;
 
-        public WalletController(ILogger<WalletController> logger, IRepository<WalletModel> wallets)
+        public WalletController(ILogger<WalletController> logger, IRepository<WalletRepoModel> wallets, IRepository<AccountRepoModel> accounts)
         {
             _logger = logger;
             _wallets = wallets;
+            _accounts = accounts;
         }
 
         public IActionResult Index()
@@ -24,12 +27,13 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DetailsWallet(int id)
         {
-            return View(); //return View(Generate.GetWallets().FirstOrDefault(wallet => wallet.Id == id));
+          
+            return View(_wallets.Get().FirstOrDefault( wal => wal.Id == id)); //return View(Generate.GetWallets().FirstOrDefault(wallet => wallet.Id == id));
         }
 
         public IActionResult DisplayWallets()
         {
-            return View(); //return View(Generate.GetWallets());
+            return View(_wallets.Get()); //return View(Generate.GetWallets());
         }
     }
 }

@@ -2,31 +2,37 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Linq;
-using Mini_Bank.FileRepo;
-using Mini_Bank.FileRepo.Models;
 
-namespace Mini_Bank.Models
+namespace Mini_Bank.FileRepo.Models
 {
-    public class RegistrantModel : IBaseModel
+    [DataContract]
+    public class RegistrantRepoModel : IBaseModel
     {
+        [DataMember]
         public int Id { get; set; }
 
+        [DataMember]
         public string Name { get; set; }
 
+        [DataMember]
         public string Country { get; set; }
 
+        [DataMember]
         public string Address { get; set; }
 
-        public List<WalletModel> Wallets { get; set; }
+        //RELATION
+        [DataMember]
+        public int UserId { get; set; }
 
-        public RegistrantModel(int id, string name, string country, string address, List<WalletModel> wallets)
+        public RegistrantRepoModel(int id, string name, string country, string address, int userId)
         {
             Id = id;
             Name = name;
             Country = country;
             Address = address;
-            Wallets = wallets;
+            UserId = userId;
         }
+
 
     }
 

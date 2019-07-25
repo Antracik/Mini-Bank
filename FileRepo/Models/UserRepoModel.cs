@@ -2,27 +2,31 @@
 using System.ComponentModel;
 using System.Runtime.Serialization;
 
-namespace Mini_Bank.Models
-{
-    public class UserModel : IBaseModel
+namespace Mini_Bank.FileRepo.Models
+{ 
+    [DataContract]
+    public class UserRepoModel : IBaseModel
     {
+        [DataMember]
         public int Id { get; set; }
 
+        [DataMember]
         public string Email { get; set; }
 
+        [DataMember]
         public string Password { get; set; }
 
-        [DisplayName("Admin Rights")]
+        [DataMember]
+        [DisplayName("Admin")]
         public bool IsAdmin { get; set; }
-        public RegistrantModel Registrant { get; set; }
 
-        public UserModel(int id, string email, string password, RegistrantModel registrant, bool isAdmin = false)
+        public UserRepoModel(int id, string email, string password, bool isAdmin = false)
         {
             Id = id;
             Email = email;
             Password = password;
-            Registrant = registrant;
             IsAdmin = isAdmin;
         }
+
     }
 }

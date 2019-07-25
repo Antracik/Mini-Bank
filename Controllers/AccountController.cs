@@ -1,8 +1,10 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mini_Bank.FileRepo;
+using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Models;
-using Mini_Bank.Models.Repository;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Mini_Bank.Controllers
 {
@@ -10,9 +12,9 @@ namespace Mini_Bank.Controllers
     {
 
         private readonly ILogger<AccountController> _logger;
-        private readonly IRepository<AccountModel> _accounts;
+        private readonly IRepository<AccountRepoModel> _accounts;
 
-        public AccountController(ILogger<AccountController> logger, IRepository<AccountModel> accounts)
+        public AccountController(ILogger<AccountController> logger, IRepository<AccountRepoModel> accounts)
         {
             _logger = logger;
             _accounts = accounts;
@@ -25,12 +27,12 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DisplayAccounts()
         {
-            return View();  //return View(Generate.GetAccounts());
+            return View(_accounts.Get()); 
         }
 
         public IActionResult DetailsAccount(int id)
         {
-            return View(); //return View(Generate.GetAccounts().FirstOrDefault(account => account.Id == id));
+            return View(_accounts.Get().FirstOrDefault( ac => ac.Id == id)); 
         }
 
     }

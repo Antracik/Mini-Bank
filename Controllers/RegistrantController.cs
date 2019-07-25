@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mini_Bank.FileRepo;
+using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Models;
-using Mini_Bank.Models.Repository;
 
 namespace Mini_Bank.Controllers
 {
@@ -10,12 +11,14 @@ namespace Mini_Bank.Controllers
     {
 
         private readonly ILogger<HomeController> _logger;
-        private readonly IRepository<WalletModel> _wallets;
+        private readonly IRepository<WalletRepoModel> _wallets;
+        private readonly IRepository<RegistrantRepoModel> _registrant;
 
-        public RegistrantController(ILogger<HomeController> logger, IRepository<WalletModel> wallets)
+        public RegistrantController(ILogger<HomeController> logger, IRepository<WalletRepoModel> wallets, IRepository<RegistrantRepoModel> registrant)
         {
             _logger = logger;
             _wallets = wallets;
+            _registrant = registrant;
         }
 
         public IActionResult Index()
@@ -25,12 +28,12 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DetailsRegistrant(int id)
         {
-            return View(); //return View(Generate.GetRegistrants().FirstOrDefault(registrant => registrant.Id == id));
+            return View(_registrant.Get().FirstOrDefault(reg => reg.Id == id)); //return View(Generate.GetRegistrants().FirstOrDefault(registrant => registrant.Id == id));
         }
 
         public IActionResult DisplayRegistrants()
         {
-            return View(); //return View(Generate.GetRegistrants());
+            return View(_registrant.Get()); //return View(Generate.GetRegistrants());
         }
 
     }
