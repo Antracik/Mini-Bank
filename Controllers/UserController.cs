@@ -27,12 +27,12 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DetailsUser(int id)
         {
-            return View(_users.Get().FirstOrDefault(reg => reg.Id == id)); //return View(Generate.GetUsers().FirstOrDefault(user => user.Id == id));
+            return View(_users.Get().FirstOrDefault(reg => reg.Id == id));
         }
 
         public IActionResult DisplayUsers()
         {
-            return View(_users.Get()); //return View(Generate.GetUsers());
+            return View(_users.Get());
         }
     }
 }

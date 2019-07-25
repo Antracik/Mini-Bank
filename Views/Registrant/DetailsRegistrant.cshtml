@@ -1,4 +1,4 @@
-﻿@model Mini_Bank.FileRepo.Models.RegistrantRepoModel
+﻿@model Mini_Bank.Models.RegistrantModel
 
 @{
     ViewData["Title"] = "DetailsRegistrant";
@@ -36,12 +36,10 @@
         </dd>
     </dl>
 </div>
-@*
 @if(Model.Wallets.Count > 0)
 {
     <partial name="~/Views/Wallet/DisplayWallets.cshtml" model="Model.Wallets" />
 }
-*@
 <div>
     <a asp-action="DisplayRegistrants">Back to Registrant List</a>
 </div>

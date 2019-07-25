@@ -43,8 +43,6 @@ namespace Mini_Bank.FileRepo.Models
             return from wallets in fileRepository.Get()
                    where wallets.ReginstrantId == source.Id
                     select wallets;
-            
-            //return FileRepository<WalletModel>.Read().Where(w => w.ReginstrantId == source.Id).ToList();
         }
     }
 }

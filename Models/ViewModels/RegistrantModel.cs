@@ -28,17 +28,9 @@ namespace Mini_Bank.Models
             Wallets = wallets;
         }
 
-    }
-
-    public static class WalletExtension
-    {
-        public static IEnumerable<WalletRepoModel> GetRegistrantWallets(this RegistrantRepoModel source, IRepository<WalletRepoModel> fileRepository)
+        public RegistrantModel()
         {
-            return from wallets in fileRepository.Get()
-                   where wallets.ReginstrantId == source.Id
-                    select wallets;
-            
-            //return FileRepository<WalletModel>.Read().Where(w => w.ReginstrantId == source.Id).ToList();
         }
     }
+    
 }

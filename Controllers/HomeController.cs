@@ -18,25 +18,6 @@ namespace Mini_Bank.Controllers
 
         public IActionResult Index()
         {
-            _logger.LogInformation("Index page has a logger now!");
-            _logger.LogDebug("I am debug!");
-            _logger.LogWarning("I am a warning!");
-            _logger.LogTrace("I'm already tracer");
-            _logger.LogCritical("I'm probably fatal");
-            _logger.LogError("Oooo I am a big scarry error!");
-            //List<UserModel> users =  Generate.GenerateUsers();
-            //List<RegistrantModel> registrants = Generate.GenerateRegistrants();
-            //List<WalletModel> wallets = Generate.GenerateWallets();
-            //List<AccountModel> accounts = Generate.GenerateAccounts();
-
-            //_wallets.AddRange(wallets);
-
-            //repo = _wallets.GetCachedRepo();
-            
-            ////var registrants = new FileRepository<RegistrantModel>().Read();
-
-            ////var registrantWallets = registrants[2].GetRegistrantWallets();
-
             return View();
         }
 
