@@ -24,5 +24,10 @@ namespace Mini_Bank.Models
             Registrant = registrant;
             IsAdmin = isAdmin;
         }
+
+        public UserModel()
+        {
+                
+        }
     }
 }

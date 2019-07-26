@@ -29,10 +29,9 @@ namespace Mini_Bank
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

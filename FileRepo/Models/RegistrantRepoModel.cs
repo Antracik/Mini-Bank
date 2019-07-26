@@ -32,11 +32,9 @@ namespace Mini_Bank.FileRepo.Models
             Address = address;
             UserId = userId;
         }
-
-
     }
 
-    public static class WalletExtension
+    public static class RegistrantExtension
     {
         public static IEnumerable<WalletRepoModel> GetRegistrantWallets(this RegistrantRepoModel source, IRepository<WalletRepoModel> fileRepository)
         {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mini_Bank.FileRepo;
@@ -14,12 +15,14 @@ namespace Mini_Bank.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IRepository<WalletRepoModel> _wallets;
         private readonly IRepository<RegistrantRepoModel> _registrant;
+        private readonly IMapper _mapper;
 
-        public RegistrantController(ILogger<HomeController> logger, IRepository<WalletRepoModel> wallets, IRepository<RegistrantRepoModel> registrant)
+        public RegistrantController(ILogger<HomeController> logger, IRepository<WalletRepoModel> wallets, IRepository<RegistrantRepoModel> registrant, IMapper mapper)
         {
             _logger = logger;
             _wallets = wallets;
             _registrant = registrant;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -29,28 +32,21 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DetailsRegistrant(int id)
         {
-            var regs = _registrant.Get().FirstOrDefault(reg => reg.Id == id);
-            var wal = regs.GetRegistrantWallets(_wallets).ToList();
+            var registrantRepo = _registrant.Get().FirstOrDefault(reg => reg.Id == id);
+            var registrantWallets = registrantRepo.GetRegistrantWallets(_wallets).ToList();
 
-            var registrant = new RegistrantModel();
-            registrant.Wallets = new List<WalletModel>();
+            var registrantModel = _mapper.Map<RegistrantModel>(registrantRepo);
+            registrantModel.Wallets = _mapper.Map<List<WalletModel>>(registrantWallets);
 
-            registrant.Id = regs.Id;
-            registrant.Name = regs.Name;
-            registrant.Country = regs.Country;
-            registrant.Address = regs.Address;
-
-            for (int i = 0; i < wal.Count; i++)
-            {
-                registrant.Wallets.Add(new WalletModel(wal[i].Id, wal[i].Number, wal[i].WalletStatus, null));
-            }
-
-            return View(registrant);
+            return View(registrantModel);
         }
 
         public IActionResult DisplayRegistrants()
         {
-            return View(_registrant.Get());
+            var registrantRepo = _registrant.Get().ToList();
+            var registrantModel = _mapper.Map<List<RegistrantModel>>(registrantRepo);
+
+            return View(registrantModel);
         }
 
     }

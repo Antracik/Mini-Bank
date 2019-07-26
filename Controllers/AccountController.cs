@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
@@ -13,11 +14,13 @@ namespace Mini_Bank.Controllers
 
         private readonly ILogger<AccountController> _logger;
         private readonly IRepository<AccountRepoModel> _accounts;
+        private readonly IMapper _mapper;
 
-        public AccountController(ILogger<AccountController> logger, IRepository<AccountRepoModel> accounts)
+        public AccountController(ILogger<AccountController> logger, IRepository<AccountRepoModel> accounts, IMapper mapper)
         {
             _logger = logger;
             _accounts = accounts;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -27,12 +30,20 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DisplayAccounts()
         {
-            return View(_accounts.Get()); 
+            var accounts = _accounts.Get();
+
+            var res = _mapper.Map<List<AccountModel>>(accounts);
+
+            return View(res); 
         }
 
         public IActionResult DetailsAccount(int id)
         {
-            return View(_accounts.Get().FirstOrDefault( ac => ac.Id == id)); 
+            AccountRepoModel accRepo = _accounts.Get().FirstOrDefault(ac => ac.Id == id);
+
+            var res = _mapper.Map<AccountModel>(accRepo);
+
+            return View(res); 
         }
 
     }

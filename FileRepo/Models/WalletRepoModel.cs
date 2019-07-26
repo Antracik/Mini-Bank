@@ -39,4 +39,14 @@ namespace Mini_Bank.FileRepo.Models
 
     }
 
+    public static class WalletEextension
+    {
+        public static IEnumerable<AccountRepoModel> GetAccounts(this WalletRepoModel source, IRepository<AccountRepoModel> repository)
+        {
+            return from accounts in repository.Get()
+                   where accounts.WalletId == source.Id
+                   select accounts;
+        }
+    }
+
 }

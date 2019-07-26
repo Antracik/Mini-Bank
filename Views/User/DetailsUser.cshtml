@@ -1,4 +1,4 @@
-﻿@model Mini_Bank.FileRepo.Models.UserRepoModel
+﻿@model Mini_Bank.Models.UserModel
 
 @{
     ViewData["Title"] = "DetailsUser";
@@ -35,7 +35,7 @@
             @Model.IsAdmin
         </dd>
     </dl>
-    @*<a  asp-controller="Registrant" asp-action="DetailsRegistrant" asp-route-id="@Model.Registrant.Id">User Information</a>*@
+    <a  asp-controller="Registrant" asp-action="DetailsRegistrant" asp-route-id="@Model.Registrant.Id">User Information</a>
 </div>
 <br />
 <div>

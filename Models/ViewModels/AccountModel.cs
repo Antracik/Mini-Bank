@@ -17,5 +17,9 @@ namespace Mini_Bank.Models
         [DisplayName("Account Status")]
         public StatusModel.Status AccountStatus{ get; set; }
 
+        public AccountModel()
+        {
+
+        }
     }
 }

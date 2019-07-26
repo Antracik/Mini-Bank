@@ -1,7 +1,10 @@
-﻿using Mini_Bank.Models.ViewModels;
+﻿using Mini_Bank.FileRepo;
+using Mini_Bank.FileRepo.Models;
+using Mini_Bank.Models.ViewModels;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using System.Linq;
 
 namespace Mini_Bank.Models
 {
@@ -27,6 +30,10 @@ namespace Mini_Bank.Models
             Accounts = accounts;
             IsVerified = isVerified;
         }
-    }
 
+        public WalletModel()
+        {
+
+        }
+    }
 }
