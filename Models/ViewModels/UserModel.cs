@@ -1,6 +1,5 @@
 ﻿using Mini_Bank.Models.ViewModels;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 
 namespace Mini_Bank.Models
 {
