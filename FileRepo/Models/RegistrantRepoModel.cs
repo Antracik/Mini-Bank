@@ -12,7 +12,10 @@ namespace Mini_Bank.FileRepo.Models
         public int Id { get; set; }
 
         [DataMember]
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+
+        [DataMember]
+        public string LastName { get; set; }
 
         [DataMember]
         public string Country { get; set; }
@@ -24,10 +27,11 @@ namespace Mini_Bank.FileRepo.Models
         [DataMember]
         public int UserId { get; set; }
 
-        public RegistrantRepoModel(int id, string name, string country, string address, int userId)
+        public RegistrantRepoModel(int id, string firstName, string lastName, string country, string address, int userId)
         {
             Id = id;
-            Name = name;
+            FirstName = firstName;
+            LastName = lastName;
             Country = country;
             Address = address;
             UserId = userId;

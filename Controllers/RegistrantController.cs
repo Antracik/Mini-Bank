@@ -43,10 +43,10 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DisplayRegistrants()
         {
-            var registrantRepo = _registrant.Get().ToList();
-            var registrantModel = _mapper.Map<List<RegistrantModel>>(registrantRepo);
+            var registrantsRepo = _registrant.Get().ToList();
+            var registrantsModel = _mapper.Map<List<RegistrantModel>>(registrantsRepo);
 
-            return View(registrantModel);
+            return View(registrantsModel);
         }
 
     }

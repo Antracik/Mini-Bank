@@ -5,6 +5,7 @@ using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Mini_Bank.Controllers
@@ -30,21 +31,57 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DisplayAccounts()
         {
-            var accounts = _accounts.Get();
+            try
+            {
+                _logger.LogInformation("Entering display accounts and starting file read");
 
-            var res = _mapper.Map<List<AccountModel>>(accounts);
+                var accountsRepo = _accounts.Get();
 
-            return View(res); 
+                _logger.LogInformation($"Read : {accountsRepo.ToList().Count} accounts");
+                var accountsModel = _mapper.Map<List<AccountModel>>(accountsRepo);
+
+                return View(accountsModel);
+            }
+            catch(FileLoadException eIOExc)
+            {
+                displayAccountsErrCntr++;
+
+                _logger.LogError(eIOExc, "Error?");
+
+                return View("Error", new ErrorViewModel { RequestId = eIOExc.Message });
+            }
+            catch(FileNotFoundException eFNotFoundExc)
+            {
+                displayAccountsErrCntr++;
+
+                _logger.LogError(eFNotFoundExc, "Error?");
+
+                return View("Error", new ErrorViewModel { RequestId = "There was an error processing your request :(" });
+            }
+            catch (System.Exception e)
+            {
+                displayAccountsErrCntr++;
+
+                _logger.LogError(e, "Empty");
+
+                return View("Error", new ErrorViewModel { RequestId = "Unspecified  Error, Please report to the admin" });
+            }
+            finally
+            {
+                displayAccountsReqCntr++;
+            }
         }
 
         public IActionResult DetailsAccount(int id)
         {
-            AccountRepoModel accRepo = _accounts.Get().FirstOrDefault(ac => ac.Id == id);
+            var accountRepo = _accounts.Get().FirstOrDefault(ac => ac.Id == id);
 
-            var res = _mapper.Map<AccountModel>(accRepo);
+            var accountModel = _mapper.Map<AccountModel>(accountRepo);
 
-            return View(res); 
+            return View(accountModel); 
         }
 
+        static int displayAccountsReqCntr = 0;
+        static  int displayAccountsErrCntr = 0;
     }
 }

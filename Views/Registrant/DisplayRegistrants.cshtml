@@ -13,7 +13,10 @@
                 <label asp-for="@Model.FirstOrDefault().Id"></label>
             </th>
             <th>
-                <label asp-for="@Model.FirstOrDefault().Name"></label>
+                <label asp-for="@Model.FirstOrDefault().FirstName"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().LastName"></label>
             </th>
             <th>
                 <label asp-for="@Model.FirstOrDefault().Country"></label>
@@ -32,7 +35,10 @@
                     @item.Id
                 </td>
                 <td>
-                    @item.Name
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.LastName
                 </td>
                 <td>
                     @item.Country

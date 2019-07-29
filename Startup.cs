@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mini_Bank.FileRepo;
+using Mini_Bank.FileRepo.Models;
+using Mini_Bank.Models;
 using System;
 
 namespace Mini_Bank

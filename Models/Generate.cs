@@ -11,6 +11,7 @@ namespace Mini_Bank.Models
     /// They should be called hierarchically starting from GenerateUsers, Generate Registrants,
     /// GenerateWallets and finally GenerateAccounts
     /// </summary>
+    [Obsolete]
     public static class Generate
     {
         private static List<UserRepoModel> _users = null;
@@ -45,7 +46,7 @@ namespace Mini_Bank.Models
 
             foreach(var user in GenerateUsers())
             {
-                _registrants.Add(new RegistrantRepoModel(user.Id, "Registrant name + " + user.Id, "Country" + user.Id, "Address" + user.Id, user.Id));
+                _registrants.Add(new RegistrantRepoModel(user.Id, "Registrant firstName + " + user.Id, "Registrant lastName + " + user.Id, "Country" + user.Id, "Address" + user.Id, user.Id));
             }
 
             return _registrants;
@@ -112,7 +113,7 @@ namespace Mini_Bank.Models
 
         /// BELOW GENERATION CODE WILL POSSIBLY BE USED IN FUTURE
 
-        //public static List<AccountModel> GetAccounts()
+        //public static List<AccountModel> GetWalletAccounts()
         //{
         //    if (_accounts != null)
         //        return _accounts;
@@ -136,7 +137,7 @@ namespace Mini_Bank.Models
         //    Random random = new Random();
 
         //    /// GENERATE Accounts if not yet generated
-        //    _accounts = GetAccounts();
+        //    _accounts = GetWalletAccounts();
 
         //    /// GENERATE Wallets if not yet generated
         //    _wallets = new List<WalletModel>();

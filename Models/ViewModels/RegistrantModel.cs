@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using System.Linq;
 using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
+using System.ComponentModel;
 
 namespace Mini_Bank.Models
 {
@@ -11,18 +12,20 @@ namespace Mini_Bank.Models
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        [DisplayName("First Name")]
+        public string FirstName { get; set; }
 
+        [DisplayName("Last Name")]
+        public string LastName { get; set; }
         public string Country { get; set; }
-
         public string Address { get; set; }
-
         public List<WalletModel> Wallets { get; set; }
 
-        public RegistrantModel(int id, string name, string country, string address, List<WalletModel> wallets)
+        public RegistrantModel(int id, string firstName, string lastName, string country, string address, List<WalletModel> wallets)
         {
             Id = id;
-            Name = name;
+            FirstName = firstName;
+            LastName = lastName;
             Country = country;
             Address = address;
             Wallets = wallets;

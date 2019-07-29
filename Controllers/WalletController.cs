@@ -32,7 +32,7 @@ namespace Mini_Bank.Controllers
         public IActionResult DetailsWallet(int id)
         {
             var wallet =_wallets.Get().FirstOrDefault(wal => wal.Id == id);
-            var walletAccounts = wallet.GetAccounts(_accounts).ToList();
+            var walletAccounts = wallet.GetWalletAccounts(_accounts).ToList();
 
             WalletModel walletModel = _mapper.Map<WalletModel>(wallet);
 
@@ -43,9 +43,9 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DisplayWallets()
         {
-            var wallets = _wallets.Get().ToList();
+            var walletsRepo = _wallets.Get().ToList();
 
-            var walletsModel = _mapper.Map<List<WalletModel>>(wallets);
+            var walletsModel = _mapper.Map<List<WalletModel>>(walletsRepo);
 
             return View(walletsModel);
         }
