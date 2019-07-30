@@ -40,5 +40,7 @@ namespace Mini_Bank.FileRepo.Models
             AccountStatus = accountStatus;
         }
 
+        public AccountRepoModel() { }
+
     }
 }

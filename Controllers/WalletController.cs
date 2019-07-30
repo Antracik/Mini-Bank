@@ -49,5 +49,49 @@ namespace Mini_Bank.Controllers
 
             return View(walletsModel);
         }
+
+        public IActionResult CreateWalletView(int regId)
+        {
+            var tempWallet = new WalletModel();
+
+            tempWallet.RegistrantId = regId;
+
+            return View(tempWallet);
+        }
+       
+        [HttpPost]
+        public IActionResult CreateWallet(WalletModel item)
+        {
+            int NewWalletId = _wallets.Get().Max(wID => wID.Id);
+            NewWalletId++;
+            item.Id = NewWalletId;
+
+            var WalletRepoModel = _mapper.Map<WalletRepoModel>(item);
+            WalletRepoModel.IsVerified = false; // making sure that the wallet stays unverified upon creation
+
+            _wallets.AddItem(WalletRepoModel);
+            _wallets.SaveChanges();
+
+            return RedirectToAction("DetailsWallet", "Wallet" , new { id = NewWalletId });
+        }
+
+        public IActionResult EditWalletView(int id)
+        {
+            var walletRepo = _wallets.Get().FirstOrDefault(wall => wall.Id == id);
+
+            var walletModel = _mapper.Map<WalletModel>(walletRepo);
+
+            return View(walletModel);
+        }
+
+        public IActionResult EditWallet(WalletModel item)
+        {
+            var walletRepo = _mapper.Map<WalletRepoModel>(item);
+
+            _wallets.Replace(walletRepo);
+            _wallets.SaveChanges();
+
+            return RedirectToAction("DetailsWallet", "Wallet", new { id = item.Id });
+        }
     }
 }

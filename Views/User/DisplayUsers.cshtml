@@ -4,7 +4,9 @@
     ViewData["Title"] = "DisplayUsers";
 }
 
-<h1>DisplayUsers</h1>
+<h1>User List</h1>
+
+<p><a asp-action="CreateUserView">Create User</a></p>
 
 @*Should never throw out of bounds exception if at least !ONE! User is present*@
 <table class="table">
@@ -22,28 +24,32 @@
             <th>
                 <label asp-for="@Model.FirstOrDefault().IsAdmin"></label>
             </th>
-            <th></th>
+            <th>
+                <label>Options</label>
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @item.Id
-            </td>
-            <td>
-                @item.Email
-            </td>
-            <td>
-                @item.Password
-            </td>
-            <td>
-                @item.IsAdmin
-            </td>
-            <td>
-                <a asp-controller="User" asp-action="DetailsUser" asp-route-id="@item.Id">Details</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    @item.Password
+                </td>
+                <td>
+                    @item.IsAdmin
+                </td>
+                <td>
+                    <a asp-controller="User" asp-action="DetailsUser" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="User" asp-action="EditUserView" asp-route-id="@item.Id">Edit</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

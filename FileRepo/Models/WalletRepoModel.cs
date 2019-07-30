@@ -26,16 +26,18 @@ namespace Mini_Bank.FileRepo.Models
 
         //Relation
         [DataMember]
-        public int ReginstrantId { get; set; }
+        public int RegistrantId { get; set; }
 
-        public WalletRepoModel(int id, int number, StatusModel.Status walletStatus, int reginstrantId, bool isVerified = false)
+        public WalletRepoModel(int id, int number, StatusModel.Status walletStatus, int registrantId, bool isVerified = false)
         {
             Id = id;
             Number = number;
             WalletStatus = walletStatus;
             IsVerified = isVerified;
-            ReginstrantId = reginstrantId;
+            RegistrantId = registrantId;
         }
+
+        public WalletRepoModel() { }
 
     }
 

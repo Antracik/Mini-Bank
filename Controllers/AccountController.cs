@@ -81,6 +81,62 @@ namespace Mini_Bank.Controllers
             return View(accountModel); 
         }
 
+        public IActionResult CreateAccountView(int walletId)
+        {
+            var tempAccount = new AccountModel();
+            tempAccount.WalletId = walletId;
+
+            return View(tempAccount);
+        }
+
+        [HttpPost]
+        public IActionResult CreateAccount(AccountModel item)
+        {
+            if(ModelState.IsValid)
+            {
+
+            }
+
+            int NewAccountId = _accounts.Get().Max(aID => aID.Id);
+            NewAccountId++;
+            item.Id = NewAccountId;
+
+            var AccountRepoModel = _mapper.Map<AccountRepoModel>(item);
+
+            _accounts.AddItem(AccountRepoModel);
+            _accounts.SaveChanges();
+
+            return RedirectToAction("DetailsAccount", "Account", new { id = NewAccountId });
+        }
+
+        public IActionResult EditAccountView(int id)
+        {
+            var accountRepo = _accounts.Get().FirstOrDefault(acc => acc.Id == id);
+
+            var accountModel = _mapper.Map<AccountModel>(accountRepo);
+
+            return View(accountModel);
+        }
+
+        public IActionResult EditAccount(AccountModel item)
+        {
+            var accountRepo = _mapper.Map<AccountRepoModel>(item);
+
+            _accounts.Replace(accountRepo);
+            _accounts.SaveChanges();
+
+            return RedirectToAction("DetailsAccount", "Account", new { id = item.Id });
+        }
+
+        public IActionResult DeleteAccount(int id)
+        {
+            int walletId = _accounts.Get().FirstOrDefault(acc => acc.Id == id).WalletId;
+
+            _accounts.Delete(id);
+
+            return RedirectToAction("DetailsWallet", "Wallet", new { id = walletId });
+        }
+
         static int displayAccountsReqCntr = 0;
         static  int displayAccountsErrCntr = 0;
     }

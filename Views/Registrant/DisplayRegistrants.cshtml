@@ -24,7 +24,9 @@
             <th>
                 <label asp-for="@Model.FirstOrDefault().Address"></label>
             </th>
-            <th></th>
+            <th>
+                <label>Options</label>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -47,7 +49,8 @@
                     @item.Address
                 </td>
                 <td>
-                    <a asp-controller="Registrant" asp-action="DetailsRegistrant" asp-route-Id="@item.Id">Details</a>
+                    <a asp-controller="Registrant" asp-action="DetailsRegistrant" asp-route-Id="@item.Id">Details</a> |
+                    <a asp-controller="Registrant" asp-action="EditRegistrantView" asp-route-id="@item.Id">Edit</a>
                 </td>
             </tr>
         }

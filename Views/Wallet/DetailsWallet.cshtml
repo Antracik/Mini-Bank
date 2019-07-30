@@ -36,6 +36,12 @@
         </dd>
     </dl>
 </div>
+<div>
+    <a asp-controller="Wallet" asp-action="EditWalletView" asp-route-id="@Model.Id">Edit Wallet</a>
+</div>
+<div>
+    <a asp-controller="Account" asp-action="CreateAccountView" asp-route-walletId="@Model.Id">Add account</a>
+</div>
 @if (Model.Accounts.Count > 0)
 {
     <partial name="~/Views/Account/DisplayAccounts.cshtml" model="@Model.Accounts"/>

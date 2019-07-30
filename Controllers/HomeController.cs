@@ -7,6 +7,7 @@ using NLog;
 
 namespace Mini_Bank.Controllers
 {
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

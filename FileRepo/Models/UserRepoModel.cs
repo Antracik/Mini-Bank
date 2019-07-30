@@ -29,6 +29,8 @@ namespace Mini_Bank.FileRepo.Models
             IsAdmin = isAdmin;
         }
 
+        public UserRepoModel() { }
+
     }
 
     public static class UserExtension

@@ -62,6 +62,15 @@ namespace Mini_Bank.FileRepo
         }
 
         /// <summary>
+        /// Replaces the item in the collection with the provided one
+        /// </summary>
+        /// <param name="item"></param>
+        public void Replace(T item)
+        {
+            _cachedRepo[_cachedRepo.FindIndex(index => item.Id == index.Id)] = item;
+        }
+
+        /// <summary>
         /// Reads all the data from a file for the given Type and returns a List<T>
         /// </summary>
         /// <returns></returns>
@@ -129,6 +138,11 @@ namespace Mini_Bank.FileRepo
             }
 
             semaphore.Release();
+        }
+
+        public void Delete(int id)
+        {
+            _cachedRepo.RemoveAt(_cachedRepo.FindIndex(item => item.Id == id));
         }
 
         /// <summary>

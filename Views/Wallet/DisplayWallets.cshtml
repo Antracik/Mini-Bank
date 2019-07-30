@@ -24,7 +24,9 @@
                 <th>
                     <label asp-for="@Model.FirstOrDefault().IsVerified"></label>
                 </th>
-                <th></th>
+                <th>
+                    <label>Options</label>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -44,7 +46,8 @@
                     @item.IsVerified
                 </td>
                 <td>
-                    <a asp-controller="Wallet" asp-action="DetailsWallet" asp-route-id=@item.Id>Details</a>
+                    <a asp-controller="Wallet" asp-action="DetailsWallet" asp-route-id=@item.Id>Details</a> |
+                    <a asp-controller="Wallet" asp-action="EditWalletView" asp-route-id="@item.Id">Edit</a>
                 </td>
             </tr>
     }

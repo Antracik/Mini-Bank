@@ -36,6 +36,8 @@ namespace Mini_Bank.FileRepo.Models
             Address = address;
             UserId = userId;
         }
+
+        public RegistrantRepoModel() {}
     }
 
     public static class RegistrantExtension
@@ -43,7 +45,7 @@ namespace Mini_Bank.FileRepo.Models
         public static IEnumerable<WalletRepoModel> GetRegistrantWallets(this RegistrantRepoModel source, IRepository<WalletRepoModel> fileRepository)
         {
             return from wallets in fileRepository.Get()
-                   where wallets.ReginstrantId == source.Id
+                   where wallets.RegistrantId == source.Id
                     select wallets;
         }
     }

@@ -36,6 +36,7 @@ namespace Mini_Bank.Controllers
             var registrantWallets = registrantRepo.GetRegistrantWallets(_wallets).ToList();
 
             var registrantModel = _mapper.Map<RegistrantModel>(registrantRepo);
+
             registrantModel.Wallets = _mapper.Map<List<WalletModel>>(registrantWallets);
 
             return View(registrantModel);
@@ -49,5 +50,46 @@ namespace Mini_Bank.Controllers
             return View(registrantsModel);
         }
 
+        public IActionResult CreateRegistrantView(int id)
+        {
+            var registrantModel = new RegistrantModel();
+            registrantModel.UserId = id;
+            
+            return View(registrantModel);
+        }
+
+        public IActionResult CreateRegistrant(RegistrantModel item)
+        {
+            int NewRegId = _registrant.Get().Max(rID => rID.Id);
+            NewRegId++;
+            item.Id = NewRegId;
+
+            var RegistrantRepo = _mapper.Map<RegistrantRepoModel>(item);
+
+            _registrant.AddItem(RegistrantRepo);
+            _registrant.SaveChanges();
+
+            return RedirectToAction("DetailsRegistrant", new { id = NewRegId });
+        }
+
+        public IActionResult EditRegistrantView(int id)
+        {
+            var registrantRepo = _registrant.Get().FirstOrDefault(reg => reg.Id == id);
+
+            var registrantModel = _mapper.Map<RegistrantModel>(registrantRepo);
+
+            return View(registrantModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditRegistrant(RegistrantModel item)
+        {
+            var registrantRepo = _mapper.Map<RegistrantRepoModel>(item);
+
+            _registrant.Replace(registrantRepo);
+            _registrant.SaveChanges();
+
+            return RedirectToAction("DetailsRegistrant", "Registrant", new { id = item.Id });
+        }
     }
 }
