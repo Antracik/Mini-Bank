@@ -12,7 +12,7 @@ namespace Mini_Bank.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Number is required!")]
-        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Only numbers!")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Only positive numbers!")]
         public int Number { get; set; }
 
         [DisplayName("Wallet Status")]

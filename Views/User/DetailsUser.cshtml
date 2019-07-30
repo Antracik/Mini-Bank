@@ -35,7 +35,11 @@
             @Model.IsAdmin
         </dd>
     </dl>
-    <h4><a asp-controller="User" asp-action="EditUserView" asp-route-id="@Model.Id">Edit User</a></h4>
+    <h5>
+        <a asp-controller="User" asp-action="EditUserView" asp-route-id="@Model.Id">Edit User</a> |
+        <a asp-controller="User" asp-action="DeleteUser" asp-route-id="@Model.Id">Delete User</a>
+    </h5>
+
     @if (Model.Registrant != null)
     {
         <a asp-controller="Registrant" asp-action="DetailsRegistrant" asp-route-id="@Model.Registrant.Id">User Information</a>

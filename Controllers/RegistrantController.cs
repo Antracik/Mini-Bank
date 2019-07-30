@@ -60,6 +60,11 @@ namespace Mini_Bank.Controllers
 
         public IActionResult CreateRegistrant(RegistrantModel item)
         {
+            if(!ModelState.IsValid)
+            {
+                return View("CreateRegistrantView", item);
+            }
+
             int NewRegId = _registrant.Get().Max(rID => rID.Id);
             NewRegId++;
             item.Id = NewRegId;
@@ -84,12 +89,32 @@ namespace Mini_Bank.Controllers
         [HttpPost]
         public IActionResult EditRegistrant(RegistrantModel item)
         {
+            if(!ModelState.IsValid)
+            {
+                return View("EditRegistrantView", item);
+            }
+
             var registrantRepo = _mapper.Map<RegistrantRepoModel>(item);
 
             _registrant.Replace(registrantRepo);
             _registrant.SaveChanges();
 
             return RedirectToAction("DetailsRegistrant", "Registrant", new { id = item.Id });
+        }
+
+        public IActionResult DeleteRegistrant(int id)
+        {
+            var reginstrantRepo = _registrant.Get().FirstOrDefault(reg => reg.Id == id);
+
+            if (reginstrantRepo.GetRegistrantWallets(_wallets).Count() > 0)
+            {
+                return View("Error", new ErrorViewModel { RequestId = @"Can't delete registrant info with wallet/s in it" });
+            }
+
+            _registrant.Delete(id);
+            _registrant.SaveChanges();
+
+            return RedirectToAction("DetailsUser", "User", new { id = reginstrantRepo.UserId });
         }
     }
 }

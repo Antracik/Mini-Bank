@@ -66,14 +66,19 @@ namespace Mini_Bank.Controllers
         [HttpPost]
         public IActionResult CreateUser(UserModel item)
         {
-            int NewUserId  = _users.Get().Max(uID => uID.Id);
+            if (!ModelState.IsValid)
+            {
+                return View("CreateUserView", item);
+            }
+
+            int NewUserId = _users.Get().Max(uID => uID.Id);
             NewUserId++;
             item.Id = NewUserId;
 
             var UserRepoModel = _mapper.Map<UserRepoModel>(item);
             _users.AddItem(UserRepoModel);
             _users.SaveChanges();
-
+            
             return RedirectToAction("DetailsUser", "User", new { id = NewUserId });
         }
 
@@ -87,20 +92,34 @@ namespace Mini_Bank.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditUser(UserModel item, int id)
+        public IActionResult EditUser(UserModel item)
         {
+            if(!ModelState.IsValid)
+            {
+                return View("EditUserView", item);
+            }
+
             var UserRepo = _mapper.Map<UserRepoModel>(item);
 
             _users.Replace(UserRepo);
 
             _users.SaveChanges();
 
-            return RedirectToAction("DetailsUser", "User", new { id });
+            return RedirectToAction("DetailsUser", "User", new { id = item.Id });
         }
 
         public IActionResult DeleteUser(int id)
         {
-           
+            var userRepo = _users.Get().FirstOrDefault(user => user.Id == id);
+
+            if(userRepo.GetRegistrant(_registrants) != null)
+            {
+                return View("Error", new ErrorViewModel { RequestId = @"Can't delete user with registrant" });
+            }
+
+            _users.Delete(id);
+            _users.SaveChanges();
+
            return RedirectToAction("Index", "Home");
         }
     }

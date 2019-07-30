@@ -92,9 +92,9 @@ namespace Mini_Bank.Controllers
         [HttpPost]
         public IActionResult CreateAccount(AccountModel item)
         {
-            if(ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
-
+                return View("CreateAccountView", item);
             }
 
             int NewAccountId = _accounts.Get().Max(aID => aID.Id);
@@ -120,6 +120,11 @@ namespace Mini_Bank.Controllers
 
         public IActionResult EditAccount(AccountModel item)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("EditAccountView", item);
+            }
+
             var accountRepo = _mapper.Map<AccountRepoModel>(item);
 
             _accounts.Replace(accountRepo);
@@ -133,6 +138,7 @@ namespace Mini_Bank.Controllers
             int walletId = _accounts.Get().FirstOrDefault(acc => acc.Id == id).WalletId;
 
             _accounts.Delete(id);
+            _accounts.SaveChanges();
 
             return RedirectToAction("DetailsWallet", "Wallet", new { id = walletId });
         }

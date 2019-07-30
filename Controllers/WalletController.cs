@@ -62,6 +62,11 @@ namespace Mini_Bank.Controllers
         [HttpPost]
         public IActionResult CreateWallet(WalletModel item)
         {
+            if(!ModelState.IsValid)
+            {
+                return View("CreateWalletView", item);
+            }
+
             int NewWalletId = _wallets.Get().Max(wID => wID.Id);
             NewWalletId++;
             item.Id = NewWalletId;
@@ -86,12 +91,32 @@ namespace Mini_Bank.Controllers
 
         public IActionResult EditWallet(WalletModel item)
         {
+            if(!ModelState.IsValid)
+            {
+                return View("EditWalletView", item);
+            }
+
             var walletRepo = _mapper.Map<WalletRepoModel>(item);
 
             _wallets.Replace(walletRepo);
             _wallets.SaveChanges();
 
             return RedirectToAction("DetailsWallet", "Wallet", new { id = item.Id });
+        }
+
+        public IActionResult DeleteWallet(int id)
+        {
+            var walletRepo = _wallets.Get().FirstOrDefault(wall => wall.Id == id);
+
+            if(walletRepo.GetWalletAccounts(_accounts).Count() > 0)
+            {
+                return View("Error", new ErrorViewModel { RequestId = @"Can't delete Wallet with accounts in it" });
+            }
+
+            _wallets.Delete(id);
+            //_wallets.SaveChanges();
+
+            return RedirectToAction("DetailsRegistrant", "Registrant", new { id = walletRepo.RegistrantId });
         }
     }
 }

@@ -15,25 +15,24 @@ namespace Mini_Bank.Models
         public int Id { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "First Name is required")]
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "First Name can't be empty!")]
-        [RegularExpression(@"/\s/", ErrorMessage = "Remove Whitespaces")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "First Name cannot be empty!")]
+        [RegularExpression(@"[a-zA-Z]+", ErrorMessage = "Only letters and no whitespaces!")]
         [DisplayName("First Name")]
         public string FirstName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Last Name is required")]
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "Last Name can't be empty!")]
-        [RegularExpression(@"/\s/", ErrorMessage = "Remove Whitespaces")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Last Name cannot be empty!")]
+        [RegularExpression(@"[a-zA-Z]+", ErrorMessage = "Only letters and no whitespaces!")]
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Country can't be empty")]
-        [MinLength(1, ErrorMessage ="Country can't be empty!")]
-        [RegularExpression(@"^\s*$", ErrorMessage = "Country can't be empty!")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Country cannot be empty")]
+        [MinLength(1, ErrorMessage = "Country cannot be empty!")]
+        [RegularExpression(@"[a-zA-Z]+", ErrorMessage = "Only letters and no whitespaces!")]
         public string Country { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Address can't be empty")]
-        [MinLength(1, ErrorMessage = "Address can't be empty!")]
-        [RegularExpression(@"^\s*$", ErrorMessage = "Address can't be empty!")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Address cannot be empty")]
+        [MinLength(1, ErrorMessage = "Address cannot be empty!")]
         public string Address { get; set; }
         public List<WalletModel> Wallets { get; set; }
 
