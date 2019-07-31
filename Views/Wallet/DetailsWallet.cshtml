@@ -36,15 +36,11 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-controller="Wallet" asp-action="EditWalletView" asp-route-id="@Model.Id">Edit Wallet</a>
-</div>
-<div>
-    <a asp-controller="Wallet" asp-action="DeleteWallet" asp-route-id="@Model.Id">Delete Wallet</a>
-</div>
-<div>
+<h5>
+    <a asp-controller="Wallet" asp-action="EditWalletView" asp-route-id="@Model.Id">Edit Wallet</a> |
+    <a asp-controller="Wallet" asp-action="DeleteWallet" asp-route-id="@Model.Id">Delete Wallet</a> |
     <a asp-controller="Account" asp-action="CreateAccountView" asp-route-walletId="@Model.Id">Add account</a>
-</div>
+</h5>
 @if (Model.Accounts.Count > 0)
 {
     <partial name="~/Views/Account/DisplayAccounts.cshtml" model="@Model.Accounts" />

@@ -86,7 +86,7 @@ namespace Mini_Bank.FileRepo
 
             path = Path.Combine(path, fileName);
 
-            if (File.Exists(path))
+            if (!File.Exists(path))
             {
                 semaphore.WaitOne();
 

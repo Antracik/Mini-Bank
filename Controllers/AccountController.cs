@@ -31,45 +31,14 @@ namespace Mini_Bank.Controllers
 
         public IActionResult DisplayAccounts()
         {
-            try
-            {
-                _logger.LogInformation("Entering display accounts and starting file read");
+           _logger.LogInformation("Entering display accounts and starting file read");
 
-                var accountsRepo = _accounts.Get();
+           var accountsRepo = _accounts.Get();
 
-                _logger.LogInformation($"Read : {accountsRepo.ToList().Count} accounts");
-                var accountsModel = _mapper.Map<List<AccountModel>>(accountsRepo);
+           _logger.LogInformation($"Read : {accountsRepo.ToList().Count} accounts");
+           var accountsModel = _mapper.Map<List<AccountModel>>(accountsRepo);
 
-                return View(accountsModel);
-            }
-            catch(FileLoadException eIOExc)
-            {
-                displayAccountsErrCntr++;
-
-                _logger.LogError(eIOExc, "Error?");
-
-                return View("Error", new ErrorViewModel { RequestId = eIOExc.Message });
-            }
-            catch(FileNotFoundException eFNotFoundExc)
-            {
-                displayAccountsErrCntr++;
-
-                _logger.LogError(eFNotFoundExc, "Error?");
-
-                return View("Error", new ErrorViewModel { RequestId = "There was an error processing your request :(" });
-            }
-            catch (System.Exception e)
-            {
-                displayAccountsErrCntr++;
-
-                _logger.LogError(e, "Empty");
-
-                return View("Error", new ErrorViewModel { RequestId = "Unspecified  Error, Please report to the admin" });
-            }
-            finally
-            {
-                displayAccountsReqCntr++;
-            }
+           return View(accountsModel);
         }
 
         public IActionResult DetailsAccount(int id)

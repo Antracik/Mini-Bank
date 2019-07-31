@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
+using Mini_Bank.Middleware;
 using Mini_Bank.Models;
 using System;
 
@@ -50,6 +51,8 @@ namespace Mini_Bank
                 app.UseHsts();
             }
 
+            app.UseRequestResponseLoggerMiddleware();
+            //app.UseMiddleware<RequestResponseLoggerMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
