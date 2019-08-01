@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mini_Bank.DbContexts;
+using Mini_Bank.DbRepo;
 using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Middleware;
@@ -41,6 +42,7 @@ namespace Mini_Bank
                 (options => options.UseSqlServer(Configuration.GetConnectionString("MiniBankDB")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped(typeof(IDbRepository<>), typeof(DbRepository<>));
             services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
             services.AddSingleton(typeof(IUserService),typeof(UserService));
         }

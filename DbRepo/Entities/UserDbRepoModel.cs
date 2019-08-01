@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Mini_Bank.DbRepo.Models
+namespace Mini_Bank.DbRepo.Entities
 { 
     [Table("User")]
     public class UserDbRepoModel : IBaseModel

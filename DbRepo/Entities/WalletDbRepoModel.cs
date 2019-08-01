@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Mini_Bank.Models.EnumModels;
 
-namespace Mini_Bank.DbRepo.Models
+namespace Mini_Bank.DbRepo.Entities
 {
     [Table("Wallet")]
     public class WalletDbRepoModel : IBaseModel

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Mini_Bank.DbRepo.Models;
+using Mini_Bank.DbRepo.Entities;
 
 namespace Mini_Bank.DbContexts
 {

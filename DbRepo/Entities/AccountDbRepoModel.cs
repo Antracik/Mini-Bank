@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Mini_Bank.Models.EnumModels;
 using Mini_Bank.Models.ViewModels;
 
-namespace Mini_Bank.DbRepo.Models
+namespace Mini_Bank.DbRepo.Entities
 {
     [Table("Account")]
     public class AccountDbRepoModel : IBaseModel
