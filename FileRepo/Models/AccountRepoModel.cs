@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Mini_Bank.Models;
+using Mini_Bank.Models.EnumModels;
 using Mini_Bank.Models.ViewModels;
 
 namespace Mini_Bank.FileRepo.Models
@@ -12,18 +14,21 @@ namespace Mini_Bank.FileRepo.Models
         [DataMember]
         public int Id { get; set; }
 
+        [Required]
         [DataMember]
         public string IBAN { get; set; }
 
         [DataMember]
-        [DataType(DataType.Currency)]
+        [DefaultValue(0.00)]
         public decimal Balance { get; set; }
 
+        [DefaultValue(CurrencyModel.Currency.BGN)]
         [DataMember]
         public CurrencyModel.Currency Currency{ get; set; }
 
         [DataMember]
         [DisplayName("Account Status")]
+        [DefaultValue(StatusModel.Status.Okay)]
         public StatusModel.Status AccountStatus{ get; set; }
 
         //RELATION

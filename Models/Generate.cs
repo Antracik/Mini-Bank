@@ -1,4 +1,5 @@
 ﻿using Mini_Bank.FileRepo.Models;
+using Mini_Bank.Models.EnumModels;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace Mini_Bank.Models
     /// They should be called hierarchically starting from GenerateUsers, Generate Registrants,
     /// GenerateWallets and finally GenerateAccounts
     /// </summary>
-    [Obsolete]
+    [Obsolete("Class has no further use at this point in the project", true)]
     public static class Generate
     {
         private static List<UserRepoModel> _users = null;

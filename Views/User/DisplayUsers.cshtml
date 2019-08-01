@@ -6,6 +6,16 @@
 
 <h1>User List</h1>
 
+<form method="get" asp-action="FilterUser">
+    <div class="form-group">
+        <label asp-for="@Model.FirstOrDefault().Email" class="control-label">Find User by Email :</label>
+        <input asp-for="@Model.FirstOrDefault().Email" value="" type="email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+</form>
+
 <p><a asp-action="CreateUserView">Create User</a></p>
 
 @*Should never throw out of bounds exception if at least !ONE! User is present*@

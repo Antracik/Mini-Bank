@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Models;
+using Mini_Bank.Services;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,8 @@ namespace Mini_Bank.Controllers
         private readonly IRepository<RegistrantRepoModel> _registrants;
         private readonly IRepository<WalletRepoModel> _wallets;
         private readonly IRepository<AccountRepoModel> _accounts;
+        private readonly IUserService _userService;
+
         private readonly IMapper _mapper;
 
         public UserController(ILogger<AccountController> logger, 
@@ -23,6 +26,7 @@ namespace Mini_Bank.Controllers
                             IRepository<WalletRepoModel> wallets,
                             IRepository<RegistrantRepoModel> registrants,
                             IRepository<AccountRepoModel> accounts,
+                            IUserService userService,
                             IMapper mapper)
         {
             _logger = logger;
@@ -31,6 +35,7 @@ namespace Mini_Bank.Controllers
             _mapper = mapper;
             _wallets = wallets;
             _accounts = accounts;
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -56,6 +61,20 @@ namespace Mini_Bank.Controllers
             var usersModel = _mapper.Map<List<UserModel>>(usersRepo);
 
             return View(usersModel);
+        }
+
+        public IActionResult FilterUser(string email)
+        {
+            var userRepo = _userService.GetUserByEmail(email);
+            List<UserModel> userModelsList = new List<UserModel>();
+
+            if (userRepo != null)
+            {
+                var userModel = _mapper.Map<UserModel>(userRepo);
+                userModelsList.Add(userModel);
+            }
+
+            return View("DisplayUsers", userModelsList);
         }
 
         public IActionResult CreateUserView()

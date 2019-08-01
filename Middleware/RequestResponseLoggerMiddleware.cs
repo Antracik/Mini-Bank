@@ -76,7 +76,7 @@ namespace Mini_Bank.Middleware
 
             response.Body.Seek(0, SeekOrigin.Begin);
 
-            return $"{response.StatusCode} ";
+            return $"{response.StatusCode} {response.Headers} ";
         }
 
     }

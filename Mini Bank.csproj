@@ -4,7 +4,17 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RootNamespace>Mini_Bank</RootNamespace>
+    <UserSecretsId>f74018d6-b89e-460d-961d-728acc1c0f13</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190801080940_Test3.cs" />
+    <Compile Remove="Migrations\20190801080940_Test3.Designer.cs" />
+    <Compile Remove="Migrations\20190801082614_Test5.cs" />
+    <Compile Remove="Migrations\20190801082614_Test5.Designer.cs" />
+    <Compile Remove="Migrations\20190801103657_Test6.cs" />
+    <Compile Remove="Migrations\20190801103657_Test6.Designer.cs" />
+  </ItemGroup>
 
 
   <ItemGroup>

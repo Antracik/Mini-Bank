@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Mini_Bank.Models.EnumModels;
 using Mini_Bank.Models.ViewModels;
 
 namespace Mini_Bank.Models

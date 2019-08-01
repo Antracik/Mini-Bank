@@ -1,4 +1,5 @@
-﻿using Mini_Bank.Models.ViewModels;
+﻿using Mini_Bank.Models.EnumModels;
+using Mini_Bank.Models.ViewModels;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

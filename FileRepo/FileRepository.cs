@@ -10,7 +10,7 @@ namespace Mini_Bank.FileRepo
 {
     public class FileRepository<T> : IRepository<T> where T : IBaseModel
     {
-        private Semaphore semaphore = new Semaphore(1, 1);
+        private readonly Semaphore semaphore = new Semaphore(1, 1);
         private List<T> _cachedRepo = null;
 
         public FileRepository()
@@ -86,7 +86,7 @@ namespace Mini_Bank.FileRepo
 
             path = Path.Combine(path, fileName);
 
-            if (!File.Exists(path))
+            if (File.Exists(path))
             {
                 semaphore.WaitOne();
 

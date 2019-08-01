@@ -111,8 +111,5 @@ namespace Mini_Bank.Controllers
 
             return RedirectToAction("DetailsWallet", "Wallet", new { id = walletId });
         }
-
-        static int displayAccountsReqCntr = 0;
-        static  int displayAccountsErrCntr = 0;
     }
 }

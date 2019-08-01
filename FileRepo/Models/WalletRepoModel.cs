@@ -4,12 +4,16 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Linq;
 using Mini_Bank.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Mini_Bank.Models.EnumModels;
 
 namespace Mini_Bank.FileRepo.Models
 {
     [DataContract]
     public class WalletRepoModel : IBaseModel
     {
+        [Key]
         [DataMember]
         public int Id { get; set; }
 
