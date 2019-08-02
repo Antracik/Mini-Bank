@@ -9,6 +9,7 @@ using Mini_Bank.Models;
 
 namespace Mini_Bank.Controllers
 {
+    [Route("[controller]/[action]")]
     public class WalletController : Controller
     {
         private readonly ILogger<WalletController> _logger;
@@ -24,11 +25,7 @@ namespace Mini_Bank.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+        [HttpGet("{id}")]
         public IActionResult DetailsWallet(int id)
         {
             var wallet =_wallets.Get().FirstOrDefault(wal => wal.Id == id);
@@ -41,6 +38,7 @@ namespace Mini_Bank.Controllers
             return View(walletModel);
         }
 
+        [HttpGet]
         public IActionResult DisplayWallets()
         {
             var walletsRepo = _wallets.Get().ToList();
@@ -50,6 +48,7 @@ namespace Mini_Bank.Controllers
             return View(walletsModel);
         }
 
+        [HttpGet("{id}")]
         public IActionResult CreateWalletView(int regId)
         {
             var tempWallet = new WalletModel();
@@ -80,6 +79,7 @@ namespace Mini_Bank.Controllers
             return RedirectToAction("DetailsWallet", "Wallet" , new { id = NewWalletId });
         }
 
+        [HttpGet("{id}")]
         public IActionResult EditWalletView(int id)
         {
             var walletRepo = _wallets.Get().FirstOrDefault(wall => wall.Id == id);
@@ -89,6 +89,7 @@ namespace Mini_Bank.Controllers
             return View(walletModel);
         }
 
+        [HttpPut]
         public IActionResult EditWallet(WalletModel item)
         {
             if(!ModelState.IsValid)
@@ -104,6 +105,7 @@ namespace Mini_Bank.Controllers
             return RedirectToAction("DetailsWallet", "Wallet", new { id = item.Id });
         }
 
+        [HttpDelete("{id}")]
         public IActionResult DeleteWallet(int id)
         {
             var walletRepo = _wallets.Get().FirstOrDefault(wall => wall.Id == id);

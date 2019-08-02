@@ -10,6 +10,7 @@ using System.Linq;
 
 namespace Mini_Bank.Controllers
 {
+    [Route("[controller]/[action]")]
     public class UserController : Controller
     {
         private readonly ILogger<AccountController> _logger;
@@ -38,11 +39,8 @@ namespace Mini_Bank.Controllers
             _userService = userService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+        
+        [HttpGet("{id}")]
         public IActionResult DetailsUser(int id)
         {
             var userRepo = _users.Get().FirstOrDefault(reg => reg.Id == id);
@@ -54,6 +52,7 @@ namespace Mini_Bank.Controllers
             return View(userModel);
         }
 
+        [HttpGet]
         public IActionResult DisplayUsers()
         {
             var usersRepo = _users.Get().ToList();
@@ -63,6 +62,7 @@ namespace Mini_Bank.Controllers
             return View(usersModel);
         }
 
+        [HttpGet("{email}")]
         public IActionResult FilterUser(string email)
         {
             var userRepo = _userService.GetUserByEmail(email);
@@ -77,6 +77,7 @@ namespace Mini_Bank.Controllers
             return View("DisplayUsers", userModelsList);
         }
 
+        [HttpGet]
         public IActionResult CreateUserView()
         {
             return View();
@@ -101,6 +102,7 @@ namespace Mini_Bank.Controllers
             return RedirectToAction("DetailsUser", "User", new { id = NewUserId });
         }
 
+        [HttpGet("{id}")]
         public IActionResult EditUserView(int id)
         {
             var userRepo = _users.Get().FirstOrDefault(reg => reg.Id == id);
@@ -110,7 +112,7 @@ namespace Mini_Bank.Controllers
             return View(userModel);
         }
 
-        [HttpPost]
+        [HttpPut]
         public IActionResult EditUser(UserModel item)
         {
             if(!ModelState.IsValid)
@@ -127,6 +129,7 @@ namespace Mini_Bank.Controllers
             return RedirectToAction("DetailsUser", "User", new { id = item.Id });
         }
 
+        [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
             var userRepo = _users.Get().FirstOrDefault(user => user.Id == id);
@@ -139,7 +142,7 @@ namespace Mini_Bank.Controllers
             _users.Delete(id);
             _users.SaveChanges();
 
-           return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

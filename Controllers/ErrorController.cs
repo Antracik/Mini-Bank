@@ -10,6 +10,7 @@ namespace Mini_Bank.Controllers
     public class ErrorController : Controller
     {
         [Route("Error")]
+        [HttpGet]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = "An internal error occured" });

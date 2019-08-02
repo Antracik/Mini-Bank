@@ -39,9 +39,17 @@ namespace Mini_Bank
             //var connection = @"Server=DT-VN00321\PPANAYOTOV;Database=Mini_Bank;Trusted_Connection=True;ConnectRetryCount=0";
 
             services.AddDbContext<BankContext>
-                (options => options.UseSqlServer(Configuration.GetConnectionString("MiniBankDB")));
+                (options => options.UseSqlServer(Configuration.GetConnectionString("MiniBankDB")).EnableSensitiveDataLogging());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc("MiniBankSpecification", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "MiniBank",
+                    Version = "1"
+                });
+            });
             services.AddScoped(typeof(IDbRepository<>), typeof(DbRepository<>));
             services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
             services.AddSingleton(typeof(IUserService),typeof(UserService));
@@ -61,8 +69,13 @@ namespace Mini_Bank
                 app.UseHsts();
             }
 
-            app.UseRequestResponseLoggerMiddleware();
             app.UseHttpsRedirection();
+            app.UseRequestResponseLoggerMiddleware();
+            app.UseSwagger();
+            app.UseSwaggerUI(setupAction =>
+           {
+               setupAction.SwaggerEndpoint("/swagger/MiniBankSpecification/swagger.json", "Mini Bank");
+           });
             app.UseStaticFiles();
             app.UseCookiePolicy();
             

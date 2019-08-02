@@ -10,6 +10,7 @@ using System.Linq;
 
 namespace Mini_Bank.Controllers
 {
+    [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
 
@@ -24,11 +25,8 @@ namespace Mini_Bank.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+        
+        [HttpGet]
         public IActionResult DisplayAccounts()
         {
            _logger.LogInformation("Entering display accounts and starting file read");
@@ -41,6 +39,7 @@ namespace Mini_Bank.Controllers
            return View(accountsModel);
         }
 
+        [HttpGet("{id}")]
         public IActionResult DetailsAccount(int id)
         {
             var accountRepo = _accounts.Get().FirstOrDefault(ac => ac.Id == id);
@@ -50,6 +49,7 @@ namespace Mini_Bank.Controllers
             return View(accountModel); 
         }
 
+        [HttpGet("walletId")]
         public IActionResult CreateAccountView(int walletId)
         {
             var tempAccount = new AccountModel();
@@ -78,6 +78,7 @@ namespace Mini_Bank.Controllers
             return RedirectToAction("DetailsAccount", "Account", new { id = NewAccountId });
         }
 
+        [HttpGet("{id}")]
         public IActionResult EditAccountView(int id)
         {
             var accountRepo = _accounts.Get().FirstOrDefault(acc => acc.Id == id);
@@ -87,6 +88,7 @@ namespace Mini_Bank.Controllers
             return View(accountModel);
         }
 
+        [HttpPut]
         public IActionResult EditAccount(AccountModel item)
         {
             if (!ModelState.IsValid)
@@ -102,6 +104,7 @@ namespace Mini_Bank.Controllers
             return RedirectToAction("DetailsAccount", "Account", new { id = item.Id });
         }
 
+        [HttpDelete("{id}")]
         public IActionResult DeleteAccount(int id)
         {
             int walletId = _accounts.Get().FirstOrDefault(acc => acc.Id == id).WalletId;

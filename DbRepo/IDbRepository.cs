@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace Mini_Bank.DbRepo
 {
-    interface IDbRepository<T> where T : IBaseModel
+    public interface IDbRepository<T> where T : IBaseModel
     {
-        
+        void AddRange(IEnumerable<T> rangeList);
+        void AddItem(T item);
+        IEnumerable<T> GetAll();
+        T GetById(int id);
+        void Update(T item);
+        void Delete(int id);
+        int SaveChanges();
+
     }
 }

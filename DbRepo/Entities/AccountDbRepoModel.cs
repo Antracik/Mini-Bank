@@ -19,26 +19,26 @@ namespace Mini_Bank.DbRepo.Entities
 
         [Column("CurrencyId")]
         [ForeignKey("CurrencyRelation")]
-        public CurrencyModel.Currency Currency { get; set; }
+        public int Currency { get; set; }
         public CurrencyModel CurrencyRelation { get; set; }
 
         [ForeignKey("Status")]
         [Column("StatusId")]
-        public StatusModel.Status AccountStatus{ get; set; }
+        public int AccountStatus{ get; set; }
         public StatusModel Status { get; set; }
 
         [ForeignKey("Wallet")]
         public int WalletId { get; set; }
         public WalletDbRepoModel Wallet { get; set; }
 
-        public AccountDbRepoModel(int id, string iBAN, decimal balance, int walletId, CurrencyModel.Currency currency, StatusModel.Status accountStatus)
+        public AccountDbRepoModel(int id, string iBAN, decimal balance, int walletId, int currencyId, int accountStatusId)
         {
             Id = id;
             IBAN = iBAN;
             Balance = balance;
             WalletId = walletId;
-            Currency = currency;
-            AccountStatus = accountStatus;
+            Currency = currencyId;
+            AccountStatus = accountStatusId;
         }
 
         public AccountDbRepoModel() { }

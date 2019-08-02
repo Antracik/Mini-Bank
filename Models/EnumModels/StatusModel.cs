@@ -8,15 +8,14 @@ namespace Mini_Bank.Models.EnumModels
     {
         public enum Status
         {
-            Okay,
+            Okay = 1,
             Blocked
         }
 
         [Column(TypeName = "int")]
-        public Status Id { get; set; }
+        public int Id { get; set; }
 
         [Column(TypeName = "nvarchar(20)")]
-        public Status Name { get; set; }
-
+        public string Name { get; set; }
     }
 }

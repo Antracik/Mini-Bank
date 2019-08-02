@@ -9,6 +9,7 @@ using Mini_Bank.Models;
 
 namespace Mini_Bank.Controllers
 {
+    [Route("[controller]/[action]")]
     public class RegistrantController : Controller
     {
 
@@ -25,11 +26,7 @@ namespace Mini_Bank.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+        [HttpGet("{id}")]
         public IActionResult DetailsRegistrant(int id)
         {
             var registrantRepo = _registrant.Get().FirstOrDefault(reg => reg.Id == id);
@@ -42,6 +39,7 @@ namespace Mini_Bank.Controllers
             return View(registrantModel);
         }
 
+        [HttpGet]
         public IActionResult DisplayRegistrants()
         {
             var registrantsRepo = _registrant.Get().ToList();
@@ -50,6 +48,7 @@ namespace Mini_Bank.Controllers
             return View(registrantsModel);
         }
 
+        [HttpGet("{id}")]
         public IActionResult CreateRegistrantView(int id)
         {
             var registrantModel = new RegistrantModel();
@@ -58,6 +57,7 @@ namespace Mini_Bank.Controllers
             return View(registrantModel);
         }
 
+        [HttpPost]
         public IActionResult CreateRegistrant(RegistrantModel item)
         {
             if(!ModelState.IsValid)
@@ -77,6 +77,7 @@ namespace Mini_Bank.Controllers
             return RedirectToAction("DetailsRegistrant", new { id = NewRegId });
         }
 
+        [HttpGet("id")]
         public IActionResult EditRegistrantView(int id)
         {
             var registrantRepo = _registrant.Get().FirstOrDefault(reg => reg.Id == id);
@@ -86,7 +87,7 @@ namespace Mini_Bank.Controllers
             return View(registrantModel);
         }
 
-        [HttpPost]
+        [HttpPut]
         public IActionResult EditRegistrant(RegistrantModel item)
         {
             if(!ModelState.IsValid)
@@ -102,6 +103,7 @@ namespace Mini_Bank.Controllers
             return RedirectToAction("DetailsRegistrant", "Registrant", new { id = item.Id });
         }
 
+        [HttpDelete("{id}")]
         public IActionResult DeleteRegistrant(int id)
         {
             var reginstrantRepo = _registrant.Get().FirstOrDefault(reg => reg.Id == id);

@@ -8,15 +8,15 @@ namespace Mini_Bank.Models.EnumModels
     {
         public enum Currency
         {
-            BGN,
+            BGN = 1,
             USD,
             GBP
         }
 
         [Column(TypeName = "int")]
-        public Currency Id { get; set; }
+        public int Id { get; set; }
 
         [Column(TypeName = "nvarchar(20)")]
-        public Currency Name { get; set; }
+        public string Name { get; set; }
     }
 }

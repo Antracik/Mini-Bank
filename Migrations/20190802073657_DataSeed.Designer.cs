@@ -2,15 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mini_Bank.DbContexts;
+using Mini_Bank.Models.EnumModels;
 
 namespace Mini_Bank.Migrations
 {
     [DbContext(typeof(BankContext))]
-    partial class BankContextModelSnapshot : ModelSnapshot
+    [Migration("20190802073657_DataSeed")]
+    partial class DataSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +50,7 @@ namespace Mini_Bank.Migrations
                     b.HasIndex("WalletId");
 
                     b.ToTable("Account");
+
                 });
 
             modelBuilder.Entity("Mini_Bank.DbRepo.Entities.RegistrantDbRepoModel", b =>
@@ -135,6 +139,7 @@ namespace Mini_Bank.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Country");
+
                 });
 
             modelBuilder.Entity("Mini_Bank.Models.EnumModels.CurrencyModel", b =>
@@ -149,6 +154,7 @@ namespace Mini_Bank.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Currency");
+
                 });
 
             modelBuilder.Entity("Mini_Bank.Models.EnumModels.StatusModel", b =>
@@ -163,6 +169,7 @@ namespace Mini_Bank.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Status");
+
                 });
 
             modelBuilder.Entity("Mini_Bank.DbRepo.Entities.AccountDbRepoModel", b =>

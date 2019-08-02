@@ -20,7 +20,7 @@ namespace Mini_Bank.DbRepo.Entities
         [Required]
         [ForeignKey("CountryRelation")]
         [Column("CountryId")]
-        public CountryModel.Countries Country { get; set; }
+        public int Country { get; set; }
         public CountryModel CountryRelation { get; set; }
 
         [Required]
@@ -31,12 +31,12 @@ namespace Mini_Bank.DbRepo.Entities
         public int UserId { get; set; }
         public UserDbRepoModel User { get; set; }
 
-        public RegistrantDbRepoModel(int id, string firstName, string lastName, CountryModel.Countries country, string address, int userId)
+        public RegistrantDbRepoModel(int id, string firstName, string lastName, int countryId, string address, int userId)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
-            Country = country;
+            Country = countryId;
             Address = address;
             UserId = userId;
         }

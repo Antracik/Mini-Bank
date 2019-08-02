@@ -13,8 +13,8 @@ namespace Mini_Bank.Models.EnumModels
 
         public enum Countries
         {
-            Bulgaria,
-            Romaina,
+            Bulgaria = 1,
+            Romania,
             Germany,
             Greece,
             England,
@@ -24,9 +24,9 @@ namespace Mini_Bank.Models.EnumModels
 
         [Key]
         [Column(TypeName = "int")]
-        public Countries Id { get; set; }
+        public int Id { get; set; }
 
         [Column(TypeName = "nvarchar(30)")]
-        public Countries Name { get; set; }
+        public string Name { get; set; }
     }
 }
