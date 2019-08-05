@@ -12,6 +12,7 @@ using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Middleware;
 using Mini_Bank.Models;
+using Mini_Bank.Models.ViewModels;
 using Mini_Bank.Services;
 using System;
 
@@ -38,10 +39,10 @@ namespace Mini_Bank
 
             //var connection = @"Server=DT-VN00321\PPANAYOTOV;Database=Mini_Bank;Trusted_Connection=True;ConnectRetryCount=0";
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<BankContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("MiniBankDB")).EnableSensitiveDataLogging());
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(setupAction =>
             {
                 setupAction.SwaggerDoc("MiniBankSpecification", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -53,6 +54,7 @@ namespace Mini_Bank
             services.AddScoped(typeof(IDbRepository<>), typeof(DbRepository<>));
             services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
             services.AddSingleton(typeof(IUserService),typeof(UserService));
+            services.AddScoped<UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,12 +81,11 @@ namespace Mini_Bank
             app.UseStaticFiles();
             app.UseCookiePolicy();
             
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}");
             });
         }
     }

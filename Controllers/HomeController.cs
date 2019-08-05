@@ -7,6 +7,10 @@ using NLog;
 using Mini_Bank.DbContexts;
 using Mini_Bank.DbRepo;
 using Mini_Bank.DbRepo.Entities;
+using AutoMapper;
+using System;
+using System.Linq;
+using Mini_Bank.Models.ViewModels;
 
 namespace Mini_Bank.Controllers
 {
@@ -14,14 +18,15 @@ namespace Mini_Bank.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IDbRepository<UserDbRepoModel> _userRepo;
-        private readonly BankContext _bankContext;
+        private readonly IMapper _mapper;
+        private readonly UnitOfWork _unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger, BankContext context, IDbRepository<UserDbRepoModel> userRepo)
+
+        public HomeController(ILogger<HomeController> logger, UnitOfWork unitOfWork , IMapper mapper)
         {
             _logger = logger;
-            _bankContext = context;
-            _userRepo = userRepo;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet("/")]
@@ -29,14 +34,27 @@ namespace Mini_Bank.Controllers
         {
             //DataSeeder seed = new DataSeeder(_bankContext);
             //seed.SeedDatabase();
-            var user = _userRepo.GetById(2);
 
-            user.IsAdmin = false;
+            using(_unitOfWork.Add<UserDbRepoModel>().Add<RegistrantDbRepoModel>())
+            {
+                var testUserRepo = _unitOfWork.GetRepository<UserDbRepoModel>();
 
-            _userRepo.Update(user);
-            _userRepo.SaveChanges();
+                var testUser = testUserRepo.GetById(2);
 
-            var users = _userRepo.GetAll();
+                testUser.IsAdmin = false;
+
+                testUserRepo.Update(testUser);
+
+                var testRegRepo = _unitOfWork.GetRepository<RegistrantDbRepoModel>();
+
+                var testReg = testRegRepo.GetById(2);
+
+                testReg.FirstName = "Stefan";
+
+                testRegRepo.Update(testReg);
+
+                _unitOfWork.Save();
+            }
 
             return View();
         }

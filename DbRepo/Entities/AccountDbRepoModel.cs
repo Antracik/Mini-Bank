@@ -31,16 +31,6 @@ namespace Mini_Bank.DbRepo.Entities
         public int WalletId { get; set; }
         public WalletDbRepoModel Wallet { get; set; }
 
-        public AccountDbRepoModel(int id, string iBAN, decimal balance, int walletId, int currencyId, int accountStatusId)
-        {
-            Id = id;
-            IBAN = iBAN;
-            Balance = balance;
-            WalletId = walletId;
-            Currency = currencyId;
-            AccountStatus = accountStatusId;
-        }
-
         public AccountDbRepoModel() { }
 
     }

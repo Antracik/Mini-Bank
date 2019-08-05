@@ -52,8 +52,10 @@ namespace Mini_Bank.Controllers
         [HttpGet("walletId")]
         public IActionResult CreateAccountView(int walletId)
         {
-            var tempAccount = new AccountModel();
-            tempAccount.WalletId = walletId;
+            var tempAccount = new AccountModel
+            {
+                WalletId = walletId
+            };
 
             return View(tempAccount);
         }

@@ -31,16 +31,6 @@ namespace Mini_Bank.DbRepo.Entities
         public int UserId { get; set; }
         public UserDbRepoModel User { get; set; }
 
-        public RegistrantDbRepoModel(int id, string firstName, string lastName, int countryId, string address, int userId)
-        {
-            Id = id;
-            FirstName = firstName;
-            LastName = lastName;
-            Country = countryId;
-            Address = address;
-            UserId = userId;
-        }
-
         public RegistrantDbRepoModel() {}
     }
 }

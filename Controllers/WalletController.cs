@@ -51,9 +51,10 @@ namespace Mini_Bank.Controllers
         [HttpGet("{id}")]
         public IActionResult CreateWalletView(int regId)
         {
-            var tempWallet = new WalletModel();
-
-            tempWallet.RegistrantId = regId;
+            var tempWallet = new WalletModel
+            {
+                RegistrantId = regId
+            };
 
             return View(tempWallet);
         }

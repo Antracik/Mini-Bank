@@ -25,15 +25,6 @@ namespace Mini_Bank.DbRepo.Entities
         public int RegistrantId { get; set; }
         public RegistrantDbRepoModel Registrant { get; set; }
 
-        public WalletDbRepoModel(int id, int number, int walletStatus, int registrantId, bool isVerified = false)
-        {
-            Id = id;
-            Number = number;
-            WalletStatus = walletStatus;
-            IsVerified = isVerified;
-            RegistrantId = registrantId;
-        }
-
         public WalletDbRepoModel() { }
 
     }

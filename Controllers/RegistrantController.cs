@@ -51,9 +51,11 @@ namespace Mini_Bank.Controllers
         [HttpGet("{id}")]
         public IActionResult CreateRegistrantView(int id)
         {
-            var registrantModel = new RegistrantModel();
-            registrantModel.UserId = id;
-            
+            var registrantModel = new RegistrantModel
+            {
+                UserId = id
+            };
+
             return View(registrantModel);
         }
 

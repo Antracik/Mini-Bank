@@ -7,6 +7,6 @@ namespace Mini_Bank.Models.ViewModels
 {
     public interface IBaseModel
     {
-        int Id { get; set; }
+        int Id { get;  set; }
     }
 }
