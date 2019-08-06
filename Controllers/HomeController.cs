@@ -21,7 +21,6 @@ namespace Mini_Bank.Controllers
         private readonly IMapper _mapper;
         private readonly UnitOfWork _unitOfWork;
 
-
         public HomeController(ILogger<HomeController> logger, UnitOfWork unitOfWork , IMapper mapper)
         {
             _logger = logger;
@@ -34,27 +33,6 @@ namespace Mini_Bank.Controllers
         {
             //DataSeeder seed = new DataSeeder(_bankContext);
             //seed.SeedDatabase();
-
-            using(_unitOfWork.Add<UserDbRepoModel>().Add<RegistrantDbRepoModel>())
-            {
-                var testUserRepo = _unitOfWork.GetRepository<UserDbRepoModel>();
-
-                var testUser = testUserRepo.GetById(2);
-
-                testUser.IsAdmin = false;
-
-                testUserRepo.Update(testUser);
-
-                var testRegRepo = _unitOfWork.GetRepository<RegistrantDbRepoModel>();
-
-                var testReg = testRegRepo.GetById(2);
-
-                testReg.FirstName = "Stefan";
-
-                testRegRepo.Update(testReg);
-
-                _unitOfWork.Save();
-            }
 
             return View();
         }

@@ -19,12 +19,12 @@ namespace Mini_Bank.DbRepo.Entities
 
         [Column("CurrencyId")]
         [ForeignKey("CurrencyRelation")]
-        public int Currency { get; set; }
+        public int CurrencyId { get; set; }
         public CurrencyModel CurrencyRelation { get; set; }
 
         [ForeignKey("Status")]
         [Column("StatusId")]
-        public int AccountStatus{ get; set; }
+        public int AccountStatusId { get; set; }
         public StatusModel Status { get; set; }
 
         [ForeignKey("Wallet")]

@@ -3,6 +3,8 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mini_Bank.DbRepo;
+using Mini_Bank.DbRepo.Entities;
 using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Models;
@@ -14,27 +16,31 @@ namespace Mini_Bank.Controllers
     {
 
         private readonly ILogger<HomeController> _logger;
-        private readonly IRepository<WalletRepoModel> _wallets;
-        private readonly IRepository<RegistrantRepoModel> _registrant;
+        private readonly UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public RegistrantController(ILogger<HomeController> logger, IRepository<WalletRepoModel> wallets, IRepository<RegistrantRepoModel> registrant, IMapper mapper)
+        public RegistrantController(ILogger<HomeController> logger, UnitOfWork unitOfWork, IMapper mapper)
         {
             _logger = logger;
-            _wallets = wallets;
-            _registrant = registrant;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet("{id}")]
         public IActionResult DetailsRegistrant(int id)
         {
-            var registrantRepo = _registrant.Get().FirstOrDefault(reg => reg.Id == id);
-            var registrantWallets = registrantRepo.GetRegistrantWallets(_wallets).ToList();
+            var registrantModel = new RegistrantModel();
 
-            var registrantModel = _mapper.Map<RegistrantModel>(registrantRepo);
+            using(_unitOfWork.Add<RegistrantDbRepoModel>().Add<WalletDbRepoModel>())
+            {
+                var registrantEntity = _unitOfWork.GetRepository<RegistrantDbRepoModel>().Get(reg => reg.Id == id, null, "CountryRelation").FirstOrDefault();
 
-            registrantModel.Wallets = _mapper.Map<List<WalletModel>>(registrantWallets);
+                registrantModel = _mapper.Map<RegistrantModel>(registrantEntity);
+
+                var walletEntities = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(wall => wall.RegistrantId == registrantEntity.Id, null, "Status");
+
+                registrantModel.Wallets = _mapper.Map<List<WalletModel>>(walletEntities);
+            }
 
             return View(registrantModel);
         }
@@ -42,10 +48,16 @@ namespace Mini_Bank.Controllers
         [HttpGet]
         public IActionResult DisplayRegistrants()
         {
-            var registrantsRepo = _registrant.Get().ToList();
-            var registrantsModel = _mapper.Map<List<RegistrantModel>>(registrantsRepo);
+            var registrantModels = new List<RegistrantModel>();
+            
+            using(_unitOfWork.Add<RegistrantDbRepoModel>())
+            {
+                var registrantEntities = _unitOfWork.GetRepository<RegistrantDbRepoModel>().Get(null, null, "CountryRelation");
 
-            return View(registrantsModel);
+                registrantModels = _mapper.Map<List<RegistrantModel>>(registrantEntities);
+            }
+
+            return View(registrantModels);
         }
 
         [HttpGet("{id}")]
@@ -67,29 +79,35 @@ namespace Mini_Bank.Controllers
                 return View("CreateRegistrantView", item);
             }
 
-            int NewRegId = _registrant.Get().Max(rID => rID.Id);
-            NewRegId++;
-            item.Id = NewRegId;
+            var registrantEntity = new RegistrantDbRepoModel();
 
-            var RegistrantRepo = _mapper.Map<RegistrantRepoModel>(item);
+            using (_unitOfWork.Add<RegistrantDbRepoModel>())
+            {
+                registrantEntity = _mapper.Map<RegistrantDbRepoModel>(item);
 
-            _registrant.AddItem(RegistrantRepo);
-            _registrant.SaveChanges();
+                _unitOfWork.GetRepository<RegistrantDbRepoModel>().AddItem(registrantEntity);
+                _unitOfWork.Save();
+            }
 
-            return RedirectToAction("DetailsRegistrant", new { id = NewRegId });
+            return RedirectToAction("DetailsRegistrant", new { id = registrantEntity.Id });
         }
 
         [HttpGet("id")]
         public IActionResult EditRegistrantView(int id)
         {
-            var registrantRepo = _registrant.Get().FirstOrDefault(reg => reg.Id == id);
+            var registrantModel = new RegistrantModel();
 
-            var registrantModel = _mapper.Map<RegistrantModel>(registrantRepo);
+            using(_unitOfWork.Add<RegistrantDbRepoModel>())
+            {
+                var registrantEntity = _unitOfWork.GetRepository<RegistrantDbRepoModel>().GetById(id);
+
+                registrantModel = _mapper.Map<RegistrantModel>(registrantEntity);
+            }
 
             return View(registrantModel);
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult EditRegistrant(RegistrantModel item)
         {
             if(!ModelState.IsValid)
@@ -97,28 +115,44 @@ namespace Mini_Bank.Controllers
                 return View("EditRegistrantView", item);
             }
 
-            var registrantRepo = _mapper.Map<RegistrantRepoModel>(item);
+            using(_unitOfWork.Add<RegistrantDbRepoModel>())
+            {
+                var registrantEntity = _mapper.Map<RegistrantDbRepoModel>(item);
 
-            _registrant.Replace(registrantRepo);
-            _registrant.SaveChanges();
+                _unitOfWork.GetRepository<RegistrantDbRepoModel>().Update(registrantEntity);
+
+                _unitOfWork.Save();
+            }
 
             return RedirectToAction("DetailsRegistrant", "Registrant", new { id = item.Id });
         }
 
-        [HttpDelete("{id}")]
+        [HttpGet("{id}")]
         public IActionResult DeleteRegistrant(int id)
         {
-            var reginstrantRepo = _registrant.Get().FirstOrDefault(reg => reg.Id == id);
+            int userId;
 
-            if (reginstrantRepo.GetRegistrantWallets(_wallets).Count() > 0)
+            using(_unitOfWork.Add<RegistrantDbRepoModel>().Add<WalletDbRepoModel>())
             {
-                return View("Error", new ErrorViewModel { RequestId = @"Can't delete registrant info with wallet/s in it" });
+                var registrantRepo = _unitOfWork.GetRepository<RegistrantDbRepoModel>();
+
+                var registrantEntity = registrantRepo.GetById(id);
+
+                if (_unitOfWork.GetRepository<WalletDbRepoModel>()
+                    .Get(reg => reg.RegistrantId == registrantEntity.Id)
+                    .FirstOrDefault() != null)
+                {
+                    return View("Error", new ErrorViewModel { RequestId = @"Can't delete registrant info with wallet/s in it" });
+                }
+
+                userId = registrantEntity.UserId;
+
+                registrantRepo.Delete(id);
+
+                _unitOfWork.Save();
             }
-
-            _registrant.Delete(id);
-            _registrant.SaveChanges();
-
-            return RedirectToAction("DetailsUser", "User", new { id = reginstrantRepo.UserId });
+            
+            return RedirectToAction("DetailsUser", "User", new { id = userId });
         }
     }
 }

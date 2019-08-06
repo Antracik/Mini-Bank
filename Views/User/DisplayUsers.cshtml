@@ -6,7 +6,7 @@
 
 <h1>User List</h1>
 
-<form method="get" asp-action="FilterUser">
+<form method="get" asp-controller="User" asp-action="FilterUser">
     <div class="form-group">
         <label asp-for="@Model.FirstOrDefault().Email" class="control-label">Find User by Email :</label>
         <input asp-for="@Model.FirstOrDefault().Email" value="" type="email" class="form-control" />

@@ -17,7 +17,6 @@ namespace Mini_Bank.DbRepo
         T GetById(int id);
         void Update(T item);
         void Delete(int id);
-        int SaveChanges();
 
     }
 }

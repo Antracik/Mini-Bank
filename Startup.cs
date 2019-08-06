@@ -52,7 +52,7 @@ namespace Mini_Bank
                 });
             });
             services.AddScoped(typeof(IDbRepository<>), typeof(DbRepository<>));
-            services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
+            //services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
             services.AddSingleton(typeof(IUserService),typeof(UserService));
             services.AddScoped<UnitOfWork>();
         }
@@ -72,7 +72,7 @@ namespace Mini_Bank
             }
 
             app.UseHttpsRedirection();
-            app.UseRequestResponseLoggerMiddleware();
+            //app.UseRequestResponseLoggerMiddleware(); // ENABLE LATER
             app.UseSwagger();
             app.UseSwaggerUI(setupAction =>
            {

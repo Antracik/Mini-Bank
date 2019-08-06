@@ -15,7 +15,7 @@ namespace Mini_Bank.DbRepo.Entities
 
         [Column("WalletStatusId")]
         [ForeignKey("Status")]
-        public int WalletStatus { get; set; }
+        public int WalletStatusId { get; set; }
         public StatusModel Status { get; set; }
 
         public bool IsVerified { get; set; }

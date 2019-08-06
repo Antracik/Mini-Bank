@@ -6,6 +6,7 @@ using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Mini_Bank.Models.EnumModels;
 
 namespace Mini_Bank.Models
 {
@@ -27,9 +28,9 @@ namespace Mini_Bank.Models
         public string LastName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Country cannot be empty")]
-        [MinLength(1, ErrorMessage = "Country cannot be empty!")]
-        [RegularExpression(@"[a-zA-Z]+", ErrorMessage = "Only letters and no whitespaces!")]
-        public string Country { get; set; }
+        [DisplayName("Country")]
+        public int CountryId { get; set; }
+        public CountryModel CountryModel { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Address cannot be empty")]
         [MinLength(1, ErrorMessage = "Address cannot be empty!")]
@@ -38,12 +39,12 @@ namespace Mini_Bank.Models
 
         public int UserId { get; set; }
 
-        public RegistrantModel(int id, string firstName, string lastName, string country, string address, List<WalletModel> wallets)
+        public RegistrantModel(int id, string firstName, string lastName, int countryId, string address, List<WalletModel> wallets)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
-            Country = country;
+            CountryId = countryId;
             Address = address;
             Wallets = wallets;
         }

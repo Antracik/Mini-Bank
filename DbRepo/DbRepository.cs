@@ -71,11 +71,5 @@ namespace Mini_Bank.DbRepo
             _bankContext.Set<T>().Update(item);
         }
 
-        public int SaveChanges()
-        {
-            return _bankContext.SaveChanges();
-        }
-
-
     }
 }

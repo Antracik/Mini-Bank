@@ -17,11 +17,10 @@ namespace Mini_Bank.Models
         public int Number { get; set; }
 
         [DisplayName("Wallet Status")]
-        [DefaultValue(StatusModel.Status.Okay)]
-        public StatusModel.Status WalletStatus { get; set; }
+        public int WalletStatusId { get; set; } = (int)StatusModel.Status.Okay;
+        public StatusModel Status { get; set; }
 
         [Required]
-        [DefaultValue(false)]
         [DisplayName("Verified")]
         public bool IsVerified { get; set; }
 
@@ -29,11 +28,11 @@ namespace Mini_Bank.Models
 
         public List<AccountModel> Accounts { get; set; }
 
-        public WalletModel(int id, int number, StatusModel.Status walletStatus, List<AccountModel> accounts, bool isVerified = false)
+        public WalletModel(int id, int number, int walletStatusId, List<AccountModel> accounts, bool isVerified = false)
         {
             Id = id;
             Number = number;
-            WalletStatus = walletStatus;
+            WalletStatusId = walletStatusId;
             Accounts = accounts;
             IsVerified = isVerified;
         }

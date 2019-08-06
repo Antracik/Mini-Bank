@@ -4,7 +4,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post" asp-action="EditUser">
+        <form asp-controller="User" asp-action="EditUser">
             @if (!ViewData.ModelState.IsValid)
             {
             <div asp-validation-summary="ModelOnly" class="text-danger"> There were errors </div>

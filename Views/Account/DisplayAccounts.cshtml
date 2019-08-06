@@ -22,10 +22,10 @@
                     <label asp-for="@Model.FirstOrDefault().Balance"></label>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().Currency"></label>
+                    <label asp-for="@Model.FirstOrDefault().CurrencyId"></label>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().AccountStatus"></label>
+                    <label asp-for="@Model.FirstOrDefault().AccountStatusId"></label>
                 </th>
                 <th>
                     <label>Options</label>
@@ -43,13 +43,13 @@
                     @item.IBAN
                 </td>
                 <td>
-                    @item.Balance
+                    @item.Balance.ToString("{0:00}")
                 </td>
                 <td>
-                    @item.Currency
+                    @item.Currency.Name
                 </td>
                 <td>
-                    @item.AccountStatus
+                    @item.Status.Name
                 </td>
                 <td>
                     <a asp-controller="Account" asp-action="DetailsAccount" asp-route-id="@item.Id">Details</a> |

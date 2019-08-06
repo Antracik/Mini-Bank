@@ -3,6 +3,8 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mini_Bank.DbRepo;
+using Mini_Bank.DbRepo.Entities;
 using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Models;
@@ -13,47 +15,54 @@ namespace Mini_Bank.Controllers
     public class WalletController : Controller
     {
         private readonly ILogger<WalletController> _logger;
-        private readonly IRepository<WalletRepoModel> _wallets;
-        private readonly IRepository<AccountRepoModel> _accounts;
+        private readonly UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public WalletController(ILogger<WalletController> logger, IRepository<WalletRepoModel> wallets, IRepository<AccountRepoModel> accounts, IMapper mapper)
+        public WalletController(ILogger<WalletController> logger, UnitOfWork unitOfWork, IMapper mapper)
         {
             _logger = logger;
-            _wallets = wallets;
-            _accounts = accounts;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet("{id}")]
         public IActionResult DetailsWallet(int id)
         {
-            var wallet =_wallets.Get().FirstOrDefault(wal => wal.Id == id);
-            var walletAccounts = wallet.GetWalletAccounts(_accounts).ToList();
+            var walletModel = new WalletModel();
 
-            WalletModel walletModel = _mapper.Map<WalletModel>(wallet);
+            using(_unitOfWork.Add<WalletDbRepoModel>().Add<AccountDbRepoModel>())
+            {
+                var walletEntity = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(wall => wall.Id == id, null, "Status").FirstOrDefault();
+                var walletAccounts = _unitOfWork.GetRepository<AccountDbRepoModel>().Get(wall => wall.WalletId == walletEntity.Id, null, "Status,CurrencyRelation");
 
-            walletModel.Accounts = _mapper.Map<List<AccountModel>>(walletAccounts);
-
+                walletModel = _mapper.Map<WalletModel>(walletEntity);
+                walletModel.Accounts = _mapper.Map<List<AccountModel>>(walletAccounts);
+            }
+            
             return View(walletModel);
         }
 
         [HttpGet]
         public IActionResult DisplayWallets()
         {
-            var walletsRepo = _wallets.Get().ToList();
+            var walletModels = new List<WalletModel>();
 
-            var walletsModel = _mapper.Map<List<WalletModel>>(walletsRepo);
+            using(_unitOfWork.Add<WalletDbRepoModel>())
+            {
+                var walletEntities = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(null, null, "Status");
 
-            return View(walletsModel);
+                walletModels = _mapper.Map<List<WalletModel>>(walletEntities);
+            }
+
+            return View(walletModels);
         }
 
         [HttpGet("{id}")]
-        public IActionResult CreateWalletView(int regId)
+        public IActionResult CreateWalletView(int id)
         {
             var tempWallet = new WalletModel
             {
-                RegistrantId = regId
+                RegistrantId = id
             };
 
             return View(tempWallet);
@@ -67,30 +76,40 @@ namespace Mini_Bank.Controllers
                 return View("CreateWalletView", item);
             }
 
-            int NewWalletId = _wallets.Get().Max(wID => wID.Id);
-            NewWalletId++;
-            item.Id = NewWalletId;
+            int newId;
 
-            var WalletRepoModel = _mapper.Map<WalletRepoModel>(item);
-            WalletRepoModel.IsVerified = false; // making sure that the wallet stays unverified upon creation
+            using(_unitOfWork.Add<WalletDbRepoModel>())
+            {
+                var walletEntity = _mapper.Map<WalletDbRepoModel>(item);
 
-            _wallets.AddItem(WalletRepoModel);
-            _wallets.SaveChanges();
+                walletEntity.RegistrantId = item.RegistrantId;
 
-            return RedirectToAction("DetailsWallet", "Wallet" , new { id = NewWalletId });
+                _unitOfWork.GetRepository<WalletDbRepoModel>().AddItem(walletEntity);
+                _unitOfWork.Save();
+
+                newId = walletEntity.Id;
+            }
+
+
+            return RedirectToAction("DetailsWallet", "Wallet" , new { id = newId });
         }
 
         [HttpGet("{id}")]
         public IActionResult EditWalletView(int id)
         {
-            var walletRepo = _wallets.Get().FirstOrDefault(wall => wall.Id == id);
+            var walletModel = new WalletModel();
 
-            var walletModel = _mapper.Map<WalletModel>(walletRepo);
+            using(_unitOfWork.Add<WalletDbRepoModel>())
+            {
+                var walletEntity = _unitOfWork.GetRepository<WalletDbRepoModel>().GetById(id);
+
+                walletModel = _mapper.Map<WalletModel>(walletEntity);
+            }
 
             return View(walletModel);
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult EditWallet(WalletModel item)
         {
             if(!ModelState.IsValid)
@@ -98,28 +117,41 @@ namespace Mini_Bank.Controllers
                 return View("EditWalletView", item);
             }
 
-            var walletRepo = _mapper.Map<WalletRepoModel>(item);
+            using(_unitOfWork.Add<WalletDbRepoModel>())
+            {
+                var walletEntity = _mapper.Map<WalletDbRepoModel>(item);
 
-            _wallets.Replace(walletRepo);
-            _wallets.SaveChanges();
+                _unitOfWork.GetRepository<WalletDbRepoModel>().Update(walletEntity);
+                _unitOfWork.Save();
+            }
 
             return RedirectToAction("DetailsWallet", "Wallet", new { id = item.Id });
         }
 
-        [HttpDelete("{id}")]
+        [HttpGet("{id}")]
         public IActionResult DeleteWallet(int id)
         {
-            var walletRepo = _wallets.Get().FirstOrDefault(wall => wall.Id == id);
+            int regId;
 
-            if(walletRepo.GetWalletAccounts(_accounts).Count() > 0)
+            using(_unitOfWork.Add<WalletDbRepoModel>().Add<AccountDbRepoModel>())
             {
-                return View("Error", new ErrorViewModel { RequestId = @"Can't delete Wallet with accounts in it" });
+                var wallRepo = _unitOfWork.GetRepository<WalletDbRepoModel>();
+                var walletEntity = wallRepo.GetById(id);
+
+                if(_unitOfWork.GetRepository<AccountDbRepoModel>()
+                    .Get(acc => acc.WalletId == walletEntity.Id)
+                    .FirstOrDefault() != null)
+                {
+                    return View("Error", new ErrorViewModel { RequestId = @"Can't delete wallet with accounts" });
+                }
+
+                regId = walletEntity.RegistrantId;
+
+                wallRepo.Delete(id);
+                _unitOfWork.Save();
             }
 
-            _wallets.Delete(id);
-            //_wallets.SaveChanges();
-
-            return RedirectToAction("DetailsRegistrant", "Registrant", new { id = walletRepo.RegistrantId });
+            return RedirectToAction("DetailsRegistrant", "Registrant", new { id = regId });
         }
     }
 }

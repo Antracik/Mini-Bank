@@ -10,7 +10,9 @@ namespace Mini_Bank.Mappings
         public AccountProfile()
         {
             CreateMap<AccountRepoModel, AccountModel>().ReverseMap();
-            CreateMap<AccountModel, AccountDbRepoModel>().ReverseMap();
+            CreateMap<AccountModel, AccountDbRepoModel>()
+                .ForMember(dest => dest.CurrencyRelation, opt => opt.MapFrom(src => src.Currency))
+                .ReverseMap();
         }
     }
 }

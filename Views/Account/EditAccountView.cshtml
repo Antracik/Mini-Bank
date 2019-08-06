@@ -13,9 +13,9 @@
         <form method="post" asp-action="EditAccount">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="AccountStatus" />
+            <input type="hidden" asp-for="AccountStatusId" />
             <input type="hidden" asp-for="WalletId" />
-            <input type="hidden" asp-for="Currency" />
+            <input type="hidden" asp-for="CurrencyId" />
             <div class="form-group">
                 <label asp-for="IBAN" class="control-label"></label>
                 <input asp-for="IBAN" class="form-control" />

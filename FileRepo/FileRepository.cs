@@ -8,6 +8,7 @@ using System.Threading;
 
 namespace Mini_Bank.FileRepo
 {
+    [Obsolete("File repository is now depreceted, move to Db repository")]
     public class FileRepository<T> : IRepository<T> where T : IBaseModel
     {
         private readonly Semaphore semaphore = new Semaphore(1, 1);

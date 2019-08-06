@@ -15,18 +15,20 @@ namespace Mini_Bank.Models
                             ErrorMessage = "Invalid IBAN")]
         public string IBAN { get; set; }
 
-        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:00}")]
         public decimal Balance { get; set; }
 
         [Required]
-        [DefaultValue(CurrencyModel.Currency.BGN)]
-        public CurrencyModel.Currency Currency{ get; set; }
+        [DisplayName("Currency")]
+        public int CurrencyId { get; set; } = (int)CurrencyModel.Currency.BGN;
+        public CurrencyModel Currency{ get; set; }
+
         public int WalletId { get; set; }
 
         [Required]
-        [DefaultValue(StatusModel.Status.Okay)]
         [DisplayName("Account Status")]
-        public StatusModel.Status AccountStatus{ get; set; }
+        public int AccountStatusId { get; set; } = (int)StatusModel.Status.Okay;
+        public StatusModel Status { get; set; }
 
         public AccountModel() { }
     }

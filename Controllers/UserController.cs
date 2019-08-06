@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mini_Bank.DbRepo;
+using Mini_Bank.DbRepo.Entities;
 using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Models;
@@ -14,40 +16,34 @@ namespace Mini_Bank.Controllers
     public class UserController : Controller
     {
         private readonly ILogger<AccountController> _logger;
-        private readonly IRepository<UserRepoModel> _users;
-        private readonly IRepository<RegistrantRepoModel> _registrants;
-        private readonly IRepository<WalletRepoModel> _wallets;
-        private readonly IRepository<AccountRepoModel> _accounts;
-        private readonly IUserService _userService;
-
+        private readonly UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public UserController(ILogger<AccountController> logger, 
-                            IRepository<UserRepoModel> users, 
-                            IRepository<WalletRepoModel> wallets,
-                            IRepository<RegistrantRepoModel> registrants,
-                            IRepository<AccountRepoModel> accounts,
-                            IUserService userService,
+                            UnitOfWork unitOfWork,
                             IMapper mapper)
         {
             _logger = logger;
-            _users = users;
-            _registrants = registrants;
             _mapper = mapper;
-            _wallets = wallets;
-            _accounts = accounts;
-            _userService = userService;
+            _unitOfWork = unitOfWork;
         }
 
         
         [HttpGet("{id}")]
         public IActionResult DetailsUser(int id)
         {
-            var userRepo = _users.Get().FirstOrDefault(reg => reg.Id == id);
-            var registrantRepo = userRepo.GetRegistrant(_registrants);
+            var userModel = new UserModel();
 
-            var userModel = _mapper.Map<UserModel>(userRepo);
-            userModel.Registrant = _mapper.Map<RegistrantModel>(registrantRepo);
+            using(_unitOfWork.Add<UserDbRepoModel>().Add<RegistrantDbRepoModel>())
+            {
+                var userEntity = _unitOfWork.GetRepository<UserDbRepoModel>().GetById(id);
+                userModel = _mapper.Map<UserModel>(userEntity);
+
+                var registrantEntity = _unitOfWork.GetRepository<RegistrantDbRepoModel>().GetById(userEntity.Id);
+
+                userModel.Registrant = _mapper.Map<RegistrantModel>(registrantEntity);
+
+            }
 
             return View(userModel);
         }
@@ -55,26 +51,35 @@ namespace Mini_Bank.Controllers
         [HttpGet]
         public IActionResult DisplayUsers()
         {
-            var usersRepo = _users.Get().ToList();
+            var userModels = new List<UserModel>();
 
-            var usersModel = _mapper.Map<List<UserModel>>(usersRepo);
-
-            return View(usersModel);
-        }
-
-        [HttpGet("{email}")]
-        public IActionResult FilterUser(string email)
-        {
-            var userRepo = _userService.GetUserByEmail(email);
-            List<UserModel> userModelsList = new List<UserModel>();
-
-            if (userRepo != null)
+            using(_unitOfWork.Add<UserDbRepoModel>())
             {
-                var userModel = _mapper.Map<UserModel>(userRepo);
-                userModelsList.Add(userModel);
+                var userEntities = _unitOfWork.GetRepository<UserDbRepoModel>().Get();
+
+                userModels = _mapper.Map<List<UserModel>>(userEntities);
             }
 
-            return View("DisplayUsers", userModelsList);
+            return View(userModels);
+        }
+
+        [HttpGet]
+        public IActionResult FilterUser(string email)
+        {
+
+            var userList = new List<UserModel>();
+
+            using(_unitOfWork.Add<UserDbRepoModel>())
+            {
+                var userEntities = _unitOfWork.GetRepository<UserDbRepoModel>().Get(user => user.Email == email);
+
+                if (userEntities != null)
+                {
+                    userList = _mapper.Map<List<UserModel>>(userEntities);
+                }
+            }
+
+            return View("DisplayUsers", userList);
         }
 
         [HttpGet]
@@ -91,28 +96,35 @@ namespace Mini_Bank.Controllers
                 return View("CreateUserView", item);
             }
 
-            int NewUserId = _users.Get().Max(uID => uID.Id);
-            NewUserId++;
-            item.Id = NewUserId;
+            var userEntity = new UserDbRepoModel();
 
-            var UserRepoModel = _mapper.Map<UserRepoModel>(item);
-            _users.AddItem(UserRepoModel);
-            _users.SaveChanges();
+            using(_unitOfWork.Add<UserDbRepoModel>())
+            {
+                userEntity = _mapper.Map<UserDbRepoModel>(item);
+
+                _unitOfWork.GetRepository<UserDbRepoModel>().AddItem(userEntity);
+                _unitOfWork.Save();
+            }
             
-            return RedirectToAction("DetailsUser", "User", new { id = NewUserId });
+            return RedirectToAction("DetailsUser", "User", new { id = userEntity.Id });
         }
 
         [HttpGet("{id}")]
         public IActionResult EditUserView(int id)
         {
-            var userRepo = _users.Get().FirstOrDefault(reg => reg.Id == id);
-            
-            var userModel = _mapper.Map<UserModel>(userRepo);
+            var userModel = new UserModel();
+
+            using(_unitOfWork.Add<UserDbRepoModel>())
+            {
+                var userRepo = _unitOfWork.GetRepository<UserDbRepoModel>().GetById(id);
+
+                userModel = _mapper.Map<UserModel>(userRepo);
+            }
 
             return View(userModel);
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult EditUser(UserModel item)
         {
             if(!ModelState.IsValid)
@@ -120,27 +132,36 @@ namespace Mini_Bank.Controllers
                 return View("EditUserView", item);
             }
 
-            var UserRepo = _mapper.Map<UserRepoModel>(item);
-
-            _users.Replace(UserRepo);
-
-            _users.SaveChanges();
+            using (_unitOfWork.Add<UserDbRepoModel>())
+            {
+                var userEntity = _mapper.Map<UserDbRepoModel>(item);
+                _unitOfWork.GetRepository<UserDbRepoModel>().Update(userEntity);
+                _unitOfWork.Save();
+            }
 
             return RedirectToAction("DetailsUser", "User", new { id = item.Id });
         }
 
-        [HttpDelete("{id}")]
+        //[HttpDelete]
         public IActionResult DeleteUser(int id)
         {
-            var userRepo = _users.Get().FirstOrDefault(user => user.Id == id);
-
-            if(userRepo.GetRegistrant(_registrants) != null)
+            using (_unitOfWork.Add<UserDbRepoModel>().Add<RegistrantDbRepoModel>())
             {
-                return View("Error", new ErrorViewModel { RequestId = @"Can't delete user with registrant" });
-            }
+                var userRepo = _unitOfWork.GetRepository<UserDbRepoModel>();
 
-            _users.Delete(id);
-            _users.SaveChanges();
+                var userEntity = userRepo.GetById(id);
+
+                if(_unitOfWork.GetRepository<RegistrantDbRepoModel>()
+                    .Get(reg => reg.UserId == userEntity.Id)
+                    .FirstOrDefault() != null)
+                {
+                    return View("Error", new ErrorViewModel { RequestId = @"Can't delete user with registrant" });
+                }
+
+                userRepo.Delete(id);
+
+                _unitOfWork.Save();
+            }
 
             return RedirectToAction("Index", "Home");
         }

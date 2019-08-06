@@ -10,7 +10,10 @@ namespace Mini_Bank.Mappings
         public RegistrantProfile()
         {
             CreateMap<RegistrantModel, RegistrantRepoModel>().ReverseMap();
-            CreateMap<RegistrantModel, RegistrantDbRepoModel>().ReverseMap();
+            CreateMap<RegistrantModel, RegistrantDbRepoModel>().ForMember(
+                dest => dest.Country, opt => opt.MapFrom(src => src.CountryId))
+                .ForMember(dest => dest.CountryRelation , opt => opt.MapFrom(src => src.CountryModel))
+                .ReverseMap();
         }
     }
 }
