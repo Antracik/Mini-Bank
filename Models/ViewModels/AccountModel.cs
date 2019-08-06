@@ -15,7 +15,7 @@ namespace Mini_Bank.Models
                             ErrorMessage = "Invalid IBAN")]
         public string IBAN { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:00}")]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
         public decimal Balance { get; set; }
 
         [Required]
