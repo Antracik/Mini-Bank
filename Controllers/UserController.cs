@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mini_Bank.DbRepo;
 using Mini_Bank.DbRepo.Entities;
-using Mini_Bank.FileRepo;
-using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Models;
 using Mini_Bank.Services;
 using System.Collections.Generic;
@@ -16,34 +14,28 @@ namespace Mini_Bank.Controllers
     public class UserController : Controller
     {
         private readonly ILogger<AccountController> _logger;
+        private readonly IUserService _userService;
         private readonly UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public UserController(ILogger<AccountController> logger, 
                             UnitOfWork unitOfWork,
+                            IUserService userService,
                             IMapper mapper)
         {
             _logger = logger;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _userService = userService;
         }
 
         
         [HttpGet("{id}")]
         public IActionResult DetailsUser(int id)
         {
-            var userModel = new UserModel();
+            var userEntity = _userService.GetUserById(id, includeRegistrant: true);
 
-            using(_unitOfWork.Add<UserDbRepoModel>().Add<RegistrantDbRepoModel>())
-            {
-                var userEntity = _unitOfWork.GetRepository<UserDbRepoModel>().GetById(id);
-                userModel = _mapper.Map<UserModel>(userEntity);
-
-                var registrantEntity = _unitOfWork.GetRepository<RegistrantDbRepoModel>().GetById(userEntity.Id);
-
-                userModel.Registrant = _mapper.Map<RegistrantModel>(registrantEntity);
-
-            }
+            var userModel = _mapper.Map<UserModel>(userEntity);
 
             return View(userModel);
         }
@@ -51,14 +43,9 @@ namespace Mini_Bank.Controllers
         [HttpGet]
         public IActionResult DisplayUsers()
         {
-            var userModels = new List<UserModel>();
+            var userEntities = _userService.GetAllUsers();
 
-            using(_unitOfWork.Add<UserDbRepoModel>())
-            {
-                var userEntities = _unitOfWork.GetRepository<UserDbRepoModel>().Get();
-
-                userModels = _mapper.Map<List<UserModel>>(userEntities);
-            }
+            var userModels = _mapper.Map<List<UserModel>>(userEntities);
 
             return View(userModels);
         }
@@ -66,20 +53,18 @@ namespace Mini_Bank.Controllers
         [HttpGet]
         public IActionResult FilterUser(string email)
         {
+            var userModelList = new List<UserModel>();
 
-            var userList = new List<UserModel>();
+            var userEntity = _userService.GetUserByEmail(email);
 
-            using(_unitOfWork.Add<UserDbRepoModel>())
+            var userModel = _mapper.Map<UserModel>(userEntity);
+
+            if (userModel != null)
             {
-                var userEntities = _unitOfWork.GetRepository<UserDbRepoModel>().Get(user => user.Email == email);
-
-                if (userEntities != null)
-                {
-                    userList = _mapper.Map<List<UserModel>>(userEntities);
-                }
+                userModelList.Add(userModel);
             }
 
-            return View("DisplayUsers", userList);
+            return View("DisplayUsers", userModelList);
         }
 
         [HttpGet]
@@ -96,30 +81,17 @@ namespace Mini_Bank.Controllers
                 return View("CreateUserView", item);
             }
 
-            var userEntity = new UserDbRepoModel();
-
-            using(_unitOfWork.Add<UserDbRepoModel>())
-            {
-                userEntity = _mapper.Map<UserDbRepoModel>(item);
-
-                _unitOfWork.GetRepository<UserDbRepoModel>().AddItem(userEntity);
-                _unitOfWork.Save();
-            }
+            int userId = _userService.CreateUser(item);
             
-            return RedirectToAction("DetailsUser", "User", new { id = userEntity.Id });
+            return RedirectToAction("DetailsUser", "User", new { id = userId });
         }
 
         [HttpGet("{id}")]
         public IActionResult EditUserView(int id)
         {
-            var userModel = new UserModel();
+            var userEntity = _userService.GetUserById(id);
 
-            using(_unitOfWork.Add<UserDbRepoModel>())
-            {
-                var userRepo = _unitOfWork.GetRepository<UserDbRepoModel>().GetById(id);
-
-                userModel = _mapper.Map<UserModel>(userRepo);
-            }
+            var userModel = _mapper.Map<UserModel>(userEntity);
 
             return View(userModel);
         }
@@ -132,12 +104,7 @@ namespace Mini_Bank.Controllers
                 return View("EditUserView", item);
             }
 
-            using (_unitOfWork.Add<UserDbRepoModel>())
-            {
-                var userEntity = _mapper.Map<UserDbRepoModel>(item);
-                _unitOfWork.GetRepository<UserDbRepoModel>().Update(userEntity);
-                _unitOfWork.Save();
-            }
+            _userService.UpdateUser(item);
 
             return RedirectToAction("DetailsUser", "User", new { id = item.Id });
         }
@@ -145,22 +112,9 @@ namespace Mini_Bank.Controllers
         //[HttpDelete]
         public IActionResult DeleteUser(int id)
         {
-            using (_unitOfWork.Add<UserDbRepoModel>().Add<RegistrantDbRepoModel>())
+            if(!_userService.DeleteUser(id))
             {
-                var userRepo = _unitOfWork.GetRepository<UserDbRepoModel>();
-
-                var userEntity = userRepo.GetById(id);
-
-                if(_unitOfWork.GetRepository<RegistrantDbRepoModel>()
-                    .Get(reg => reg.UserId == userEntity.Id)
-                    .FirstOrDefault() != null)
-                {
-                    return View("Error", new ErrorViewModel { RequestId = @"Can't delete user with registrant" });
-                }
-
-                userRepo.Delete(id);
-
-                _unitOfWork.Save();
+                return View("Error", new ErrorViewModel { RequestId = @"Can't delete user with registrant" });
             }
 
             return RedirectToAction("Index", "Home");

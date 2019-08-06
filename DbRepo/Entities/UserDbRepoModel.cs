@@ -23,6 +23,8 @@ namespace Mini_Bank.DbRepo.Entities
         [DisplayName("Admin")]
         public bool IsAdmin { get; set; }
 
+        public RegistrantDbRepoModel Registrant { get; set; }
+
         public UserDbRepoModel() { }
 
     }

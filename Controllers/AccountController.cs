@@ -6,6 +6,7 @@ using Mini_Bank.DbRepo.Entities;
 using Mini_Bank.FileRepo;
 using Mini_Bank.FileRepo.Models;
 using Mini_Bank.Models;
+using Mini_Bank.Services;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,28 +18,23 @@ namespace Mini_Bank.Controllers
     {
 
         private readonly ILogger<AccountController> _logger;
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
 
-        public AccountController(ILogger<AccountController> logger, UnitOfWork unitOfWork , IMapper mapper)
+        public AccountController(ILogger<AccountController> logger, IAccountService accountService, IMapper mapper)
         {
             _logger = logger;
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _accountService = accountService;
         }
 
         
         [HttpGet]
         public IActionResult DisplayAccounts()
         {
-            var accountModels = new List<AccountModel>();
+            var accountEntities = _accountService.GetAllAccounts();
 
-            using(_unitOfWork.Add<AccountDbRepoModel>())
-            {
-                var accountEntities = _unitOfWork.GetRepository<AccountDbRepoModel>().Get(null, null, "Status,CurrencyRelation");
-
-                accountModels = _mapper.Map<List<AccountModel>>(accountEntities);
-            }
+            var accountModels = _mapper.Map<List<AccountModel>>(accountEntities);
 
            return View(accountModels);
         }
@@ -46,14 +42,9 @@ namespace Mini_Bank.Controllers
         [HttpGet("{id}")]
         public IActionResult DetailsAccount(int id)
         {
-            var accountModel = new AccountModel();
+            var accountEntity = _accountService.GetAccountById(id);
 
-            using(_unitOfWork.Add<AccountDbRepoModel>())
-            {
-                var accountEntity = _unitOfWork.GetRepository<AccountDbRepoModel>().Get(acc => acc.Id == id, null, "Status,CurrencyRelation").FirstOrDefault();
-
-                accountModel = _mapper.Map<AccountModel>(accountEntity);
-            }
+            var accountModel = _mapper.Map<AccountModel>(accountEntity);
 
             return View(accountModel); 
         }
@@ -77,30 +68,17 @@ namespace Mini_Bank.Controllers
                 return View("CreateAccountView", item);
             }
 
-            var accountEntity = new AccountDbRepoModel();
-
-            using(_unitOfWork.Add<AccountDbRepoModel>())
-            {
-                accountEntity = _mapper.Map<AccountDbRepoModel>(item);
-
-                _unitOfWork.GetRepository<AccountDbRepoModel>().AddItem(accountEntity);
-                _unitOfWork.Save();
-            }
+            int newId = _accountService.CreateAccount(item);
            
-            return RedirectToAction("DetailsAccount", "Account", new { id = accountEntity.Id });
+            return RedirectToAction("DetailsAccount", "Account", new { id = newId });
         }
 
         [HttpGet("{id}")]
         public IActionResult EditAccountView(int id)
         {
-            var accountModel = new AccountModel();
+            var accountEntity = _accountService.GetAccountById(id);
 
-            using(_unitOfWork.Add<AccountDbRepoModel>())
-            {
-                var accountEntity = _unitOfWork.GetRepository<AccountDbRepoModel>().GetById(id);
-
-                accountModel = _mapper.Map<AccountModel>(accountEntity);
-            }
+            var accountModel = _mapper.Map<AccountModel>(accountEntity);
 
             return View(accountModel);
         }
@@ -113,13 +91,7 @@ namespace Mini_Bank.Controllers
                 return View("EditAccountView", item);
             }
 
-            using(_unitOfWork.Add<AccountDbRepoModel>())
-            {
-                 var accountEntity = _mapper.Map<AccountDbRepoModel>(item);
-
-                _unitOfWork.GetRepository<AccountDbRepoModel>().Update(accountEntity);
-                _unitOfWork.Save();
-            }
+            _accountService.UpdateAccount(item);
 
             return RedirectToAction("DetailsAccount", "Account", new { id = item.Id });
         }
@@ -129,16 +101,7 @@ namespace Mini_Bank.Controllers
         {
             int wallId;
 
-            using(_unitOfWork.Add<AccountDbRepoModel>())
-            {
-                var accountRepo = _unitOfWork.GetRepository<AccountDbRepoModel>();
-
-                wallId = accountRepo.Get(acc => acc.Id == id).FirstOrDefault().WalletId;
-
-                accountRepo.Delete(id);
-
-                _unitOfWork.Save();
-            }
+            wallId = _accountService.DeleteAccount(id);
 
             return RedirectToAction("DetailsWallet", "Wallet", new { id = wallId });
         }

@@ -2,23 +2,111 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mini_Bank.FileRepo;
-using Mini_Bank.FileRepo.Models;
+using AutoMapper;
+using Mini_Bank.DbRepo;
+using Mini_Bank.DbRepo.Entities;
+using Mini_Bank.Models;
 
 namespace Mini_Bank.Services
 {
     public class UserService : IUserService
     {
-        private readonly IRepository<UserRepoModel> _users;
+        private readonly UnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public UserService(IRepository<UserRepoModel> users)
+        public UserService(UnitOfWork unitOfWork, IMapper mapper)
         {
-            _users = users;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public UserRepoModel GetUserByEmail(string email)
+        public int CreateUser(UserModel user)
         {
-           return _users.Get().FirstOrDefault(user => user.Email.Equals(email));
+            var userEntity = new UserDbRepoModel();
+
+            using (_unitOfWork.Add<UserDbRepoModel>())
+            {
+                userEntity = _mapper.Map<UserDbRepoModel>(user);
+
+                _unitOfWork.GetRepository<UserDbRepoModel>().AddItem(userEntity);
+                _unitOfWork.Save();
+            }
+
+            return userEntity.Id;
         }
+
+        public bool DeleteUser(int id)
+        {
+            using (_unitOfWork.Add<UserDbRepoModel>())
+            {
+                var userRepo = _unitOfWork.GetRepository<UserDbRepoModel>();
+
+                var userEntity = userRepo.Get(user => user.Id == id, null, "Registrant").FirstOrDefault();
+
+                if ( userEntity.Registrant != null)
+                {
+                    return false;
+                }
+
+                userRepo.Delete(id);
+                _unitOfWork.Save();
+            }
+
+            return true;
+        }
+
+        public IEnumerable<UserDbRepoModel> GetAllUsers()
+        {
+            var userEntities = new List<UserDbRepoModel>();
+
+            using (_unitOfWork.Add<UserDbRepoModel>())
+            {
+                userEntities = _unitOfWork.GetRepository<UserDbRepoModel>().Get().ToList();
+            }
+
+            return userEntities;
+        }
+
+        public UserDbRepoModel GetUserByEmail(string email)
+        {
+            var userEntity = new UserDbRepoModel();
+
+            using (_unitOfWork.Add<UserDbRepoModel>())
+            {
+                userEntity = _unitOfWork.GetRepository<UserDbRepoModel>().Get(user => user.Email == email).FirstOrDefault();
+            }
+
+            return userEntity;
+        }
+
+        public UserDbRepoModel GetUserById(int id, bool includeRegistrant = false)
+        {
+            var userEntity = new UserDbRepoModel();
+
+            using (_unitOfWork.Add<UserDbRepoModel>())
+            {
+                if(includeRegistrant)
+                {
+                    userEntity = _unitOfWork.GetRepository<UserDbRepoModel>().Get(user => user.Id == id, null, "Registrant").FirstOrDefault();
+                }
+                else
+                {
+                    userEntity = _unitOfWork.GetRepository<UserDbRepoModel>().GetById(id);
+                }
+            }
+
+            return userEntity;
+        }
+
+        public void UpdateUser(UserModel user)
+        {
+            using (_unitOfWork.Add<UserDbRepoModel>())
+            {
+                var userEntity = _mapper.Map<UserDbRepoModel>(user);
+                _unitOfWork.GetRepository<UserDbRepoModel>().Update(userEntity);
+                _unitOfWork.Save();
+            }
+        }
+
     }
 }

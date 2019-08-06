@@ -51,9 +51,12 @@ namespace Mini_Bank
                     Version = "1"
                 });
             });
+            services.AddScoped(typeof(IUserService),typeof(UserService));
+            services.AddScoped(typeof(IRegistrantService), typeof(RegistrantService));
+            services.AddScoped(typeof(IWalletService), typeof(WalletService));
+            services.AddScoped(typeof(IAccountService), typeof(AccountService));
             services.AddScoped(typeof(IDbRepository<>), typeof(DbRepository<>));
             //services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
-            services.AddSingleton(typeof(IUserService),typeof(UserService));
             services.AddScoped<UnitOfWork>();
         }
 

@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Mini_Bank.Models.EnumModels;
+using System.Collections.Generic;
 
 namespace Mini_Bank.DbRepo.Entities
 {
@@ -30,6 +31,8 @@ namespace Mini_Bank.DbRepo.Entities
         [ForeignKey("User")]
         public int UserId { get; set; }
         public UserDbRepoModel User { get; set; }
+
+        public List<WalletDbRepoModel> Wallets { get; set; }
 
         public RegistrantDbRepoModel() {}
     }
