@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Mini_Bank.Middleware;
 using Services.Models;
 using System;
 
@@ -70,7 +71,7 @@ namespace Mini_Bank
             }
 
             app.UseHttpsRedirection();
-            //app.UseRequestResponseLoggerMiddleware(); // ENABLE LATER
+            app.UseRequestResponseLoggerMiddleware();
             app.UseSwagger();
             app.UseSwaggerUI(setupAction =>
            {

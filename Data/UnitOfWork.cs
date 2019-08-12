@@ -1,7 +1,9 @@
 ﻿using Shared;
 using System;
 using System.Collections.Generic;
-
+using Microsoft.EntityFrameworkCore;
+using NLog;
+using System.Linq;
 
 namespace Data
 { 
@@ -37,7 +39,62 @@ namespace Data
 
         public int Save()
         {
-            return _context.SaveChanges();
+            Logger _logger = NLog.LogManager.GetCurrentClassLogger();
+            List<LogEventInfo> logEventInfos = new List<LogEventInfo>();
+            var modifiedEntries = _context.ChangeTracker.Entries();
+
+            foreach(var entry in modifiedEntries)
+            {
+                switch(entry.State)
+                {
+                    case EntityState.Modified:
+                        {
+                            LogEventInfo eventInfo = new LogEventInfo { Level = NLog.LogLevel.Info };
+                            var newItem = entry.Entity;
+                            var oldItem = entry.GetDatabaseValues().ToObject();
+
+                            eventInfo.Properties["NewValue"] = newItem;
+                            eventInfo.Properties["OldValue"] = oldItem;
+
+                            logEventInfos.Add(eventInfo);
+
+                            break;
+                        }
+
+                    case EntityState.Deleted:
+                        {
+                            LogEventInfo eventInfo = new LogEventInfo { Level = NLog.LogLevel.Info };
+                            var deletedItem = entry.Entity;
+
+                            eventInfo.Properties["DeletedItem"] = deletedItem;
+
+                            logEventInfos.Add(eventInfo);
+
+                            break;
+                        }
+
+                    case EntityState.Added:
+                        {
+                            LogEventInfo eventInfo = new LogEventInfo { Level = NLog.LogLevel.Info };
+                            var addedItem = entry.Entity;
+
+                            eventInfo.Properties["AddedItem"] = addedItem;
+
+                            logEventInfos.Add(eventInfo);
+
+                            break;
+                        }
+                }
+            }
+
+            int changesCount = _context.SaveChanges();
+
+            foreach(LogEventInfo logEvent in logEventInfos)
+            {
+                _logger.Log(logEvent);
+            }
+
+            return changesCount;
         }
 
         private bool _disposed = false;

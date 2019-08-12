@@ -1,7 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
+using NLog;
 using Shared;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -10,6 +16,7 @@ namespace Data
     public class DbRepository<T> : IDbRepository<T> where T :class, IBaseModel
     {
         private readonly BankContext _bankContext;
+        //private static readonly Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
         public DbRepository(BankContext bankContext)
         {
@@ -18,7 +25,13 @@ namespace Data
 
         public void AddItem(T item)
         {
+            //LogEventInfo eventInfo = new LogEventInfo { Level = NLog.LogLevel.Info };
+
             _bankContext.Set<T>().Add(item);
+
+            //eventInfo.Properties["AddedItem"] = item;
+
+            //_logger.Log(eventInfo);
         }
 
         public void AddRange(IEnumerable<T> rangeList)
@@ -28,8 +41,15 @@ namespace Data
 
         public void Delete(int id)
         {
-            T entity = GetById(id);
+            var entity = GetById(id);
+
+            //LogEventInfo eventInfo = new LogEventInfo { Level = NLog.LogLevel.Info };
+
+            //eventInfo.Properties["DeletedItem"] = entity;
+
             _bankContext.Set<T>().Remove(entity);
+
+            //_logger.Info(eventInfo);
         }
 
         public IEnumerable<T> Get(Expression<Func<T, bool>> filter = null,
@@ -66,7 +86,18 @@ namespace Data
 
         public void Update(T item)
         {
+
+            //LogEventInfo eventInfo = new LogEventInfo { Level = NLog.LogLevel.Info };
+
+            //var oldItem = _bankContext.Set<T>().AsNoTracking().FirstOrDefault(ent => ent.Id == item.Id);
+
+            //eventInfo.Properties["NewValue"] = item;
+            //eventInfo.Properties["OldValue"] = oldItem;
+
             _bankContext.Set<T>().Update(item);
+
+            //_logger.Log(eventInfo);
+
         }
 
     }
