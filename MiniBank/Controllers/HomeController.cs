@@ -31,7 +31,7 @@ namespace Mini_Bank.Controllers
         [HttpGet("/")]
         public IActionResult Index()
         {
-            _dataSeedService.SeedDb();
+            //_dataSeedService.SeedDb();
 
             return View();
         }

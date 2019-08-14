@@ -34,7 +34,7 @@ namespace Mini_Bank.Models
         public DateTime DateCreated { get; set; } = DateTime.Now;
 
         public int? EditedById { get; set; }
-        public UserModel EditedByUserId { get; set; }
+        public UserModel EditedByUser { get; set; }
         public DateTime? DateEdited { get; set; }
 
         public UserModel(int id, string email, string password, RegistrantModel registrant, bool isAdmin = false)

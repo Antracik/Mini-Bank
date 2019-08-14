@@ -19,7 +19,6 @@ namespace Data
         {
             if(!_bankContext.Countries.Any())
             {
-                int i = 1;
                 var countries = new List<CountryDbRepoModel>
                 {
                     new CountryDbRepoModel { Name = CountryEnum.Countries.Bulgaria.ToString() },
@@ -37,7 +36,6 @@ namespace Data
            
             if(!_bankContext.Status.Any())
             {
-                int i = 1;
                 var statuses = new List<StatusDbRepoModel>
                 {
                     new StatusDbRepoModel {Name = StatusEnum.Status.Okay.ToString()},
@@ -50,7 +48,6 @@ namespace Data
 
             if(!_bankContext.Currency.Any())
             {
-                int i = 1;
                 var currencies = new List<CurrencyDbRepoModel>
                 {
                     new CurrencyDbRepoModel { Name = CurrencyEnum.Currency.BGN.ToString()},
@@ -64,7 +61,6 @@ namespace Data
 
             if(!_bankContext.Users.Any())
             {
-                int i = 1;
                 var users = new List<UserDbRepoModel>
                 {
                     new UserDbRepoModel { Email = "preslav.miroslavov@gmail.com", Password = "totallyAPassword", IsAdmin = true, CreatedById = 1},
@@ -84,7 +80,6 @@ namespace Data
 
             if(!_bankContext.Registrants.Any())
             {
-                int i = 1;
                 var registrants = new List<RegistrantDbRepoModel>
                 {
                     new RegistrantDbRepoModel {FirstName = "Preslav", LastName = "Panayotov", Country = (int)CountryEnum.Countries.Bulgaria, Address = "ul. Street 42", UserId = 1 , CreatedById = 1},
@@ -105,7 +100,6 @@ namespace Data
 
             if(!_bankContext.Wallets.Any())
             {
-                int i = 1;
                 var wallets = new List<WalletDbRepoModel>
                 {
                     new WalletDbRepoModel {Number = 4188, RegistrantId = 1, IsVerified = true, WalletStatusId = (int)StatusEnum.Status.Okay , CreatedById = 1},
@@ -132,7 +126,6 @@ namespace Data
 
             if(!_bankContext.Accounts.Any())
             {
-                int i = 1;
                 var accounts = new List<AccountDbRepoModel>
                 {
                     new AccountDbRepoModel {AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 1, IBAN = "BG27TTBB94008486163628" , CreatedById = 1},
