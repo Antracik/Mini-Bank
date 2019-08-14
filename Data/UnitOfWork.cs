@@ -18,6 +18,11 @@ namespace Data
             _context = context;
         }
 
+        public void SeedDb()
+        {
+            new DataSeeder(_context).SeedDatabase();
+        }
+
         public UnitOfWork Add<T>() where T : class, IBaseModel
         {
             DbRepository<T> repo = new DbRepository<T>(_context);

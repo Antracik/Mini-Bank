@@ -24,6 +24,7 @@ namespace Data.Entities
         [DisplayName("Admin")]
         public bool IsAdmin { get; set; }
 
+        [NotMapped]
         public RegistrantDbRepoModel Registrant { get; set; }
 
         [ForeignKey("CreatedByUser")]

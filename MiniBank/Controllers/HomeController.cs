@@ -4,6 +4,8 @@ using Mini_Bank.Models;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using Services.Models;
+using Data;
+using Services.Services;
 
 namespace Mini_Bank.Controllers
 {
@@ -13,21 +15,23 @@ namespace Mini_Bank.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IMapper _mapper;
         private readonly INomenclatureService _nomenclatureService;
+        private readonly IDataSeedService _dataSeedService;
 
         public HomeController(ILogger<HomeController> logger, 
-                                INomenclatureService nomenclatureService, 
+                                INomenclatureService nomenclatureService,
+                                IDataSeedService dataSeedService,
                                 IMapper mapper)
         {
             _logger = logger;
             _mapper = mapper;
+            _dataSeedService = dataSeedService;
             _nomenclatureService = nomenclatureService;
         }
 
         [HttpGet("/")]
         public IActionResult Index()
         {
-            //DataSeeder seed = new DataSeeder(_bankContext);
-            //seed.SeedDatabase();
+            _dataSeedService.SeedDb();
 
             return View();
         }

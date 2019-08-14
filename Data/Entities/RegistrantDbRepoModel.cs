@@ -28,15 +28,17 @@ namespace Data.Entities
         public string Address { get; set; }
 
         //RELATION
+        [Required]
         [ForeignKey("User")]
-        [Column("UserId")]
         public int UserId { get; set; }
         public UserDbRepoModel User { get; set; }
 
+        [NotMapped]
         public List<WalletDbRepoModel> Wallets { get; set; }
 
-        [ForeignKey("CreatedByUser")]
+        [Required]
         public int CreatedById { get; set; }
+        [ForeignKey("CreatedById")]
         public UserDbRepoModel CreatedByUser { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
 
