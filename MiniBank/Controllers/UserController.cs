@@ -15,15 +15,14 @@ namespace Mini_Bank.Controllers
         private readonly IMapper _mapper;
 
         public UserController(ILogger<AccountController> logger, 
-                            IUserService userService,
-                            IMapper mapper)
+                                IUserService userService,
+                                IMapper mapper)
         {
             _logger = logger;
             _mapper = mapper;
             _userService = userService;
         }
 
-        
         [HttpGet("{id}")]
         public IActionResult DetailsUser(int id)
         {

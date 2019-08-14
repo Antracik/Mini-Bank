@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using Shared;
+using System;
 
 namespace FileRepo.Models
 { 
@@ -27,6 +28,18 @@ namespace FileRepo.Models
         [DisplayName("Admin")]
         [DefaultValue(false)]
         public bool IsAdmin { get; set; }
+
+        [DataMember]
+        public int CreatedById { get; set; }
+
+        [DataMember]
+        public DateTime DateCreated { get; set; }
+
+        [DataMember]
+        public int? EditedById { get; set; }
+
+        [DataMember]
+        public DateTime? DateEdited { get; set; }
 
         public UserRepoModel(int id, string email, string password, bool isAdmin = false)
         {

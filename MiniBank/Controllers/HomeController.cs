@@ -14,7 +14,9 @@ namespace Mini_Bank.Controllers
         private readonly IMapper _mapper;
         private readonly INomenclatureService _nomenclatureService;
 
-        public HomeController(ILogger<HomeController> logger, INomenclatureService nomenclatureService, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, 
+                                INomenclatureService nomenclatureService, 
+                                IMapper mapper)
         {
             _logger = logger;
             _mapper = mapper;

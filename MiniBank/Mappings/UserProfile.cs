@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Mini_Bank.FileRepo.Models;
+using FileRepo.Models;
 using Mini_Bank.Models;
 using Services.Models;
 

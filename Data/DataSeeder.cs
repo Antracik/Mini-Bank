@@ -67,9 +67,9 @@ namespace Data
                 int i = 1;
                 var users = new List<UserDbRepoModel>
                 {
-                    new UserDbRepoModel {Id = i++, Email = "preslav.miroslavov@gmail.com", Password = "totallyAPassword", IsAdmin = true},
-                    new UserDbRepoModel {Id = i++, Email = "stefan.dimitrov@abv.bg", Password = "totallyAPassword", IsAdmin = false},
-                    new UserDbRepoModel {Id = i++, Email = "petar.marchev@mail.bg", Password = "totallyAPassword", IsAdmin = false}
+                    new UserDbRepoModel {Id = i++, Email = "preslav.miroslavov@gmail.com", Password = "totallyAPassword", IsAdmin = true, CreatedById = 1},
+                    new UserDbRepoModel {Id = i++, Email = "stefan.dimitrov@abv.bg", Password = "totallyAPassword", IsAdmin = false, CreatedById = 1},
+                    new UserDbRepoModel {Id = i++, Email = "petar.marchev@mail.bg", Password = "totallyAPassword", IsAdmin = false, CreatedById = 1}
                 };
 
                 using (var transaction = _bankContext.Database.BeginTransaction())
@@ -87,9 +87,9 @@ namespace Data
                 int i = 1;
                 var registrants = new List<RegistrantDbRepoModel>
                 {
-                    new RegistrantDbRepoModel {Id = i++, FirstName = "Preslav", LastName = "Panayotov", Country = (int)CountryEnum.Countries.Bulgaria, Address = "ul. Street 42", UserId = 1},
-                    new RegistrantDbRepoModel {Id = i++, FirstName = "Stefan", LastName = "Dimitrov", Country = (int)CountryEnum.Countries.Germany, Address = "8-mi Primorski", UserId = 2},
-                    new RegistrantDbRepoModel {Id = i++, FirstName = "Petar", LastName = "Marchev", Country = (int)CountryEnum.Countries.France, Address = "Liberman 12", UserId = 3}
+                    new RegistrantDbRepoModel {Id = i++, FirstName = "Preslav", LastName = "Panayotov", Country = (int)CountryEnum.Countries.Bulgaria, Address = "ul. Street 42", UserId = 1 , CreatedById = 1},
+                    new RegistrantDbRepoModel {Id = i++, FirstName = "Stefan", LastName = "Dimitrov", Country = (int)CountryEnum.Countries.Germany, Address = "8-mi Primorski", UserId = 2 , CreatedById = 1},
+                    new RegistrantDbRepoModel {Id = i++, FirstName = "Petar", LastName = "Marchev", Country = (int)CountryEnum.Countries.France, Address = "Liberman 12", UserId = 3 , CreatedById = 1}
                 };
 
                 using (var transaction = _bankContext.Database.BeginTransaction())
@@ -108,15 +108,15 @@ namespace Data
                 int i = 1;
                 var wallets = new List<WalletDbRepoModel>
                 {
-                    new WalletDbRepoModel {Id = i++, Number = 4188, RegistrantId = 1, IsVerified = true, WalletStatusId = (int)StatusEnum.Status.Okay},
-                    new WalletDbRepoModel {Id = i++, Number = 948, RegistrantId = 1, IsVerified = false, WalletStatusId = (int)StatusEnum.Status.Okay},
-                    new WalletDbRepoModel {Id = i++, Number = 9809, RegistrantId = 1, IsVerified = false, WalletStatusId = (int)StatusEnum.Status.Okay},
-                    new WalletDbRepoModel {Id = i++, Number = 9458, RegistrantId = 2, IsVerified = true, WalletStatusId = (int)StatusEnum.Status.Blocked},
-                    new WalletDbRepoModel {Id = i++, Number = 1889, RegistrantId = 2, IsVerified = true, WalletStatusId = (int)StatusEnum.Status.Okay},
-                    new WalletDbRepoModel {Id = i++, Number = 6703, RegistrantId = 2, IsVerified = false, WalletStatusId = (int)StatusEnum.Status.Blocked},
-                    new WalletDbRepoModel {Id = i++, Number = 9890, RegistrantId = 3, IsVerified = true, WalletStatusId = (int)StatusEnum.Status.Okay},
-                    new WalletDbRepoModel {Id = i++, Number = 1018, RegistrantId = 3, IsVerified = false, WalletStatusId = (int)StatusEnum.Status.Okay},
-                    new WalletDbRepoModel {Id = i++, Number = 9066, RegistrantId = 3, IsVerified = true, WalletStatusId = (int)StatusEnum.Status.Blocked},
+                    new WalletDbRepoModel {Id = i++, Number = 4188, RegistrantId = 1, IsVerified = true, WalletStatusId = (int)StatusEnum.Status.Okay , CreatedById = 1},
+                    new WalletDbRepoModel {Id = i++, Number = 948, RegistrantId = 1, IsVerified = false, WalletStatusId = (int)StatusEnum.Status.Okay, CreatedById = 1},
+                    new WalletDbRepoModel {Id = i++, Number = 9809, RegistrantId = 1, IsVerified = false, WalletStatusId = (int)StatusEnum.Status.Okay, CreatedById = 1},
+                    new WalletDbRepoModel {Id = i++, Number = 9458, RegistrantId = 2, IsVerified = true, WalletStatusId = (int)StatusEnum.Status.Blocked, CreatedById = 1},
+                    new WalletDbRepoModel {Id = i++, Number = 1889, RegistrantId = 2, IsVerified = true, WalletStatusId = (int)StatusEnum.Status.Okay, CreatedById = 1},
+                    new WalletDbRepoModel {Id = i++, Number = 6703, RegistrantId = 2, IsVerified = false, WalletStatusId = (int)StatusEnum.Status.Blocked, CreatedById = 1},
+                    new WalletDbRepoModel {Id = i++, Number = 9890, RegistrantId = 3, IsVerified = true, WalletStatusId = (int)StatusEnum.Status.Okay, CreatedById = 1},
+                    new WalletDbRepoModel {Id = i++, Number = 1018, RegistrantId = 3, IsVerified = false, WalletStatusId = (int)StatusEnum.Status.Okay, CreatedById = 1},
+                    new WalletDbRepoModel {Id = i++, Number = 9066, RegistrantId = 3, IsVerified = true, WalletStatusId = (int)StatusEnum.Status.Blocked, CreatedById = 1},
                 };
 
                 using (var transaction = _bankContext.Database.BeginTransaction())
@@ -135,33 +135,33 @@ namespace Data
                 int i = 1;
                 var accounts = new List<AccountDbRepoModel>
                 {
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 1, IBAN = "BG27TTBB94008486163628" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 1, IBAN = "BG77TTBB94006739924496" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 1, IBAN = "BG82BNPA94402678339673" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 2, IBAN = "BG11TTBB94009636993256" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.USD, WalletId = 2, IBAN = "BG84IORT80944383911889" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 2, IBAN = "BG30STSA93001743638279" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 3, IBAN = "BG61TTBB94002569752388" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 3, IBAN = "BG79BNPA94401326493795" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.USD, WalletId = 3, IBAN = "BG71BNPA94403364212612" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 4, IBAN = "BE98798249248593" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 4, IBAN = "BE39519894248419" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 4, IBAN = "BE51999467219162" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 5, IBAN = "BE27812249819173" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 5, IBAN = "BE86549411157550" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 5, IBAN = "BE45999614884989" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 6, IBAN = "BE08735678488413" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 6, IBAN = "BE80978224831777" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 6, IBAN = "BE59549568634626" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 7, IBAN = "DE73500105172747763277" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.USD, WalletId = 7, IBAN = "DE73500105175222722351" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 7, IBAN = "DE19500105179421415465" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 8, IBAN = "DE09500105171626724371" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 8, IBAN = "DE85500105175574577219" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 8, IBAN = "DE66500105177765152229" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.USD, WalletId = 9, IBAN = "DE69500105171238446744" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 9, IBAN = "DE69500105171238446744" },
-                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 9, IBAN = "DE42500105173178734641" },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 1, IBAN = "BG27TTBB94008486163628" , CreatedById = 1},
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 1, IBAN = "BG77TTBB94006739924496", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 1, IBAN = "BG82BNPA94402678339673", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 2, IBAN = "BG11TTBB94009636993256", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.USD, WalletId = 2, IBAN = "BG84IORT80944383911889", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 2, IBAN = "BG30STSA93001743638279", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 3, IBAN = "BG61TTBB94002569752388", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 3, IBAN = "BG79BNPA94401326493795", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.USD, WalletId = 3, IBAN = "BG71BNPA94403364212612", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 4, IBAN = "BE98798249248593", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 4, IBAN = "BE39519894248419", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 4, IBAN = "BE51999467219162", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 5, IBAN = "BE27812249819173", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 5, IBAN = "BE86549411157550", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 5, IBAN = "BE45999614884989", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 6, IBAN = "BE08735678488413", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 6, IBAN = "BE80978224831777", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 6, IBAN = "BE59549568634626", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 7, IBAN = "DE73500105172747763277", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.USD, WalletId = 7, IBAN = "DE73500105175222722351", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 7, IBAN = "DE19500105179421415465", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Blocked, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 8, IBAN = "DE09500105171626724371", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 8, IBAN = "DE85500105175574577219", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.GBP, WalletId = 8, IBAN = "DE66500105177765152229", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.USD, WalletId = 9, IBAN = "DE69500105171238446744", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 9, IBAN = "DE69500105171238446744", CreatedById = 1 },
+                    new AccountDbRepoModel {Id = i++, AccountStatusId = (int)StatusEnum.Status.Okay, CurrencyId = (int)CurrencyEnum.Currency.BGN, WalletId = 9, IBAN = "DE42500105173178734641", CreatedById = 1 },
                 };
                 using (var transaction = _bankContext.Database.BeginTransaction())
                 {

@@ -1,10 +1,11 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Shared;
 
 namespace Mini_Bank.Models
 {
-    public class AccountModel : IBaseModel
+    public class AccountModel : IBaseHistory
     {
         [Key]
         public int Id { get; set; }
@@ -27,7 +28,17 @@ namespace Mini_Bank.Models
         [Required]
         [DisplayName("Account Status")]
         public int AccountStatusId { get; set; } = (int)StatusEnum.Status.Okay;
+
         public StatusModel Status { get; set; }
+
+        public int CreatedById { get; set; } = 1;
+        public UserModel CreatedByUser { get; set; }
+
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+
+        public int? EditedById { get; set; }
+        public UserModel EditedByUserId { get; set; }
+        public DateTime? DateEdited { get; set; }
 
         public AccountModel() { }
     }

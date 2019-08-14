@@ -9,9 +9,9 @@ namespace Data
 { 
     public class UnitOfWork : IDisposable
     { 
-
         private readonly BankContext _context;
-        private readonly List<object> _repos = new List<object>(); 
+        private readonly List<object> _repos = new List<object>();
+        private readonly Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
         public UnitOfWork(BankContext context)
         {
@@ -37,15 +37,14 @@ namespace Data
             return null;
         }
 
-        public int Save()
+        private List<LogEventInfo>  GetEntityChangesLogInfo()
         {
-            Logger _logger = NLog.LogManager.GetCurrentClassLogger();
             List<LogEventInfo> logEventInfos = new List<LogEventInfo>();
             var modifiedEntries = _context.ChangeTracker.Entries();
 
-            foreach(var entry in modifiedEntries)
+            foreach (var entry in modifiedEntries)
             {
-                switch(entry.State)
+                switch (entry.State)
                 {
                     case EntityState.Modified:
                         {
@@ -53,8 +52,8 @@ namespace Data
                             var newItem = entry.Entity;
                             var oldItem = entry.GetDatabaseValues().ToObject();
 
-                            eventInfo.Properties["NewValue"] = newItem;
-                            eventInfo.Properties["OldValue"] = oldItem;
+                            eventInfo.Properties[Constants.mongoNewItemValues] = newItem;
+                            eventInfo.Properties[Constants.mongoOldItemValues] = oldItem;
 
                             logEventInfos.Add(eventInfo);
 
@@ -66,7 +65,7 @@ namespace Data
                             LogEventInfo eventInfo = new LogEventInfo { Level = NLog.LogLevel.Info };
                             var deletedItem = entry.Entity;
 
-                            eventInfo.Properties["DeletedItem"] = deletedItem;
+                            eventInfo.Properties[Constants.mongoDeletedItem] = deletedItem;
 
                             logEventInfos.Add(eventInfo);
 
@@ -78,7 +77,7 @@ namespace Data
                             LogEventInfo eventInfo = new LogEventInfo { Level = NLog.LogLevel.Info };
                             var addedItem = entry.Entity;
 
-                            eventInfo.Properties["AddedItem"] = addedItem;
+                            eventInfo.Properties[Constants.mongoAddedItem] = addedItem;
 
                             logEventInfos.Add(eventInfo);
 
@@ -86,6 +85,13 @@ namespace Data
                         }
                 }
             }
+
+            return logEventInfos;
+        }
+
+        public int Save()
+        {
+            var logEventInfos = GetEntityChangesLogInfo();
 
             int changesCount = _context.SaveChanges();
 

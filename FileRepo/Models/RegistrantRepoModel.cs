@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using Shared;
+using System;
 
 namespace FileRepo.Models
 {
@@ -31,6 +32,21 @@ namespace FileRepo.Models
         //RELATION
         [DataMember]
         public int UserId { get; set; }
+
+        [DataMember]
+        public int WalletId { get; set; }
+
+        [DataMember]
+        public int CreatedById { get; set; }
+
+        [DataMember]
+        public DateTime DateCreated { get; set; }
+
+        [DataMember]
+        public int? EditedById { get; set; }
+
+        [DataMember]
+        public DateTime? DateEdited { get; set; }
 
         public RegistrantRepoModel(int id, string firstName, string lastName, string country, string address, int userId)
         {

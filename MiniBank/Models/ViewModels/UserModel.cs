@@ -1,10 +1,11 @@
 ﻿using Shared;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Mini_Bank.Models
 {
-    public class UserModel : IBaseModel
+    public class UserModel : IBaseHistory
     {
         [Key]
         public int Id { get; set; }
@@ -26,6 +27,15 @@ namespace Mini_Bank.Models
         [DefaultValue(false)]
         public bool IsAdmin { get; set; }
         public RegistrantModel Registrant { get; set; }
+
+        public int CreatedById { get; set; } = 1;
+        public UserModel CreatedByUser { get; set; }
+
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+
+        public int? EditedById { get; set; }
+        public UserModel EditedByUserId { get; set; }
+        public DateTime? DateEdited { get; set; }
 
         public UserModel(int id, string email, string password, RegistrantModel registrant, bool isAdmin = false)
         {

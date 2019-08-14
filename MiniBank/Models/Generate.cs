@@ -1,4 +1,4 @@
-﻿using Mini_Bank.FileRepo.Models;
+﻿using FileRepo.Models;
 using Shared;
 using System;
 using System.Collections.Generic;

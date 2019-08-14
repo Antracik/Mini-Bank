@@ -1,5 +1,6 @@
 ﻿
 using Shared;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities
@@ -12,5 +13,6 @@ namespace Data.Entities
 
         [Column(TypeName = "nvarchar(20)")]
         public string Name { get; set; }
+        
     }
 }

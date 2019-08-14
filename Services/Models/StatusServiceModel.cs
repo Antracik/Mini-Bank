@@ -1,5 +1,6 @@
 ﻿
 using Shared;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Services.Models

@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Shared;
 
 namespace Data.Entities
 {
     [Table("Account")]
-    public class AccountDbRepoModel : IBaseModel
+    public class AccountDbRepoModel : IBaseHistory
     {
         [Key]
         public int Id { get; set; }
@@ -29,6 +30,16 @@ namespace Data.Entities
         [ForeignKey("Wallet")]
         public int WalletId { get; set; }
         public WalletDbRepoModel Wallet { get; set; }
+
+        [ForeignKey("CreatedByUser")]
+        public int CreatedById { get; set; }
+        public UserDbRepoModel CreatedByUser { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+
+        [ForeignKey("EditedByUser")]
+        public int? EditedById { get; set; }
+        public UserDbRepoModel EditedByUser { get; set; }
+        public DateTime? DateEdited { get; set; }
 
         public AccountDbRepoModel() { }
 

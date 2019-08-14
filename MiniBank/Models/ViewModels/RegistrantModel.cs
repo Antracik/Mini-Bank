@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Shared;
 
 namespace Mini_Bank.Models
 {
-    public class RegistrantModel : IBaseModel
+    public class RegistrantModel : IBaseHistory
     {
         [Key]
         public int Id { get; set; }
@@ -33,6 +34,15 @@ namespace Mini_Bank.Models
         public List<WalletModel> Wallets { get; set; }
 
         public int UserId { get; set; }
+
+        public int CreatedById { get; set; } = 1;
+        public UserModel CreatedByUser { get; set; }
+
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+
+        public int? EditedById { get; set; }
+        public UserModel EditedByUserId { get; set; }
+        public DateTime? DateEdited { get; set; }
 
         public RegistrantModel(int id, string firstName, string lastName, int countryId, string address, List<WalletModel> wallets)
         {

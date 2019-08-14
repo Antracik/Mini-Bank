@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using Shared;
+using System;
 
 namespace FileRepo.Models
 {
@@ -28,6 +29,18 @@ namespace FileRepo.Models
         //Relation
         [DataMember]
         public int RegistrantId { get; set; }
+
+        [DataMember]
+        public int CreatedById { get; set; }
+
+        [DataMember]
+        public DateTime DateCreated { get; set; }
+
+        [DataMember]
+        public int? EditedById { get; set; }
+
+        [DataMember]
+        public DateTime? DateEdited { get; set; }
 
         public WalletRepoModel(int id, int number, StatusEnum.Status walletStatus, int registrantId, bool isVerified = false)
         {

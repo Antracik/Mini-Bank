@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
+    <ProjectReference Include="..\FileRepo\FileRepo.csproj" />
+    <ProjectReference Include="..\MongoDb\MongoDb.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 

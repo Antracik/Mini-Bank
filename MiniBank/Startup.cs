@@ -8,7 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mini_Bank.Middleware;
+using Mini_Bank.Models;
+using MongoDb;
 using Services.Models;
+using Services.Services;
+using Shared;
 using System;
 
 namespace Mini_Bank
@@ -36,8 +40,16 @@ namespace Mini_Bank
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.Configure<MongoDbSettings>(options =>
+            {
+                options.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+                options.Database = Configuration.GetSection("MongoConnection:Database").Value;
+            });
             services.AddDbContext<BankContext>
-                (options => options.UseSqlServer(Configuration.GetConnectionString("MiniBankDB")).EnableSensitiveDataLogging());
+                (options =>
+                {
+                    options.UseSqlServer(Configuration.GetConnectionString("MiniBankDB"), b => b.MigrationsAssembly("Mini Bank")).EnableSensitiveDataLogging();
+                });
             services.AddSwaggerGen(setupAction =>
             {
                 setupAction.SwaggerDoc("MiniBankSpecification", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -52,6 +64,8 @@ namespace Mini_Bank
             services.AddScoped(typeof(IAccountService), typeof(AccountService));
             services.AddScoped(typeof(INomenclatureService), typeof(NomenclatureService));
             services.AddScoped(typeof(IDbRepository<>), typeof(DbRepository<>));
+            services.AddScoped(typeof(MongoLoggerService));
+            services.AddTransient(typeof(IMongoRepository), typeof(MongoRepository));
            // services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
             services.AddScoped<UnitOfWork>();
         }

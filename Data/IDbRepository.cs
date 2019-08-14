@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public interface IDbRepository<T> where T : IBaseModel
+    public interface IDbRepository<T> where T : IBaseModel 
     {
         void AddRange(IEnumerable<T> rangeList);
         void AddItem(T item);

@@ -2,11 +2,12 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 using Shared;
+using System;
 
 namespace Data.Entities
 {
     [Table("Registrant")]
-    public class RegistrantDbRepoModel : IBaseModel
+    public class RegistrantDbRepoModel : IBaseHistory
     {
         [Key]
         public int Id { get; set; }
@@ -28,10 +29,21 @@ namespace Data.Entities
 
         //RELATION
         [ForeignKey("User")]
+        [Column("UserId")]
         public int UserId { get; set; }
         public UserDbRepoModel User { get; set; }
 
         public List<WalletDbRepoModel> Wallets { get; set; }
+
+        [ForeignKey("CreatedByUser")]
+        public int CreatedById { get; set; }
+        public UserDbRepoModel CreatedByUser { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+
+        [ForeignKey("EditedByUser")]
+        public int? EditedById { get; set; }
+        public UserDbRepoModel EditedByUser { get; set; }
+        public DateTime? DateEdited { get; set; }
 
         public RegistrantDbRepoModel() {}
     }

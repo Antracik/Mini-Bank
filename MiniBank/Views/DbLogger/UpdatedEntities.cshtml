@@ -1,0 +1,67 @@
+﻿@model List<List<Tuple<string, string, string, string>>>
+@using Shared
+
+@{
+    ViewData["Title"] = "UpdatedEntities";
+}
+
+<h1>UpdatedEntities</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label>Entity Type</label>
+            </th>
+            <th>
+                <label>New Value</label>
+            </th>
+            <th>
+                <label>Old Value</label>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var list in Model)
+        {
+            foreach (var item in list)
+            {
+            <tr>
+                <td>
+                    @item.Item1
+                </td>
+                @if (item.Item4.Equals(Constants.mongoEqualsFalse))
+                {
+                <td bgcolor="#FF0000">
+                    @item.Item2
+                </td>
+                <td bgcolor="#FF0000">
+                    @item.Item3
+                </td>
+                }
+                else
+                {
+                    <td>
+                    @item.Item2
+                </td>
+                <td>
+                    @item.Item3
+                </td>
+                }
+            </tr>
+            }
+            <tr>
+                <td>
+                    ---------
+                </td>
+                <td>
+                    ---------
+                </td>
+                <td>
+                    ---------
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
