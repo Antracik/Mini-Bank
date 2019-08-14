@@ -9,6 +9,7 @@ namespace Data.Entities
     [Table("Registrant")]
     public class RegistrantDbRepoModel : IBaseHistory
     {
+
         [Key]
         public int Id { get; set; }
 
@@ -33,14 +34,12 @@ namespace Data.Entities
         public int UserId { get; set; }
         public UserDbRepoModel User { get; set; }
 
-        [NotMapped]
         public List<WalletDbRepoModel> Wallets { get; set; }
 
-        [Required]
-        public int CreatedById { get; set; }
-        [ForeignKey("CreatedById")]
+        [ForeignKey("CreatedByUser")]
+        public int? CreatedById { get; set; }
         public UserDbRepoModel CreatedByUser { get; set; }
-        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime DateCreated { get; set; }
 
         [ForeignKey("EditedByUser")]
         public int? EditedById { get; set; }

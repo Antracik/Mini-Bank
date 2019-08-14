@@ -31,7 +31,7 @@ namespace Data.Migrations
                     b.Property<decimal>("Balance")
                         .HasColumnType("money");
 
-                    b.Property<int>("CreatedById");
+                    b.Property<int?>("CreatedById");
 
                     b.Property<int>("CurrencyId")
                         .HasColumnName("CurrencyId");
@@ -45,7 +45,8 @@ namespace Data.Migrations
                     b.Property<string>("IBAN")
                         .IsRequired();
 
-                    b.Property<int>("WalletId");
+                    b.Property<int>("WalletId")
+                        .HasColumnName("WalletId");
 
                     b.HasKey("Id");
 
@@ -104,7 +105,7 @@ namespace Data.Migrations
                     b.Property<int>("Country")
                         .HasColumnName("CountryId");
 
-                    b.Property<int>("CreatedById");
+                    b.Property<int?>("CreatedById");
 
                     b.Property<DateTime>("DateCreated");
 
@@ -128,7 +129,8 @@ namespace Data.Migrations
 
                     b.HasIndex("EditedById");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Registrant");
                 });
@@ -154,7 +156,7 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CreatedById");
+                    b.Property<int?>("CreatedById");
 
                     b.Property<DateTime>("DateCreated");
 
@@ -187,7 +189,7 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CreatedById");
+                    b.Property<int?>("CreatedById");
 
                     b.Property<DateTime>("DateCreated");
 
@@ -226,8 +228,7 @@ namespace Data.Migrations
 
                     b.HasOne("Data.Entities.UserDbRepoModel", "CreatedByUser")
                         .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CreatedById");
 
                     b.HasOne("Data.Entities.CurrencyDbRepoModel", "CurrencyRelation")
                         .WithMany()
@@ -241,7 +242,7 @@ namespace Data.Migrations
                     b.HasOne("Data.Entities.WalletDbRepoModel", "Wallet")
                         .WithMany("Accounts")
                         .HasForeignKey("WalletId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Data.Entities.RegistrantDbRepoModel", b =>
@@ -254,16 +255,17 @@ namespace Data.Migrations
                     b.HasOne("Data.Entities.UserDbRepoModel", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Data.Entities.UserDbRepoModel", "EditedByUser")
                         .WithMany()
-                        .HasForeignKey("EditedById");
+                        .HasForeignKey("EditedById")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Data.Entities.UserDbRepoModel", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithOne("Registrant")
+                        .HasForeignKey("Data.Entities.RegistrantDbRepoModel", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Data.Entities.UserDbRepoModel", b =>
@@ -271,28 +273,28 @@ namespace Data.Migrations
                     b.HasOne("Data.Entities.UserDbRepoModel", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Data.Entities.UserDbRepoModel", "EditedByUser")
                         .WithMany()
-                        .HasForeignKey("EditedById");
+                        .HasForeignKey("EditedById")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Data.Entities.WalletDbRepoModel", b =>
                 {
                     b.HasOne("Data.Entities.UserDbRepoModel", "CreatedByUser")
                         .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CreatedById");
 
                     b.HasOne("Data.Entities.UserDbRepoModel", "EditedByUser")
                         .WithMany()
                         .HasForeignKey("EditedById");
 
                     b.HasOne("Data.Entities.RegistrantDbRepoModel", "Registrant")
-                        .WithMany()
+                        .WithMany("Wallets")
                         .HasForeignKey("RegistrantId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Data.Entities.StatusDbRepoModel", "Status")
                         .WithMany()

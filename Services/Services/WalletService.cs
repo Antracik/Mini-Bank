@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Data;
@@ -93,6 +94,8 @@ namespace Services.Models
             _unitOfWork.Add<WalletDbRepoModel>();
             
             var walletEntity = _mapper.Map<WalletDbRepoModel>(wallet);
+
+            walletEntity.DateEdited = DateTime.Now;
 
             _unitOfWork.GetRepository<WalletDbRepoModel>().Update(walletEntity);
             _unitOfWork.Save();

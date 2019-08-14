@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Data;
@@ -92,6 +93,8 @@ namespace Services.Models
             _unitOfWork.Add<RegistrantDbRepoModel>();
             
             var registrantEntity = _mapper.Map<RegistrantDbRepoModel>(registrant);
+
+            registrantEntity.DateEdited = DateTime.Now;
 
             _unitOfWork.GetRepository<RegistrantDbRepoModel>().Update(registrantEntity);
             _unitOfWork.Save();

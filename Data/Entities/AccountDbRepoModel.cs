@@ -28,13 +28,14 @@ namespace Data.Entities
         public StatusDbRepoModel Status { get; set; }
 
         [ForeignKey("Wallet")]
+        [Column("WalletId")]
         public int WalletId { get; set; }
         public WalletDbRepoModel Wallet { get; set; }
 
         [ForeignKey("CreatedByUser")]
-        public int CreatedById { get; set; }
+        public int? CreatedById { get; set; }
         public UserDbRepoModel CreatedByUser { get; set; }
-        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime DateCreated { get; set; }
 
         [ForeignKey("EditedByUser")]
         public int? EditedById { get; set; }

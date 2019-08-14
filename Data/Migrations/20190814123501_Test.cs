@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class History : Migration
+    public partial class Test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,7 +56,7 @@ namespace Data.Migrations
                     Email = table.Column<string>(maxLength: 50, nullable: false),
                     Password = table.Column<string>(maxLength: 50, nullable: false),
                     IsAdmin = table.Column<bool>(nullable: false),
-                    CreatedById = table.Column<int>(nullable: false),
+                    CreatedById = table.Column<int>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     EditedById = table.Column<int>(nullable: true),
                     DateEdited = table.Column<DateTime>(nullable: true)
@@ -89,7 +89,7 @@ namespace Data.Migrations
                     CountryId = table.Column<int>(nullable: false),
                     Address = table.Column<string>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
-                    CreatedById = table.Column<int>(nullable: false),
+                    CreatedById = table.Column<int>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     EditedById = table.Column<int>(nullable: true),
                     DateEdited = table.Column<DateTime>(nullable: true)
@@ -120,7 +120,7 @@ namespace Data.Migrations
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,7 +133,7 @@ namespace Data.Migrations
                     WalletStatusId = table.Column<int>(nullable: false),
                     IsVerified = table.Column<bool>(nullable: false),
                     RegistrantId = table.Column<int>(nullable: false),
-                    CreatedById = table.Column<int>(nullable: false),
+                    CreatedById = table.Column<int>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     EditedById = table.Column<int>(nullable: true),
                     DateEdited = table.Column<DateTime>(nullable: true)
@@ -146,7 +146,7 @@ namespace Data.Migrations
                         column: x => x.CreatedById,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Wallet_User_EditedById",
                         column: x => x.EditedById,
@@ -178,7 +178,7 @@ namespace Data.Migrations
                     CurrencyId = table.Column<int>(nullable: false),
                     StatusId = table.Column<int>(nullable: false),
                     WalletId = table.Column<int>(nullable: false),
-                    CreatedById = table.Column<int>(nullable: false),
+                    CreatedById = table.Column<int>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     EditedById = table.Column<int>(nullable: true),
                     DateEdited = table.Column<DateTime>(nullable: true)
@@ -197,7 +197,7 @@ namespace Data.Migrations
                         column: x => x.CreatedById,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Account_Currency_CurrencyId",
                         column: x => x.CurrencyId,
@@ -261,7 +261,8 @@ namespace Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Registrant_UserId",
                 table: "Registrant",
-                column: "UserId");
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_CreatedById",

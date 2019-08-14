@@ -1,5 +1,6 @@
 ﻿using Shared;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +11,6 @@ namespace Data.Entities
     public class UserDbRepoModel : IBaseHistory
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -24,18 +24,21 @@ namespace Data.Entities
         [DisplayName("Admin")]
         public bool IsAdmin { get; set; }
 
-        [NotMapped]
+        [InverseProperty("User")]
         public RegistrantDbRepoModel Registrant { get; set; }
 
         [ForeignKey("CreatedByUser")]
-        public int CreatedById { get; set; }
+        public int? CreatedById { get; set; }
         public UserDbRepoModel CreatedByUser { get; set; }
-        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime DateCreated { get; set; }
 
         [ForeignKey("EditedByUser")]
         public int? EditedById { get; set; }
         public UserDbRepoModel EditedByUser { get; set; }
         public DateTime? DateEdited { get; set; }
+
+        //public UserDbRepoModel Creator { get; set; }
+        //public UserDbRepoModel Editor { get; set; }
 
         public UserDbRepoModel() { }
 

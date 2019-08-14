@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Data;
 using Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -74,6 +75,8 @@ namespace Services.Models
             _unitOfWork.Add<AccountDbRepoModel>();
            
             var accountEntity = _mapper.Map<AccountDbRepoModel>(account);
+
+            accountEntity.DateEdited = DateTime.Now;
 
             _unitOfWork.GetRepository<AccountDbRepoModel>().Update(accountEntity);
             _unitOfWork.Save();

@@ -31,10 +31,10 @@ namespace Mini_Bank.Models
 
         public StatusModel Status { get; set; }
 
-        public int CreatedById { get; set; } = 1;
+        public int? CreatedById { get; set; } = 1;
         public UserModel CreatedByUser { get; set; }
 
-        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime DateCreated { get; set; }
 
         public int? EditedById { get; set; }
         public UserModel EditedByUser { get; set; }

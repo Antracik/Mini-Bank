@@ -24,7 +24,7 @@ namespace Services.Models
 
         public List<WalletServiceModel> Wallets { get; set; }
 
-        public int CreatedById { get; set; }
+        public int? CreatedById { get; set; }
         public UserServiceModel CreatedByUser { get; set; }
         public DateTime DateCreated { get; set; }
 

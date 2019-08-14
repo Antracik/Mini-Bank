@@ -16,7 +16,7 @@ namespace Services.Models
 
         public RegistrantServiceModel Registrant { get; set; }
 
-        public int CreatedById { get; set; }
+        public int? CreatedById { get; set; }
         public UserServiceModel CreatedByUser { get; set; }
         public DateTime DateCreated { get; set; }
 

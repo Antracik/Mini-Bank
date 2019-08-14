@@ -29,9 +29,9 @@ namespace Data.Entities
         public List<AccountDbRepoModel> Accounts { get; set; }
 
         [ForeignKey("CreatedByUser")]
-        public int CreatedById { get; set; }
+        public int? CreatedById { get; set; }
         public UserDbRepoModel CreatedByUser { get; set; }
-        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime DateCreated { get; set; }
 
         [ForeignKey("EditedByUser")]
         public int? EditedById { get; set; }

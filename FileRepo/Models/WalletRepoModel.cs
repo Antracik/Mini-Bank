@@ -31,7 +31,7 @@ namespace FileRepo.Models
         public int RegistrantId { get; set; }
 
         [DataMember]
-        public int CreatedById { get; set; }
+        public int? CreatedById { get; set; }
 
         [DataMember]
         public DateTime DateCreated { get; set; }
