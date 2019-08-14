@@ -28,9 +28,8 @@ namespace Mini_Bank.Models
         public bool IsAdmin { get; set; }
         public RegistrantModel Registrant { get; set; }
 
-        public int? CreatedById { get; set; } = 1;
+        public int? CreatedById { get; set; }
         public UserModel CreatedByUser { get; set; }
-
         public DateTime DateCreated { get; set; }
 
         public int? EditedById { get; set; }

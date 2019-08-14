@@ -27,7 +27,7 @@ namespace Mini_Bank.Models
 
         public List<AccountModel> Accounts { get; set; }
 
-        public int? CreatedById { get; set; } = 1;
+        public int? CreatedById { get; set; }
         public UserModel CreatedByUser { get; set; }
 
         public DateTime DateCreated { get; set; }

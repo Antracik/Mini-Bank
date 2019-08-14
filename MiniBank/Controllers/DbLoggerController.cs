@@ -24,6 +24,7 @@ namespace Mini_Bank.Controllers
 
         public IActionResult Index()
         {
+            //Code below will be majorly refactored soon(TM)
             var testing = _mongoLoggerService.GetAll();
             var objList = new List<IBaseModel>();
 
