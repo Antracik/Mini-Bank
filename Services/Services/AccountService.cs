@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Data;
 using Data.Entities;
+using Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,13 @@ namespace Services.Models
     {
         private readonly IMapper _mapper;
         private readonly UnitOfWork _unitOfWork;
+        private readonly IDateService _dateService;
 
-        public AccountService(IMapper mapper, UnitOfWork unitOfWork)
+        public AccountService(IMapper mapper, UnitOfWork unitOfWork, IDateService dateService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _dateService = dateService;
         }
 
         public int CreateAccount(AccountServiceModel account)
@@ -24,6 +27,8 @@ namespace Services.Models
             _unitOfWork.Add<AccountDbRepoModel>();
 
             var accountEntity = _mapper.Map<AccountDbRepoModel>(account);
+
+            _dateService.SetDateCreatedNow(ref accountEntity);
 
             _unitOfWork.GetRepository<AccountDbRepoModel>().AddItem(accountEntity);
             _unitOfWork.Save();
@@ -76,7 +81,7 @@ namespace Services.Models
            
             var accountEntity = _mapper.Map<AccountDbRepoModel>(account);
 
-            accountEntity.DateEdited = DateTime.Now;
+            _dateService.SetDateEditedNow(ref accountEntity);
 
             _unitOfWork.GetRepository<AccountDbRepoModel>().Update(accountEntity);
             _unitOfWork.Save();

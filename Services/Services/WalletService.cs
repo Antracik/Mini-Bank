@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Data;
 using Data.Entities;
+using Services.Services;
 
 namespace Services.Models
 {
@@ -11,11 +12,13 @@ namespace Services.Models
     {
         private readonly IMapper _mapper;
         private readonly UnitOfWork _unitOfWork;
+        private readonly IDateService _dateService;
 
-        public WalletService(IMapper mapper, UnitOfWork unitOfWork)
+        public WalletService(IMapper mapper, UnitOfWork unitOfWork, IDateService dateService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _dateService = dateService;
         }
 
         public int CreateWallet(WalletServiceModel wallet)
@@ -25,6 +28,8 @@ namespace Services.Models
             var walletEntity = _mapper.Map<WalletDbRepoModel>(wallet);
 
             walletEntity.RegistrantId = wallet.RegistrantId;
+
+            _dateService.SetDateCreatedNow(ref walletEntity);
 
             _unitOfWork.GetRepository<WalletDbRepoModel>().AddItem(walletEntity);
             _unitOfWork.Save();
@@ -95,7 +100,7 @@ namespace Services.Models
             
             var walletEntity = _mapper.Map<WalletDbRepoModel>(wallet);
 
-            walletEntity.DateEdited = DateTime.Now;
+            _dateService.SetDateEditedNow(ref walletEntity);
 
             _unitOfWork.GetRepository<WalletDbRepoModel>().Update(walletEntity);
             _unitOfWork.Save();

@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Data;
 using Data.Entities;
+using Services.Services;
 
 namespace Services.Models
 {
@@ -11,11 +12,13 @@ namespace Services.Models
     {
         private readonly UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IDateService _dateService;
 
-        public UserService(UnitOfWork unitOfWork, IMapper mapper)
+        public UserService(UnitOfWork unitOfWork, IMapper mapper, IDateService dateService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _dateService = dateService;
         }
 
         public int CreateUser(UserServiceModel user)
@@ -23,6 +26,8 @@ namespace Services.Models
             _unitOfWork.Add<UserDbRepoModel>();
 
             var userEntity = _mapper.Map<UserDbRepoModel>(user);
+
+            _dateService.SetDateCreatedNow(ref userEntity);
 
             _unitOfWork.GetRepository<UserDbRepoModel>().AddItem(userEntity);
             _unitOfWork.Save();
@@ -97,7 +102,7 @@ namespace Services.Models
             
             var userEntity = _mapper.Map<UserDbRepoModel>(user);
 
-            userEntity.DateEdited = DateTime.Now;
+            _dateService.SetDateEditedNow(ref userEntity);
 
             _unitOfWork.GetRepository<UserDbRepoModel>().Update(userEntity);
             _unitOfWork.Save();

@@ -72,7 +72,7 @@ namespace Data
 
                             eventInfo.Properties[Constants.mongoDeletedItem] = deletedItem;
 
-                            logEventInfos.Add(eventInfo);
+                            //logEventInfos.Add(eventInfo);
 
                             break;
                         }
@@ -84,7 +84,7 @@ namespace Data
 
                             eventInfo.Properties[Constants.mongoAddedItem] = addedItem;
 
-                            logEventInfos.Add(eventInfo);
+                            //logEventInfos.Add(eventInfo);
 
                             break;
                         }

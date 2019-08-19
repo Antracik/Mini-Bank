@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Data;
 using Data.Entities;
+using Services.Services;
 
 namespace Services.Models
 {
@@ -11,11 +12,13 @@ namespace Services.Models
     {
         private readonly IMapper _mapper;
         private readonly UnitOfWork _unitOfWork;
+        private readonly IDateService _dateService;
 
-        public RegistrantService(IMapper mapper, UnitOfWork unitOfWork)
+        public RegistrantService(IMapper mapper, UnitOfWork unitOfWork, IDateService dateService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _dateService = dateService;
         }
 
         public int CreateRegistrant(RegistrantServiceModel registrant)
@@ -24,6 +27,8 @@ namespace Services.Models
             _unitOfWork.Add<RegistrantDbRepoModel>();
 
             var registrantEntity = _mapper.Map<RegistrantDbRepoModel>(registrant);
+
+            _dateService.SetDateCreatedNow(ref registrantEntity);
 
             _unitOfWork.GetRepository<RegistrantDbRepoModel>().AddItem(registrantEntity);
             _unitOfWork.Save();
@@ -94,7 +99,7 @@ namespace Services.Models
             
             var registrantEntity = _mapper.Map<RegistrantDbRepoModel>(registrant);
 
-            registrantEntity.DateEdited = DateTime.Now;
+            _dateService.SetDateEditedNow(ref registrantEntity);
 
             _unitOfWork.GetRepository<RegistrantDbRepoModel>().Update(registrantEntity);
             _unitOfWork.Save();

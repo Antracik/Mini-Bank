@@ -67,7 +67,9 @@ namespace Mini_Bank
             services.AddScoped(typeof(IDbRepository<>), typeof(DbRepository<>));
             services.AddScoped(typeof(MongoLoggerService));
             services.AddScoped(typeof(IDataSeedService), typeof(DataSeedService));
+            services.AddScoped(typeof(IDateService), typeof(DateService));
             services.AddTransient(typeof(IMongoRepository), typeof(MongoRepository));
+
            // services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
             services.AddScoped<UnitOfWork>();
         }
