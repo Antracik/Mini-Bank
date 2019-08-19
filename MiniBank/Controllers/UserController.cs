@@ -10,15 +10,12 @@ namespace Mini_Bank.Controllers
     [Route("[controller]/[action]")]
     public class UserController : Controller
     {
-        private readonly ILogger<AccountController> _logger;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public UserController(ILogger<AccountController> logger, 
-                                IUserService userService,
+        public UserController(IUserService userService,
                                 IMapper mapper)
         {
-            _logger = logger;
             _mapper = mapper;
             _userService = userService;
         }

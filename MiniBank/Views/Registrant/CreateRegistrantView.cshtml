@@ -1,5 +1,12 @@
 ﻿@model Mini_Bank.Models.RegistrantModel
 
+@using Mini_Bank.Extensions
+
+@{
+    var countries = TempData.Get<List<CountryModel>>("Countries");
+    TempData.Keep();
+}
+
 @{
     ViewData["Title"] = "CreateRegistrantView";
 }
@@ -11,39 +18,27 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post" asp-action="CreateRegistrant">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="UserId" />
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["FirstName"].Errors.Count > 0)
-                {
-                    <span asp-validation-for="FirstName" class="text-danger">@ViewData.ModelState["FirstName"].Errors[0].ErrorMessage</span>
-                }
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
                 <input asp-for="LastName" class="form-control" />
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["LastName"].Errors.Count > 0)
-                {
-                    <span asp-validation-for="LastName" class="text-danger">@ViewData.ModelState["LastName"].Errors[0].ErrorMessage</span>
-                }
+                <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CountryId" class="control-label"></label>
-                <select asp-for="CountryId" asp-items="@(new SelectList(ViewBag.Countries, "Id","Name"))" class="form-control" ></select>
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Country"].Errors.Count > 0)
-                {
-                    <span asp-validation-for="CountryId" class="text-danger">@ViewData.ModelState["Country"].Errors[0].ErrorMessage</span>
-                }
+                <select asp-for="CountryId" asp-items="@(new SelectList(TempData.Get<List<CountryModel>>("Countries"), "Id","Name"))" class="form-control" ></select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" class="form-control" />
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Address"].Errors.Count > 0)
-                {
-                    <span asp-validation-for="Address" class="text-danger">@ViewData.ModelState["Address"].Errors[0].ErrorMessage</span>
-                }
+                <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -12,20 +12,11 @@ namespace Mini_Bank.Controllers
     [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IMapper _mapper;
-        private readonly INomenclatureService _nomenclatureService;
         private readonly IDataSeedService _dataSeedService;
 
-        public HomeController(ILogger<HomeController> logger, 
-                                INomenclatureService nomenclatureService,
-                                IDataSeedService dataSeedService,
-                                IMapper mapper)
+        public HomeController(IDataSeedService dataSeedService)
         {
-            _logger = logger;
-            _mapper = mapper;
             _dataSeedService = dataSeedService;
-            _nomenclatureService = nomenclatureService;
         }
 
         [HttpGet("/")]

@@ -10,19 +10,13 @@ namespace Mini_Bank.Controllers
     [Route("[controller]/[action]")]
     public class WalletController : Controller
     {
-        private readonly ILogger<WalletController> _logger;
         private readonly IMapper _mapper;
         private readonly IWalletService _walletService;
-        private readonly INomenclatureService _nomenclatureService;
 
-        public WalletController(ILogger<WalletController> logger, 
-                                IWalletService walletService, 
-                                INomenclatureService nomenclatureService,
+        public WalletController(IWalletService walletService, 
                                 IMapper mapper)
         {
-            _logger = logger;
             _mapper = mapper;
-            _nomenclatureService = nomenclatureService;
             _walletService = walletService;
         }
 

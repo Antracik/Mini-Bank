@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mini_Bank.Extensions;
 using Mini_Bank.Models;
 using Services.Models;
 using System.Collections.Generic;
@@ -10,18 +11,14 @@ namespace Mini_Bank.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-
-        private readonly ILogger<AccountController> _logger;
         private readonly IAccountService _accountService;
         private readonly INomenclatureService _nomenclatureService;
         private readonly IMapper _mapper;
 
-        public AccountController(ILogger<AccountController> logger,
-                                IAccountService accountService,
+        public AccountController(IAccountService accountService,
                                 INomenclatureService nomenclatureService,
                                 IMapper mapper)
         {
-            _logger = logger;
             _mapper = mapper;
             _nomenclatureService = nomenclatureService;
             _accountService = accountService;
@@ -60,7 +57,7 @@ namespace Mini_Bank.Controllers
 
             var currenciesModel = _mapper.Map<List<CurrencyModel>>(currenciesServiceModel);
 
-            ViewBag.Currencies = currenciesModel;
+            TempData.Put("Currencies", currenciesModel);
 
             return View(tempAccount);
         }

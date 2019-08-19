@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mini_Bank.Extensions;
 using Mini_Bank.Models;
 using Services.Models;
 
@@ -11,17 +12,14 @@ namespace Mini_Bank.Controllers
     public class RegistrantController : Controller
     {
 
-        private readonly ILogger<HomeController> _logger;
         private readonly IRegistrantService _registrantService;
         private readonly IMapper _mapper;
         private readonly INomenclatureService _nomenclatureService;
 
-        public RegistrantController(ILogger<HomeController> logger, 
-                                    IRegistrantService registrantService, 
+        public RegistrantController(IRegistrantService registrantService, 
                                     INomenclatureService nomenclatureService,
                                     IMapper mapper)
         {
-            _logger = logger;
             _mapper = mapper;
             _nomenclatureService = nomenclatureService;
             _registrantService = registrantService;
@@ -59,7 +57,7 @@ namespace Mini_Bank.Controllers
 
             var countriesModel = _mapper.Map<List<CountryModel>>(countriesServiceModel);
 
-            ViewBag.Countries = countriesModel;
+            TempData.Put("Countries",countriesModel);
 
             return View(registrantModel);
         }
@@ -88,7 +86,7 @@ namespace Mini_Bank.Controllers
             var registrantModel = _mapper.Map<RegistrantModel>(registrantServiceModel);
             var countriesModel = _mapper.Map<List<CountryModel>>(countriesServiceModel);
 
-            ViewBag.Countries = countriesModel;
+            TempData.Put("Countries", countriesModel);
 
             return View(registrantModel);
         }
