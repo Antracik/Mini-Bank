@@ -1,9 +1,14 @@
 ﻿using AutoMapper;
 using Data;
+using Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +19,8 @@ using Services.Models;
 using Services.Services;
 using Shared;
 using System;
+
+///Identity/Account/Login
 
 namespace Mini_Bank
 {
@@ -40,17 +47,41 @@ namespace Mini_Bank
             //var connection = @"Server=DT-VN00321\PPANAYOTOV;Database=Mini_Bank;Trusted_Connection=True;ConnectRetryCount=0";
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                 .RequireAuthenticatedUser()
+                                 .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<MongoDbSettings>(options =>
             {
                 options.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
                 options.Database = Configuration.GetSection("MongoConnection:Database").Value;
             });
+
             services.AddDbContext<BankContext>
                 (options =>
                 {
                     options.UseSqlServer(Configuration.GetConnectionString("MiniBankDB"), b => b.MigrationsAssembly("Mini Bank")).EnableSensitiveDataLogging();
                 });
+
+            // register services at Startup
+            services.AddIdentity<UserDbRepoModel, RoleModel>(options => {
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+            }).AddEntityFrameworkStores<BankContext>()
+              .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
             services.AddSwaggerGen(setupAction =>
             {
                 setupAction.SwaggerDoc("MiniBankSpecification", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -68,9 +99,10 @@ namespace Mini_Bank
             services.AddScoped(typeof(MongoLoggerService));
             services.AddScoped(typeof(IDataSeedService), typeof(DataSeedService));
             services.AddScoped(typeof(IDateService), typeof(DateService));
+            services.AddScoped(typeof(IEmailSender), typeof(EmailSender));
             services.AddTransient(typeof(IMongoRepository), typeof(MongoRepository));
 
-           // services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
+            // services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
             services.AddScoped<UnitOfWork>();
         }
 
@@ -89,7 +121,6 @@ namespace Mini_Bank
             }
 
             app.UseHttpsRedirection();
-            app.UseRequestResponseLoggerMiddleware();
             app.UseSwagger();
             app.UseSwaggerUI(setupAction =>
            {
@@ -97,12 +128,19 @@ namespace Mini_Bank
            });
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            
+            app.UseAuthentication();
+
+            //app.UseRequestResponseLoggerMiddleware();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}");
+
+                routes.MapRoute(
+                   name: "Identity",
+                   template: "{controller=Account}/{action=Login}");
             });
         }
     }

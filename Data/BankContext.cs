@@ -1,16 +1,20 @@
 ﻿using Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
-    public class BankContext : DbContext
+   
+
+    public class BankContext : IdentityDbContext<UserDbRepoModel, RoleModel, int>
     {
         public BankContext(DbContextOptions<BankContext> options)
             : base(options)
         {
         }
 
-        public DbSet<UserDbRepoModel> Users { get; set; }
+        //public DbSet<UserDbRepoModel> Users { get; set; }
         public DbSet<RegistrantDbRepoModel> Registrants { get; set; }
         public DbSet<WalletDbRepoModel> Wallets { get; set; }
         public DbSet<AccountDbRepoModel> Accounts { get; set; }
@@ -20,6 +24,7 @@ namespace Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<UserDbRepoModel>()
             //    .HasOne(p => p.CreatedByUser)
             //    .WithOne();

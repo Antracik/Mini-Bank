@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mini_Bank.Models;
@@ -88,6 +89,7 @@ namespace Mini_Bank.Controllers
             return View(userModel);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult EditUser(UserModel item)
         {
