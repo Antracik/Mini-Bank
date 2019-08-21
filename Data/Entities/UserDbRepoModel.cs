@@ -11,9 +11,6 @@ namespace Data.Entities
     [Table("User")]
     public class UserDbRepoModel : IdentityUser<int>, IBaseHistory
     {
-        [DisplayName("Admin")]
-        public bool IsAdmin { get; set; }
-
         [InverseProperty("User")]
         public RegistrantDbRepoModel Registrant { get; set; }
 

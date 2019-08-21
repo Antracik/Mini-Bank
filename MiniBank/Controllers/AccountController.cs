@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mini_Bank.Extensions;
@@ -24,7 +25,6 @@ namespace Mini_Bank.Controllers
             _accountService = accountService;
         }
 
-        
         [HttpGet]
         public IActionResult DisplayAccounts()
         {

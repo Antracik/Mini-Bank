@@ -29,9 +29,6 @@
                 <label asp-for="@Model.FirstOrDefault().Email"></label>
             </th>
             <th>
-                <label asp-for="@Model.FirstOrDefault().IsAdmin"></label>
-            </th>
-            <th>
                 <label>Options</label>
             </th>
         </tr>
@@ -45,9 +42,6 @@
                 </td>
                 <td>
                     @item.Email
-                </td>
-                <td>
-                    @item.IsAdmin
                 </td>
                 <td>
                     <a asp-controller="User" asp-action="DetailsUser" asp-route-id="@item.Id">Details</a> |

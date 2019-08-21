@@ -64,9 +64,9 @@ namespace Data
             {
                 var users = new List<UserDbRepoModel>
                 {
-                    new UserDbRepoModel { Email = "preslav.miroslavov@gmail.com",  IsAdmin = true , DateCreated = DateTime.Now},
-                    new UserDbRepoModel { Email = "stefan.dimitrov@abv.bg",  IsAdmin = false , DateCreated = DateTime.Now},
-                    new UserDbRepoModel { Email = "petar.marchev@mail.bg",  IsAdmin = false , DateCreated = DateTime.Now}
+                    new UserDbRepoModel { Email = "preslav.miroslavov@gmail.com", DateCreated = DateTime.Now},
+                    new UserDbRepoModel { Email = "stefan.dimitrov@abv.bg", DateCreated = DateTime.Now},
+                    new UserDbRepoModel { Email = "petar.marchev@mail.bg", DateCreated = DateTime.Now}
                 };
 
                 using (var transaction = _bankContext.Database.BeginTransaction())

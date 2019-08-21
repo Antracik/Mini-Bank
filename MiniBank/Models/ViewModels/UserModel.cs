@@ -23,9 +23,6 @@ namespace Mini_Bank.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [DisplayName("Admin Rights")]
-        [DefaultValue(false)]
-        public bool IsAdmin { get; set; }
         public RegistrantModel Registrant { get; set; }
 
         public int? CreatedById { get; set; }
@@ -36,13 +33,12 @@ namespace Mini_Bank.Models
         public UserModel EditedByUser { get; set; }
         public DateTime? DateEdited { get; set; }
 
-        public UserModel(int id, string email, string password, RegistrantModel registrant, bool isAdmin = false)
+        public UserModel(int id, string email, string password, RegistrantModel registrant)
         {
             Id = id;
             Email = email;
             Password = password;
             Registrant = registrant;
-            IsAdmin = isAdmin;
         }
 
         public UserModel()

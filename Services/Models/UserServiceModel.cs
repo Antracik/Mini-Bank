@@ -12,8 +12,6 @@ namespace Services.Models
 
         public string Password { get; set; }
 
-        public bool IsAdmin { get; set; }
-
         public RegistrantServiceModel Registrant { get; set; }
 
         public int? CreatedById { get; set; }

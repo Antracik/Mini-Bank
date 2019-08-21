@@ -25,11 +25,6 @@ namespace FileRepo.Models
         public string Password { get; set; }
 
         [DataMember]
-        [DisplayName("Admin")]
-        [DefaultValue(false)]
-        public bool IsAdmin { get; set; }
-
-        [DataMember]
         public int? CreatedById { get; set; }
 
         [DataMember]
@@ -41,12 +36,11 @@ namespace FileRepo.Models
         [DataMember]
         public DateTime? DateEdited { get; set; }
 
-        public UserRepoModel(int id, string email, string password, bool isAdmin = false)
+        public UserRepoModel(int id, string email, string password)
         {
             Id = id;
             Email = email;
             Password = password;
-            IsAdmin = isAdmin;
         }
 
         public UserRepoModel() { }
