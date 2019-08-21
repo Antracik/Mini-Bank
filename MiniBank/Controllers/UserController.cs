@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mini_Bank.Models;
@@ -31,6 +33,7 @@ namespace Mini_Bank.Controllers
             return View(userModel);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult DisplayUsers()
         {
