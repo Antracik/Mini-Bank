@@ -13,10 +13,11 @@
     </div>
     <div class="form-group">
         <input type="submit" value="Search" class="btn btn-primary" />
+        <a class="btn btn-light" asp-controller="User" asp-action="DisplayUsers">Reset</a>
     </div>
 </form>
 
-<p><a asp-action="CreateUserView">Create User</a></p>
+<p><a asp-area="Identity" asp-page="/Account/Register">Create User</a></p>
 
 @*Should never throw out of bounds exception if at least !ONE! User is present*@
 <table class="table">
@@ -27,6 +28,12 @@
             </th>
             <th>
                 <label asp-for="@Model.FirstOrDefault().Email"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().EmailConfirmed"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().DateCreated"></label>
             </th>
             <th>
                 <label>Options</label>
@@ -42,6 +49,12 @@
                 </td>
                 <td>
                     @item.Email
+                </td>
+                <td>
+                    @item.EmailConfirmed
+                </td>
+                <td>
+                    @item.DateCreated
                 </td>
                 <td>
                     <a asp-controller="User" asp-action="DetailsUser" asp-route-id="@item.Id">Details</a> |

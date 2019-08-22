@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 namespace Mini_Bank.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("[controller]/[action]")]
     public class UserController : Controller
     {
@@ -92,7 +93,6 @@ namespace Mini_Bank.Controllers
             return View(userModel);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult EditUser(UserModel item)
         {

@@ -16,6 +16,9 @@ namespace Mini_Bank.Models
         ErrorMessage = "Please enter a valid email!")]
         public string Email { get; set; }
 
+        [DisplayName("Email Confirmed")]
+        public bool EmailConfirmed { get; set; }
+
         [Required (ErrorMessage = "Password is required!")]
         [StringLength(50, MinimumLength = 8, ErrorMessage ="Password must be AT LEAST 8 characters long")]
         [RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$",
@@ -27,6 +30,7 @@ namespace Mini_Bank.Models
 
         public int? CreatedById { get; set; }
         public UserModel CreatedByUser { get; set; }
+        [DisplayName("Registration Date")]
         public DateTime DateCreated { get; set; }
 
         public int? EditedById { get; set; }
@@ -41,9 +45,6 @@ namespace Mini_Bank.Models
             Registrant = registrant;
         }
 
-        public UserModel()
-        {
-                
-        }
+        public UserModel() { }
     }
 }

@@ -47,6 +47,7 @@ namespace Mini_Bank
             //var connection = @"Server=DT-VN00321\PPANAYOTOV;Database=Mini_Bank;Trusted_Connection=True;ConnectRetryCount=0";
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddMvc(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()
@@ -54,6 +55,7 @@ namespace Mini_Bank
                                  .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
             services.Configure<MongoDbSettings>(options =>
             {
                 options.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
@@ -72,6 +74,8 @@ namespace Mini_Bank
                 options.Password.RequiredUniqueChars = 1;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
+                options.SignIn.RequireConfirmedEmail = true;
+                options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<BankContext>()
               .AddDefaultTokenProviders();
 
@@ -81,6 +85,9 @@ namespace Mini_Bank
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
+
+            services.AddAuthentication()
+                    .AddGoogle();
 
             services.AddSwaggerGen(setupAction =>
             {
@@ -99,9 +106,9 @@ namespace Mini_Bank
             services.AddScoped(typeof(MongoLoggerService));
             services.AddScoped(typeof(IDataSeedService), typeof(DataSeedService));
             services.AddScoped(typeof(IDateService), typeof(DateService));
-            services.AddScoped(typeof(IEmailSender), typeof(EmailSender));
+            services.AddTransient(typeof(IEmailSender), typeof(EmailSender));
+            services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddTransient(typeof(IMongoRepository), typeof(MongoRepository));
-
             // services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
             services.AddScoped<UnitOfWork>();
         }
