@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Services.Services;
 
 namespace Mini_Bank.Areas.Identity.Pages.Account
 {
@@ -18,15 +19,18 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<UserDbRepoModel> _signInManager;
         private readonly UserManager<UserDbRepoModel> _userManager;
+        private readonly IDateService _dateService;
         private readonly ILogger<ExternalLoginModel> _logger;
 
         public ExternalLoginModel(
             SignInManager<UserDbRepoModel> signInManager,
             UserManager<UserDbRepoModel> userManager,
+            IDateService dateService,
             ILogger<ExternalLoginModel> logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _dateService = dateService;
             _logger = logger;
         }
 
@@ -116,6 +120,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new UserDbRepoModel { UserName = Input.Email, Email = Input.Email };
+                _dateService.SetDateCreatedNow(ref user);
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

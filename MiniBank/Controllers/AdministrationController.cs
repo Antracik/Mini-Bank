@@ -213,7 +213,7 @@ namespace Mini_Bank.Controllers
                 }
             }
 
-            //if empty go back to edit role
+            //If empty go back to edit role
             return RedirectToAction("EditRole", "Administration", new { Id = roleId });
         }
     }
