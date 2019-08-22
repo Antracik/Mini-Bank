@@ -86,8 +86,17 @@ namespace Mini_Bank
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
+            //253763515754-u2m1gii1f12olfjae6ic6m8vg3l1i25p.apps.googleusercontent.com
+            //aSmKY6d15qxWtkxKuiZMU3lM
             services.AddAuthentication()
-                    .AddGoogle();
+                    .AddGoogle(options => 
+                    {
+                        IConfigurationSection googleAuthNSection =
+                            Configuration.GetSection("Authentication:Google");
+
+                        options.ClientId = googleAuthNSection["ClientId"];
+                        options.ClientSecret = googleAuthNSection["ClientSecret"];
+                    });
 
             services.AddSwaggerGen(setupAction =>
             {

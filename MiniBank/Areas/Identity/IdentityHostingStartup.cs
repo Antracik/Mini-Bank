@@ -16,9 +16,6 @@ namespace Mini_Bank.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                //services.AddSingleton(typeof(SignInManager<UserDbRepoModel>));
-                //services.AddSingleton(typeof(IUserStore<UserDbRepoModel>));
-                //services.AddSingleton(typeof(UserManager<UserDbRepoModel>));
             });
         }
     }

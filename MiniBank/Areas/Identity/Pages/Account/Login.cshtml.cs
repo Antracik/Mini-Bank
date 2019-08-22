@@ -69,6 +69,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
             {
@@ -92,6 +93,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login credentials.");
+                    ModelState.AddModelError(string.Empty, "If you used an external login to register use it to login and set up a local password from the Account -> Set up Password option");
                     return Page();
                 }
             }
