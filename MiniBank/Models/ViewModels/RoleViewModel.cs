@@ -14,5 +14,8 @@ namespace Mini_Bank.Models.ViewModels
         [DisplayName("Role Name")]
         [Required]
         public string Name { get; set; }
+
+        [DisplayName("Total Users in Role")]
+        public int TotalUsers { get; set; }
     }
 }

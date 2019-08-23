@@ -12,8 +12,6 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Mini_Bank.Middleware;
-using Mini_Bank.Models;
 using MongoDb;
 using Services.Models;
 using Services.Services;
@@ -86,8 +84,6 @@ namespace Mini_Bank
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
-            //253763515754-u2m1gii1f12olfjae6ic6m8vg3l1i25p.apps.googleusercontent.com
-            //aSmKY6d15qxWtkxKuiZMU3lM
             services.AddAuthentication()
                     .AddGoogle(options => 
                     {

@@ -19,7 +19,10 @@
                 <label asp-for="@Model.FirstOrDefault().Name"></label>
             </th>
             <th>
-                <label>Options(Not currently implemented)</label>
+                <label asp-for="@Model.FirstOrDefault().TotalUsers"></label>
+            </th>
+            <th>
+                <label>Options</label>
             </th>
         </tr>
     </thead>
@@ -34,7 +37,10 @@
                 @item.Name
             </td>
             <td>
-                <a asp-controller="Administration" asp-action="DetailsRole" asp-route-Id="@item.Id">Details</a> |
+                @item.TotalUsers
+            </td>
+            <td>
+                @*<a asp-controller="Administration" asp-action="DetailsRole" asp-route-Id="@item.Id">Details</a> |*@
                 <a asp-controller="Administration" asp-action="EditRole" asp-route-Id="@item.Id">Edit</a>
             </td>
         </tr>

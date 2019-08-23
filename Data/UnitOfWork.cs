@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using System.Linq;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Data.Entities;
 
 namespace Data
 { 
@@ -17,6 +19,8 @@ namespace Data
         {
             _context = context;
         }
+
+        public BankContext BankContext { get {return _context; } }
 
         public void SeedDb()
         {

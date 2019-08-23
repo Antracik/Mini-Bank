@@ -62,12 +62,19 @@ namespace Mini_Bank.Controllers
         }
 
         [HttpGet]
-        public IActionResult ListRoles()
+        public async Task<IActionResult> ListRoles()
         {
 
             var roles = _roleManager.Roles.ToList();
 
             var rolesViewModels = _mapper.Map<List<RoleViewModel>>(roles);
+
+            foreach (var role in rolesViewModels)
+            {
+                var res = await _userManager.GetUsersInRoleAsync(role.Name);
+                role.TotalUsers = res.Count;
+            }
+
 
             return View(rolesViewModels);
         }
