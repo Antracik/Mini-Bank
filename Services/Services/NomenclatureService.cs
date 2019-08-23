@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Data;
 using Data.Entities;
+using Services.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Services.Models
+namespace Services.Services
 {
     public class NomenclatureService : INomenclatureService
     {

@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Services.Models;
+using System.Collections.Generic;
 
-namespace Services.Models
+namespace Services.Services
 {
     public interface IWalletService
     {

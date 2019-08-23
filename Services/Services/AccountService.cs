@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using Data;
 using Data.Entities;
+using Services.Models;
 using Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Services.Models
+namespace Services.Services
 {
     public class AccountService : IAccountService
     {

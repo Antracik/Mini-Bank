@@ -4,9 +4,10 @@ using System.Linq;
 using AutoMapper;
 using Data;
 using Data.Entities;
+using Services.Models;
 using Services.Services;
 
-namespace Services.Models
+namespace Services.Services
 {
     public class WalletService : IWalletService
     {

@@ -4,20 +4,32 @@ using System.Linq;
 using AutoMapper;
 using Data;
 using Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Services.Models;
 using Services.Services;
 
-namespace Services.Models
+namespace Services.Services
 {
     public class UserService : IUserService
     {
         private readonly UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly UserManager<UserDbRepoModel> _userManager;
+        private readonly RoleManager<RoleModel> _roleManager;
         private readonly IDateService _dateService;
 
         public UserService(UnitOfWork unitOfWork, IMapper mapper, IDateService dateService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+
+            var userStore = new UserStore<UserDbRepoModel, RoleModel, BankContext, int>(_unitOfWork.BankContext) { AutoSaveChanges = false };
+
+            var roleStore = new RoleStore<RoleModel, BankContext, int>(_unitOfWork.BankContext) { AutoSaveChanges = false };
+
+            var test = roleStore.Roles.ToList();
+
             _dateService = dateService;
         }
 
