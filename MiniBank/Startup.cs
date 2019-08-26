@@ -45,6 +45,7 @@ namespace Mini_Bank
 
             //var connection = @"Server=DT-VN00321\PPANAYOTOV;Database=Mini_Bank;Trusted_Connection=True;ConnectRetryCount=0";
 
+            // register services at Startup
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddMvc(options =>
@@ -67,7 +68,6 @@ namespace Mini_Bank
                     options.UseSqlServer(Configuration.GetConnectionString("MiniBankDB"), b => b.MigrationsAssembly("Mini Bank")).EnableSensitiveDataLogging();
                 });
 
-            // register services at Startup
             services.AddIdentity<UserDbRepoModel, RoleModel>(options => {
                 options.Password.RequiredLength = 8;
                 options.Password.RequiredUniqueChars = 1;
@@ -84,6 +84,8 @@ namespace Mini_Bank
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
+
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddAuthentication()
                     .AddGoogle(options => 
@@ -103,6 +105,8 @@ namespace Mini_Bank
                     Version = "1"
                 });
             });
+
+
             services.AddScoped(typeof(IUserService),typeof(UserService));
             services.AddScoped(typeof(IRegistrantService), typeof(RegistrantService));
             services.AddScoped(typeof(IWalletService), typeof(WalletService));
@@ -113,8 +117,8 @@ namespace Mini_Bank
             services.AddScoped(typeof(IDataSeedService), typeof(DataSeedService));
             services.AddScoped(typeof(IDateService), typeof(DateService));
             services.AddTransient(typeof(IEmailSender), typeof(EmailSender));
-            services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddTransient(typeof(IMongoRepository), typeof(MongoRepository));
+            services.AddScoped(typeof(IAdministrationService), typeof(AdministrationService));
             // services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
             services.AddScoped<UnitOfWork>();
         }
@@ -153,7 +157,7 @@ namespace Mini_Bank
 
                 routes.MapRoute(
                    name: "Identity",
-                   template: "{controller=Account}/{action=Login}");
+                   template: "{area:exists}/{controller=Account}/{action=Login}");
             });
         }
     }

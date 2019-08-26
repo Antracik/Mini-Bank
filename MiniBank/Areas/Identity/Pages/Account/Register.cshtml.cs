@@ -11,29 +11,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Services.Services;
+using Services.Models;
 
 namespace Mini_Bank.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<UserDbRepoModel> _signInManager;
-        private readonly UserManager<UserDbRepoModel> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IDateService _dateService;
         private readonly IEmailSender _emailSender;
+        private readonly IUserService _userService;
 
-        public RegisterModel(
-            UserManager<UserDbRepoModel> userManager,
-            SignInManager<UserDbRepoModel> signInManager,
-            ILogger<RegisterModel> logger,
-            IDateService dateService,
-            IEmailSender emailSender)
+        public RegisterModel(ILogger<RegisterModel> logger,
+                            IUserService userService,
+                            IEmailSender emailSender)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _logger = logger;
-            _dateService = dateService;
+            _userService = userService;
             _emailSender = emailSender;
         }
 
@@ -71,14 +65,14 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new UserDbRepoModel { UserName = Input.Email, Email = Input.Email };
-                _dateService.SetDateCreatedNow(ref user);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                var user = new UserDbRepoModel {UserName =Input.Email,  Email = Input.Email };
+
+                var result = await _userService.CreateUserAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var code = await _userService.GenerateUserEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
@@ -88,12 +82,11 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    if (_userService.IsUserSignedInAsAdmin(User))
                     {
                         return RedirectToAction("DisplayUsers", "User");
                     }
 
-                    //await _signInManager.SignInAsync(user, isPersistent: false);
                     return Redirect("PleaseConfirmEmail");
                 }
                 foreach (var error in result.Errors)

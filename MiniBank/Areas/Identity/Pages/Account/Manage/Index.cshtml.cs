@@ -9,22 +9,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Services.Services;
 
 namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        private readonly UserManager<UserDbRepoModel> _userManager;
-        private readonly SignInManager<UserDbRepoModel> _signInManager;
+        private readonly IUserService _userService;
         private readonly IEmailSender _emailSender;
 
-        public IndexModel(
-            UserManager<UserDbRepoModel> userManager,
-            SignInManager<UserDbRepoModel> signInManager,
-            IEmailSender emailSender)
+        public IndexModel(IUserService userService,
+                            IEmailSender emailSender)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _userService = userService;
             _emailSender = emailSender;
         }
 
@@ -51,15 +48,15 @@ namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userService.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{_userService.GetUserId(User)}'.");
             }
 
-            var userName = await _userManager.GetUserNameAsync(user);
-            var email = await _userManager.GetEmailAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var userName = await _userService.GetUserNameAsync(user);
+            var email = await _userService.GetUserEmailAsync(user);
+            var phoneNumber = await _userService.GetUserPhoneNumberAsync(user);
 
             Username = userName;
 
@@ -69,7 +66,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
                 PhoneNumber = phoneNumber
             };
 
-            IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+            IsEmailConfirmed = await _userService.IsUserEmailConfirmedAsync(user);
 
             return Page();
         }
@@ -81,35 +78,35 @@ namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userService.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{_userService.GetUserId(User)}'.");
             }
 
-            var email = await _userManager.GetEmailAsync(user);
+            var email = await _userService.GetUserEmailAsync(user);
             if (Input.Email != email)
             {
-                var setEmailResult = await _userManager.SetEmailAsync(user, Input.Email);
+                var setEmailResult = await _userService.SetUserEmailAsync(user, Input.Email);
                 if (!setEmailResult.Succeeded)
                 {
-                    var userId = await _userManager.GetUserIdAsync(user);
+                    var userId = await _userService.GetUserIdAsync(user);
                     throw new InvalidOperationException($"Unexpected error occurred setting email for user with ID '{userId}'.");
                 }
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var phoneNumber = await _userService.GetUserPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                var setPhoneResult = await _userService.SetUserPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    var userId = await _userManager.GetUserIdAsync(user);
+                    var userId = await _userService.GetUserIdAsync(user);
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
 
-            await _signInManager.RefreshSignInAsync(user);
+            await _userService.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }
@@ -121,16 +118,16 @@ namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userService.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{_userService.GetUserId(User)}'.");
             }
 
 
-            var userId = await _userManager.GetUserIdAsync(user);
-            var email = await _userManager.GetEmailAsync(user);
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var userId = await _userService.GetUserIdAsync(user);
+            var email = await _userService.GetUserEmailAsync(user);
+            var code = await _userService.GenerateUserEmailConfirmationTokenAsync(user);
             var callbackUrl = Url.Page(
                 "/Account/ConfirmEmail",
                 pageHandler: null,

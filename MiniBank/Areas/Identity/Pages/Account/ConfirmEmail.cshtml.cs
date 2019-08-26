@@ -7,17 +7,18 @@ using Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Services.Services;
 
 namespace Mini_Bank.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ConfirmEmailModel : PageModel
     {
-        private readonly UserManager<UserDbRepoModel> _userManager;
+        private readonly IUserService _userService;
 
-        public ConfirmEmailModel(UserManager<UserDbRepoModel> userManager)
+        public ConfirmEmailModel(IUserService userService)
         {
-            _userManager = userManager;
+            _userService = userService;
         }
 
         public async Task<IActionResult> OnGetAsync(string userId, string code)
@@ -27,13 +28,13 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
                 return RedirectToPage("/Index");
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userService.GetUserByIdAsync(userId);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{userId}'.");
             }
 
-            var result = await _userManager.ConfirmEmailAsync(user, code);
+            var result = await _userService.ConfirmUserEmailAsync(user, code);
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException($"Error confirming email for user with ID '{userId}':");

@@ -7,20 +7,17 @@ using Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Services.Services;
 
 namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
 {
     public class SetPasswordModel : PageModel
     {
-        private readonly UserManager<UserDbRepoModel> _userManager;
-        private readonly SignInManager<UserDbRepoModel> _signInManager;
+        private readonly IUserService _userService;
 
-        public SetPasswordModel(
-            UserManager<UserDbRepoModel> userManager,
-            SignInManager<UserDbRepoModel> signInManager)
+        public SetPasswordModel(IUserService userService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _userService = userService;
         }
 
         [BindProperty]
@@ -45,15 +42,14 @@ namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userService.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{_userService.GetUserId(User)}'.");
             }
 
-            var hasPassword = await _userManager.HasPasswordAsync(user);
 
-            if (hasPassword)
+            if (await _userService.HasPasswordAsync(user))
             {
                 return RedirectToPage("./ChangePassword");
             }
@@ -68,13 +64,13 @@ namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userService.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{_userService.GetUserId(User)}'.");
             }
 
-            var addPasswordResult = await _userManager.AddPasswordAsync(user, Input.NewPassword);
+            var addPasswordResult = await _userService.AddPasswordAsync(user, Input.NewPassword);
             if (!addPasswordResult.Succeeded)
             {
                 foreach (var error in addPasswordResult.Errors)
@@ -84,7 +80,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            await _signInManager.RefreshSignInAsync(user);
+            await _userService.RefreshSignInAsync(user);
             StatusMessage = "Your password has been set.";
 
             return RedirectToPage();

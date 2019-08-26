@@ -1,15 +1,14 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using Services.Services
 @using Data.Entities
-@inject SignInManager<UserDbRepoModel> SignInManager
-@inject UserManager<UserDbRepoModel> UserManager
+@inject IUserService  UserService
 
 <ul class="navbar-nav ml-auto">
-    @if (SignInManager.IsSignedIn(User))
+    @if (UserService.IsSignedIn(User))
     {
         <li class="nav-item dropdown">
             <a class="nav-link text-dark dropdown-toggle" href="#"
                id="navbarDropdownMenuLink" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">Hello @UserManager.GetUserName(User)!</a>
+               aria-haspopup="true" aria-expanded="false">Hello @UserService.GetUserName(User)!</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a asp-area="Identity" asp-page="/Account/Manage/Index" class="dropdown-item">Account</a>
                 <a asp-area="Identity" asp-page="/Account/Manage/SetPassword" class="dropdown-item">Change Password</a>

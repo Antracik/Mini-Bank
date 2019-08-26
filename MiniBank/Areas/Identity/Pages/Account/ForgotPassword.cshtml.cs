@@ -9,18 +9,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Services.Services;
 
 namespace Mini_Bank.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ForgotPasswordModel : PageModel
     {
-        private readonly UserManager<UserDbRepoModel> _userManager;
+        private readonly IUserService _userService;
         private readonly IEmailSender _emailSender;
 
-        public ForgotPasswordModel(UserManager<UserDbRepoModel> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(IUserService userService, 
+                                    IEmailSender emailSender)
         {
-            _userManager = userManager;
+            _userService = userService;
             _emailSender = emailSender;
         }
 
@@ -38,8 +40,8 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(Input.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                var user = await _userService.GetUserByEmailAsync(Input.Email);
+                if (user == null || !(await _userService.IsUserEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return RedirectToPage("./ForgotPasswordConfirmation");
@@ -47,7 +49,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
 
                 // For more information on how to enable account confirmation and password reset please 
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var code = await _userService.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Page(
                     "/Account/ResetPassword",
                     pageHandler: null,

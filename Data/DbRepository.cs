@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Data.Queries;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -14,18 +15,39 @@ using System.Linq.Expressions;
 namespace Data
 {
     public class DbRepository<T> : IDbRepository<T> where T : class, IBaseModel
-    { 
+    {
         private readonly BankContext _bankContext;
+        private readonly DbSet<T> _dbSet;
+        private readonly DbQuery<T> _dbQuery;
+
         //private static readonly Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
         public DbRepository(BankContext bankContext)
         {
             _bankContext = bankContext;
+            if (typeof(T).BaseType == typeof(BaseQuery))
+            {
+                _dbQuery = _bankContext.Query<T>();
+            }
+            else
+            {
+                _dbSet = _bankContext.Set<T>();
+            }
+        }
+
+        public IEnumerable<T> FromSQL(string rawSQL, Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            string includeProperties = "",
+            params object[] parameters)
+        {
+            var query =  _dbQuery.FromSql(rawSQL, parameters);
+
+            return ApplyFiltersInQuerybleObj(query, filter, orderBy, includeProperties);
         }
 
         public void AddItem(T item)
         {
-            _bankContext.Set<T>().Add(item);
+            _dbSet.Add(item);
         }
 
         public void AddRange(IEnumerable<T> rangeList)
@@ -36,7 +58,7 @@ namespace Data
         public void Delete(int id)
         {
             var entity = GetById(id);
-            _bankContext.Set<T>().Remove(entity);
+            _dbSet.Remove(entity);
         }
 
         public IEnumerable<T> Get(Expression<Func<T, bool>> filter = null,
@@ -45,6 +67,23 @@ namespace Data
         {
             IQueryable<T> query = _bankContext.Set<T>().AsNoTracking();
 
+            return ApplyFiltersInQuerybleObj(query, filter, orderBy, includeProperties);
+        }
+
+        public T GetById(int id)
+        {
+            return _dbSet.Find(id);
+        }
+
+        public void Update(T item)
+        {
+            _dbSet.Update(item);
+        }
+
+        private IEnumerable<T> ApplyFiltersInQuerybleObj(IQueryable<T> query, Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            string includeProperties = "")
+        {
             if (filter != null)
             {
                 query = query.Where(filter);
@@ -66,15 +105,6 @@ namespace Data
             }
         }
 
-        public T GetById(int id)
-        {
-            return _bankContext.Set<T>().Find(id);
-        }
-
-        public void Update(T item)
-        {
-            _bankContext.Set<T>().Update(item);
-        }
 
     }
 }

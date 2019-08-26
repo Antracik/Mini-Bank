@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Data;
 using Data.Entities;
+using Data.Queries;
 using Services.Models;
 using Services.Services;
 
@@ -21,6 +22,15 @@ namespace Services.Services
             _unitOfWork = unitOfWork;
             _dateService = dateService;
         }
+
+        //public void AA()
+        //{
+        //    var reep  = _unitOfWork.GetRepository<AllWalletsWithSums>();
+
+        //    var query = new AllWalletsWithSums().GetQuery();
+
+        //    reep.FromSQL(query);
+        //}
 
         public int CreateWallet(WalletServiceModel wallet)
         {

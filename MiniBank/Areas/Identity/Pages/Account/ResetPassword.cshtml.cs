@@ -8,17 +8,18 @@ using Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Services.Services;
 
 namespace Mini_Bank.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ResetPasswordModel : PageModel
     {
-        private readonly UserManager<UserDbRepoModel> _userManager;
+        private readonly IUserService _userService;
 
-        public ResetPasswordModel(UserManager<UserDbRepoModel> userManager)
+        public ResetPasswordModel(IUserService userService)
         {
-            _userManager = userManager;
+            _userService = userService;
         }
 
         [BindProperty]
@@ -66,14 +67,14 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
                 return Page();
             }
 
-            var user = await _userManager.FindByEmailAsync(Input.Email);
+            var user = await _userService.GetUserByEmailAsync(Input.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
 
-            var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
+            var result = await _userService.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
                 return RedirectToPage("./ResetPasswordConfirmation");

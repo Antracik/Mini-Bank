@@ -8,18 +8,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Services.Services;
 
 namespace Mini_Bank.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<UserDbRepoModel> _signInManager;
+        private readonly IUserService _userService;
         private readonly ILogger<LogoutModel> _logger;
 
-        public LogoutModel(SignInManager<UserDbRepoModel> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(IUserService userService,
+                        ILogger<LogoutModel> logger)
         {
-            _signInManager = signInManager;
+            _userService = userService;
             _logger = logger;
         }
 
@@ -29,7 +31,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
-            await _signInManager.SignOutAsync();
+            await _userService.SignOutAsync();
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {

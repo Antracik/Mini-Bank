@@ -1,11 +1,10 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using Services.Services
 @using Data.Entities
-@inject SignInManager<UserDbRepoModel> SignInManager
-@inject UserManager<UserDbRepoModel> UserManager
+@inject IUserService UserService
 
 
 
-@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+@if (UserService.IsUserSignedInAsAdmin(User))
 {
     <li class="nav-item dropdown">
         <a class="nav-link text-dark dropdown-toggle" href="#"

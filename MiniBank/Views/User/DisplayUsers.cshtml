@@ -16,8 +16,8 @@
         <a class="btn btn-light" asp-controller="User" asp-action="DisplayUsers">Reset</a>
     </div>
 </form>
-
-<p><a asp-area="Identity" asp-page="/Account/Register">Create User</a></p>
+<p><a asp-controller="User" asp-action="CreateUserView">Create User</a></p>
+@*<p><a asp-area="Identity" asp-page="/Account/Register">Create User</a></p>*@
 
 @*Should never throw out of bounds exception if at least !ONE! User is present*@
 <table class="table">

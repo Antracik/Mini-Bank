@@ -63,25 +63,28 @@ namespace Mini_Bank.Controllers
             return View("DisplayUsers", userModelList);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult CreateUserView()
         {
-            return View();
+            return RedirectPermanent("../../Identity/Account/Register");
         }
 
         [HttpPost]
         public IActionResult CreateUser(UserModel item)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("CreateUserView", item);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("CreateUserView", item);
+            //}
 
-            var userServiceModel = _mapper.Map<UserServiceModel>(item);
+            //var userServiceModel = _mapper.Map<UserServiceModel>(item);
 
-            int userId = _userService.CreateUser(userServiceModel);
-            
-            return RedirectToAction("DetailsUser", "User", new { id = userId });
+            //int userId = _userService.CreateUser(userServiceModel);
+
+            //return RedirectToAction("DetailsUser", "User", new { id = userId });
+
+            return RedirectPermanent("../../Identity/Account/Register");
         }
 
         [HttpGet("{id}")]

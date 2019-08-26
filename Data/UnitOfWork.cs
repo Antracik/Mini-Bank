@@ -6,6 +6,7 @@ using NLog;
 using System.Linq;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Data.Entities;
+using Data.Queries;
 
 namespace Data
 { 

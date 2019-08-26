@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Mini_Bank.Models;
 using Mini_Bank.Models.ViewModels;
+using Services.Services;
 
 namespace Mini_Bank.Controllers
 {
@@ -16,16 +17,13 @@ namespace Mini_Bank.Controllers
     public class AdministrationController : Controller
     {
 
-        private readonly RoleManager<RoleModel> _roleManager;
-        private readonly UserManager<UserDbRepoModel> _userManager;
+        private readonly IAdministrationService _administraionService;
         private readonly IMapper _mapper;
 
-        public AdministrationController(RoleManager<RoleModel> roleManager,
-                                        UserManager<UserDbRepoModel> userManager,
+        public AdministrationController(IAdministrationService administrationService,
                                         IMapper mapper)
         {
-            _roleManager = roleManager;
-            _userManager = userManager;
+            _administraionService = administrationService;
             _mapper = mapper;
         }
 
@@ -45,7 +43,7 @@ namespace Mini_Bank.Controllers
                     Name = roleViewModel.Name
                 };
 
-                IdentityResult result = await _roleManager.CreateAsync(roleModel);
+                IdentityResult result = await _administraionService.CreateRoleAsync(roleModel);
 
                 if(result.Succeeded)
                 {
@@ -64,17 +62,15 @@ namespace Mini_Bank.Controllers
         [HttpGet]
         public async Task<IActionResult> ListRoles()
         {
-
-            var roles = _roleManager.Roles.ToList();
+            var roles = _administraionService.GetRoles();
 
             var rolesViewModels = _mapper.Map<List<RoleViewModel>>(roles);
 
             foreach (var role in rolesViewModels)
             {
-                var res = await _userManager.GetUsersInRoleAsync(role.Name);
+                var res = await _administraionService.GetUsersInRoleAsync(role.Name);
                 role.TotalUsers = res.Count;
             }
-
 
             return View(rolesViewModels);
         }
@@ -82,7 +78,7 @@ namespace Mini_Bank.Controllers
         [HttpGet]
         public async Task<IActionResult> EditRole(string Id)
         {
-            RoleModel role = await _roleManager.FindByIdAsync(Id);
+            RoleModel role = await _administraionService.FindRoleByIdAsync(Id);
 
             if(role == null)
             {
@@ -91,9 +87,9 @@ namespace Mini_Bank.Controllers
 
             var editRole = _mapper.Map<EditRoleViewModel>(role);
 
-            foreach(var user in _userManager.Users)
+            foreach(var user in _administraionService.GetUsers())
             {
-                if(await _userManager.IsInRoleAsync(user, role.Name))
+                if(await _administraionService.IsUserInRoleAsync(user, role.Name))
                 {
                     editRole.Users.Add(user.UserName);
                 }
@@ -107,7 +103,7 @@ namespace Mini_Bank.Controllers
         {
             int tempId = (int)TempData["id"];
 
-            RoleModel role = await _roleManager.FindByIdAsync(tempId.ToString());
+            RoleModel role = await _administraionService.FindRoleByIdAsync(tempId.ToString());
 
             if (role == null)
             {
@@ -117,7 +113,7 @@ namespace Mini_Bank.Controllers
             {
                 role.Name = model.Name;
 
-                var result = await _roleManager.UpdateAsync(role);
+                var result = await _administraionService.UpdateRoleAsync(role);
                 
                 if(result.Succeeded)
                 {
@@ -142,7 +138,7 @@ namespace Mini_Bank.Controllers
         {
             ViewBag.roleId = roleId;
 
-            var role = await _roleManager.FindByIdAsync(roleId);
+            var role = await _administraionService.FindRoleByIdAsync(roleId);
 
             if(role == null)
             {
@@ -151,7 +147,7 @@ namespace Mini_Bank.Controllers
 
             var models = new List<UserRoleViewModel>();
 
-            foreach(var user in _userManager.Users.ToList())
+            foreach(var user in _administraionService.GetUsers())
             {
                 var userRole = new UserRoleViewModel
                 {
@@ -159,7 +155,7 @@ namespace Mini_Bank.Controllers
                     UserName = user.UserName
                 };
 
-                if( await _userManager.IsInRoleAsync(user, role.Name))
+                if( await _administraionService.IsUserInRoleAsync(user, role.Name))
                 {
                     userRole.IsSelected = true;
                 }
@@ -181,7 +177,7 @@ namespace Mini_Bank.Controllers
         {
             string roleId = TempData["roleId"].ToString();
 
-            var role = await _roleManager.FindByIdAsync(roleId);
+            var role = await _administraionService.FindRoleByIdAsync(roleId);
 
             if(role == null)
             {
@@ -190,17 +186,17 @@ namespace Mini_Bank.Controllers
 
             for(int i = 0; i < models.Count; i++)
             {
-                var user = await _userManager.FindByIdAsync(models[i].UserId.ToString());
+                var user = await _administraionService.FindUserByIdAsync(models[i].UserId.ToString());
 
                 IdentityResult result;
 
-                if(models[i].IsSelected && !(await _userManager.IsInRoleAsync(user,role.Name)))
+                if(models[i].IsSelected && !(await _administraionService.IsUserInRoleAsync(user,role.Name)))
                 {
-                   result = await _userManager.AddToRoleAsync(user, role.Name);
+                   result = await _administraionService.AddUserToRoleAsync(user, role.Name);
                 }
-                else if(!models[i].IsSelected && await _userManager.IsInRoleAsync(user, role.Name))
+                else if(!models[i].IsSelected && await _administraionService.IsUserInRoleAsync(user, role.Name))
                 {
-                   result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+                   result = await _administraionService.RemoveUserFromRoleAsync(user, role.Name);
                 }
                 else
                 {

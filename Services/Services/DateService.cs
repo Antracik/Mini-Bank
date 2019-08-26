@@ -7,6 +7,7 @@ namespace Services.Services
 {
     public class DateService : IDateService
     {
+        public int MyProperty { get; set; }
         public void SetDateCreatedNow<T>(ref T item) where T : IBaseHistory
         {
             item.DateCreated = DateTime.Now;

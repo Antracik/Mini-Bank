@@ -11,25 +11,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Services.Services;
+using Services.Models;
 
 namespace Mini_Bank.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
     {
-        private readonly SignInManager<UserDbRepoModel> _signInManager;
-        private readonly UserManager<UserDbRepoModel> _userManager;
+        private readonly IUserService _userService;
         private readonly IDateService _dateService;
         private readonly ILogger<ExternalLoginModel> _logger;
 
-        public ExternalLoginModel(
-            SignInManager<UserDbRepoModel> signInManager,
-            UserManager<UserDbRepoModel> userManager,
-            IDateService dateService,
-            ILogger<ExternalLoginModel> logger)
+        public ExternalLoginModel(IUserService userService,
+                                IDateService dateService,
+                                ILogger<ExternalLoginModel> logger)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _userService = userService;
             _dateService = dateService;
             _logger = logger;
         }
@@ -60,7 +57,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
         {
             // Request a redirect to the external login provider.
             var redirectUrl = Url.Page("./ExternalLogin", pageHandler: "Callback", values: new { returnUrl });
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            var properties = _userService.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return new ChallengeResult(provider, properties);
         }
 
@@ -72,7 +69,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
                 ErrorMessage = $"Error from external provider: {remoteError}";
                 return RedirectToPage("./Login", new {ReturnUrl = returnUrl });
             }
-            var info = await _signInManager.GetExternalLoginInfoAsync();
+            var info = await _userService.GetExternalLoginInfoAsync();
             if (info == null)
             {
                 ErrorMessage = "Error loading external login information.";
@@ -80,7 +77,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
             }
 
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
+            var result = await _userService.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
             if (result.Succeeded)
             {
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
@@ -110,7 +107,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             // Get the information about the user from the external login provider
-            var info = await _signInManager.GetExternalLoginInfoAsync();
+            var info = await _userService.GetExternalLoginInfoAsync();
             if (info == null)
             {
                 ErrorMessage = "Error loading external login information during confirmation.";
@@ -121,13 +118,13 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
             {
                 var user = new UserDbRepoModel { UserName = Input.Email, Email = Input.Email };
                 _dateService.SetDateCreatedNow(ref user);
-                var result = await _userManager.CreateAsync(user);
+                var result = await _userService.CreateUserAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await _userManager.AddLoginAsync(user, info);
+                    result = await _userService.AddUserLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        await _userService.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         return LocalRedirect(returnUrl);
                     }

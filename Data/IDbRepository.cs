@@ -11,6 +11,10 @@ namespace Data
     {
         void AddRange(IEnumerable<T> rangeList);
         void AddItem(T item);
+        IEnumerable<T> FromSQL(string rawSQL, Expression<Func<T, bool>> filter = null,
+           Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+           string includeProperties = "",
+           params object[] parameters);
         IEnumerable<T> Get(Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "");

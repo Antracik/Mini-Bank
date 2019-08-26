@@ -8,6 +8,8 @@ namespace Services.Models
     {
         public int Id { get; set; }
 
+        public string UserName { get; set; }
+
         public string Email { get;  set; }
 
         public bool EmailConfirmed { get; set; }
@@ -15,6 +17,7 @@ namespace Services.Models
         public string Password { get; set; }
 
         public RegistrantServiceModel Registrant { get; set; }
+        public string SecurityStamp { get; set; }
 
         public int? CreatedById { get; set; }
         public UserServiceModel CreatedByUser { get; set; }
@@ -23,7 +26,6 @@ namespace Services.Models
         public int? EditedById { get; set; }
         public UserServiceModel EditedByUser { get; set; }
         public DateTime? DateEdited { get; set; }
-
         public UserServiceModel() { }
 
     }
