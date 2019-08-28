@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Mini_Bank.Models;
 using Services.Models;
 using Services.Services;
+using X.PagedList;
 
 namespace Mini_Bank.Controllers
 {
@@ -32,13 +33,23 @@ namespace Mini_Bank.Controllers
         }
 
         [HttpGet]
-        public IActionResult DisplayWallets()
+        public IActionResult DisplayWallets(string sortBy = "", int pageIndex = 1 )
         {
-            var walletServiceModels = _walletService.GetAllWallets();
+            ViewBag.CurrentPage = pageIndex;
+            ViewBag.CurrentSort = sortBy;
+
+            ViewBag.IdSort = sortBy.Equals("Id") ? "Id_desc" : "Id";
+            ViewBag.NumberSort = sortBy.Equals("Number") ? "Number_desc" : "Number";
+            ViewBag.WalletStatusSort = sortBy.Equals("WalletStatus") ? "WalletStatus_desc" : "WalletStatus";
+            ViewBag.VerifiedSort = sortBy.Equals("Verified") ? "Verified_desc" : "Verified";
+
+            var walletServiceModels = _walletService.GetAllWallets(sortBy, "");
 
             var walletModels = _mapper.Map<List<WalletModel>>(walletServiceModels);
 
-            return View(walletModels);
+            var pagedModels = walletModels.ToPagedList(pageIndex, 10);
+            
+            return View(pagedModels);
         }
 
         [HttpGet("{id}")]

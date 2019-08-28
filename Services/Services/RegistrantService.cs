@@ -72,6 +72,54 @@ namespace Services.Services
             return registrantModels;
         }
 
+        public IEnumerable<RegistrantServiceModel> GetAllRegistrants(string orderBy, string filterBy)
+        {
+            var repo = _unitOfWork.Add<RegistrantDbRepoModel>().GetRepository<RegistrantDbRepoModel>();
+
+            var registrantEntities = new List<RegistrantDbRepoModel>();
+
+            switch(orderBy)
+            {
+                case "Id":
+                    registrantEntities = repo.Get(null, x => x.OrderBy(y => y.Id), "CountryRelation").ToList();
+                    break;
+                case "Id_desc":
+                    registrantEntities = repo.Get(null, x => x.OrderByDescending(y => y.Id), "CountryRelation").ToList();
+                    break;
+                case "FirstName":
+                    registrantEntities = repo.Get(null, x => x.OrderBy(y => y.FirstName), "CountryRelation").ToList();
+                    break;
+                case "FirstName_desc":
+                    registrantEntities = repo.Get(null, x => x.OrderByDescending(y => y.FirstName), "CountryRelation").ToList();
+                    break;
+                case "LastName":
+                    registrantEntities = repo.Get(null, x => x.OrderBy(y => y.LastName), "CountryRelation").ToList();
+                    break;
+                case "LastName_desc":
+                    registrantEntities = repo.Get(null, x => x.OrderByDescending(y => y.LastName), "CountryRelation").ToList();
+                    break;
+                case "Country":
+                    registrantEntities = repo.Get(null, x => x.OrderBy(y => y.CountryRelation.Name), "CountryRelation").ToList();
+                    break;
+                case "Country_desc":
+                    registrantEntities = repo.Get(null, x => x.OrderByDescending(y => y.CountryRelation.Name), "CountryRelation").ToList();
+                    break;
+                case "Address":
+                    registrantEntities = repo.Get(null, x => x.OrderBy(y => y.Address), "CountryRelation").ToList();
+                    break;
+                case "Address_desc":
+                    registrantEntities = repo.Get(null, x => x.OrderByDescending(y => y.Address), "CountryRelation").ToList();
+                    break;
+                default:
+                    registrantEntities = repo.Get(null, x => x.OrderBy(y => y.Id), "CountryRelation").ToList();
+                    break;
+            }
+
+            var registrantModels = _mapper.Map<List<RegistrantServiceModel>>(registrantEntities);
+
+            return registrantModels;
+        }
+
         public RegistrantServiceModel GetRegistrantById(int id, bool includeWallets = false)
         {
             var registrantEntity = new RegistrantDbRepoModel();

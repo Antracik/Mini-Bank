@@ -1,4 +1,4 @@
-﻿@model List<Mini_Bank.Models.AccountModel>
+﻿@model X.PagedList.PagedList<Mini_Bank.Models.AccountModel>
 
 @{
     ViewData["Title"] = "DisplayAccounts";
@@ -6,26 +6,44 @@
 
 <h3>Accounts in Wallet</h3>
 
+
 @*If wallet does not have any accounts below code should not print*@
 @if (Model.Count > 0)
 {
+    @Html.PagedListPager(Model, pageIndex => Url.Action("DisplayAccounts", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+                                                    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                    {
+                                                        PageClasses = new string[] { "page-link" },
+                                                        LiElementClasses = new string[] { "page-item" },
+                                                        DisplayEllipsesWhenNotShowingAllPageNumbers = false
+                                                    });
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().Id"></label>
+                    <a asp-action="DisplayAccounts" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.IdSort">
+                        <label asp-for="@Model.FirstOrDefault().Id"></label>
+                    </a>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().IBAN"></label>
+                    <a asp-action="DisplayAccounts" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.IBANSort">
+                        <label asp-for="@Model.FirstOrDefault().IBAN"></label>
+                    </a>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().Balance"></label>
+                    <a asp-action="DisplayAccounts" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.BalanceSort">
+                        <label asp-for="@Model.FirstOrDefault().Balance"></label>
+                    </a>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().CurrencyId"></label>
+                    <a asp-action="DisplayAccounts" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.CurrencySort">
+                        <label asp-for="@Model.FirstOrDefault().CurrencyId"></label>
+                    </a>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().AccountStatusId"></label>
+                    <a asp-action="DisplayAccounts" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.AccountStatusSort">
+                        <label asp-for="@Model.FirstOrDefault().AccountStatusId"></label>
+                    </a>
                 </th>
                 <th>
                     <label>Options</label>
@@ -33,31 +51,39 @@
             </tr>
         </thead>
         <tbody>
-    @foreach (var item in Model)
-    {
-            <tr>
-                <td>
-                    @item.Id
-                </td>
-                <td>
-                    @item.IBAN
-                </td>
-                <td>
-                    @item.Balance.ToString("N")
-                </td>
-                <td>
-                    @item.Currency.Name
-                </td>
-                <td>
-                    @item.Status.Name
-                </td>
-                <td>
-                    <a asp-controller="Account" asp-action="DetailsAccount" asp-route-id="@item.Id">Details</a> |
-                    <a asp-controller="Account" asp-action="EditAccountView" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-controller="Account" asp-action="DeleteAccount" asp-route-id="@item.Id">Delete</a> 
-                </td>
-            </tr>
-    }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.IBAN
+                    </td>
+                    <td>
+                        @item.Balance.ToString("N")
+                    </td>
+                    <td>
+                        @item.Currency.Name
+                    </td>
+                    <td>
+                        @item.Status.Name
+                    </td>
+                    <td>
+                        <a asp-controller="Account" asp-action="DetailsAccount" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="Account" asp-action="EditAccountView" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="Account" asp-action="DeleteAccount" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
+    @Html.PagedListPager(Model, pageIndex => Url.Action("DisplayAccounts", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+                                                   new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                   {
+                                                       PageClasses = new string[] { "page-link" },
+                                                       LiElementClasses = new string[] { "page-item" },
+                                                       DisplayEllipsesWhenNotShowingAllPageNumbers = false
+                                                   });
 }
+

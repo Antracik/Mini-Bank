@@ -10,10 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 using Mini_Bank.Models;
 using Mini_Bank.Models.ViewModels;
 using Services.Services;
+using X.PagedList;
 
 namespace Mini_Bank.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [Route("[controller]/[action]")]
     public class AdministrationController : Controller
     {
 
@@ -91,7 +93,7 @@ namespace Mini_Bank.Controllers
             {
                 if(await _administraionService.IsUserInRoleAsync(user, role.Name))
                 {
-                    editRole.Users.Add(user.UserName);
+                    editRole.Users.Add(user.Email);
                 }
             }
 
@@ -152,7 +154,7 @@ namespace Mini_Bank.Controllers
                 var userRole = new UserRoleViewModel
                 {
                     UserId = user.Id,
-                    UserName = user.UserName
+                    UserName = user.Email
                 };
 
                 if( await _administraionService.IsUserInRoleAsync(user, role.Name))
@@ -218,6 +220,25 @@ namespace Mini_Bank.Controllers
 
             //If empty go back to edit role
             return RedirectToAction("EditRole", "Administration", new { Id = roleId });
+        }
+
+        [HttpGet]
+        public IActionResult AllWalletsWithSums(string sortBy = "", int pageIndex = 1)
+        {
+            ViewBag.CurrentPage = pageIndex;
+            ViewBag.CurrentSort = sortBy;
+
+            ViewBag.IdSort = sortBy.Equals("Id") ? "Id_desc" : "Id";
+            ViewBag.ClientNameSort = sortBy.Equals("ClientName") ? "ClientName_desc" : "ClientName";
+            ViewBag.ClientCountrySort = sortBy.Equals("ClientCountry") ? "ClientCountry_desc" : "ClientCountry";
+            ViewBag.BalanceSort = sortBy.Equals("Balance") ? "Balance_desc" : "Balance";
+            ViewBag.CurrencySort = sortBy.Equals("Currency") ? "Currency_desc" : "Currency";
+
+            var test = _administraionService.GetAllWalletsWithSums(sortBy, "");
+
+            var pagedTest = test.ToPagedList(pageIndex, 10);
+
+            return View(pagedTest);
         }
     }
 }

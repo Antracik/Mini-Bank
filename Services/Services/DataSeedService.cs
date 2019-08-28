@@ -14,9 +14,9 @@ namespace Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void SeedDb()
+        public void SeedDb(bool motherOfAllSeeds)
         {
-            _unitOfWork.SeedDb();            
+            _unitOfWork.SeedDb(motherOfAllSeeds);            
         }
     }
 }

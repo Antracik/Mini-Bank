@@ -8,6 +8,8 @@ using Mini_Bank.Models;
 using Services.Models;
 using Services.Services;
 using System.Collections.Generic;
+using System.Linq;
+using X.PagedList;
 
 namespace Mini_Bank.Controllers
 {
@@ -32,35 +34,66 @@ namespace Mini_Bank.Controllers
 
             var userModel = _mapper.Map<UserModel>(userServiceModel);
 
+
             return View(userModel);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult DisplayUsers()
+        public IActionResult DisplayUsers(string filterEmail, string sortBy = "", int pageIndex = 1)
         {
             var userServiceModels = _userService.GetAllUsers();
 
-            var userModels = _mapper.Map<List<UserModel>>(userServiceModels);
+            ViewBag.FilterEmail = filterEmail;
+            ViewBag.CurrentSort = sortBy;
+            ViewBag.CurrentPage = pageIndex;
 
-            return View(userModels);
-        }
+            ViewBag.IdSort = sortBy.Equals("Id") ? "Id_desc" : "Id";
+            ViewBag.DateCreatedSort = sortBy.Equals("DateCreated") ? "DateCreated_desc" : "DateCreated";
+            ViewBag.EmailConfirmedSort = sortBy.Equals("EmailConfirmed") ? "EmailConfirmed_desc" : "EmailConfirmed";
+            ViewBag.EmailSort = sortBy.Equals("Email") ? "Email_desc" : "Email";
 
-        [HttpGet]
-        public IActionResult FilterUser(string email)
-        {
-            var userModelList = new List<UserModel>();
-
-            var userServiceModel = _userService.GetUserByEmail(email);
-
-            var userModel = _mapper.Map<UserModel>(userServiceModel);
-
-            if (userModel != null)
+            if (!string.IsNullOrEmpty(filterEmail))
             {
-                userModelList.Add(userModel);
+                userServiceModels = userServiceModels.Where(x => x.Email.ToUpper().Contains(filterEmail.ToUpper()));
             }
 
-            return View("DisplayUsers", userModelList);
+            switch (sortBy)
+            {
+                case "Id":
+                    userServiceModels = userServiceModels.OrderBy(x => x.Id).ToList();
+                    break;
+                case "Id_desc":
+                    userServiceModels = userServiceModels.OrderByDescending(x => x.Id).ToList();
+                    break;
+                case "DateCreated":
+                    userServiceModels = userServiceModels.OrderBy(x => x.DateCreated).ToList();
+                    break;
+                case "DateCreated_desc":
+                    userServiceModels = userServiceModels.OrderByDescending(x => x.DateCreated).ToList();
+                    break;
+                case "EmailConfirmed":
+                    userServiceModels = userServiceModels.OrderBy(x => x.EmailConfirmed).ToList();
+                    break;
+                case "EmailConfirmed_desc":
+                    userServiceModels = userServiceModels.OrderByDescending(x => x.EmailConfirmed).ToList();
+                    break;
+                case "Email":
+                    userServiceModels = userServiceModels.OrderBy(x => x.Email).ToList();
+                    break;
+                case "Email_desc":
+                    userServiceModels = userServiceModels.OrderByDescending(x => x.Email).ToList();
+                    break;
+                default:
+                    userServiceModels = userServiceModels.OrderBy(x => x.Id).ToList();
+                    break;
+            }
+
+            var userModels = _mapper.Map<List<UserModel>>(userServiceModels);
+
+            var pagedModels = userModels.ToPagedList(pageIndex, 10);
+
+            return View(pagedModels);
         }
 
         [AllowAnonymous]
@@ -100,7 +133,7 @@ namespace Mini_Bank.Controllers
         [HttpPost]
         public IActionResult EditUser(UserModel item)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View("EditUserView", item);
             }
@@ -115,7 +148,7 @@ namespace Mini_Bank.Controllers
         [HttpGet]
         public IActionResult DeleteUser(int id)
         {
-            if(!_userService.DeleteUser(id))
+            if (!_userService.DeleteUser(id))
             {
                 return View("Error", new ErrorViewModel { RequestId = @"Can't delete user with registrant" });
             }

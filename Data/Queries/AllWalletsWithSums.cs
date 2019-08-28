@@ -8,20 +8,26 @@ namespace Data.Queries
     public class AllWalletsWithSums : BaseQuery, IBaseModel
     {
         public int Id { get; set; }
-        public string ClienName { get; set; }
-        public CountryEnum.Countries ClienCountry { get; set; }
-        public double Amount { get; set; }
-        public Shared.CurrencyEnum.Currency Currency { get; set; }
+        public string ClientName { get; set; }
+        public string ClientCountry { get; set; }
+        public decimal Balance { get; set; }
+        public string Currency { get; set; }
     }
-
+    
     public static class AllWalletsWithSumsExtension
     {
         public static string GetQuery(this AllWalletsWithSums item)
         {
-            return @"Select 
-                            ID, ClienName, ClienCountry, Amount, Currency
-                            from ALA BALA";
-
+            return @"SELECT acc.[Id], 
+                        reg.[FirstName] + ' ' + reg.[LastName] AS ClientName, 
+                        cnt.[Name] AS ClientCountry, 
+                        acc.[Balance] , 
+                        cur.[Name] AS Currency
+                        FROM Registrant AS reg
+                        INNER JOIN Wallet AS wal ON wal.RegistrantId = reg.Id
+                        INNER JOIN Account AS acc ON acc.WalletId = wal.Id
+                        INNER JOIN Currency AS cur ON cur.Id = acc.CurrencyId
+                        INNER JOIN Country AS cnt ON cnt.Id = reg.CountryId";
         }
     }
 

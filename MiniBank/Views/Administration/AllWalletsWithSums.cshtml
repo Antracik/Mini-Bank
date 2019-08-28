@@ -1,0 +1,72 @@
+﻿@model X.PagedList.PagedList<Data.Queries.AllWalletsWithSums>
+
+
+@Html.PagedListPager(Model, pageIndex => Url.Action("AllWalletsWithSums", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+                                                    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                    {
+                                                        PageClasses = new string[] { "page-link" },
+                                                        LiElementClasses = new string[] { "page-item" },
+                                                        DisplayEllipsesWhenNotShowingAllPageNumbers = false
+                                                    })
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.IdSort" >
+                        <label asp-for="@Model.FirstOrDefault().Id"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.ClientNameSort" >
+                    <label asp-for="@Model.FirstOrDefault().ClientName"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.ClientCountrySort">
+                    <label asp-for="@Model.FirstOrDefault().ClientCountry"></label>
+                     </a>
+                </th>
+                <th>
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.BalanceSort" >
+                    <label asp-for="@Model.FirstOrDefault().Balance"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.CurrencySort" >
+                    <label asp-for="@Model.FirstOrDefault().Currency"></label>
+                     </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.ClientName
+                    </td>
+                    <td>
+                        @item.ClientCountry
+                    </td>
+                    <td>
+                        @item.Balance.ToString("N")
+                    </td>
+                    <td>
+                        @item.Currency
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@Html.PagedListPager(Model, pageIndex => Url.Action("AllWalletsWithSums", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+                                                    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                    {
+                                                        PageClasses = new string[] { "page-link" },
+                                                        LiElementClasses = new string[] { "page-item" },
+                                                        DisplayEllipsesWhenNotShowingAllPageNumbers = false
+                                                    })

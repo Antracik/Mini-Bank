@@ -1,4 +1,4 @@
-﻿@model List<Mini_Bank.Models.WalletModel>
+﻿@model X.PagedList.PagedList<Mini_Bank.Models.WalletModel>
 
 @{
     ViewData["Title"] = "DisplayWallets";
@@ -6,23 +6,38 @@
 
 <h3>Wallets</h3>
 
-@*Prints only if User has at least !ONE! wallet, otherwise give option to create first wallet (COMING SOON TM)*@
+@*Prints only if User has at least !ONE! wallet, otherwise give option to create first wallet*@
 @if (@Model.Count > 0)
 {
+    @Html.PagedListPager(Model, pageIndex => Url.Action("DisplayWallets", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+                                                new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                {
+                                                    PageClasses = new string[] { "page-link" },
+                                                    LiElementClasses = new string[] { "page-item" },
+                                                    DisplayEllipsesWhenNotShowingAllPageNumbers = false
+                                                })
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().Id"></label>
+                    <a asp-action="DisplayWallets" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.IdSort">
+                        <label asp-for="@Model.FirstOrDefault().Id"></label>
+                    </a>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().Number"></label>
+                    <a asp-action="DisplayWallets" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.NumberSort">
+                        <label asp-for="@Model.FirstOrDefault().Number"></label>
+                    </a>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().WalletStatusId"></label>
+                    <a asp-action="DisplayWallets" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.WalletStatusSort">
+                        <label asp-for="@Model.FirstOrDefault().WalletStatusId"></label>
+                    </a>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().IsVerified"></label>
+                    <a asp-action="DisplayWallets" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.VerifiedSort">
+                        <label asp-for="@Model.FirstOrDefault().IsVerified"></label>
+                    </a>
                 </th>
                 <th>
                     <label>Options</label>
@@ -30,30 +45,37 @@
             </tr>
         </thead>
         <tbody>
-    @foreach (var item in Model)
-    {
-            <tr>
-                <td>
-                    @item.Id
-                </td>
-                <td>
-                    @item.Number
-                </td>
-                <td>
-                    @item.Status.Name
-                </td>
-                <td>
-                    @item.IsVerified
-                </td>
-                <td>
-                    <a asp-controller="Wallet" asp-action="DetailsWallet" asp-route-id=@item.Id>Details</a> |
-                    <a asp-controller="Wallet" asp-action="EditWalletView" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-controller="Wallet" asp-action="DeleteWallet" asp-route-id="@item.Id">Delete</a> 
-                </td>
-            </tr>
-    }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Number
+                    </td>
+                    <td>
+                        @item.Status.Name
+                    </td>
+                    <td>
+                        @item.IsVerified
+                    </td>
+                    <td>
+                        <a asp-controller="Wallet" asp-action="DetailsWallet" asp-route-id=@item.Id>Details</a> |
+                        <a asp-controller="Wallet" asp-action="EditWalletView" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="Wallet" asp-action="DeleteWallet" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
+    @Html.PagedListPager(Model, pageIndex => Url.Action("DisplayWallets", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+                                                new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                {
+                                                    PageClasses = new string[] { "page-link" },
+                                                    LiElementClasses = new string[] { "page-item" },
+                                                    DisplayEllipsesWhenNotShowingAllPageNumbers = false
+                                                })
 }
 else
 {

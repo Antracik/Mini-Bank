@@ -1,4 +1,5 @@
 ﻿using Data.Entities;
+using Data.Queries;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace Data
         public DbSet<CurrencyDbRepoModel> Currency { get; set; }
         public DbSet<CountryDbRepoModel> Countries { get; set; }
         public DbSet<StatusDbRepoModel> Status { get; set; }
+        public DbQuery<AllWalletsWithSums> AllWalletsWithSumsQuery { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

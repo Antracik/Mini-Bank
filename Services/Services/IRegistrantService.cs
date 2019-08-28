@@ -7,6 +7,7 @@ namespace Services.Services
     {
         RegistrantServiceModel GetRegistrantById(int id, bool includeWallets = false);
         IEnumerable<RegistrantServiceModel> GetAllRegistrants();
+        IEnumerable<RegistrantServiceModel> GetAllRegistrants(string orderBy, string filterBy);
         int CreateRegistrant(RegistrantServiceModel registrant);
         void UpdateRegistrant(RegistrantServiceModel registrant);
         int DeleteRegistrant(int id);

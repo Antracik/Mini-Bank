@@ -23,9 +23,9 @@ namespace Data
 
         public BankContext BankContext { get {return _context; } }
 
-        public void SeedDb()
+        public void SeedDb(bool motherOfAllSeeds)
         {
-            new DataSeeder(_context).SeedDatabase();
+            new DataSeeder(_context).SeedDatabase(motherOfAllSeeds);
         }
 
         public UnitOfWork Add<T>() where T : class, IBaseModel

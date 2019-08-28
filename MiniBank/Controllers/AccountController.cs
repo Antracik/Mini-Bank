@@ -7,6 +7,7 @@ using Mini_Bank.Models;
 using Services.Models;
 using Services.Services;
 using System.Collections.Generic;
+using X.PagedList;
 
 namespace Mini_Bank.Controllers
 {
@@ -26,14 +27,25 @@ namespace Mini_Bank.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet]
-        public IActionResult DisplayAccounts()
+        [HttpGet("{pageIndex:int?}")]
+        public IActionResult DisplayAccounts(string sortBy ="", int pageIndex = 1)
         {
-            var accountServiceModel = _accountService.GetAllAccounts();
+            ViewBag.CurrentPage = pageIndex;
+            ViewBag.CurrentSort = sortBy;
+
+            ViewBag.IdSort = sortBy.Equals("Id") ? "Id_desc" : "Id";
+            ViewBag.IBANSort = sortBy.Equals("IBAN") ? "IBAN_desc" : "IBAN";
+            ViewBag.BalanceSort = sortBy.Equals("Balance") ? "Balance_desc" : "Balance";
+            ViewBag.CurrencySort = sortBy.Equals("Currency") ? "Currency_desc" : "Currency";
+            ViewBag.AccountStatusSort = sortBy.Equals("AccountStatus") ? "AccountStatus_desc" : "AccountStatus";
+
+            var accountServiceModel = _accountService.GetAllAccounts(sortBy, "");
 
             var accountModels = _mapper.Map<List<AccountModel>>(accountServiceModel);
 
-           return View(accountModels);
+            var pagedModels = accountModels.ToPagedList(pageIndex, 10);
+
+            return View(pagedModels);
         }
 
         [HttpGet("{id}")]

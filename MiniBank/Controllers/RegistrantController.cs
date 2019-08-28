@@ -6,6 +6,7 @@ using Mini_Bank.Extensions;
 using Mini_Bank.Models;
 using Services.Models;
 using Services.Services;
+using X.PagedList;
 
 namespace Mini_Bank.Controllers
 {
@@ -37,13 +38,24 @@ namespace Mini_Bank.Controllers
         }
 
         [HttpGet]
-        public IActionResult DisplayRegistrants()
+        public IActionResult DisplayRegistrants(string sortBy = "", int pageIndex = 1)
         {
-            var registrantServiceModel = _registrantService.GetAllRegistrants();
+            ViewBag.CurrentPage = pageIndex;
+            ViewBag.CurrentSort = sortBy;
+
+            ViewBag.IdSort = sortBy.Equals("Id") ? "Id_desc" : "Id";
+            ViewBag.FirstNameSort = sortBy.Equals("FirstName") ? "FirstName_desc" : "FirstName";
+            ViewBag.LastNameSort = sortBy.Equals("LastName") ? "LastName_desc" : "LastName";
+            ViewBag.CountrySort = sortBy.Equals("Country") ? "Country_desc" : "Country";
+            ViewBag.AddressSort = sortBy.Equals("Address") ? "Address_desc" : "Address";
+
+            var registrantServiceModel = _registrantService.GetAllRegistrants(sortBy, "");
 
             var registrantModels = _mapper.Map<List<RegistrantModel>>(registrantServiceModel);
 
-            return View(registrantModels);
+            var pagedModels = registrantModels.ToPagedList(pageIndex, 10);
+
+            return View(pagedModels);
         }
 
         [HttpGet("{id}")]

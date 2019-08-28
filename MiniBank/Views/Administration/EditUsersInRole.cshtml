@@ -13,11 +13,11 @@
             @for(int i = 0; i < Model.Count; i++)
             {
                 <div class="form-group">
-                    <div class="form-check">
+                    <div class="custom-control custom-checkbox">
                         <input type="hidden" asp-for="@Model[i].UserId" />
                         <input type="hidden" asp-for="@Model[i].UserName" />
-                        <input asp-for="@Model[i].IsSelected" class="form-check-input" />
-                        <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                        <input asp-for="@Model[i].IsSelected" class="custom-control-input" />
+                        <label class="custom-control-label" asp-for="@Model[i].IsSelected">
                             @Model[i].UserName
                         </label>
                     </div>

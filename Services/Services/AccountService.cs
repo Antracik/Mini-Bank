@@ -76,6 +76,54 @@ namespace Services.Services
             return accountModels;
         }
 
+        public IEnumerable<AccountServiceModel> GetAllAccounts(string orderBy, string filter)
+        {
+            var repo =  _unitOfWork.Add<AccountDbRepoModel>().GetRepository<AccountDbRepoModel>();
+
+            var accountEntities = new List<AccountDbRepoModel>();
+
+            switch(orderBy)
+            {
+                case "Id":
+                    accountEntities = repo.Get(null, x => x.OrderBy(y => y.Id), "Status,CurrencyRelation").ToList();
+                    break;
+                case "Id_desc":
+                    accountEntities = repo.Get(null, x => x.OrderByDescending(y => y.Id), "Status,CurrencyRelation").ToList();
+                    break;
+                case "IBAN":
+                    accountEntities = repo.Get(null, x => x.OrderBy(y => y.IBAN), "Status,CurrencyRelation").ToList();
+                    break;
+                case "IBAN_desc":
+                    accountEntities = repo.Get(null, x => x.OrderByDescending(y => y.IBAN), "Status,CurrencyRelation").ToList();
+                    break;
+                case "Balance":
+                    accountEntities = repo.Get(null, x => x.OrderBy(y => y.Balance), "Status,CurrencyRelation").ToList();
+                    break;
+                case "Balance_desc":
+                    accountEntities = repo.Get(null, x => x.OrderByDescending(y => y.Balance), "Status,CurrencyRelation").ToList();
+                    break;
+                case "Currency":
+                    accountEntities = repo.Get(null, x => x.OrderBy(y => y.CurrencyRelation.Name), "Status,CurrencyRelation").ToList();
+                    break;
+                case "Currency_desc":
+                    accountEntities = repo.Get(null, x => x.OrderByDescending(y => y.CurrencyRelation.Name), "Status,CurrencyRelation").ToList();
+                    break;
+                case "AccountStatus":
+                    accountEntities = repo.Get(null, x => x.OrderBy(y => y.Status.Name), "Status,CurrencyRelation").ToList();
+                    break;
+                case "AccountStatus_desc":
+                    accountEntities = repo.Get(null, x => x.OrderByDescending(y => y.Status.Name), "Status,CurrencyRelation").ToList();
+                    break;
+                default:
+                    accountEntities = repo.Get(null, x => x.OrderBy(y => y.Id), "Status,CurrencyRelation").ToList();
+                    break;
+            }
+
+            var accountModels = _mapper.Map<List<AccountServiceModel>>(accountEntities);
+
+            return accountModels;
+        }
+
         public void UpdateAccount(AccountServiceModel account)
         {
             _unitOfWork.Add<AccountDbRepoModel>();

@@ -6,6 +6,6 @@ namespace Services.Services
 {
     public interface IDataSeedService
     {
-        void SeedDb();
+        void SeedDb(bool motherOfAllSeeds = false);
     }
 }

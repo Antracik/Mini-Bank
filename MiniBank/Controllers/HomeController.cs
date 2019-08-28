@@ -9,6 +9,9 @@ using Data;
 using Services.Services;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Data.Queries;
+using System.Linq;
+using Shared;
 
 namespace Mini_Bank.Controllers
 {
@@ -17,15 +20,28 @@ namespace Mini_Bank.Controllers
     {
         private readonly IDataSeedService _dataSeedService;
 
-        public HomeController(IDataSeedService dataSeedService)
+        // testing, remove later//
+        private readonly UnitOfWork _unitOfWork;
+
+        public HomeController(IDataSeedService dataSeedService, UnitOfWork unitOfWork)
         {
             _dataSeedService = dataSeedService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet("/")]
         public IActionResult Index()
         {
             //_dataSeedService.SeedDb();
+
+            _unitOfWork.Add<AllWalletsWithSums>();
+
+            var walletsWithSums = new AllWalletsWithSums();
+
+            var test = _unitOfWork.GetRepository<AllWalletsWithSums>().
+                                    FromSQL(walletsWithSums.GetQuery(), x => x.Currency.Equals(CurrencyEnum.Currency.BGN.ToString()),
+                                            z => z.OrderBy(y => y.ClientName))
+                                    .ToList();
 
             return View();
         }

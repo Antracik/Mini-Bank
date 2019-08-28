@@ -23,15 +23,6 @@ namespace Services.Services
             _dateService = dateService;
         }
 
-        //public void AA()
-        //{
-        //    var reep  = _unitOfWork.GetRepository<AllWalletsWithSums>();
-
-        //    var query = new AllWalletsWithSums().GetQuery();
-
-        //    reep.FromSQL(query);
-        //}
-
         public int CreateWallet(WalletServiceModel wallet)
         {
             _unitOfWork.Add<WalletDbRepoModel>();
@@ -73,10 +64,51 @@ namespace Services.Services
 
         public IEnumerable<WalletServiceModel> GetAllWallets()
         {
-
             _unitOfWork.Add<WalletDbRepoModel>();
             
             var walletEntities = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(null, null, "Status").ToList();
+
+            var walletModels = _mapper.Map<List<WalletServiceModel>>(walletEntities);
+
+            return walletModels;
+        }
+
+        public IEnumerable<WalletServiceModel> GetAllWallets(string orderBy, string filter)
+        {
+            var repo = _unitOfWork.Add<WalletDbRepoModel>().GetRepository<WalletDbRepoModel>();
+
+            var walletEntities = new List<WalletDbRepoModel>();
+
+            switch(orderBy)
+            {
+                case "Id":
+                    walletEntities = repo.Get(null, x => x.OrderBy(y => y.Id), "Status").ToList();
+                    break;
+                case "Id_desc":
+                    walletEntities = repo.Get(null, x => x.OrderByDescending(y => y.Id), "Status").ToList();
+                    break;
+                case "Number":
+                    walletEntities = repo.Get(null, x => x.OrderBy(y => y.Number), "Status").ToList();
+                    break;
+                case "Number_desc":
+                    walletEntities = repo.Get(null, x => x.OrderByDescending(y => y.Number), "Status").ToList();
+                    break;
+                case "WalletStatus":
+                    walletEntities = repo.Get(null, x => x.OrderBy(y => y.Status), "Status").ToList();
+                    break;
+                case "WalletStatus_desc":
+                    walletEntities = repo.Get(null, x => x.OrderByDescending(y => y.Status), "Status").ToList();
+                    break;
+                case "Verified":
+                    walletEntities = repo.Get(null, x => x.OrderBy(y => y.IsVerified), "Status").ToList();
+                    break;
+                case "Verified_desc":
+                    walletEntities = repo.Get(null, x => x.OrderByDescending(y => y.IsVerified), "Status").ToList();
+                    break;
+                default:
+                    walletEntities = repo.Get(null, x => x.OrderBy(y => y.Id), "Status").ToList();
+                    break;
+            }
 
             var walletModels = _mapper.Map<List<WalletServiceModel>>(walletEntities);
 

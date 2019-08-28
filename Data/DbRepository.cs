@@ -65,7 +65,7 @@ namespace Data
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<T> query = _bankContext.Set<T>().AsNoTracking();
+            IQueryable<T> query = _dbSet.AsNoTracking();
 
             return ApplyFiltersInQuerybleObj(query, filter, orderBy, includeProperties);
         }

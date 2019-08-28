@@ -1,7 +1,10 @@
 ﻿using Data.Entities;
+using Data.Queries;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,5 +22,6 @@ namespace Services.Services
         Task<IdentityResult> UpdateRoleAsync(RoleModel role);
         Task<IdentityResult> AddUserToRoleAsync(UserDbRepoModel user, string roleName);
         Task<IdentityResult> RemoveUserFromRoleAsync(UserDbRepoModel user, string roleName);
+        IEnumerable<AllWalletsWithSums> GetAllWalletsWithSums(string orderBy, string filter);
     }
 }

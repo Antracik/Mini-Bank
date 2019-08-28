@@ -1,4 +1,4 @@
-﻿@model List<Mini_Bank.Models.RegistrantModel>
+﻿@model X.PagedList.PagedList<Mini_Bank.Models.RegistrantModel>
 
 @{
     ViewData["Title"] = "DisplayRegistrants";
@@ -8,23 +8,41 @@
 
 @if (Model.Any())
 {
-    <table class="table">
+    @Html.PagedListPager(Model, pageIndex => Url.Action("DisplayRegistrants", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+                                                    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                    {
+                                                        PageClasses = new string[] { "page-link" },
+                                                        LiElementClasses = new string[] { "page-item" },
+                                                        DisplayEllipsesWhenNotShowingAllPageNumbers = false
+                                                    })
+
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().Id"></label>
+                    <a asp-action="DisplayRegistrants" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.IdSort">
+                        <label asp-for="@Model.FirstOrDefault().Id"></label>
+                    </a>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().FirstName"></label>
+                    <a asp-action="DisplayRegistrants" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.FirstNameSort">
+                        <label asp-for="@Model.FirstOrDefault().FirstName"></label>
+                    </a>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().LastName"></label>
+                    <a asp-action="DisplayRegistrants" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.LastNameSort">
+                        <label asp-for="@Model.FirstOrDefault().LastName"></label>
+                    </a>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().CountryId"></label>
+                    <a asp-action="DisplayRegistrants" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.CountrySort">
+                        <label asp-for="@Model.FirstOrDefault().CountryId"></label>
+                    </a>
                 </th>
                 <th>
-                    <label asp-for="@Model.FirstOrDefault().Address"></label>
+                    <a asp-action="DisplayRegistrants" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.AddressSort">
+                        <label asp-for="@Model.FirstOrDefault().Address"></label>
+                    </a>
                 </th>
                 <th>
                     <label>Options</label>
@@ -58,6 +76,13 @@
             }
         </tbody>
     </table>
+    @Html.PagedListPager(Model, pageIndex => Url.Action("DisplayRegistrants", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+                                                new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                {
+                                                    PageClasses = new string[] { "page-link" },
+                                                    LiElementClasses = new string[] { "page-item" },
+                                                    DisplayEllipsesWhenNotShowingAllPageNumbers = false
+                                                })
 }
 else
 {
