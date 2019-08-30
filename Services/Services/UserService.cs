@@ -83,6 +83,54 @@ namespace Services.Services
             return userModels;
         }
 
+        public IEnumerable<UserServiceModel> GetAllUsers(string orderBy, string filter)
+        {
+
+            var repo = _unitOfWork.Add<UserDbRepoModel>().GetRepository<UserDbRepoModel>();
+
+            var userEntities = repo.Get();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                userEntities = userEntities.Where(x => x.Email.ToUpper().Contains(filter.ToUpper())).ToList();
+            }
+
+            switch (orderBy)
+            {
+                case "Id":
+                    userEntities = userEntities.OrderBy(x => x.Id).ToList();
+                    break;
+                case "Id_desc":
+                    userEntities = userEntities.OrderByDescending(x => x.Id).ToList();
+                    break;
+                case "DateCreated":
+                    userEntities = userEntities.OrderBy(x => x.DateCreated).ToList();
+                    break;
+                case "DateCreated_desc":
+                    userEntities = userEntities.OrderByDescending(x => x.DateCreated).ToList();
+                    break;
+                case "EmailConfirmed":
+                    userEntities = userEntities.OrderBy(x => x.EmailConfirmed).ToList();
+                    break;
+                case "EmailConfirmed_desc":
+                    userEntities = userEntities.OrderByDescending(x => x.EmailConfirmed).ToList();
+                    break;
+                case "Email":
+                    userEntities = userEntities.OrderBy(x => x.Email).ToList();
+                    break;
+                case "Email_desc":
+                    userEntities = userEntities.OrderByDescending(x => x.Email).ToList();
+                    break;
+                default:
+                    userEntities = userEntities.OrderBy(x => x.Id).ToList();
+                    break;
+            }
+
+             var userModels = _mapper.Map<List<UserServiceModel>>(userEntities);
+
+            return userModels;
+        }
+
         public UserServiceModel GetUserByEmail(string email)
         {
             _unitOfWork.Add<UserDbRepoModel>();
@@ -331,5 +379,7 @@ namespace Services.Services
         {
             return _signInManager.IsSignedIn(principal);
         }
+
+      
     }
 }

@@ -93,6 +93,54 @@ namespace Mini_Bank.Migrations
                     b.ToTable("Currency");
                 });
 
+            modelBuilder.Entity("Data.Entities.FileDescriptorEntityModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CreatedById");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateEdited");
+
+                    b.Property<int?>("EditedById");
+
+                    b.Property<string>("FileExtension");
+
+                    b.Property<int>("FileId");
+
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("UniqueFileName")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("EditedById");
+
+                    b.HasIndex("FileId")
+                        .IsUnique();
+
+                    b.ToTable("FileDescriptor");
+                });
+
+            modelBuilder.Entity("Data.Entities.FileEntityModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Data");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Files");
+                });
+
             modelBuilder.Entity("Data.Entities.RegistrantDbRepoModel", b =>
                 {
                     b.Property<int>("Id")
@@ -382,6 +430,22 @@ namespace Mini_Bank.Migrations
                         .WithMany("Accounts")
                         .HasForeignKey("WalletId")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Data.Entities.FileDescriptorEntityModel", b =>
+                {
+                    b.HasOne("Data.Entities.UserDbRepoModel", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.HasOne("Data.Entities.UserDbRepoModel", "EditedByUser")
+                        .WithMany()
+                        .HasForeignKey("EditedById");
+
+                    b.HasOne("Data.Entities.FileEntityModel", "File")
+                        .WithOne("Descriptor")
+                        .HasForeignKey("Data.Entities.FileDescriptorEntityModel", "FileId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Data.Entities.RegistrantDbRepoModel", b =>

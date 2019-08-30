@@ -21,6 +21,7 @@ namespace Services.Services
         UserServiceModel GetUserById(int id, bool includeRegistrant = false);
         AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
         IEnumerable<UserServiceModel> GetAllUsers();
+        IEnumerable<UserServiceModel> GetAllUsers(string orderBy, string filter);
         Task SignOutAsync();
         Task ForgetTwoFactorClientAsync();
         Task SignInAsync(UserDbRepoModel user, bool isPersistent);

@@ -1,0 +1,30 @@
+﻿@model Mini_Bank.Models.ViewModels.UploadImageViewModel
+
+<h4>UploadImageViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form method="post" enctype="multipart/form-data" asp-action="UploadPhoto">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="input-group">
+                <div class="custom-file">
+                    <input asp-for="@Model.Photo" class="form-control custom-file-input" />
+                    <label class="custom-file-label">Choose file!</label>
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Upload</button>
+                </div>
+            </div>
+            @section Scripts{ 
+                <script>
+                    $(document).ready(function () {
+                        $('.custom-file-input').on("change", function () {
+                            var fileName = $(this).val().split("\\").pop();
+                            $(this).next('.custom-file-label').html(fileName);
+                        })
+                    });
+                </script>
+            }
+        </form>
+    </div>
+</div>

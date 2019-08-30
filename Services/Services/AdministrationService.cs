@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -8,6 +9,7 @@ using Data;
 using Data.Entities;
 using Data.Queries;
 using Microsoft.AspNetCore.Identity;
+using Services.Models;
 
 namespace Services.Services
 {
@@ -77,47 +79,70 @@ namespace Services.Services
             return _roleManager.UpdateAsync(role);
         }
 
-        public IEnumerable<AllWalletsWithSums> GetAllWalletsWithSums(string orderBy, string filter)
+        public IEnumerable<AllWalletsWithSums> GetAllWalletsWithSums(string orderBy, AllWalletsWithSumsFiltersServiceModel filters)
         {
             var repo = _unitOfWork.Add<AllWalletsWithSums>().GetRepository<AllWalletsWithSums>();
             var allWalletsWithSums = new List<AllWalletsWithSums>();
-
             var rawSql = new AllWalletsWithSums().GetQuery();
-            
+
+            if (filters != null)
+            {
+                DateTime dateFrom, dateTo;
+                IEnumerable<AllWalletsWithSums> query = new List<AllWalletsWithSums>();
+
+                if (filters.Countries.Any())
+                    query = repo.FromSQL(rawSql, x => filters.Countries.Any(y => filters.Countries.Contains(x.ClientCountry)));
+
+                if (!query.Any())
+                    query = repo.FromSQL(rawSql);
+
+                if (DateTime.TryParseExact(filters.RegisteredFrom, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateFrom)
+                    && DateTime.TryParseExact(filters.RegisteredTo, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTo))
+                {
+                    query = query.Where(x => x.Date >= dateFrom && x.Date <= dateTo);
+                }
+
+                allWalletsWithSums = query.ToList();
+            }
+            else
+            {
+                allWalletsWithSums = repo.FromSQL(rawSql).ToList();
+            }
+
             switch(orderBy)
             {
                 case "Id":
-                    allWalletsWithSums = repo.FromSQL(rawSql, null, x => x.OrderBy(y => y.Id)).ToList();
+                    allWalletsWithSums = allWalletsWithSums.OrderBy(y => y.Id).ToList();
                     break;
                 case "Id_desc":
-                    allWalletsWithSums = repo.FromSQL(rawSql, null, x => x.OrderByDescending(y => y.Id)).ToList();
+                    allWalletsWithSums = allWalletsWithSums.OrderByDescending(y => y.Id).ToList();
                     break;
                 case "ClientName":
-                    allWalletsWithSums = repo.FromSQL(rawSql, null, x => x.OrderBy(y => y.ClientName)).ToList();
+                    allWalletsWithSums = allWalletsWithSums.OrderBy(y => y.ClientName).ToList();
                     break;
                 case "ClientName_desc":
-                    allWalletsWithSums = repo.FromSQL(rawSql, null, x => x.OrderByDescending(y => y.ClientName)).ToList();
+                    allWalletsWithSums = allWalletsWithSums.OrderByDescending(y => y.ClientName).ToList();
                     break;
                 case "ClientCountry":
-                    allWalletsWithSums = repo.FromSQL(rawSql, null, x => x.OrderBy(y => y.ClientCountry)).ToList();
+                    allWalletsWithSums = allWalletsWithSums.OrderBy(y => y.ClientCountry).ToList();
                     break;
                 case "ClientCountry_desc":
-                    allWalletsWithSums = repo.FromSQL(rawSql, null, x => x.OrderByDescending(y => y.ClientCountry)).ToList();
+                    allWalletsWithSums = allWalletsWithSums.OrderByDescending(y => y.ClientCountry).ToList();
                     break;
                 case "Balance":
-                    allWalletsWithSums = repo.FromSQL(rawSql, null, x => x.OrderBy(y => y.Balance)).ToList();
+                    allWalletsWithSums = allWalletsWithSums.OrderBy(y => y.Balance).ToList();
                     break;
                 case "Balance_desc":
-                    allWalletsWithSums = repo.FromSQL(rawSql, null, x => x.OrderByDescending(y => y.Balance)).ToList();
+                    allWalletsWithSums = allWalletsWithSums.OrderByDescending(y => y.Balance).ToList();
                     break;
                 case "Currency":
-                    allWalletsWithSums = repo.FromSQL(rawSql, null, x => x.OrderBy(y => y.Currency)).ToList();
+                    allWalletsWithSums = allWalletsWithSums.OrderBy(y => y.Currency).ToList();
                     break;
                 case "Currency_desc":
-                    allWalletsWithSums = repo.FromSQL(rawSql, null, x => x.OrderByDescending(y => y.Currency)).ToList();
+                    allWalletsWithSums = allWalletsWithSums.OrderByDescending(y => y.Currency).ToList();
                     break;
                 default:
-                    allWalletsWithSums = repo.FromSQL(rawSql, null, x => x.OrderBy(y => y.Id)).ToList();
+                    allWalletsWithSums = allWalletsWithSums.OrderBy(y => y.Id).ToList();
                     break;
             }
 

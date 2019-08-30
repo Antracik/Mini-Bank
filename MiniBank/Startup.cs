@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Mini_Bank.Middleware;
 using MongoDb;
 using Services.Services;
 using Shared;
@@ -113,6 +114,7 @@ namespace Mini_Bank
             services.AddScoped(typeof(MongoLoggerService));
             services.AddScoped(typeof(IDataSeedService), typeof(DataSeedService));
             services.AddScoped(typeof(IDateService), typeof(DateService));
+            services.AddScoped(typeof(IFileService), typeof(FileService));
             services.AddTransient(typeof(IEmailSender), typeof(EmailSender));
             services.AddTransient(typeof(IMongoRepository), typeof(MongoRepository));
             services.AddScoped(typeof(IAdministrationService), typeof(AdministrationService));

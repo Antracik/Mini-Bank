@@ -42,7 +42,6 @@ namespace Mini_Bank.Controllers
         [HttpGet]
         public IActionResult DisplayUsers(string filterEmail, string sortBy = "", int pageIndex = 1)
         {
-            var userServiceModels = _userService.GetAllUsers();
 
             ViewBag.FilterEmail = filterEmail;
             ViewBag.CurrentSort = sortBy;
@@ -53,41 +52,8 @@ namespace Mini_Bank.Controllers
             ViewBag.EmailConfirmedSort = sortBy.Equals("EmailConfirmed") ? "EmailConfirmed_desc" : "EmailConfirmed";
             ViewBag.EmailSort = sortBy.Equals("Email") ? "Email_desc" : "Email";
 
-            if (!string.IsNullOrEmpty(filterEmail))
-            {
-                userServiceModels = userServiceModels.Where(x => x.Email.ToUpper().Contains(filterEmail.ToUpper()));
-            }
-
-            switch (sortBy)
-            {
-                case "Id":
-                    userServiceModels = userServiceModels.OrderBy(x => x.Id).ToList();
-                    break;
-                case "Id_desc":
-                    userServiceModels = userServiceModels.OrderByDescending(x => x.Id).ToList();
-                    break;
-                case "DateCreated":
-                    userServiceModels = userServiceModels.OrderBy(x => x.DateCreated).ToList();
-                    break;
-                case "DateCreated_desc":
-                    userServiceModels = userServiceModels.OrderByDescending(x => x.DateCreated).ToList();
-                    break;
-                case "EmailConfirmed":
-                    userServiceModels = userServiceModels.OrderBy(x => x.EmailConfirmed).ToList();
-                    break;
-                case "EmailConfirmed_desc":
-                    userServiceModels = userServiceModels.OrderByDescending(x => x.EmailConfirmed).ToList();
-                    break;
-                case "Email":
-                    userServiceModels = userServiceModels.OrderBy(x => x.Email).ToList();
-                    break;
-                case "Email_desc":
-                    userServiceModels = userServiceModels.OrderByDescending(x => x.Email).ToList();
-                    break;
-                default:
-                    userServiceModels = userServiceModels.OrderBy(x => x.Id).ToList();
-                    break;
-            }
+           
+            var userServiceModels = _userService.GetAllUsers(sortBy, filterEmail);
 
             var userModels = _mapper.Map<List<UserModel>>(userServiceModels);
 

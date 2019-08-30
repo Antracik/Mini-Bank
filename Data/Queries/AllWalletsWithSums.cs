@@ -12,6 +12,7 @@ namespace Data.Queries
         public string ClientCountry { get; set; }
         public decimal Balance { get; set; }
         public string Currency { get; set; }
+        public DateTime Date { get; set; }
     }
     
     public static class AllWalletsWithSumsExtension
@@ -19,15 +20,17 @@ namespace Data.Queries
         public static string GetQuery(this AllWalletsWithSums item)
         {
             return @"SELECT acc.[Id], 
-                        reg.[FirstName] + ' ' + reg.[LastName] AS ClientName, 
-                        cnt.[Name] AS ClientCountry, 
-                        acc.[Balance] , 
-                        cur.[Name] AS Currency
-                        FROM Registrant AS reg
+                		reg.[FirstName] + ' ' + reg.[LastName] AS ClientName, 
+                		cnt.[Name] AS ClientCountry, 
+                		acc.[Balance], 
+                		cur.[Name] AS Currency, 
+                		us.[DateCreated] AS [Date]
+                		FROM Registrant AS reg
                         INNER JOIN Wallet AS wal ON wal.RegistrantId = reg.Id
                         INNER JOIN Account AS acc ON acc.WalletId = wal.Id
                         INNER JOIN Currency AS cur ON cur.Id = acc.CurrencyId
-                        INNER JOIN Country AS cnt ON cnt.Id = reg.CountryId";
+                        INNER JOIN Country AS cnt ON cnt.Id = reg.CountryId
+                        INNER JOIN AspNetUsers AS us ON us.Id = reg.UserId";
         }
     }
 

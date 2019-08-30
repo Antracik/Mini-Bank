@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Mini_Bank.Models;
 using Mini_Bank.Models.ViewModels;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Schema;
+using Services.Models;
 using Services.Services;
 using X.PagedList;
 
@@ -21,12 +24,15 @@ namespace Mini_Bank.Controllers
 
         private readonly IAdministrationService _administraionService;
         private readonly IMapper _mapper;
+        private readonly INomenclatureService _nomenclatureService;
 
-        public AdministrationController(IAdministrationService administrationService,
-                                        IMapper mapper)
+        public AdministrationController(IAdministrationService administraionService, 
+                                        IMapper mapper, 
+                                        INomenclatureService nomenclatureService)
         {
-            _administraionService = administrationService;
+            _administraionService = administraionService;
             _mapper = mapper;
+            _nomenclatureService = nomenclatureService;
         }
 
         [HttpGet]
@@ -223,10 +229,20 @@ namespace Mini_Bank.Controllers
         }
 
         [HttpGet]
-        public IActionResult AllWalletsWithSums(string sortBy = "", int pageIndex = 1)
+        public IActionResult AllWalletsWithSums(AllWalletsWithSumsViewModel testModel, string prevFilters, string sortBy = "", int pageIndex = 1)
         {
-            ViewBag.CurrentPage = pageIndex;
-            ViewBag.CurrentSort = sortBy;
+            var countries = _mapper.Map<List<CountryModel>>(_nomenclatureService.GetCountries()).OrderBy(x => x.Name).ToList();
+
+            pageIndex = pageIndex > 0 ? pageIndex : 1;
+
+            testModel.Countries = countries;
+            testModel.CurrentPage = pageIndex;
+            testModel.CurrentSort = sortBy;
+           
+            if(prevFilters != null)
+            {
+                testModel.Filters = JsonConvert.DeserializeObject<AllWalletsWithSumsFilters>(prevFilters);
+            }
 
             ViewBag.IdSort = sortBy.Equals("Id") ? "Id_desc" : "Id";
             ViewBag.ClientNameSort = sortBy.Equals("ClientName") ? "ClientName_desc" : "ClientName";
@@ -234,11 +250,14 @@ namespace Mini_Bank.Controllers
             ViewBag.BalanceSort = sortBy.Equals("Balance") ? "Balance_desc" : "Balance";
             ViewBag.CurrencySort = sortBy.Equals("Currency") ? "Currency_desc" : "Currency";
 
-            var test = _administraionService.GetAllWalletsWithSums(sortBy, "");
+            var filterServiceModel = _mapper.Map<AllWalletsWithSumsFiltersServiceModel>(testModel.Filters);
 
-            var pagedTest = test.ToPagedList(pageIndex, 10);
+            var test = _administraionService.GetAllWalletsWithSums(sortBy, filterServiceModel);
 
-            return View(pagedTest);
+            testModel.Data = test.ToPagedList(pageIndex, 10);
+
+            return View(testModel);
         }
+       
     }
 }

@@ -1,46 +1,84 @@
-﻿@model X.PagedList.PagedList<Data.Queries.AllWalletsWithSums>
+﻿@model AllWalletsWithSumsViewModel
 
+@using Mini_Bank.Models.ViewModels;
 
-@Html.PagedListPager(Model, pageIndex => Url.Action("AllWalletsWithSums", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+@{
+    var temp = Json.Serialize(Model.Filters);
+    string from = null, to = null;
+    string prevFilters = null;
+    if (!temp.ToString().Equals("null"))
+    {
+        prevFilters = temp.ToString();
+    }
+
+    if (Model.Filters != null)
+    {
+        from = Model.Filters.RegisteredFrom;
+        to = Model.Filters.RegisteredTo;
+    }
+}
+
+<form method="get" autocomplete="off" asp-action="AllWalletsWithSums" class="test">
+    <div class="form-group">
+        <label asp-for="@Model.Countries.FirstOrDefault().Name" class="control-label">Filter by Countries :</label>
+        <select asp-for="@Model.Filters.Countries" asp-items="@(new SelectList(Model.Countries, "Name",  "Name"))" class="form-control  js-multiple" multiple="multiple"></select>
+    </div>
+    <div class="input-daterange input-group" id="datepicker">
+        <input asp-for="@Model.Filters.RegisteredFrom" type="text" placeholder="@from" class="input-sm form-control" />
+        <span class="input-group-addon">to</span>
+        <input asp-for="@Model.Filters.RegisteredTo" type="text" placeholder="@to" class="input-sm form-control" />
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Filter" class="btn btn-primary" />
+        <a class="btn btn-light" asp-action="AllWalletsWithSums">Reset</a>
+    </div>
+</form>
+
+@Html.PagedListPager(Model.Data, pageIndex => Url.Action("AllWalletsWithSums", new { pageIndex, sortBy = Model.CurrentSort, prevFilters = prevFilters }),
                                                     new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
                                                     {
                                                         PageClasses = new string[] { "page-link" },
                                                         LiElementClasses = new string[] { "page-item" },
-                                                        DisplayEllipsesWhenNotShowingAllPageNumbers = false
+                                                        EllipsesElementClass = "page-link"
                                                     })
 <div>
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>
-                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.IdSort" >
-                        <label asp-for="@Model.FirstOrDefault().Id"></label>
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.IdSort" asp-route-prevFilters="@prevFilters">
+                        <label asp-for="@Model.Data.FirstOrDefault().Id"></label>
                     </a>
                 </th>
                 <th>
-                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.ClientNameSort" >
-                    <label asp-for="@Model.FirstOrDefault().ClientName"></label>
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.ClientNameSort" asp-route-prevFilters="@prevFilters">
+                        <label asp-for="@Model.Data.FirstOrDefault().ClientName"></label>
                     </a>
                 </th>
                 <th>
-                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.ClientCountrySort">
-                    <label asp-for="@Model.FirstOrDefault().ClientCountry"></label>
-                     </a>
-                </th>
-                <th>
-                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.BalanceSort" >
-                    <label asp-for="@Model.FirstOrDefault().Balance"></label>
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.ClientCountrySort" asp-route-prevFilters="@prevFilters">
+                        <label asp-for="@Model.Data.FirstOrDefault().ClientCountry"></label>
                     </a>
                 </th>
                 <th>
-                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.CurrencySort" >
-                    <label asp-for="@Model.FirstOrDefault().Currency"></label>
-                     </a>
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.BalanceSort" asp-route-prevFilters="@prevFilters">
+                        <label asp-for="@Model.Data.FirstOrDefault().Balance"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.CurrencySort" asp-route-prevFilters="@prevFilters">
+                        <label asp-for="@Model.Data.FirstOrDefault().Currency"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.CurrencySort" asp-route-prevFilters="@prevFilters">
+                        <label asp-for="@Model.Data.FirstOrDefault().Date"></label>
+                    </a>
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Data)
             {
                 <tr>
                     <td>
@@ -58,15 +96,35 @@
                     <td>
                         @item.Currency
                     </td>
+                    <td>
+                        @item.Date
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-@Html.PagedListPager(Model, pageIndex => Url.Action("AllWalletsWithSums", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+@Html.PagedListPager(Model.Data, pageIndex => Url.Action("AllWalletsWithSums", new { pageIndex, sortBy = Model.CurrentSort, prevFilters = prevFilters }),
                                                     new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
                                                     {
                                                         PageClasses = new string[] { "page-link" },
                                                         LiElementClasses = new string[] { "page-item" },
-                                                        DisplayEllipsesWhenNotShowingAllPageNumbers = false
+                                                        EllipsesElementClass = "page-link"
                                                     })
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.js-multiple').select2();
+        });
+    </script>
+    <script>
+        $('.input-daterange input').each(function () {
+            $(this).datepicker('clearDates');
+        });
+    </script>
+    <script>
+        $('.input-daterange').datepicker({
+        });
+    </script>
+
+}

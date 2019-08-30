@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Services.Models;
 
 namespace Services.Services
 {
@@ -22,6 +23,6 @@ namespace Services.Services
         Task<IdentityResult> UpdateRoleAsync(RoleModel role);
         Task<IdentityResult> AddUserToRoleAsync(UserDbRepoModel user, string roleName);
         Task<IdentityResult> RemoveUserFromRoleAsync(UserDbRepoModel user, string roleName);
-        IEnumerable<AllWalletsWithSums> GetAllWalletsWithSums(string orderBy, string filter);
+        IEnumerable<AllWalletsWithSums> GetAllWalletsWithSums(string orderBy, AllWalletsWithSumsFiltersServiceModel filters);
     }
 }

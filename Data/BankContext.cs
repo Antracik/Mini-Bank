@@ -22,6 +22,8 @@ namespace Data
         public DbSet<CurrencyDbRepoModel> Currency { get; set; }
         public DbSet<CountryDbRepoModel> Countries { get; set; }
         public DbSet<StatusDbRepoModel> Status { get; set; }
+        public DbSet<FileDescriptorEntityModel> Descriptor { get; set; }
+        public DbSet<FileEntityModel> File { get; set; }
         public DbQuery<AllWalletsWithSums> AllWalletsWithSumsQuery { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
