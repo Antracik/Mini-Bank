@@ -34,14 +34,14 @@ namespace Mini_Bank.Controllers
         {
             //_dataSeedService.SeedDb();
 
-            _unitOfWork.Add<AllWalletsWithSums>();
+            //_unitOfWork.Add<AllWalletsWithSums>();
 
-            var walletsWithSums = new AllWalletsWithSums();
+            //var walletsWithSums = new AllWalletsWithSums();
 
-            var test = _unitOfWork.GetRepository<AllWalletsWithSums>().
-                                    FromSQL(walletsWithSums.GetQuery(), x => x.Currency.Equals(CurrencyEnum.Currency.BGN.ToString()),
-                                            z => z.OrderBy(y => y.ClientName))
-                                    .ToList();
+            //var test = _unitOfWork.GetRepository<AllWalletsWithSums>().
+            //                        FromSQL(walletsWithSums.GetQuery(), x => x.Currency.Equals(CurrencyEnum.Currency.BGN.ToString()),
+            //                                z => z.OrderBy(y => y.ClientName))
+            //                        .ToList();
 
             return View();
         }

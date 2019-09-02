@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Services.Models
 {
-    class ImageServiceModel
+    class FileUploadServiceModel
     {
         public IFormFile Photo { get; set; }
     }

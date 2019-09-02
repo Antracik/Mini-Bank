@@ -46,32 +46,32 @@
         <thead>
             <tr>
                 <th>
-                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.IdSort" asp-route-prevFilters="@prevFilters">
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@Model.IdSort" asp-route-prevFilters="@prevFilters">
                         <label asp-for="@Model.Data.FirstOrDefault().Id"></label>
                     </a>
                 </th>
                 <th>
-                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.ClientNameSort" asp-route-prevFilters="@prevFilters">
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@Model.ClientNameSort" asp-route-prevFilters="@prevFilters">
                         <label asp-for="@Model.Data.FirstOrDefault().ClientName"></label>
                     </a>
                 </th>
                 <th>
-                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.ClientCountrySort" asp-route-prevFilters="@prevFilters">
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@Model.ClientCountrySort" asp-route-prevFilters="@prevFilters">
                         <label asp-for="@Model.Data.FirstOrDefault().ClientCountry"></label>
                     </a>
                 </th>
                 <th>
-                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.BalanceSort" asp-route-prevFilters="@prevFilters">
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@Model.BalanceSort" asp-route-prevFilters="@prevFilters">
                         <label asp-for="@Model.Data.FirstOrDefault().Balance"></label>
                     </a>
                 </th>
                 <th>
-                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.CurrencySort" asp-route-prevFilters="@prevFilters">
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@Model.CurrencySort" asp-route-prevFilters="@prevFilters">
                         <label asp-for="@Model.Data.FirstOrDefault().Currency"></label>
                     </a>
                 </th>
                 <th>
-                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@ViewBag.CurrencySort" asp-route-prevFilters="@prevFilters">
+                    <a asp-action="AllWalletsWithSums" asp-route-pageIndex="@Model.CurrentPage" asp-route-sortBy="@Model.CurrencySort" asp-route-prevFilters="@prevFilters">
                         <label asp-for="@Model.Data.FirstOrDefault().Date"></label>
                     </a>
                 </th>
@@ -112,19 +112,23 @@
                                                         EllipsesElementClass = "page-link"
                                                     })
 @section Scripts{
+    <script src="~/lib/select2/js/select2.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script>
         $(document).ready(function () {
             $('.js-multiple').select2();
         });
-    </script>
-    <script>
+
         $('.input-daterange input').each(function () {
             $(this).datepicker('clearDates');
         });
-    </script>
-    <script>
+
         $('.input-daterange').datepicker({
         });
     </script>
+}
 
+@section Styles{
+    <link rel="stylesheet" href="~/lib/select2/css/select2.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
 }

@@ -17,6 +17,8 @@ namespace Data.Entities
 
         public string FileExtension { get; set; }
 
+        public string FileContentType { get; set; }
+
         [Required]
         public string UniqueFileName { get; set; }
 

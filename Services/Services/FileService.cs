@@ -5,6 +5,9 @@ using System.Text;
 using Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Http;
+using System.Linq;
+using Services.Models;
+using AutoMapper;
 
 namespace Services.Services
 {
@@ -12,9 +15,13 @@ namespace Services.Services
     {
         private readonly UnitOfWork _unitOfWork;
         private readonly IDateService _dateService;
+        private readonly IMapper _mapper;
 
-        public FileService(UnitOfWork unitOfWork, IDateService dateService) 
+        public FileService(UnitOfWork unitOfWork, 
+                          IDateService dateService,
+                          IMapper mapper) 
         {
+            _mapper = mapper;
             _unitOfWork = unitOfWork;
             _dateService = dateService;
         }
@@ -61,34 +68,69 @@ namespace Services.Services
 
             fileDescriptor.FileName = Path.GetFileNameWithoutExtension(file.FileName);
             fileDescriptor.FileExtension = Path.GetExtension(file.FileName);
+            fileDescriptor.FileContentType = file.ContentType;
             fileDescriptor.UniqueFileName = Guid.NewGuid().ToString() + "_" + fileDescriptor.FileName + fileDescriptor.FileExtension;
             _dateService.SetDateCreatedNow(ref fileDescriptor);
 
             return fileDescriptor;
         }
 
-        private byte[] GetFileData(IFormFile file)
+        public FileDownloadServiceModel GetFileById(int fileId, bool includeFileData = false)
+        {
+            string include = includeFileData ? "File" : "";
+
+            var file = _unitOfWork.Add<FileDescriptorEntityModel>()
+                                  .GetRepository<FileDescriptorEntityModel>()
+                                  .Get(x => x.Id == fileId, null, include)
+                                  .FirstOrDefault();
+
+            var serviceFile = _mapper.Map<FileDownloadServiceModel>(file);
+
+            return serviceFile;
+        }
+
+        public IEnumerable<FileDownloadServiceModel> GetAllFiles(bool includeFileData = false)
+        {
+            string include = includeFileData ? "File" : "";
+
+            var files = _unitOfWork.Add<FileDescriptorEntityModel>()
+                                  .GetRepository<FileDescriptorEntityModel>()
+                                  .Get(includeProperties: include);
+
+            var serviceFiles = _mapper.Map<List<FileDownloadServiceModel>>(files);
+
+            return serviceFiles;
+        }
+
+        public FileDownloadServiceModel GetFileByUniqueFileName(string uniqueFileName, bool includeFileData = false)
+        {
+            string include = includeFileData ? "File" : "";
+
+            var file = _unitOfWork.Add<FileDescriptorEntityModel>()
+                                  .GetRepository<FileDescriptorEntityModel>()
+                                  .Get(x => x.UniqueFileName == uniqueFileName, null, include)
+                                  .FirstOrDefault();
+
+            var serviceFile = _mapper.Map<FileDownloadServiceModel>(file);
+
+            return serviceFile;
+        }
+
+        public byte[] GetFileDataFromB64(string fileBase64Data)
+        {
+            return Convert.FromBase64String(fileBase64Data);
+        }
+
+        public int UploadFile(IFormFile inputFile)
         {
             byte[] fileData;
 
             using (var ms = new MemoryStream())
             {
-                file.CopyTo(ms);
+                inputFile.CopyTo(ms);
 
                 fileData = ms.ToArray();
             }
-
-            return fileData;
-        }
-
-        private byte[] GetFileDataFromBase64(string base64String)
-        {
-            return Convert.FromBase64String(base64String);
-        }
-
-        public int UploadFile(IFormFile inputFile)
-        {
-            var fileData = GetFileData(inputFile);
 
             using (var transaction = _unitOfWork.BankContext.Database.BeginTransaction())
             {
@@ -122,5 +164,7 @@ namespace Services.Services
                 }
             }
         }
+
+       
     }
 }

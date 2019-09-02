@@ -38,6 +38,7 @@
 
 
   <ItemGroup>
+    <Folder Include="wwwroot\lib\notifyjs\" />
     <Folder Include="wwwroot\lib\select2\" />
   </ItemGroup>
 

@@ -229,34 +229,34 @@ namespace Mini_Bank.Controllers
         }
 
         [HttpGet]
-        public IActionResult AllWalletsWithSums(AllWalletsWithSumsViewModel testModel, string prevFilters, string sortBy = "", int pageIndex = 1)
+        public IActionResult AllWalletsWithSums(AllWalletsWithSumsViewModel model, string prevFilters, string sortBy = "", int pageIndex = 1)
         {
             var countries = _mapper.Map<List<CountryModel>>(_nomenclatureService.GetCountries()).OrderBy(x => x.Name).ToList();
 
             pageIndex = pageIndex > 0 ? pageIndex : 1;
 
-            testModel.Countries = countries;
-            testModel.CurrentPage = pageIndex;
-            testModel.CurrentSort = sortBy;
+            model.Countries = countries;
+            model.CurrentPage = pageIndex;
+            model.CurrentSort = sortBy;
            
             if(prevFilters != null)
             {
-                testModel.Filters = JsonConvert.DeserializeObject<AllWalletsWithSumsFilters>(prevFilters);
+                model.Filters = JsonConvert.DeserializeObject<AllWalletsWithSumsFilters>(prevFilters);
             }
 
-            ViewBag.IdSort = sortBy.Equals("Id") ? "Id_desc" : "Id";
-            ViewBag.ClientNameSort = sortBy.Equals("ClientName") ? "ClientName_desc" : "ClientName";
-            ViewBag.ClientCountrySort = sortBy.Equals("ClientCountry") ? "ClientCountry_desc" : "ClientCountry";
-            ViewBag.BalanceSort = sortBy.Equals("Balance") ? "Balance_desc" : "Balance";
-            ViewBag.CurrencySort = sortBy.Equals("Currency") ? "Currency_desc" : "Currency";
+            model.IdSort = sortBy.Equals("Id") ? "Id_desc" : "Id";
+            model.ClientNameSort = sortBy.Equals("ClientName") ? "ClientName_desc" : "ClientName";
+            model.ClientCountrySort = sortBy.Equals("ClientCountry") ? "ClientCountry_desc" : "ClientCountry";
+            model.BalanceSort = sortBy.Equals("Balance") ? "Balance_desc" : "Balance";
+            model.CurrencySort = sortBy.Equals("Currency") ? "Currency_desc" : "Currency";
 
-            var filterServiceModel = _mapper.Map<AllWalletsWithSumsFiltersServiceModel>(testModel.Filters);
+            var filterServiceModel = _mapper.Map<AllWalletsWithSumsFiltersServiceModel>(model.Filters);
 
             var test = _administraionService.GetAllWalletsWithSums(sortBy, filterServiceModel);
 
-            testModel.Data = test.ToPagedList(pageIndex, 10);
+            model.Data = test.ToPagedList(pageIndex, 10);
 
-            return View(testModel);
+            return View(model);
         }
        
     }
