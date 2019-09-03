@@ -29,16 +29,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @item.Id
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FileName)
+                    @item.FileName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FileExtension)
+                    @item.FileContentType
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UniqueFileName)
+                    @item.UniqueFileName
                 </td>
                 <td>
                     <a id="downloadButton" asp-action="DownloadFile" asp-route-fileId="@item.UniqueFileName">Download</a>
