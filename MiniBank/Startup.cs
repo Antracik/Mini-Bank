@@ -17,6 +17,7 @@ using MongoDb;
 using Services.Services;
 using Shared;
 using System;
+using System.IO;
 using X.PagedList.Mvc.Common;
 
 namespace Mini_Bank
@@ -46,6 +47,8 @@ namespace Mini_Bank
             // register services at Startup
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            services.AddNodeServices();
+
             services.AddMvc(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()
@@ -71,7 +74,7 @@ namespace Mini_Bank
                 options.Password.RequiredUniqueChars = 1;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
-                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedEmail = false; // REMEMBER TO CHANGE !!!!
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<BankContext>()
               .AddDefaultTokenProviders();
@@ -135,6 +138,11 @@ namespace Mini_Bank
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            //string path = Environment.GetEnvironmentVariable("PATH");
+
+            //path += @";" + Path.Combine(Environment.CurrentDirectory, "nodejs");
+            //Environment.SetEnvironmentVariable("PATH", path);
 
             app.UseHttpsRedirection();
             app.UseSwagger();

@@ -120,6 +120,28 @@ namespace Services.Services
             return registrantModels;
         }
 
+        public RegistrantServiceModel GetRegistrantByUserId(int userId, bool includeWallets = false)
+        {
+            var registrantEntity = new RegistrantDbRepoModel();
+
+            _unitOfWork.Add<RegistrantDbRepoModel>().Add<WalletDbRepoModel>();
+
+            if (includeWallets)
+            {
+                registrantEntity = _unitOfWork.GetRepository<RegistrantDbRepoModel>().Get(reg => reg.UserId == userId, null, "CountryRelation").FirstOrDefault();
+                var wallets = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(wallet => wallet.RegistrantId == registrantEntity.Id, null, "Status").ToList();
+                registrantEntity.Wallets = wallets;
+            }
+            else
+            {
+                registrantEntity = _unitOfWork.GetRepository<RegistrantDbRepoModel>().Get(reg => reg.UserId == userId, null, "CountryRelation").FirstOrDefault();
+            }
+
+            var registrantModels = _mapper.Map<RegistrantServiceModel>(registrantEntity);
+
+            return registrantModels;
+        }
+
         public RegistrantServiceModel GetRegistrantById(int id, bool includeWallets = false)
         {
             var registrantEntity = new RegistrantDbRepoModel();
