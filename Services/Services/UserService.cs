@@ -380,6 +380,11 @@ namespace Services.Services
             return _signInManager.IsSignedIn(principal);
         }
 
-      
+        public async Task<bool> IsUserEmailConfirmedAsync(ClaimsPrincipal User)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            return user.EmailConfirmed;
+        }
     }
 }

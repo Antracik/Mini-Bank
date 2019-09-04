@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mini_Bank.Models;
+using Mini_Bank.Models.ViewModels;
 using Services.Models;
 using Services.Services;
+using Shared;
 using X.PagedList;
 
 namespace Mini_Bank.Controllers
@@ -13,13 +17,73 @@ namespace Mini_Bank.Controllers
     public class WalletController : Controller
     {
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
+        private readonly IRegistrantService _registrantService;
         private readonly IWalletService _walletService;
+        private readonly IAccountService _accountService;
 
-        public WalletController(IWalletService walletService, 
+        public WalletController(IWalletService walletService,
+                                IUserService userService,
+                                IRegistrantService registrantService,
+                                IAccountService accountService,
                                 IMapper mapper)
         {
+            _registrantService = registrantService;
             _mapper = mapper;
+            _userService = userService;
+            _accountService = accountService;
             _walletService = walletService;
+        }
+
+        public IActionResult UserWallets()
+        {
+            int userId = int.Parse(_userService.GetUserId(User));
+
+            var registrant = _registrantService.GetRegistrantByUserId(userId, includeWallets: true);
+
+            foreach(var wallet in registrant.Wallets)
+            {
+                wallet.Accounts = _accountService.GetAllAccountsWithWalledId(wallet.Id).ToList();
+            }
+
+            var model = _mapper.Map<List<UserWalletsViewModel>>(registrant.Wallets);
+
+            for(int i = 0; i < registrant.Wallets.Count; i++)
+            {
+                model[i].Verified = registrant.Wallets[i].IsVerified ? "Yes" : "No";
+                model[i].RowId = "RowGroup" + i;
+                model[i].Heading = "Heading" + i;
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult RequestWallet()
+        {
+            int userId = int.Parse(_userService.GetUserId(User));
+
+            var registrant = _registrantService.GetRegistrantByUserId(userId, includeWallets: true);
+
+            if(registrant.Wallets.Count >= Constants.maxWalletsPerUser)
+            {
+                TempData["Message"] = "You are at your max wallet count (" + Constants.maxWalletsPerUser + ")";
+                return RedirectToAction("UserWallets");
+            }
+
+            var newWallet = new WalletServiceModel();
+
+            newWallet.Number = new Random().Next(100, 999999999);
+            newWallet.RegistrantId = registrant.Id;
+            newWallet.IsVerified = false;
+            newWallet.CreatedById = userId;
+            newWallet.WalletStatusId = (int)StatusEnum.Status.Okay;
+
+            _walletService.CreateWallet(newWallet);
+
+            TempData["Message"] = "A new wallet has been requested for creation!";
+
+            return RedirectToAction("UserWallets");
         }
 
         [HttpGet("{id}")]
@@ -51,6 +115,9 @@ namespace Mini_Bank.Controllers
             
             return View(pagedModels);
         }
+
+        
+        
 
         [HttpGet("{id}")]
         public IActionResult CreateWalletView(int id)

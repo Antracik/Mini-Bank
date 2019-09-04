@@ -34,6 +34,7 @@ namespace Services.Services
         Task<string> GeneratePasswordResetTokenAsync(UserDbRepoModel user);
         Task<string> GetAuthenticatorKeyAsync(UserDbRepoModel user);
         Task<int> CountValidRecoveryCodesAsync(UserDbRepoModel user);
+        Task<bool> IsUserEmailConfirmedAsync(ClaimsPrincipal User);
         Task<bool> IsUserEmailConfirmedAsync(UserDbRepoModel user);
         Task<bool> IsUserTwoFactorEnabledAsync(UserDbRepoModel user);
         Task<bool> HasPasswordAsync(UserDbRepoModel user);

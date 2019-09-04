@@ -65,6 +65,17 @@ namespace Services.Services
             return accountModel;
         }
 
+        public IEnumerable<AccountServiceModel> GetAllAccountsWithWalledId(int walletId)
+        {
+            _unitOfWork.Add<AccountDbRepoModel>();
+
+            var accountEntities = _unitOfWork.GetRepository<AccountDbRepoModel>().Get( acc => acc.WalletId == walletId, null, "Status,CurrencyRelation").ToList();
+
+            var accountModels = _mapper.Map<List<AccountServiceModel>>(accountEntities);
+
+            return accountModels;
+        }
+
         public IEnumerable<AccountServiceModel> GetAllAccounts()
         {
             _unitOfWork.Add<AccountDbRepoModel>();

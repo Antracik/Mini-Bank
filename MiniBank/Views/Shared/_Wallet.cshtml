@@ -1,0 +1,9 @@
+﻿@using Services.Services
+@inject IUserService  UserService
+
+@if (await UserService.IsUserEmailConfirmedAsync(User))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Wallet" asp-action="UserWallets">Wallets</a>
+    </li>
+}

@@ -7,6 +7,7 @@ namespace Services.Services
     {
         AccountServiceModel GetAccountById(int id);
         IEnumerable<AccountServiceModel> GetAllAccounts();
+        IEnumerable<AccountServiceModel> GetAllAccountsWithWalledId(int walletId);
         IEnumerable<AccountServiceModel> GetAllAccounts(string orderBy, string filter);
         int CreateAccount(AccountServiceModel account);
         void UpdateAccount(AccountServiceModel account);

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Mini_Bank.Models.ViewModels.UserWalletsViewModel>
+
+@{
+    ViewData["Title"] = "Wallets";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<partial name="_StatusMessage" for="@TempData["Message"]" />
+
+<p>
+    <a asp-action="RequestWallet">Request New Wallet</a>
+</p>
+
+
+<div id="accordion">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-header" id="@item.Heading">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#@item.RowId" aria-expanded="false" aria-controls="@item.RowId">
+                        <text>Verified: @item.Verified | Date Created: @item.DateCreated | Wallet #: @item.Number</text>
+                    </button>
+                </h5>
+            </div>
+            <div id="@item.RowId" class="collapse" aria-labelledby="@item.Heading" data-parent="#accordion" style="">
+                <div class="card-body">
+                    @if (item.Accounts.Count > 0 && item.Verified.Equals("Yes"))
+                    {
+                        <table class="card-table table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <label asp-for="@item.Accounts.FirstOrDefault().IBAN"></label>
+                                    </th>
+                                    <th>
+                                        <label asp-for="@item.Accounts.FirstOrDefault().Balance"></label>
+                                    </th>
+                                    <th>
+                                        <label asp-for="@item.Accounts.FirstOrDefault().Currency"></label>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            @foreach (var acc in item.Accounts)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            @acc.IBAN
+                                        </td>
+                                        <td>
+                                            @acc.Balance.ToString("N")
+                                        </td>
+                                        <td>
+                                            @acc.Currency
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <h5>No Accounts in wallet</h5>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

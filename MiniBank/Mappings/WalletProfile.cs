@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FileRepo.Models;
 using Mini_Bank.Models;
+using Mini_Bank.Models.ViewModels;
 using Services.Models;
 
 namespace Mini_Bank.Mappings
@@ -11,6 +12,9 @@ namespace Mini_Bank.Mappings
         {
             CreateMap<WalletModel, WalletRepoModel>().ReverseMap();
             CreateMap<WalletModel, WalletServiceModel>().ReverseMap();
+            CreateMap<UserWalletsViewModel, WalletServiceModel>().ForMember(dest => dest.Accounts, opt => opt.MapFrom( src => src.Accounts ))
+                                                                 .ReverseMap();
+
         }
     }
 }
