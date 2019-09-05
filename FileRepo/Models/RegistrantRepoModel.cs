@@ -7,6 +7,7 @@ using System;
 
 namespace FileRepo.Models
 {
+    [Obsolete]
     [DataContract]
     public class RegistrantRepoModel : IBaseModel
     {

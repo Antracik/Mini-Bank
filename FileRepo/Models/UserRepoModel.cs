@@ -6,7 +6,8 @@ using Shared;
 using System;
 
 namespace FileRepo.Models
-{ 
+{
+    [Obsolete]
     [DataContract]
     public class UserRepoModel : IBaseModel
     {
@@ -46,12 +47,5 @@ namespace FileRepo.Models
         public UserRepoModel() { }
 
     }
-
-    public static class UserExtension
-    {
-        public static RegistrantRepoModel GetRegistrant(this UserRepoModel source, IRepository<RegistrantRepoModel> repository)
-        {
-            return repository.Get().FirstOrDefault(reg => reg.UserId == source.Id);
-        }
-    }
+   
 }

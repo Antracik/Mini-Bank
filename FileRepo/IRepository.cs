@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Shared;
 
 namespace FileRepo
 {
+    [Obsolete]
     public interface IRepository<T> where T : IBaseModel
     {
         void AddItem(T item);

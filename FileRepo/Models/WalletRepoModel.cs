@@ -8,6 +8,7 @@ using System;
 
 namespace FileRepo.Models
 {
+    [Obsolete]
     [DataContract]
     public class WalletRepoModel : IBaseModel
     {
@@ -53,16 +54,6 @@ namespace FileRepo.Models
 
         public WalletRepoModel() { }
 
-    }
-
-    public static class WalletEextension
-    {
-        public static IEnumerable<AccountRepoModel> GetWalletAccounts(this WalletRepoModel source, IRepository<AccountRepoModel> repository)
-        {
-            return from accounts in repository.Get()
-                   where accounts.WalletId == source.Id
-                   select accounts;
-        }
     }
 
 }

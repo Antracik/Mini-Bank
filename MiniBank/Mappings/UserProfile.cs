@@ -9,7 +9,7 @@ namespace Mini_Bank.Mappings
     {
         public UserProfile()
         {
-            CreateMap<UserModel, UserRepoModel>().ReverseMap();
+            //CreateMap<UserModel, UserRepoModel>().ReverseMap();
             CreateMap<UserModel, UserServiceModel>().ReverseMap();
         }
     }

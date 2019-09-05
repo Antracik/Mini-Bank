@@ -6,6 +6,7 @@ using Shared;
 
 namespace FileRepo.Models
 {
+    [Obsolete]
     [DataContract]
     public class AccountRepoModel : IBaseModel
     {
