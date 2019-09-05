@@ -1,4 +1,4 @@
-﻿@inject SignInManager<UserDbRepoModel> SignInManager
+﻿@inject SignInManager<UserEntityModel> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

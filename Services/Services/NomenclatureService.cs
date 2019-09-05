@@ -20,9 +20,9 @@ namespace Services.Services
 
         public IEnumerable<CountryServiceModel> GetCountries()
         {
-            _unitOfWork.Add<CountryDbRepoModel>();
+            _unitOfWork.Add<CountryEntityModel>();
             
-            var countriesRepoModel = _unitOfWork.GetRepository<CountryDbRepoModel>().Get().ToList();
+            var countriesRepoModel = _unitOfWork.GetRepository<CountryEntityModel>().Get().ToList();
 
             var countriesServiceModel = _mapper.Map<List<CountryServiceModel>>(countriesRepoModel);
 
@@ -31,9 +31,9 @@ namespace Services.Services
 
         public IEnumerable<CurrencyServiceModel> GetCurrencies()
         {
-            _unitOfWork.Add<CurrencyDbRepoModel>();
+            _unitOfWork.Add<CurrencyEntityModel>();
             
-            var currenciesRepoModel = _unitOfWork.GetRepository<CurrencyDbRepoModel>().Get().ToList();
+            var currenciesRepoModel = _unitOfWork.GetRepository<CurrencyEntityModel>().Get().ToList();
 
             var currenciesServiceModel = _mapper.Map<List<CurrencyServiceModel>>(currenciesRepoModel);
 
@@ -42,9 +42,9 @@ namespace Services.Services
 
         public IEnumerable<StatusServiceModel> GetStatuses()
         {
-            _unitOfWork.Add<StatusDbRepoModel>();
+            _unitOfWork.Add<StatusEntityModel>();
             
-            var statussesRepoModel = _unitOfWork.GetRepository<StatusDbRepoModel>().Get().ToList();
+            var statussesRepoModel = _unitOfWork.GetRepository<StatusEntityModel>().Get().ToList();
 
             var statussesServiceModel = _mapper.Map<List<StatusServiceModel>>(statussesRepoModel);
 

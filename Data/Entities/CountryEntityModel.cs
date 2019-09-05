@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Data.Entities
 {
     [Table("Country")]
-    public class CountryDbRepoModel : IBaseModel
+    public class CountryEntityModel : IBaseModel
     {
         [Key]
         [Column(TypeName = "int")]

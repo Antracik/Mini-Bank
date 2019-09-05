@@ -65,7 +65,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new UserDbRepoModel {UserName =Input.Email,  Email = Input.Email };
+                var user = new UserEntityModel {UserName =Input.Email,  Email = Input.Email };
 
                 var result = await _userService.CreateUserAsync(user, Input.Password);
                 if (result.Succeeded)

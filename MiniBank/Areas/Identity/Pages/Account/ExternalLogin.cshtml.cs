@@ -116,7 +116,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new UserDbRepoModel { UserName = Input.Email, Email = Input.Email };
+                var user = new UserEntityModel { UserName = Input.Email, Email = Input.Email };
                 _dateService.SetDateCreatedNow(ref user);
                 var result = await _userService.CreateUserAsync(user);
                 if (result.Succeeded)

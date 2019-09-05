@@ -6,7 +6,7 @@ using Shared;
 namespace Data.Entities
 {
     [Table("Account")]
-    public class AccountDbRepoModel : IBaseHistory
+    public class AccountEntityModel : IBaseHistory
     {
         [Key]
         public int Id { get; set; }
@@ -20,29 +20,29 @@ namespace Data.Entities
         [Column("CurrencyId")]
         [ForeignKey("CurrencyRelation")]
         public int CurrencyId { get; set; }
-        public CurrencyDbRepoModel CurrencyRelation { get; set; }
+        public CurrencyEntityModel CurrencyRelation { get; set; }
 
         [ForeignKey("Status")]
         [Column("StatusId")]
         public int AccountStatusId { get; set; }
-        public StatusDbRepoModel Status { get; set; }
+        public StatusEntityModel Status { get; set; }
 
         [ForeignKey("Wallet")]
         [Column("WalletId")]
         public int WalletId { get; set; }
-        public WalletDbRepoModel Wallet { get; set; }
+        public WalletEntityModel Wallet { get; set; }
 
         [ForeignKey("CreatedByUser")]
         public int? CreatedById { get; set; }
-        public UserDbRepoModel CreatedByUser { get; set; }
+        public UserEntityModel CreatedByUser { get; set; }
         public DateTime DateCreated { get; set; }
 
         [ForeignKey("EditedByUser")]
         public int? EditedById { get; set; }
-        public UserDbRepoModel EditedByUser { get; set; }
+        public UserEntityModel EditedByUser { get; set; }
         public DateTime? DateEdited { get; set; }
 
-        public AccountDbRepoModel() { }
+        public AccountEntityModel() { }
 
     }
 }

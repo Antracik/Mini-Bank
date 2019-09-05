@@ -8,7 +8,7 @@ namespace Data
 {
    
 
-    public class BankContext : IdentityDbContext<UserDbRepoModel, RoleModel, int>
+    public class BankContext : IdentityDbContext<UserEntityModel, RoleModel, int>
     {
         public BankContext(DbContextOptions<BankContext> options)
             : base(options)
@@ -16,12 +16,12 @@ namespace Data
         }
 
         //public DbSet<UserDbRepoModel> Users { get; set; }
-        public DbSet<RegistrantDbRepoModel> Registrants { get; set; }
-        public DbSet<WalletDbRepoModel> Wallets { get; set; }
-        public DbSet<AccountDbRepoModel> Accounts { get; set; }
-        public DbSet<CurrencyDbRepoModel> Currency { get; set; }
-        public DbSet<CountryDbRepoModel> Countries { get; set; }
-        public DbSet<StatusDbRepoModel> Status { get; set; }
+        public DbSet<RegistrantEntityModel> Registrants { get; set; }
+        public DbSet<WalletEntityModel> Wallets { get; set; }
+        public DbSet<AccountEntityModel> Accounts { get; set; }
+        public DbSet<CurrencyEntityModel> Currency { get; set; }
+        public DbSet<CountryEntityModel> Countries { get; set; }
+        public DbSet<StatusEntityModel> Status { get; set; }
         public DbSet<FileDescriptorEntityModel> Descriptor { get; set; }
         public DbSet<FileEntityModel> File { get; set; }
         public DbQuery<AllWalletsWithSums> AllWalletsWithSumsQuery { get; set; }
@@ -43,45 +43,45 @@ namespace Data
             //    .HasOne(p => p.EditedByUser)
             //    .WithOne();
 
-            modelBuilder.Entity<RegistrantDbRepoModel>()
+            modelBuilder.Entity<RegistrantEntityModel>()
                 .HasOne(x => x.User)
                 .WithOne(x => x.Registrant)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<UserDbRepoModel>()
+            modelBuilder.Entity<UserEntityModel>()
                 .HasOne(x => x.Registrant)
                 .WithOne(i => i.User)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<WalletDbRepoModel>()
+            modelBuilder.Entity<WalletEntityModel>()
                 .HasOne(x => x.Registrant)
                 .WithMany(x => x.Wallets)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<AccountDbRepoModel>()
+            modelBuilder.Entity<AccountEntityModel>()
                 .HasOne(x => x.Wallet)
                 .WithMany( i => i.Accounts)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<UserDbRepoModel>()
+            modelBuilder.Entity<UserEntityModel>()
                 .HasOne(x => x.CreatedByUser)
                 .WithMany()
                 .HasForeignKey(m => m.CreatedById)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<UserDbRepoModel>()
+            modelBuilder.Entity<UserEntityModel>()
                 .HasOne(x => x.EditedByUser)
                 .WithMany()
                 .HasForeignKey(m => m.EditedById)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<RegistrantDbRepoModel>()
+            modelBuilder.Entity<RegistrantEntityModel>()
                .HasOne(x => x.CreatedByUser)
                .WithMany()
                .HasForeignKey(m => m.CreatedById)
                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<RegistrantDbRepoModel>()
+            modelBuilder.Entity<RegistrantEntityModel>()
                .HasOne(x => x.EditedByUser)
                .WithMany()
                .HasForeignKey(m => m.EditedById)

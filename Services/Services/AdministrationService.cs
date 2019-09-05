@@ -15,12 +15,12 @@ namespace Services.Services
 {
     public class AdministrationService : IAdministrationService
     {
-        private readonly UserManager<UserDbRepoModel> _userManager;
+        private readonly UserManager<UserEntityModel> _userManager;
         private readonly RoleManager<RoleModel> _roleManager;
         private readonly UnitOfWork _unitOfWork;
 
 
-        public AdministrationService(UserManager<UserDbRepoModel> userManager,
+        public AdministrationService(UserManager<UserEntityModel> userManager,
                                     RoleManager<RoleModel> roleManager,
                                     UnitOfWork unitOfWork)
         {
@@ -29,7 +29,7 @@ namespace Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public Task<IdentityResult> AddUserToRoleAsync(UserDbRepoModel user, string roleName)
+        public Task<IdentityResult> AddUserToRoleAsync(UserEntityModel user, string roleName)
         {
             return _userManager.AddToRoleAsync(user, roleName);
         }
@@ -44,7 +44,7 @@ namespace Services.Services
             return _roleManager.FindByIdAsync(roleId);
         }
 
-        public Task<UserDbRepoModel> FindUserByIdAsync(string userId)
+        public Task<UserEntityModel> FindUserByIdAsync(string userId)
         {
             return _userManager.FindByIdAsync(userId);
         }
@@ -54,22 +54,22 @@ namespace Services.Services
             return _roleManager.Roles;
         }
 
-        public IEnumerable<UserDbRepoModel> GetUsers()
+        public IEnumerable<UserEntityModel> GetUsers()
         {
             return _userManager.Users;
         }
 
-        public Task<IList<UserDbRepoModel>> GetUsersInRoleAsync(string roleName)
+        public Task<IList<UserEntityModel>> GetUsersInRoleAsync(string roleName)
         {
             return _userManager.GetUsersInRoleAsync(roleName);
         }
 
-        public Task<bool> IsUserInRoleAsync(UserDbRepoModel user, string roleName)
+        public Task<bool> IsUserInRoleAsync(UserEntityModel user, string roleName)
         {
             return _userManager.IsInRoleAsync(user, roleName);
         }
 
-        public Task<IdentityResult> RemoveUserFromRoleAsync(UserDbRepoModel user, string roleName)
+        public Task<IdentityResult> RemoveUserFromRoleAsync(UserEntityModel user, string roleName)
         {
             return _userManager.RemoveFromRoleAsync(user, roleName);
         }

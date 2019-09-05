@@ -7,24 +7,23 @@ using System.Text;
 
 namespace Data.Entities
 {
-    [Table("FileDescriptor")]
-    public class FileDescriptorEntityModel : IBaseHistory
+    [Table("Transactions")]
+    public class TransactionEntityModel : IBaseHistory
     {
-        [Key]
         public int Id { get; set; }
 
-        public string FileName { get; set; }
-
-        public string FileExtension { get; set; }
-
-        public string FileContentType { get; set; }
-
         [Required]
-        public string UniqueFileName { get; set; }
+        [ForeignKey("Account")]
+        public int AccountId { get; set; }
+        public AccountEntityModel Account{ get; set; }
 
-        [ForeignKey("File")]
-        public int FileId { get; set; }
-        public FileEntityModel File { get; set; }
+        public string ToIBAN { get; set; }
+
+        public decimal Amount { get; set; }
+
+        [ForeignKey("Currency")]
+        public int CurrencyId { get; set; }
+        public CurrencyEntityModel Currency { get; set; }
 
         [ForeignKey("CreatedByUser")]
         public int? CreatedById { get; set; }

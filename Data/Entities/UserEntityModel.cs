@@ -9,22 +9,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Data.Entities
 { 
     [Table("User")]
-    public class UserDbRepoModel : IdentityUser<int>, IBaseHistory
+    public class UserEntityModel : IdentityUser<int>, IBaseHistory
     {
         [InverseProperty("User")]
-        public RegistrantDbRepoModel Registrant { get; set; }
+        public RegistrantEntityModel Registrant { get; set; }
 
         [ForeignKey("CreatedByUser")]
         public int? CreatedById { get; set; }
-        public UserDbRepoModel CreatedByUser { get; set; }
+        public UserEntityModel CreatedByUser { get; set; }
         public DateTime DateCreated { get; set; }
 
         [ForeignKey("EditedByUser")]
         public int? EditedById { get; set; }
-        public UserDbRepoModel EditedByUser { get; set; }
+        public UserEntityModel EditedByUser { get; set; }
         public DateTime? DateEdited { get; set; }
 
-        public UserDbRepoModel() { }
+        public UserEntityModel() { }
 
     }
 }

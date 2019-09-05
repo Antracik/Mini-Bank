@@ -7,7 +7,7 @@ using System;
 namespace Data.Entities
 {
     [Table("Registrant")]
-    public class RegistrantDbRepoModel : IBaseHistory
+    public class RegistrantEntityModel : IBaseHistory
     {
 
         [Key]
@@ -23,7 +23,7 @@ namespace Data.Entities
         [ForeignKey("CountryRelation")]
         [Column("CountryId")]
         public int Country { get; set; }
-        public CountryDbRepoModel CountryRelation { get; set; }
+        public CountryEntityModel CountryRelation { get; set; }
 
         [Required]
         public string Address { get; set; }
@@ -32,20 +32,20 @@ namespace Data.Entities
         [Required]
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public UserDbRepoModel User { get; set; }
+        public UserEntityModel User { get; set; }
 
-        public List<WalletDbRepoModel> Wallets { get; set; }
+        public List<WalletEntityModel> Wallets { get; set; }
 
         [ForeignKey("CreatedByUser")]
         public int? CreatedById { get; set; }
-        public UserDbRepoModel CreatedByUser { get; set; }
+        public UserEntityModel CreatedByUser { get; set; }
         public DateTime DateCreated { get; set; }
 
         [ForeignKey("EditedByUser")]
         public int? EditedById { get; set; }
-        public UserDbRepoModel EditedByUser { get; set; }
+        public UserEntityModel EditedByUser { get; set; }
         public DateTime? DateEdited { get; set; }
 
-        public RegistrantDbRepoModel() {}
+        public RegistrantEntityModel() {}
     }
 }

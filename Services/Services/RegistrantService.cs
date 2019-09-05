@@ -25,13 +25,13 @@ namespace Services.Services
         public int CreateRegistrant(RegistrantServiceModel registrant)
         {
 
-            _unitOfWork.Add<RegistrantDbRepoModel>();
+            _unitOfWork.Add<RegistrantEntityModel>();
 
-            var registrantEntity = _mapper.Map<RegistrantDbRepoModel>(registrant);
+            var registrantEntity = _mapper.Map<RegistrantEntityModel>(registrant);
 
             _dateService.SetDateCreatedNow(ref registrantEntity);
 
-            _unitOfWork.GetRepository<RegistrantDbRepoModel>().AddItem(registrantEntity);
+            _unitOfWork.GetRepository<RegistrantEntityModel>().AddItem(registrantEntity);
             _unitOfWork.Save();
 
             return registrantEntity.Id;
@@ -41,9 +41,9 @@ namespace Services.Services
         {
             int userId;
 
-            _unitOfWork.Add<RegistrantDbRepoModel>();
+            _unitOfWork.Add<RegistrantEntityModel>();
 
-            var registrantRepo = _unitOfWork.GetRepository<RegistrantDbRepoModel>();
+            var registrantRepo = _unitOfWork.GetRepository<RegistrantEntityModel>();
 
             var registrantEntity = registrantRepo.Get(reg => reg.Id == id, null, "Wallets").FirstOrDefault();
 
@@ -63,9 +63,9 @@ namespace Services.Services
 
         public IEnumerable<RegistrantServiceModel> GetAllRegistrants()
         {
-            _unitOfWork.Add<RegistrantDbRepoModel>();
+            _unitOfWork.Add<RegistrantEntityModel>();
            
-            var registrantEntities = _unitOfWork.GetRepository<RegistrantDbRepoModel>().Get(null, null, "CountryRelation").ToList();
+            var registrantEntities = _unitOfWork.GetRepository<RegistrantEntityModel>().Get(null, null, "CountryRelation").ToList();
 
             var registrantModels = _mapper.Map<List<RegistrantServiceModel>>(registrantEntities);
 
@@ -74,9 +74,9 @@ namespace Services.Services
 
         public IEnumerable<RegistrantServiceModel> GetAllRegistrants(string orderBy, string filterBy)
         {
-            var repo = _unitOfWork.Add<RegistrantDbRepoModel>().GetRepository<RegistrantDbRepoModel>();
+            var repo = _unitOfWork.Add<RegistrantEntityModel>().GetRepository<RegistrantEntityModel>();
 
-            var registrantEntities = new List<RegistrantDbRepoModel>();
+            var registrantEntities = new List<RegistrantEntityModel>();
 
             switch(orderBy)
             {
@@ -122,19 +122,19 @@ namespace Services.Services
 
         public RegistrantServiceModel GetRegistrantByUserId(int userId, bool includeWallets = false)
         {
-            var registrantEntity = new RegistrantDbRepoModel();
+            var registrantEntity = new RegistrantEntityModel();
 
-            _unitOfWork.Add<RegistrantDbRepoModel>().Add<WalletDbRepoModel>();
+            _unitOfWork.Add<RegistrantEntityModel>().Add<WalletEntityModel>();
 
             if (includeWallets)
             {
-                registrantEntity = _unitOfWork.GetRepository<RegistrantDbRepoModel>().Get(reg => reg.UserId == userId, null, "CountryRelation").FirstOrDefault();
-                var wallets = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(wallet => wallet.RegistrantId == registrantEntity.Id, null, "Status").ToList();
+                registrantEntity = _unitOfWork.GetRepository<RegistrantEntityModel>().Get(reg => reg.UserId == userId, null, "CountryRelation").FirstOrDefault();
+                var wallets = _unitOfWork.GetRepository<WalletEntityModel>().Get(wallet => wallet.RegistrantId == registrantEntity.Id, null, "Status").ToList();
                 registrantEntity.Wallets = wallets;
             }
             else
             {
-                registrantEntity = _unitOfWork.GetRepository<RegistrantDbRepoModel>().Get(reg => reg.UserId == userId, null, "CountryRelation").FirstOrDefault();
+                registrantEntity = _unitOfWork.GetRepository<RegistrantEntityModel>().Get(reg => reg.UserId == userId, null, "CountryRelation").FirstOrDefault();
             }
 
             var registrantModels = _mapper.Map<RegistrantServiceModel>(registrantEntity);
@@ -144,19 +144,19 @@ namespace Services.Services
 
         public RegistrantServiceModel GetRegistrantById(int id, bool includeWallets = false)
         {
-            var registrantEntity = new RegistrantDbRepoModel();
+            var registrantEntity = new RegistrantEntityModel();
 
-            _unitOfWork.Add<RegistrantDbRepoModel>().Add<WalletDbRepoModel>();
+            _unitOfWork.Add<RegistrantEntityModel>().Add<WalletEntityModel>();
             
             if (includeWallets)
             {
-                registrantEntity = _unitOfWork.GetRepository<RegistrantDbRepoModel>().Get(reg => reg.Id == id, null, "CountryRelation").FirstOrDefault();
-                var wallets = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(wallet => wallet.RegistrantId == registrantEntity.Id, null, "Status").ToList();
+                registrantEntity = _unitOfWork.GetRepository<RegistrantEntityModel>().Get(reg => reg.Id == id, null, "CountryRelation").FirstOrDefault();
+                var wallets = _unitOfWork.GetRepository<WalletEntityModel>().Get(wallet => wallet.RegistrantId == registrantEntity.Id, null, "Status").ToList();
                 registrantEntity.Wallets = wallets;
             }
             else
             {
-                registrantEntity = _unitOfWork.GetRepository<RegistrantDbRepoModel>().Get(reg => reg.Id == id, null, "CountryRelation").FirstOrDefault();
+                registrantEntity = _unitOfWork.GetRepository<RegistrantEntityModel>().Get(reg => reg.Id == id, null, "CountryRelation").FirstOrDefault();
             }
 
             var registrantModels = _mapper.Map<RegistrantServiceModel>(registrantEntity);
@@ -166,13 +166,13 @@ namespace Services.Services
 
         public void UpdateRegistrant(RegistrantServiceModel registrant)
         {
-            _unitOfWork.Add<RegistrantDbRepoModel>();
+            _unitOfWork.Add<RegistrantEntityModel>();
             
-            var registrantEntity = _mapper.Map<RegistrantDbRepoModel>(registrant);
+            var registrantEntity = _mapper.Map<RegistrantEntityModel>(registrant);
 
             _dateService.SetDateEditedNow(ref registrantEntity);
 
-            _unitOfWork.GetRepository<RegistrantDbRepoModel>().Update(registrantEntity);
+            _unitOfWork.GetRepository<RegistrantEntityModel>().Update(registrantEntity);
             _unitOfWork.Save();
         }
     }

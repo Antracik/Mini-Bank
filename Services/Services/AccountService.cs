@@ -25,13 +25,13 @@ namespace Services.Services
         public int CreateAccount(AccountServiceModel account)
         {
 
-            _unitOfWork.Add<AccountDbRepoModel>();
+            _unitOfWork.Add<AccountEntityModel>();
 
-            var accountEntity = _mapper.Map<AccountDbRepoModel>(account);
+            var accountEntity = _mapper.Map<AccountEntityModel>(account);
 
             _dateService.SetDateCreatedNow(ref accountEntity);
 
-            _unitOfWork.GetRepository<AccountDbRepoModel>().AddItem(accountEntity);
+            _unitOfWork.GetRepository<AccountEntityModel>().AddItem(accountEntity);
             _unitOfWork.Save();
 
             return accountEntity.Id;
@@ -41,9 +41,9 @@ namespace Services.Services
         {
             int wallId;
 
-            _unitOfWork.Add<AccountDbRepoModel>();
+            _unitOfWork.Add<AccountEntityModel>();
 
-            var accountRepo = _unitOfWork.GetRepository<AccountDbRepoModel>();
+            var accountRepo = _unitOfWork.GetRepository<AccountEntityModel>();
 
             wallId = accountRepo.Get(acc => acc.Id == id).FirstOrDefault().WalletId;
 
@@ -56,9 +56,9 @@ namespace Services.Services
 
         public AccountServiceModel GetAccountById(int id)
         {
-            _unitOfWork.Add<AccountDbRepoModel>();
+            _unitOfWork.Add<AccountEntityModel>();
 
-            var accountEnity = _unitOfWork.GetRepository<AccountDbRepoModel>().Get(acc => acc.Id == id, null, "Status,CurrencyRelation").FirstOrDefault();
+            var accountEnity = _unitOfWork.GetRepository<AccountEntityModel>().Get(acc => acc.Id == id, null, "Status,CurrencyRelation").FirstOrDefault();
 
             var accountModel = _mapper.Map<AccountServiceModel>(accountEnity);
 
@@ -67,9 +67,9 @@ namespace Services.Services
 
         public IEnumerable<AccountServiceModel> GetAllAccountsWithWalledId(int walletId)
         {
-            _unitOfWork.Add<AccountDbRepoModel>();
+            _unitOfWork.Add<AccountEntityModel>();
 
-            var accountEntities = _unitOfWork.GetRepository<AccountDbRepoModel>().Get( acc => acc.WalletId == walletId, null, "Status,CurrencyRelation").ToList();
+            var accountEntities = _unitOfWork.GetRepository<AccountEntityModel>().Get( acc => acc.WalletId == walletId, null, "Status,CurrencyRelation").ToList();
 
             var accountModels = _mapper.Map<List<AccountServiceModel>>(accountEntities);
 
@@ -78,9 +78,9 @@ namespace Services.Services
 
         public IEnumerable<AccountServiceModel> GetAllAccounts()
         {
-            _unitOfWork.Add<AccountDbRepoModel>();
+            _unitOfWork.Add<AccountEntityModel>();
             
-            var accountEntities = _unitOfWork.GetRepository<AccountDbRepoModel>().Get(null, null, "Status,CurrencyRelation").ToList();
+            var accountEntities = _unitOfWork.GetRepository<AccountEntityModel>().Get(null, null, "Status,CurrencyRelation").ToList();
 
             var accountModels = _mapper.Map<List<AccountServiceModel>>(accountEntities);
 
@@ -89,9 +89,9 @@ namespace Services.Services
 
         public IEnumerable<AccountServiceModel> GetAllAccounts(string orderBy, string filter)
         {
-            var repo =  _unitOfWork.Add<AccountDbRepoModel>().GetRepository<AccountDbRepoModel>();
+            var repo =  _unitOfWork.Add<AccountEntityModel>().GetRepository<AccountEntityModel>();
 
-            var accountEntities = new List<AccountDbRepoModel>();
+            var accountEntities = new List<AccountEntityModel>();
 
             switch(orderBy)
             {
@@ -137,13 +137,13 @@ namespace Services.Services
 
         public void UpdateAccount(AccountServiceModel account)
         {
-            _unitOfWork.Add<AccountDbRepoModel>();
+            _unitOfWork.Add<AccountEntityModel>();
            
-            var accountEntity = _mapper.Map<AccountDbRepoModel>(account);
+            var accountEntity = _mapper.Map<AccountEntityModel>(account);
 
             _dateService.SetDateEditedNow(ref accountEntity);
 
-            _unitOfWork.GetRepository<AccountDbRepoModel>().Update(accountEntity);
+            _unitOfWork.GetRepository<AccountEntityModel>().Update(accountEntity);
             _unitOfWork.Save();
         }
     }

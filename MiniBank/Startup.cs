@@ -69,7 +69,7 @@ namespace Mini_Bank
                     options.UseSqlServer(Configuration.GetConnectionString("MiniBankDB"), b => b.MigrationsAssembly("Mini Bank")).EnableSensitiveDataLogging();
                 });
 
-            services.AddIdentity<UserDbRepoModel, RoleModel>(options => {
+            services.AddIdentity<UserEntityModel, RoleModel>(options => {
                 options.Password.RequiredLength = 8;
                 options.Password.RequiredUniqueChars = 1;
                 options.Password.RequireLowercase = true;

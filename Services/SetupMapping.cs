@@ -11,19 +11,19 @@ namespace Services
     {
         public SetupMappingProfile()
         {
-            CreateMap<AccountServiceModel, AccountDbRepoModel>().ReverseMap();
+            CreateMap<AccountServiceModel, AccountEntityModel>().ReverseMap();
 
-            CreateMap<UserServiceModel, UserDbRepoModel>().ReverseMap();
+            CreateMap<UserServiceModel, UserEntityModel>().ReverseMap();
 
-            CreateMap<RegistrantServiceModel, RegistrantDbRepoModel>().ReverseMap();
+            CreateMap<RegistrantServiceModel, RegistrantEntityModel>().ReverseMap();
 
-            CreateMap<WalletServiceModel, WalletDbRepoModel>().ReverseMap();
+            CreateMap<WalletServiceModel, WalletEntityModel>().ReverseMap();
 
-            CreateMap<CountryServiceModel, CountryDbRepoModel>().ReverseMap();
+            CreateMap<CountryServiceModel, CountryEntityModel>().ReverseMap();
 
-            CreateMap<StatusServiceModel, StatusDbRepoModel>().ReverseMap();
+            CreateMap<StatusServiceModel, StatusEntityModel>().ReverseMap();
 
-            CreateMap<CurrencyServiceModel, CurrencyDbRepoModel>().ReverseMap();
+            CreateMap<CurrencyServiceModel, CurrencyEntityModel>().ReverseMap();
 
             CreateMap<FileDownloadServiceModel, FileEntityModel>().ForPath( dest => dest.Descriptor.FileName, opt => opt.MapFrom( src => src.FileName ) )
                                                                   .ForPath( dest => dest.Descriptor.FileExtension, opt => opt.MapFrom(src => src.FileExtension))

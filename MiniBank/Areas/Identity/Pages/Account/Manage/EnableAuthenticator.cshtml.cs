@@ -114,7 +114,7 @@ namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
             }
         }
 
-        private async Task LoadSharedKeyAndQrCodeUriAsync(UserDbRepoModel user)
+        private async Task LoadSharedKeyAndQrCodeUriAsync(UserEntityModel user)
         {
             // Load the authenticator key & QR code URI to display on the form
             var unformattedKey = await _userService.GetAuthenticatorKeyAsync(user);

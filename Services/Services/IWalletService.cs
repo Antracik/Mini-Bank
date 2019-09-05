@@ -13,8 +13,8 @@ namespace Services.Services
         WalletServiceModel GetWalletByRegistrantId(int id, bool includeAccounts = false);
         WalletServiceModel GetWalletByWalletNumber(int walletNumber, bool includeAccounts = false);
         IEnumerable<WalletServiceModel> GetAllWallets();
-        IEnumerable<WalletServiceModel> GetAllWallets(Expression<Func<WalletDbRepoModel, bool>> filter = null,
-            Func<IQueryable<WalletDbRepoModel>, IOrderedQueryable<WalletDbRepoModel>> orderBy = null);
+        IEnumerable<WalletServiceModel> GetAllWallets(Expression<Func<WalletEntityModel, bool>> filter = null,
+            Func<IQueryable<WalletEntityModel>, IOrderedQueryable<WalletEntityModel>> orderBy = null);
         IEnumerable<WalletServiceModel> GetAllWallets(string orderBy, string filter);
         int CreateWallet(WalletServiceModel wallet);
         void UpdateWallet(WalletServiceModel wallet);

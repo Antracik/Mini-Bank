@@ -15,13 +15,13 @@ namespace Services.Services
     {
         private readonly UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly UserManager<UserDbRepoModel> _userManager;
-        private readonly SignInManager<UserDbRepoModel> _signInManager;
+        private readonly UserManager<UserEntityModel> _userManager;
+        private readonly SignInManager<UserEntityModel> _signInManager;
         private readonly IDateService _dateService;
 
         public UserService(UnitOfWork unitOfWork,
-                            UserManager<UserDbRepoModel> userManager,
-                            SignInManager<UserDbRepoModel> signInManager,
+                            UserManager<UserEntityModel> userManager,
+                            SignInManager<UserEntityModel> signInManager,
                             IMapper mapper,
                             IDateService dateService)
         {
@@ -32,7 +32,7 @@ namespace Services.Services
             _dateService = dateService;
         }
 
-        public async Task<IdentityResult> CreateUserAsync(UserDbRepoModel user, string password = null)
+        public async Task<IdentityResult> CreateUserAsync(UserEntityModel user, string password = null)
         {
             _dateService.SetDateCreatedNow(ref user);
             IdentityResult res;
@@ -48,16 +48,16 @@ namespace Services.Services
             return res;
         }
 
-        public Task<string> GenerateUserEmailConfirmationTokenAsync(UserDbRepoModel user)
+        public Task<string> GenerateUserEmailConfirmationTokenAsync(UserEntityModel user)
         {
             return _userManager.GenerateEmailConfirmationTokenAsync(user);
         }
 
         public bool DeleteUser(int id)
         {
-            _unitOfWork.Add<UserDbRepoModel>();
+            _unitOfWork.Add<UserEntityModel>();
 
-            var userRepo = _unitOfWork.GetRepository<UserDbRepoModel>();
+            var userRepo = _unitOfWork.GetRepository<UserEntityModel>();
 
             var userEntity = userRepo.Get(user => user.Id == id, null, "Registrant").FirstOrDefault();
 
@@ -74,9 +74,9 @@ namespace Services.Services
 
         public IEnumerable<UserServiceModel> GetAllUsers()
         {
-            _unitOfWork.Add<UserDbRepoModel>();
+            _unitOfWork.Add<UserEntityModel>();
 
-            var userEntities = _unitOfWork.GetRepository<UserDbRepoModel>().Get().ToList();
+            var userEntities = _unitOfWork.GetRepository<UserEntityModel>().Get().ToList();
 
             var userModels = _mapper.Map<List<UserServiceModel>>(userEntities);
 
@@ -86,7 +86,7 @@ namespace Services.Services
         public IEnumerable<UserServiceModel> GetAllUsers(string orderBy, string filter)
         {
 
-            var repo = _unitOfWork.Add<UserDbRepoModel>().GetRepository<UserDbRepoModel>();
+            var repo = _unitOfWork.Add<UserEntityModel>().GetRepository<UserEntityModel>();
 
             var userEntities = repo.Get();
 
@@ -133,9 +133,9 @@ namespace Services.Services
 
         public UserServiceModel GetUserByEmail(string email)
         {
-            _unitOfWork.Add<UserDbRepoModel>();
+            _unitOfWork.Add<UserEntityModel>();
 
-            var userEntity = _unitOfWork.GetRepository<UserDbRepoModel>().Get(user => user.Email == email).FirstOrDefault();
+            var userEntity = _unitOfWork.GetRepository<UserEntityModel>().Get(user => user.Email == email).FirstOrDefault();
 
             var userModel = _mapper.Map<UserServiceModel>(userEntity);
 
@@ -144,17 +144,17 @@ namespace Services.Services
 
         public UserServiceModel GetUserById(int id, bool includeRegistrant = false)
         {
-            var userEntity = new UserDbRepoModel();
+            var userEntity = new UserEntityModel();
 
-            _unitOfWork.Add<UserDbRepoModel>();
+            _unitOfWork.Add<UserEntityModel>();
 
             if (includeRegistrant)
             {
-                userEntity = _unitOfWork.GetRepository<UserDbRepoModel>().Get(user => user.Id == id, null, "Registrant").FirstOrDefault();
+                userEntity = _unitOfWork.GetRepository<UserEntityModel>().Get(user => user.Id == id, null, "Registrant").FirstOrDefault();
             }
             else
             {
-                userEntity = _unitOfWork.GetRepository<UserDbRepoModel>().GetById(id);
+                userEntity = _unitOfWork.GetRepository<UserEntityModel>().GetById(id);
             }
 
             var userModel = _mapper.Map<UserServiceModel>(userEntity);
@@ -164,13 +164,13 @@ namespace Services.Services
 
         public void UpdateUser(UserServiceModel user)
         {
-            _unitOfWork.Add<UserDbRepoModel>();
+            _unitOfWork.Add<UserEntityModel>();
 
-            var userEntity = _mapper.Map<UserDbRepoModel>(user);
+            var userEntity = _mapper.Map<UserEntityModel>(user);
 
             _dateService.SetDateEditedNow(ref userEntity);
 
-            _unitOfWork.GetRepository<UserDbRepoModel>().Update(userEntity);
+            _unitOfWork.GetRepository<UserEntityModel>().Update(userEntity);
             _unitOfWork.Save();
 
         }
@@ -190,7 +190,7 @@ namespace Services.Services
             return _signInManager.PasswordSignInAsync(userName, password, isPersistent, lockoutOnFailure);
         }
 
-        public Task<UserDbRepoModel> GetTwoFactorAuthenticationUserAsync()
+        public Task<UserEntityModel> GetTwoFactorAuthenticationUserAsync()
         {
             return _signInManager.GetTwoFactorAuthenticationUserAsync();
         }
@@ -200,12 +200,12 @@ namespace Services.Services
             return _signInManager.TwoFactorAuthenticatorSignInAsync(code, isPersistent, rememberClient);
         }
 
-        public Task<UserDbRepoModel> GetUserByIdAsync(string id)
+        public Task<UserEntityModel> GetUserByIdAsync(string id)
         {
             return _userManager.FindByIdAsync(id);
         }
 
-        public Task<IdentityResult> ConfirmUserEmailAsync(UserDbRepoModel user, string code)
+        public Task<IdentityResult> ConfirmUserEmailAsync(UserEntityModel user, string code)
         {
             return _userManager.ConfirmEmailAsync(user, code);
         }
@@ -225,12 +225,12 @@ namespace Services.Services
             return _signInManager.ExternalLoginSignInAsync(loginProvider, providerKey, isPersistent, bypassTwoFactor);
         }
 
-        public Task<IdentityResult> AddUserLoginAsync(UserDbRepoModel user, ExternalLoginInfo info)
+        public Task<IdentityResult> AddUserLoginAsync(UserEntityModel user, ExternalLoginInfo info)
         {
             return _userManager.AddLoginAsync(user, info);
         }
 
-        public Task SignInAsync(UserDbRepoModel user, bool isPersistent)
+        public Task SignInAsync(UserEntityModel user, bool isPersistent)
         {
             return _signInManager.SignInAsync(user, isPersistent);
         }
@@ -240,27 +240,27 @@ namespace Services.Services
             return _signInManager.SignOutAsync();
         }
 
-        public Task<UserDbRepoModel> GetUserByEmailAsync(string email)
+        public Task<UserEntityModel> GetUserByEmailAsync(string email)
         {
             return _userManager.FindByEmailAsync(email);
         }
 
-        public Task<bool> IsUserEmailConfirmedAsync(UserDbRepoModel user)
+        public Task<bool> IsUserEmailConfirmedAsync(UserEntityModel user)
         {
             return _userManager.IsEmailConfirmedAsync(user);
         }
 
-        public Task<string> GeneratePasswordResetTokenAsync(UserDbRepoModel user)
+        public Task<string> GeneratePasswordResetTokenAsync(UserEntityModel user)
         {
             return _userManager.GeneratePasswordResetTokenAsync(user);
         }
 
-        public Task<IdentityResult> ResetPasswordAsync(UserDbRepoModel user, string token, string newPassword)
+        public Task<IdentityResult> ResetPasswordAsync(UserEntityModel user, string token, string newPassword)
         {
             return _userManager.ResetPasswordAsync(user, token, newPassword);
         }
 
-        public Task<UserDbRepoModel> GetUserAsync(ClaimsPrincipal principal)
+        public Task<UserEntityModel> GetUserAsync(ClaimsPrincipal principal)
         {
             return _userManager.GetUserAsync(principal);
         }
@@ -270,97 +270,97 @@ namespace Services.Services
             return _userManager.GetUserId(principal);
         }
 
-        public Task<bool> IsUserTwoFactorEnabledAsync(UserDbRepoModel user)
+        public Task<bool> IsUserTwoFactorEnabledAsync(UserEntityModel user)
         {
             return _userManager.GetTwoFactorEnabledAsync(user);
         }
 
-        public Task<IdentityResult> SetTwoFactorEnabledAsync(UserDbRepoModel user, bool enabled)
+        public Task<IdentityResult> SetTwoFactorEnabledAsync(UserEntityModel user, bool enabled)
         {
             return _userManager.SetTwoFactorEnabledAsync(user, enabled);
         }
 
-        public Task<bool> VerifyTwoFactorTokenAsync(UserDbRepoModel user, string token)
+        public Task<bool> VerifyTwoFactorTokenAsync(UserEntityModel user, string token)
         {
             return _userManager.VerifyTwoFactorTokenAsync(user, _userManager.Options.Tokens.AuthenticatorTokenProvider, token);
         }
 
-        public Task<bool> VerifyTwoFactorTokenAsync(UserDbRepoModel user, string tokenProvider, string token)
+        public Task<bool> VerifyTwoFactorTokenAsync(UserEntityModel user, string tokenProvider, string token)
         {
             return _userManager.VerifyTwoFactorTokenAsync(user, tokenProvider, token);
         }
 
-        public Task<string> GetUserIdAsync(UserDbRepoModel user)
+        public Task<string> GetUserIdAsync(UserEntityModel user)
         {
             return _userManager.GetUserIdAsync(user);
         }
 
-        public Task<int> CountValidRecoveryCodesAsync(UserDbRepoModel user)
+        public Task<int> CountValidRecoveryCodesAsync(UserEntityModel user)
         {
             return _userManager.CountRecoveryCodesAsync(user);
         }
 
-        public Task<IEnumerable<string>> GenerateNewTwoFactorRecoveryCodesAsync(UserDbRepoModel user, int number)
+        public Task<IEnumerable<string>> GenerateNewTwoFactorRecoveryCodesAsync(UserEntityModel user, int number)
         {
             return _userManager.GenerateNewTwoFactorRecoveryCodesAsync(user, number);
         }
 
-        public Task<string> GetAuthenticatorKeyAsync(UserDbRepoModel user)
+        public Task<string> GetAuthenticatorKeyAsync(UserEntityModel user)
         {
             return _userManager.GetAuthenticatorKeyAsync(user);
         }
 
-        public Task<string> GetUserEmailAsync(UserDbRepoModel user)
+        public Task<string> GetUserEmailAsync(UserEntityModel user)
         {
             return _userManager.GetEmailAsync(user);
         }
 
-        public Task<IdentityResult> ResetAuthenticatorKeyAsync(UserDbRepoModel user)
+        public Task<IdentityResult> ResetAuthenticatorKeyAsync(UserEntityModel user)
         {
             return _userManager.ResetAuthenticatorKeyAsync(user);
         }
 
-        public Task<bool> HasPasswordAsync(UserDbRepoModel user)
+        public Task<bool> HasPasswordAsync(UserEntityModel user)
         {
             return _userManager.HasPasswordAsync(user);
         }
 
-        public Task<IdentityResult> ChangePasswordAsync(UserDbRepoModel user, string oldPassword, string newPassword)
+        public Task<IdentityResult> ChangePasswordAsync(UserEntityModel user, string oldPassword, string newPassword)
         {
             return _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
         }
 
-        public Task RefreshSignInAsync(UserDbRepoModel user)
+        public Task RefreshSignInAsync(UserEntityModel user)
         {
             return _signInManager.RefreshSignInAsync(user);
         }
 
-        public Task<string> GetUserPhoneNumberAsync(UserDbRepoModel user)
+        public Task<string> GetUserPhoneNumberAsync(UserEntityModel user)
         {
             return _userManager.GetPhoneNumberAsync(user);
         }
 
-        public Task<string> GetUserNameAsync(UserDbRepoModel user)
+        public Task<string> GetUserNameAsync(UserEntityModel user)
         {
             return _userManager.GetUserNameAsync(user);
         }
 
-        public Task<IdentityResult> SetUserEmailAsync(UserDbRepoModel user, string email)
+        public Task<IdentityResult> SetUserEmailAsync(UserEntityModel user, string email)
         {
             return _userManager.SetEmailAsync(user, email);
         }
 
-        public Task<IdentityResult> SetUserPhoneNumberAsync(UserDbRepoModel user, string phoneNumber)
+        public Task<IdentityResult> SetUserPhoneNumberAsync(UserEntityModel user, string phoneNumber)
         {
             return _userManager.SetPhoneNumberAsync(user, phoneNumber);
         }
 
-        public Task<IdentityResult> AddPasswordAsync(UserDbRepoModel user, string password)
+        public Task<IdentityResult> AddPasswordAsync(UserEntityModel user, string password)
         {
             return _userManager.AddPasswordAsync(user, password);
         }
 
-        public Task<bool> IsTwoFactorClientRememberedAsync(UserDbRepoModel user)
+        public Task<bool> IsTwoFactorClientRememberedAsync(UserEntityModel user)
         {
             return _signInManager.IsTwoFactorClientRememberedAsync(user);
         }
