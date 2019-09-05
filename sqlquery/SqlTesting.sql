@@ -153,14 +153,12 @@ SELECT IDENT_CURRENT('Account') AS acc
 -- reg 3
 -- acc 56
 
-SELECT * FROM Wallet
+SELECT DISTINCT(Number) FROM Wallet
 
 SELECT MAX(WalletId) FROM Account
 
 
 USE Mini_Bank
 
-SELECT DISTINCT(IBAN) FROM Account
-WHERE IBAN IN(
-SELECT IBAN FROM Account GROUP BY IBAN HAVING COUNT(*) > 1)
-)
+SELECT * FROM Account
+

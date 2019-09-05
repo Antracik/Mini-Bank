@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Http;
 using Services.Services;
 using static System.Net.Mime.MediaTypeNames;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Mini_Bank.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("[controller]/[action]")]
     public class FileController : Controller
     {

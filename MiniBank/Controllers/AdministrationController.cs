@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Schema;
 using Services.Models;
 using Services.Services;
+using Shared;
 using X.PagedList;
 
 namespace Mini_Bank.Controllers
@@ -23,15 +24,24 @@ namespace Mini_Bank.Controllers
     {
 
         private readonly IAdministrationService _administraionService;
+        private readonly IUserService _userService;
+        private readonly IWalletService _walletService;
         private readonly IMapper _mapper;
         private readonly INomenclatureService _nomenclatureService;
+        private readonly IAccountService _accountService;
 
-        public AdministrationController(IAdministrationService administraionService, 
-                                        IMapper mapper, 
+        public AdministrationController(IAdministrationService administraionService,
+                                        IMapper mapper,
+                                        IUserService userService,
+                                        IAccountService accountService,
+                                        IWalletService walletService,
                                         INomenclatureService nomenclatureService)
         {
             _administraionService = administraionService;
             _mapper = mapper;
+            _accountService = accountService;
+            _userService = userService;
+            _walletService = walletService;
             _nomenclatureService = nomenclatureService;
         }
 
@@ -44,7 +54,7 @@ namespace Mini_Bank.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRole(RoleViewModel roleViewModel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 RoleModel roleModel = new RoleModel
                 {
@@ -53,12 +63,12 @@ namespace Mini_Bank.Controllers
 
                 IdentityResult result = await _administraionService.CreateRoleAsync(roleModel);
 
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
                     return RedirectToAction("ListRoles", "Administration");
                 }
 
-                foreach(IdentityError error in result.Errors)
+                foreach (IdentityError error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
@@ -84,20 +94,85 @@ namespace Mini_Bank.Controllers
         }
 
         [HttpGet]
+        public IActionResult WalletVerificationList()
+        {
+            var wallets = _walletService.GetAllWallets(x => x.IsVerified == false, x => x.OrderBy(y => y.RegistrantId));
+
+            var model = _mapper.Map<List<WalletVerificationListViewModel>>(wallets);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult VerifyWallet(int walletNumber)
+        {
+            var wallet = _walletService.GetWalletByWalletNumber(walletNumber, includeAccounts: true);
+
+            var model = _mapper.Map<VerifyWalletViewModel>(wallet);
+
+            model.CurrencyList = _mapper.Map<List<CurrencyModel>>(_nomenclatureService.GetCurrencies());
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult VerifyWallet(VerifyWalletAccounts account, int walletNumber, bool verify = false)
+        {
+            var wallet = _walletService.GetWalletByWalletNumber(walletNumber, true);
+
+            if (wallet == null)
+            {
+                return RedirectToAction("Error", "Error", new ErrorViewModel { RequestId = "Error, wallet does not exist" });
+            }
+
+            // Modal for verification
+            if (verify)
+            {
+                wallet.IsVerified = true;
+                _walletService.UpdateWallet(wallet);
+
+                return RedirectToAction("WalletVerificationList");
+            }
+
+            // Modal for adding accounts to the wallet before it is verified
+            if (!ModelState.IsValid)
+            {
+                var model = _mapper.Map<VerifyWalletViewModel>(wallet);
+
+                model.CurrencyList = _mapper.Map<List<CurrencyModel>>(_nomenclatureService.GetCurrencies());
+
+                return View(model);
+            }
+
+            //ADD check to see if we already have this IBAN in our system
+
+            var acc = _mapper.Map<AccountServiceModel>(account);
+
+            acc.WalletId = wallet.Id;
+            acc.AccountStatusId = (int)StatusEnum.Status.Okay;
+            acc.CreatedById = int.Parse(_userService.GetUserId(User));
+            acc.CurrencyRelation = null; // Stop ef from being a dick and stopping us from setting the currency for the account
+
+            _accountService.CreateAccount(acc);
+
+            return RedirectToAction("VerifyWallet", new { walletNumber });
+        }
+
+        [HttpGet]
         public async Task<IActionResult> EditRole(string Id)
         {
             RoleModel role = await _administraionService.FindRoleByIdAsync(Id);
 
-            if(role == null)
+            if (role == null)
             {
                 return RedirectToAction("Error", new ErrorViewModel { RequestId = $@"Role with Id: {Id} not found" });
             }
 
             var editRole = _mapper.Map<EditRoleViewModel>(role);
 
-            foreach(var user in _administraionService.GetUsers())
+            foreach (var user in _administraionService.GetUsers())
             {
-                if(await _administraionService.IsUserInRoleAsync(user, role.Name))
+                if (await _administraionService.IsUserInRoleAsync(user, role.Name))
                 {
                     editRole.Users.Add(user.Email);
                 }
@@ -115,15 +190,15 @@ namespace Mini_Bank.Controllers
 
             if (role == null)
             {
-                return RedirectToAction("Error","Error", new ErrorViewModel { RequestId = $@"Role with Id: {tempId.ToString()} not found" });
+                return RedirectToAction("Error", "Error", new ErrorViewModel { RequestId = $@"Role with Id: {tempId.ToString()} not found" });
             }
             else
             {
                 role.Name = model.Name;
 
                 var result = await _administraionService.UpdateRoleAsync(role);
-                
-                if(result.Succeeded)
+
+                if (result.Succeeded)
                 {
                     return RedirectToAction("ListRoles", "Administration");
                 }
@@ -131,7 +206,7 @@ namespace Mini_Bank.Controllers
                 //Something went wrong, put Id back in TempData
                 TempData["id"] = tempId;
 
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
@@ -148,14 +223,14 @@ namespace Mini_Bank.Controllers
 
             var role = await _administraionService.FindRoleByIdAsync(roleId);
 
-            if(role == null)
+            if (role == null)
             {
                 return RedirectToAction("Error", "Error", new ErrorViewModel { RequestId = $"No role with Id: {roleId} found" });
             }
 
             var models = new List<UserRoleViewModel>();
 
-            foreach(var user in _administraionService.GetUsers())
+            foreach (var user in _administraionService.GetUsers())
             {
                 var userRole = new UserRoleViewModel
                 {
@@ -163,7 +238,7 @@ namespace Mini_Bank.Controllers
                     UserName = user.Email
                 };
 
-                if( await _administraionService.IsUserInRoleAsync(user, role.Name))
+                if (await _administraionService.IsUserInRoleAsync(user, role.Name))
                 {
                     userRole.IsSelected = true;
                 }
@@ -187,33 +262,33 @@ namespace Mini_Bank.Controllers
 
             var role = await _administraionService.FindRoleByIdAsync(roleId);
 
-            if(role == null)
+            if (role == null)
             {
                 return RedirectToAction("Error", "Error", new ErrorViewModel { RequestId = $"No role with Id: {roleId} found" });
             }
 
-            for(int i = 0; i < models.Count; i++)
+            for (int i = 0; i < models.Count; i++)
             {
                 var user = await _administraionService.FindUserByIdAsync(models[i].UserId.ToString());
 
                 IdentityResult result;
 
-                if(models[i].IsSelected && !(await _administraionService.IsUserInRoleAsync(user,role.Name)))
+                if (models[i].IsSelected && !(await _administraionService.IsUserInRoleAsync(user, role.Name)))
                 {
-                   result = await _administraionService.AddUserToRoleAsync(user, role.Name);
+                    result = await _administraionService.AddUserToRoleAsync(user, role.Name);
                 }
-                else if(!models[i].IsSelected && await _administraionService.IsUserInRoleAsync(user, role.Name))
+                else if (!models[i].IsSelected && await _administraionService.IsUserInRoleAsync(user, role.Name))
                 {
-                   result = await _administraionService.RemoveUserFromRoleAsync(user, role.Name);
+                    result = await _administraionService.RemoveUserFromRoleAsync(user, role.Name);
                 }
                 else
                 {
                     continue;
                 }
 
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
-                    if( i < (models.Count - 1))
+                    if (i < (models.Count - 1))
                     {
                         continue;
                     }
@@ -238,8 +313,8 @@ namespace Mini_Bank.Controllers
             model.Countries = countries;
             model.CurrentPage = pageIndex;
             model.CurrentSort = sortBy;
-           
-            if(prevFilters != null)
+
+            if (prevFilters != null)
             {
                 model.Filters = JsonConvert.DeserializeObject<AllWalletsWithSumsFilters>(prevFilters);
             }
@@ -258,6 +333,6 @@ namespace Mini_Bank.Controllers
 
             return View(model);
         }
-       
+
     }
 }

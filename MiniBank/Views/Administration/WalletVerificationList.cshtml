@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Mini_Bank.Models.ViewModels.WalletVerificationListViewModel>
+
+@{
+    ViewData["Title"] = "Wallets for Verification";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().Id"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().Number"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().CreatedById"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().RegistrantId"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().DateCreated"></label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                   @item.Id
+                </td>
+                <td>
+                    @item.Number
+                </td>
+                <td>
+                    @item.CreatedById
+                </td>
+                <td>
+                    @item.RegistrantId
+                </td>
+                <td>
+                    @item.DateCreated
+                </td>
+                <td>
+                    <a asp-action="VerifyWallet" asp-route-walletNumber="@item.Number">Begin Verification</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

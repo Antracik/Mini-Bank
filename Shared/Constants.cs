@@ -12,5 +12,6 @@ namespace Shared
         public const string mongoOldItemValues = "OldValue";
         public const string mongoEqualsTrue = "TRUE";
         public const string mongoEqualsFalse = "FALSE";
+        public const int maxWalletsPerUser = 10;
     }
 }

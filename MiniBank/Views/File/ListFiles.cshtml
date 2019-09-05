@@ -41,7 +41,8 @@
                     @item.UniqueFileName
                 </td>
                 <td>
-                    <a id="downloadButton" asp-action="DownloadFile" asp-route-fileId="@item.UniqueFileName">Download</a>
+                    <a id="downloadButton" asp-action="DownloadFile" asp-route-fileId="@item.UniqueFileName">Download</a> |
+                    <a id="preview"> Preview </a>
                 </td>
             </tr>
         }
@@ -54,6 +55,10 @@
     <script>
         $('#downloadButton').on('click', function () {
             $.notify("Fetching file for download, please wait!", "info");
+        });
+
+        $('#preview').on('click', function () {
+            openModal("test","test2");
         });
     </script>
 }

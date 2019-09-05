@@ -35,6 +35,7 @@ namespace Mini_Bank.Controllers
             _walletService = walletService;
         }
 
+        [HttpGet]
         public IActionResult UserWallets()
         {
             int userId = int.Parse(_userService.GetUserId(User));

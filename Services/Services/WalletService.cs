@@ -133,16 +133,13 @@ namespace Services.Services
             var walletEntity = new WalletDbRepoModel();
 
             _unitOfWork.Add<WalletDbRepoModel>().Add<AccountDbRepoModel>();
+
+            walletEntity = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(wallet => wallet.Id == id, null, "Status").FirstOrDefault();
             
             if (includeAccounts)
             {
-                walletEntity = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(wallet => wallet.Id == id, null, "Status").FirstOrDefault();
                 var accounts = _unitOfWork.GetRepository<AccountDbRepoModel>().Get(account => account.WalletId == walletEntity.Id, null, "Status,CurrencyRelation").ToList();
                 walletEntity.Accounts = accounts;
-            }
-            else
-            {
-                walletEntity = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(wallet => wallet.Id == id, null, "Status").FirstOrDefault();
             }
 
             var walletModels = _mapper.Map<WalletServiceModel>(walletEntity);
@@ -156,21 +153,36 @@ namespace Services.Services
 
             _unitOfWork.Add<WalletDbRepoModel>().Add<AccountDbRepoModel>();
 
+            walletEntity = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(wallet => wallet.RegistrantId == registrantId, null, "Status").FirstOrDefault();
+
             if (includeAccounts)
             {
-                walletEntity = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(wallet => wallet.RegistrantId == registrantId, null, "Status").FirstOrDefault();
                 var accounts = _unitOfWork.GetRepository<AccountDbRepoModel>().Get(account => account.WalletId == walletEntity.Id, null, "Status,CurrencyRelation").ToList();
                 walletEntity.Accounts = accounts;
-            }
-            else
-            {
-                walletEntity = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(wallet => wallet.RegistrantId == registrantId, null, "Status").FirstOrDefault();
             }
 
             var walletModels = _mapper.Map<WalletServiceModel>(walletEntity);
 
             return walletModels;
         }
+
+        public WalletServiceModel GetWalletByWalletNumber(int walletNumber, bool includeAccounts = false)
+        {
+            _unitOfWork.Add<WalletDbRepoModel>().Add<AccountDbRepoModel>();
+
+            var walletEntity = _unitOfWork.GetRepository<WalletDbRepoModel>().Get(x => x.Number == walletNumber, null, "Status").FirstOrDefault();
+
+            if(includeAccounts)
+            {
+                var accounts = _unitOfWork.GetRepository<AccountDbRepoModel>().Get(account => account.WalletId == walletEntity.Id, null, "Status,CurrencyRelation").ToList();
+                walletEntity.Accounts = accounts;
+            }
+
+            var walletModels = _mapper.Map<WalletServiceModel>(walletEntity);
+
+            return walletModels;
+        }
+
 
         public void UpdateWallet(WalletServiceModel wallet)
         {

@@ -1,0 +1,146 @@
+﻿@model Mini_Bank.Models.ViewModels.VerifyWalletViewModel
+
+@{
+    ViewData["Title"] = "VerifyWallet";
+}
+
+<h1>VerifyWallet</h1>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+
+<div>
+    <h4>VerifyWalletViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedById)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedById)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RegistrantId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RegistrantId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+    </dl>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <label asp-for="@Model.Account.IBAN"></label>
+                </th>
+                <th>
+                    <label asp-for="@Model.Account.Balance"></label>
+                </th>
+                <th>
+                    <label asp-for="@Model.Account.Currency"></label>
+                </th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Accounts)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        @item.IBAN
+                    </td>
+                    <td>
+                        @item.Balance.ToString("N")
+                    </td>
+                    <td>
+                        @item.Currency
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+<div>
+    <a class="btn btn-secondary" asp-action="WalletVerificationList">Back to List</a>
+    <a class="btn btn-primary" href="#" id="modal" data-toggle="modal" data-target="#Modal">Add Account</a>
+    <a class="btn btn-primary" href="#" id="modalverify" data-toggle="modal" data-target="#Modalverify">Verify Wallet</a>
+</div>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Modal">Add new account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Account.IBAN" class="col-form-label"></label>
+                        <input asp-for="@Model.Account.IBAN" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Account.Balance" class="col-form-label"></label>
+                        <input asp-for="@Model.Account.Balance" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Account.Currency" class="col-form-label"></label>
+                        <select asp-for="@Model.Account.CurrencyId" asp-items="@(new SelectList(Model.CurrencyList, "Id", "Name"))" class="form-control"> </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" asp-action="VerifyWallet" asp-route-walletNumber="@Model.Number" class="btn btn-primary">Add Account To Wallet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modalverify" tabindex="-1" role="dialog" aria-labelledby="Modalverify" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Modalverify">Verify Wallet and go back to list?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <text>
+                    <h5>Pressing the verify button will verify the wallet and go back to the list, are you sure you are done?</h5>
+                </text>
+                <form method="post" asp-route-walletNumber="@Model.Number" asp-route-verify="@true">
+                    <button type="submit" class="btn btn-primary">Verify</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
+                        Close
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
