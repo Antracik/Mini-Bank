@@ -14,67 +14,70 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+            <label asp-for="@Model.Id"></label>
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
+            @Model.Id
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Number)
+            <label asp-for="@Model.Number"></label>
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Number)
+            @Model.Number
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedById)
+            <label asp-for="@Model.CreatedById"></label>
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedById)
+            @Model.CreatedById
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RegistrantId)
+            <label asp-for="@Model.RegistrantId"></label>
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RegistrantId)
+            @Model.RegistrantId
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreated)
+            <label asp-for="@Model.DateCreated"></label>
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateCreated)
+            @Model.DateCreated
         </dd>
     </dl>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>
-                    <label asp-for="@Model.Account.IBAN"></label>
-                </th>
-                <th>
-                    <label asp-for="@Model.Account.Balance"></label>
-                </th>
-                <th>
-                    <label asp-for="@Model.Account.Currency"></label>
-                </th>
-            </tr>
-        </thead>
-        @foreach (var item in Model.Accounts)
-        {
-            <tbody>
+    @if (Model.Accounts.Count > 0)
+    {
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td>
-                        @item.IBAN
-                    </td>
-                    <td>
-                        @item.Balance.ToString("N")
-                    </td>
-                    <td>
-                        @item.Currency
-                    </td>
+                    <th>
+                        <label asp-for="@Model.Account.IBAN"></label>
+                    </th>
+                    <th>
+                        <label asp-for="@Model.Account.Balance"></label>
+                    </th>
+                    <th>
+                        <label asp-for="@Model.Account.Currency"></label>
+                    </th>
                 </tr>
-            </tbody>
-        }
-    </table>
+            </thead>
+            @foreach (var item in Model.Accounts)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @item.IBAN
+                        </td>
+                        <td>
+                            @item.Balance.ToString("N")
+                        </td>
+                        <td>
+                            @item.Currency
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    }
 </div>
 <div>
     <a class="btn btn-secondary" asp-action="WalletVerificationList">Back to List</a>
@@ -82,6 +85,7 @@
     <a class="btn btn-primary" href="#" id="modalverify" data-toggle="modal" data-target="#Modalverify">Verify Wallet</a>
 </div>
 
+<!--Modal window for adding accounts to wallet-->
 <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -116,6 +120,8 @@
     </div>
 </div>
 
+
+<!--Modal window for ending verification and verifying the wallet-->
 <div class="modal fade" id="Modalverify" tabindex="-1" role="dialog" aria-labelledby="Modalverify" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -139,7 +145,6 @@
         </div>
     </div>
 </div>
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

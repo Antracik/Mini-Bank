@@ -42,14 +42,14 @@ namespace Mini_Bank.Controllers
 
             var registrant = _registrantService.GetRegistrantByUserId(userId, includeWallets: true);
 
-            foreach(var wallet in registrant.Wallets)
+            foreach (var wallet in registrant.Wallets)
             {
                 wallet.Accounts = _accountService.GetAllAccountsWithWalledId(wallet.Id).ToList();
             }
 
             var model = _mapper.Map<List<UserWalletsViewModel>>(registrant.Wallets);
 
-            for(int i = 0; i < registrant.Wallets.Count; i++)
+            for (int i = 0; i < registrant.Wallets.Count; i++)
             {
                 model[i].Verified = registrant.Wallets[i].IsVerified ? "Yes" : "No";
                 model[i].RowId = "RowGroup" + i;
@@ -66,19 +66,20 @@ namespace Mini_Bank.Controllers
 
             var registrant = _registrantService.GetRegistrantByUserId(userId, includeWallets: true);
 
-            if(registrant.Wallets.Count >= Constants.maxWalletsPerUser)
+            if (registrant.Wallets.Count >= Constants.maxWalletsPerUser)
             {
                 TempData["Message"] = "You are at your max wallet count (" + Constants.maxWalletsPerUser + ")";
                 return RedirectToAction("UserWallets");
             }
 
-            var newWallet = new WalletServiceModel();
-
-            newWallet.Number = new Random().Next(100, 999999999);
-            newWallet.RegistrantId = registrant.Id;
-            newWallet.IsVerified = false;
-            newWallet.CreatedById = userId;
-            newWallet.WalletStatusId = (int)StatusEnum.Status.Okay;
+            var newWallet = new WalletServiceModel
+            {
+                Number = new Random().Next(100, 999999999),
+                RegistrantId = registrant.Id,
+                IsVerified = false,
+                CreatedById = userId,
+                WalletStatusId = (int)StatusEnum.Status.Okay
+            };
 
             _walletService.CreateWallet(newWallet);
 
@@ -98,7 +99,7 @@ namespace Mini_Bank.Controllers
         }
 
         [HttpGet]
-        public IActionResult DisplayWallets(string sortBy = "", int pageIndex = 1 )
+        public IActionResult DisplayWallets(string sortBy = "", int pageIndex = 1)
         {
             ViewBag.CurrentPage = pageIndex;
             ViewBag.CurrentSort = sortBy;
@@ -113,12 +114,12 @@ namespace Mini_Bank.Controllers
             var walletModels = _mapper.Map<List<WalletModel>>(walletServiceModels);
 
             var pagedModels = walletModels.ToPagedList(pageIndex, 10);
-            
+
             return View(pagedModels);
         }
 
-        
-        
+
+
 
         [HttpGet("{id}")]
         public IActionResult CreateWalletView(int id)
@@ -130,11 +131,11 @@ namespace Mini_Bank.Controllers
 
             return View(tempWallet);
         }
-       
+
         [HttpPost]
         public IActionResult CreateWallet(WalletModel item)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View("CreateWalletView", item);
             }
@@ -145,7 +146,7 @@ namespace Mini_Bank.Controllers
 
             newId = _walletService.CreateWallet(walletServiceModel);
 
-            return RedirectToAction("DetailsWallet", "Wallet" , new { id = newId });
+            return RedirectToAction("DetailsWallet", "Wallet", new { id = newId });
         }
 
         [HttpGet("{id}")]
@@ -161,7 +162,7 @@ namespace Mini_Bank.Controllers
         [HttpPost]
         public IActionResult EditWallet(WalletModel item)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View("EditWalletView", item);
             }
@@ -179,7 +180,7 @@ namespace Mini_Bank.Controllers
             int regId;
 
             regId = _walletService.DeleteRegistrant(id);
-            if(regId == -1)
+            if (regId == -1)
             {
                 return View("Error", new ErrorViewModel { RequestId = @"Can't delete wallet with accounts" });
             }

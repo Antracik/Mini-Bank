@@ -64,12 +64,14 @@ namespace Services.Services
 
         private FileDescriptorEntityModel GetFileDescription(IFormFile file)
         {
-            var fileDescriptor = new FileDescriptorEntityModel();
-
-            fileDescriptor.FileName = Path.GetFileNameWithoutExtension(file.FileName);
-            fileDescriptor.FileExtension = Path.GetExtension(file.FileName);
-            fileDescriptor.FileContentType = file.ContentType;
+            var fileDescriptor = new FileDescriptorEntityModel
+            {
+                FileName = Path.GetFileNameWithoutExtension(file.FileName),
+                FileExtension = Path.GetExtension(file.FileName),
+                FileContentType = file.ContentType
+            };
             fileDescriptor.UniqueFileName = Guid.NewGuid().ToString() + "_" + fileDescriptor.FileName + fileDescriptor.FileExtension;
+
             _dateService.SetDateCreatedNow(ref fileDescriptor);
 
             return fileDescriptor;
@@ -136,9 +138,10 @@ namespace Services.Services
             {
                 try
                 {
-                    var file = new FileEntityModel();
-
-                    file.Data = Convert.ToBase64String(fileData);
+                    var file = new FileEntityModel
+                    {
+                        Data = Convert.ToBase64String(fileData)
+                    };
 
                     var fileDescriptor = GetFileDescription(inputFile);
 
