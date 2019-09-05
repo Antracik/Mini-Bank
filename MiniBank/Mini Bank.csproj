@@ -15,6 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190905100340_TransactionTable.cs" />
+    <Compile Remove="Migrations\20190905100340_TransactionTable.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="NodeChart.js" />
   </ItemGroup>
 

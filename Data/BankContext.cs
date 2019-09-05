@@ -22,6 +22,8 @@ namespace Data
         public DbSet<CurrencyEntityModel> Currency { get; set; }
         public DbSet<CountryEntityModel> Countries { get; set; }
         public DbSet<StatusEntityModel> Status { get; set; }
+        public DbSet<TransactionEntityModel> Transaction { get; set; }
+        public DbSet<TransactionTypeEntityModel> TransactionType { get; set; }
         public DbSet<FileDescriptorEntityModel> Descriptor { get; set; }
         public DbSet<FileEntityModel> File { get; set; }
         public DbQuery<AllWalletsWithSums> AllWalletsWithSumsQuery { get; set; }
@@ -86,6 +88,13 @@ namespace Data
                .WithMany()
                .HasForeignKey(m => m.EditedById)
                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TransactionEntityModel>()
+                .HasOne(x => x.Currency)
+                .WithMany()
+                .HasForeignKey(m => m.CurrencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+                
 
             //modelBuilder.Entity<UserDbRepoModel>()
             //    .HasOne(x => x.CreatedByUser)

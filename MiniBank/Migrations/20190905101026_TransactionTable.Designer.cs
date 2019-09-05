@@ -4,14 +4,16 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mini_Bank.Migrations
 {
     [DbContext(typeof(BankContext))]
-    partial class BankContextModelSnapshot : ModelSnapshot
+    [Migration("20190905101026_TransactionTable")]
+    partial class TransactionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,8 +249,6 @@ namespace Mini_Bank.Migrations
 
                     b.Property<string>("ToIBAN");
 
-                    b.Property<int>("TransactionTypeId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
@@ -259,22 +259,7 @@ namespace Mini_Bank.Migrations
 
                     b.HasIndex("EditedById");
 
-                    b.HasIndex("TransactionTypeId");
-
                     b.ToTable("Transactions");
-                });
-
-            modelBuilder.Entity("Data.Entities.TransactionTypeEntityModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TransactionType");
                 });
 
             modelBuilder.Entity("Data.Entities.UserEntityModel", b =>
@@ -544,11 +529,6 @@ namespace Mini_Bank.Migrations
                     b.HasOne("Data.Entities.UserEntityModel", "EditedByUser")
                         .WithMany()
                         .HasForeignKey("EditedById");
-
-                    b.HasOne("Data.Entities.TransactionTypeEntityModel", "TransactionType")
-                        .WithMany()
-                        .HasForeignKey("TransactionTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Data.Entities.UserEntityModel", b =>

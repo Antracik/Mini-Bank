@@ -27,4 +27,17 @@ namespace Mini_Bank.Models.ViewModels
 
         public string Currency { get; set; }
     }
+
+    public class UserWalletTransaction
+    {
+        [Required]
+        public string ToIBAN { get; set; }
+
+        [Required]
+        public string FromIBAN { get; set; }
+
+        [Required]
+        public decimal Amount{ get; set; }
+    }
+
 }

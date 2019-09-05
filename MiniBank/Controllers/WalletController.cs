@@ -118,8 +118,11 @@ namespace Mini_Bank.Controllers
             return View(pagedModels);
         }
 
-
-
+        [HttpPost]
+        public IActionResult Transaction(string IBAN )
+        {
+            return View();
+        }
 
         [HttpGet("{id}")]
         public IActionResult CreateWalletView(int id)

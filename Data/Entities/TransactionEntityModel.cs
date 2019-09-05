@@ -19,11 +19,16 @@ namespace Data.Entities
 
         public string ToIBAN { get; set; }
 
+        [Required]
         public decimal Amount { get; set; }
 
         [ForeignKey("Currency")]
         public int CurrencyId { get; set; }
         public CurrencyEntityModel Currency { get; set; }
+
+        [ForeignKey("TransactionType")]
+        public int TransactionTypeId { get; set; }
+        public TransactionTypeEntityModel TransactionType { get; set; }
 
         [ForeignKey("CreatedByUser")]
         public int? CreatedById { get; set; }
