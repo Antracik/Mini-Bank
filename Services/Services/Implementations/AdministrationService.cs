@@ -11,7 +11,7 @@ using Data.Queries;
 using Microsoft.AspNetCore.Identity;
 using Services.Models;
 
-namespace Services.Services
+namespace Services.Services.Implementations
 {
     public class AdministrationService : IAdministrationService
     {

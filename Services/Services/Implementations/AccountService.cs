@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Services.Services
+namespace Services.Services.Implementations
 {
     public class AccountService : IAccountService
     {

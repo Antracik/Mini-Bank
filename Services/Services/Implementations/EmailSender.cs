@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Services
+namespace Services.Services.Implementations
 {
     public class EmailSender : IEmailSender
     {

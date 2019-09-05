@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Mini_Bank.Middleware;
 using MongoDb;
 using Services.Services;
+using Services.Services.Implementations;
 using Shared;
 using System;
 using System.IO;
@@ -114,7 +115,7 @@ namespace Mini_Bank
             services.AddScoped(typeof(IAccountService), typeof(AccountService));
             services.AddScoped(typeof(INomenclatureService), typeof(NomenclatureService));
             services.AddScoped(typeof(IDbRepository<>), typeof(DbRepository<>));
-            services.AddScoped(typeof(MongoLoggerService));
+            services.AddScoped(typeof(IMongoLoggerService),typeof(MongoLoggerService));
             services.AddScoped(typeof(IDataSeedService), typeof(DataSeedService));
             services.AddScoped(typeof(IDateService), typeof(DateService));
             services.AddScoped(typeof(IFileService), typeof(FileService));

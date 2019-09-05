@@ -9,7 +9,7 @@ using Services.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 
-namespace Services.Services
+namespace Services.Services.Implementations
 {
     public class UserService : IUserService
     {

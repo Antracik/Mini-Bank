@@ -15,9 +15,9 @@ namespace Mini_Bank.Controllers
 {
     public class DbLoggerController : Controller
     {
-        private readonly MongoLoggerService _mongoLoggerService;
+        private readonly IMongoLoggerService _mongoLoggerService;
 
-        public DbLoggerController(MongoLoggerService mongoLoggerService)
+        public DbLoggerController(IMongoLoggerService mongoLoggerService)
         {
             _mongoLoggerService = mongoLoggerService;
         }

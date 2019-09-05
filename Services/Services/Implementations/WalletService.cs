@@ -9,7 +9,7 @@ using Data.Queries;
 using Services.Models;
 using Services.Services;
 
-namespace Services.Services
+namespace Services.Services.Implementations
 {
     public class WalletService : IWalletService
     {

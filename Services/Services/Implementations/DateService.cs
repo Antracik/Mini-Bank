@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Shared;
 
-namespace Services.Services
+namespace Services.Services.Implementations
 {
     public class DateService : IDateService
     {

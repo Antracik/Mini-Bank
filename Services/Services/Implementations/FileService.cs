@@ -9,7 +9,7 @@ using System.Linq;
 using Services.Models;
 using AutoMapper;
 
-namespace Services.Services
+namespace Services.Services.Implementations
 {
     public class FileService : IFileService
     {

@@ -7,7 +7,7 @@ using Data.Entities;
 using Services.Models;
 using Services.Services;
 
-namespace Services.Services
+namespace Services.Services.Implementations
 {
     public class RegistrantService : IRegistrantService
     {
