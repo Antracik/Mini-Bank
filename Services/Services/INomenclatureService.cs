@@ -8,5 +8,6 @@ namespace Services.Services
         IEnumerable<CountryServiceModel> GetCountries();
         IEnumerable<CurrencyServiceModel> GetCurrencies();
         IEnumerable<StatusServiceModel> GetStatuses();
+        IEnumerable<FinancialTransactionTypeServiceModel> GetFinancialTransactionTypes();
     }
 }

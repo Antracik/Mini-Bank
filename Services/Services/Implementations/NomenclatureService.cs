@@ -50,5 +50,16 @@ namespace Services.Services.Implementations
 
             return statussesServiceModel;
         }
+
+        public IEnumerable<FinancialTransactionTypeServiceModel> GetFinancialTransactionTypes()
+        {
+            _unitOfWork.Add<TransactionTypeEntityModel>();
+
+            var transactionTypes = _unitOfWork.GetRepository<TransactionTypeEntityModel>().Get().ToList();
+
+            var transactionTypesServiceModel = _mapper.Map<List<FinancialTransactionTypeServiceModel>>(transactionTypes);
+
+            return transactionTypesServiceModel;
+        }
     }
 }

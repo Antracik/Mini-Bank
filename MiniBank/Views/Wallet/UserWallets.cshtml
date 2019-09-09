@@ -1,19 +1,22 @@
-﻿@model IEnumerable<Mini_Bank.Models.ViewModels.UserWalletsViewModel>
+﻿@model Mini_Bank.Models.ViewModels.UserWalletsViewModel
 
+@using Mini_Bank.Extensions
 @{
     ViewData["Title"] = "Wallets";
+
+    TempData.Put("Model", Model);
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<partial name="_StatusMessage" for="@TempData[" Message"]" />
+<partial name="_StatusMessage" for="@TempData["Message"]" />
 
 <p>
     <a asp-action="RequestWallet">Request New Wallet</a>
 </p>
 
 <div id="accordion">
-    @foreach (var item in Model)
+    @foreach (var item in Model.Wallets)
     {
         <div class="card">
             <div class="card-header" id="@item.Heading">
@@ -56,7 +59,7 @@
                                             @acc.Currency
                                         </td>
                                         <td>
-                                            <a class="btn btn-primary" href="#" id="modal" data-toggle="modal" data-iban="@acc.IBAN" data-target="#Modal">Transaction</a>
+                                            <a class="btn btn-primary" href="#" id="modal" data-toggle="modal" data-account="@acc.Id" data-target="#Modal">Transaction</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -84,14 +87,19 @@
             </div>
             <div class="modal-body">
                 <form method="post">
+                    <input id="hiddenId" type="hidden" asp-for="@Model.InputTransaction.FromAccountWithId" />
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
-                        @*<label asp-for="@Model." class="control-label"></label>
-                        <input asp-for="Number" class="form-control" />*@
+                        <label asp-for="@Model.InputTransaction.ToIBAN" class="control-label"></label>
+                        <input asp-for="@Model.InputTransaction.ToIBAN" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.InputTransaction.Amount" class="control-label"></label>
+                        <input asp-for="@Model.InputTransaction.Amount" class="form-control" min="0.00" />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" asp-action="Transaction" id="submit-btn" class="btn btn-primary">Send</button>
+                        <button type="submit" asp-action="Transaction" class="btn btn-primary">Send</button>
                     </div>
                 </form>
             </div>
@@ -103,10 +111,12 @@
 
     <script>
         $('#Modal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var iban = button.data('iban') // Extract info from data-* attributes
-            var modal = $(this)
-            //modal.find('#submit-btn').attr('formaction', iban)
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var id = button.data('account'); // Extract info from data-* attributes
+            var model = $(this);
+            model.find("#hiddenId").val(id);
         })
     </script>
+
+    <partial name="_ValidationScriptsPartial" />
 }

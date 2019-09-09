@@ -26,6 +26,7 @@ namespace Data
         public DbSet<TransactionTypeEntityModel> TransactionType { get; set; }
         public DbSet<FileDescriptorEntityModel> Descriptor { get; set; }
         public DbSet<FileEntityModel> File { get; set; }
+        public DbSet<CurrencyExchangeEntityModel> CurrencyExchange { get; set; }
         public DbQuery<AllWalletsWithSums> AllWalletsWithSumsQuery { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,6 +45,18 @@ namespace Data
             //modelBuilder.Entity<RegistrantDbRepoModel>()
             //    .HasOne(p => p.EditedByUser)
             //    .WithOne();
+
+            modelBuilder.Entity<CurrencyExchangeEntityModel>()
+                .HasOne(x => x.FromCurrency)
+                .WithMany()
+                .HasForeignKey(m => m.FromCurrencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CurrencyExchangeEntityModel>()
+                .HasOne(x => x.ToCurrency)
+                .WithMany()
+                .HasForeignKey(m => m.ToCurrencyId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<RegistrantEntityModel>()
                 .HasOne(x => x.User)

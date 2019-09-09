@@ -17,6 +17,8 @@ namespace Data.Entities
         public int AccountId { get; set; }
         public AccountEntityModel Account{ get; set; }
 
+        public string UniqueTransactionIdentifier { get; set; }
+
         public string ToIBAN { get; set; }
 
         [Required]

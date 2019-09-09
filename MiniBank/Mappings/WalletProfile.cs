@@ -12,7 +12,7 @@ namespace Mini_Bank.Mappings
         {
             //CreateMap<WalletModel, WalletRepoModel>().ReverseMap();
             CreateMap<WalletModel, WalletServiceModel>().ReverseMap();
-            CreateMap<UserWalletsViewModel, WalletServiceModel>().ForMember(dest => dest.Accounts, opt => opt.MapFrom( src => src.Accounts ))
+            CreateMap<UserWalletsViewModel.UserWallets, WalletServiceModel>().ForMember(dest => dest.Accounts, opt => opt.MapFrom( src => src.Accounts ))
                                                                  .ReverseMap();
             CreateMap<WalletVerificationListViewModel, WalletServiceModel>().ReverseMap();
             CreateMap<VerifyWalletViewModel, WalletServiceModel>().ReverseMap();

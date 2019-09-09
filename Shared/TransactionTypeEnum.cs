@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Shared
 {
-    public class TransactiontTypeEnum
+    public class TransactionTypeEnum
     {
-        enum TransactionType
+        public enum TransactionType
         {
             Debit = 1,
             Credit

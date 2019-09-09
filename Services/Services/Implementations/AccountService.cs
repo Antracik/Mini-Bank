@@ -65,6 +65,17 @@ namespace Services.Services.Implementations
             return accountModel;
         }
 
+        public AccountServiceModel GetAccountByIBAN(string IBAN)
+        {
+            _unitOfWork.Add<AccountEntityModel>();
+
+            var accountEnity = _unitOfWork.GetRepository<AccountEntityModel>().Get(acc => acc.IBAN == IBAN, null, "Status,CurrencyRelation").FirstOrDefault();
+
+            var accountModel = _mapper.Map<AccountServiceModel>(accountEnity);
+
+            return accountModel;
+        }
+
         public IEnumerable<AccountServiceModel> GetAllAccountsWithWalledId(int walletId)
         {
             _unitOfWork.Add<AccountEntityModel>();

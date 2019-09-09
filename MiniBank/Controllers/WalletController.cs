@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mini_Bank.Extensions;
 using Mini_Bank.Models;
 using Mini_Bank.Models.ViewModels;
 using Services.Models;
@@ -21,17 +23,23 @@ namespace Mini_Bank.Controllers
         private readonly IRegistrantService _registrantService;
         private readonly IWalletService _walletService;
         private readonly IAccountService _accountService;
+        private readonly ICurrencyService _currencyService;
+        private readonly IFinancialTransactionService _financialTransactionService;
 
         public WalletController(IWalletService walletService,
                                 IUserService userService,
                                 IRegistrantService registrantService,
                                 IAccountService accountService,
+                                ICurrencyService currencyService,
+                                IFinancialTransactionService financialTransactionService,
                                 IMapper mapper)
         {
             _registrantService = registrantService;
             _mapper = mapper;
             _userService = userService;
+            _currencyService = currencyService;
             _accountService = accountService;
+            _financialTransactionService = financialTransactionService;
             _walletService = walletService;
         }
 
@@ -47,13 +55,16 @@ namespace Mini_Bank.Controllers
                 wallet.Accounts = _accountService.GetAllAccountsWithWalledId(wallet.Id).ToList();
             }
 
-            var model = _mapper.Map<List<UserWalletsViewModel>>(registrant.Wallets);
+            var model = new UserWalletsViewModel
+            {
+                Wallets = _mapper.Map<List<UserWalletsViewModel.UserWallets>>(registrant.Wallets)
+            };
 
             for (int i = 0; i < registrant.Wallets.Count; i++)
             {
-                model[i].Verified = registrant.Wallets[i].IsVerified ? "Yes" : "No";
-                model[i].RowId = "RowGroup" + i;
-                model[i].Heading = "Heading" + i;
+                model.Wallets[i].Verified = registrant.Wallets[i].IsVerified ? "Yes" : "No";
+                model.Wallets[i].RowId = "RowGroup" + i;
+                model.Wallets[i].Heading = "Heading" + i;
             }
 
             return View(model);
@@ -119,9 +130,46 @@ namespace Mini_Bank.Controllers
         }
 
         [HttpPost]
-        public IActionResult Transaction(string IBAN )
+        public IActionResult Transaction(UserWalletsViewModel input )
         {
-            return View();
+            var model = TempData.Get<UserWalletsViewModel>("Model");
+
+            if (ModelState.IsValid)
+            {
+                var sender = _accountService.GetAccountById(input.InputTransaction.FromAccountWithId);
+
+                if(sender == null)
+                {
+                    TempData["Message"] = "Error, account does not exist, please try again!";
+                    return View("UserWallets", model);
+                }
+
+                // is the senders balance sufficient
+                if(sender.Balance <= input.InputTransaction.Amount)
+                {
+                    TempData["Message"] = "Error, insufficient funds in account!";
+                    return View("UserWallets", model);
+                }
+
+                var recipient = _accountService.GetAccountByIBAN(input.InputTransaction.ToIBAN);//(input.InputTransaction.ToIBAN);
+
+                if(recipient != null)
+                {
+                    if(sender.Id == recipient.Id)
+                    {
+                        TempData["Message"] = "Error, can't send money to same account!";
+                        return View("UserWallets", model);
+                    }
+                }
+
+                int currentUserId = int.Parse(_userService.GetUserId(User));
+
+                _financialTransactionService.EnactTransaction(sender, input.InputTransaction.Amount, currentUserId, input.InputTransaction.ToIBAN, recipient);
+
+                return RedirectToAction("UserWallets");
+            }
+
+            return View("UserWallets", model);
         }
 
         [HttpGet("{id}")]
