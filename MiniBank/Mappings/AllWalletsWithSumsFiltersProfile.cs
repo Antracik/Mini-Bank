@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Mini_Bank.Models.ViewModels;
+using Mini_Bank.Models.ViewModels.UtilityModels;
 using Services.Models;
 using System;
 using System.Collections.Generic;

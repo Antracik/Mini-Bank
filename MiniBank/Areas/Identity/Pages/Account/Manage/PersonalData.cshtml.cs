@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Mini_Bank.Models;
+using Mini_Bank.Models.ViewModels.SharedViewModels;
 using Services.Models;
 using Services.Services;
 

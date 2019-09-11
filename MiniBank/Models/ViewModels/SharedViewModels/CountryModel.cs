@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Mini_Bank.Models
+namespace Mini_Bank.Models.ViewModels.SharedViewModels
 {
-    public class CountryModel : IBaseModel
+    public class CountryModel
     {
         public int Id { get; set; }
 

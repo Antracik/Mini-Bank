@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Mini_Bank.Extensions;
 using Mini_Bank.Models;
 using Mini_Bank.Models.ViewModels;
+using Mini_Bank.Models.ViewModels.UtilityModels;
 using Services.Models;
 using Services.Services;
 using Shared;
@@ -57,7 +58,7 @@ namespace Mini_Bank.Controllers
 
             var model = new UserWalletsViewModel
             {
-                Wallets = _mapper.Map<List<UserWalletsViewModel.UserWallets>>(registrant.Wallets)
+                Wallets = _mapper.Map<List<UserWallets>>(registrant.Wallets)
             };
 
             for (int i = 0; i < registrant.Wallets.Count; i++)
@@ -140,14 +141,14 @@ namespace Mini_Bank.Controllers
 
                 if(sender == null)
                 {
-                    TempData["Message"] = "Error, account does not exist, please try again!";
+                    model.Message = "Error, account does not exist, please try again!";
                     return View("UserWallets", model);
                 }
 
                 // is the senders balance sufficient
                 if(sender.Balance <= input.InputTransaction.Amount)
                 {
-                    TempData["Message"] = "Error, insufficient funds in account!";
+                    model.Message = "Error, insufficient funds in account!";
                     return View("UserWallets", model);
                 }
 
@@ -157,7 +158,7 @@ namespace Mini_Bank.Controllers
                 {
                     if(sender.Id == recipient.Id)
                     {
-                        TempData["Message"] = "Error, can't send money to same account!";
+                        model.Message = "Error, can't send money to same account!";
                         return View("UserWallets", model);
                     }
                 }

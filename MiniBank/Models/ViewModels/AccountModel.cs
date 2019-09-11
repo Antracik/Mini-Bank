@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Mini_Bank.Models.ViewModels.SharedViewModels;
 using Shared;
 
 namespace Mini_Bank.Models

@@ -1,4 +1,6 @@
 ﻿using Data.Queries;
+using Mini_Bank.Models.ViewModels.SharedViewModels;
+using Mini_Bank.Models.ViewModels.UtilityModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

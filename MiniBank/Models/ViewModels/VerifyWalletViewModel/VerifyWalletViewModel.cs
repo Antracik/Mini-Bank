@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Mini_Bank.Models.ViewModels.SharedViewModels;
+using Mini_Bank.Models.ViewModels.UtilityModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -28,22 +30,5 @@ namespace Mini_Bank.Models.ViewModels
 
         public List<VerifyWalletAccounts> Accounts { get; set; }
     }
-
-    public class VerifyWalletAccounts
-    {
-        [Display(Name = "Account Id")]
-        public int Id { get; set; }
-
-        [Required]
-        public string IBAN { get; set; }
-
-        [Required]
-        public decimal Balance { get; set; }
-
-        [Required]
-        public int CurrencyId { get; set; }
-
-        public string Currency { get; set; }
-
-    }
+   
 }

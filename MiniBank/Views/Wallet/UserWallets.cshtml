@@ -9,7 +9,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<partial name="_StatusMessage" for="@TempData["Message"]" />
+<partial name="_StatusMessage" for="@Model.Message" />
 
 <p>
     <a asp-action="RequestWallet">Request New Wallet</a>

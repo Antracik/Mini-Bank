@@ -42,6 +42,7 @@ namespace Mini_Bank.Controllers
         [HttpGet]
         public IActionResult DisplayUsers(string filterEmail, string sortBy = "", int pageIndex = 1)
         {
+            pageIndex = pageIndex > 0 ? pageIndex : 1;
 
             ViewBag.FilterEmail = filterEmail;
             ViewBag.CurrentSort = sortBy;
@@ -51,7 +52,6 @@ namespace Mini_Bank.Controllers
             ViewBag.DateCreatedSort = sortBy.Equals("DateCreated") ? "DateCreated_desc" : "DateCreated";
             ViewBag.EmailConfirmedSort = sortBy.Equals("EmailConfirmed") ? "EmailConfirmed_desc" : "EmailConfirmed";
             ViewBag.EmailSort = sortBy.Equals("Email") ? "Email_desc" : "Email";
-
            
             var userServiceModels = _userService.GetAllUsers(sortBy, filterEmail);
 

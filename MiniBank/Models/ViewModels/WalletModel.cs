@@ -1,4 +1,5 @@
-﻿using Shared;
+﻿using Mini_Bank.Models.ViewModels.SharedViewModels;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,15 +35,6 @@ namespace Mini_Bank.Models
         public int? EditedById { get; set; }
         public UserModel EditedByUser { get; set; }
         public DateTime? DateEdited { get; set; }
-
-        public WalletModel(int id, int number, int walletStatusId, List<AccountModel> accounts, bool isVerified = false)
-        {
-            Id = id;
-            Number = number;
-            WalletStatusId = walletStatusId;
-            Accounts = accounts;
-            IsVerified = isVerified;
-        }
 
         public WalletModel()
         {

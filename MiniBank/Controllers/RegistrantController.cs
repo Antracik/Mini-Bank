@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mini_Bank.Extensions;
 using Mini_Bank.Models;
+using Mini_Bank.Models.ViewModels;
+using Mini_Bank.Models.ViewModels.SharedViewModels;
 using Services.Models;
 using Services.Services;
 using X.PagedList;
@@ -32,7 +34,7 @@ namespace Mini_Bank.Controllers
         {
             var registrantServiceModel = _registrantService.GetRegistrantById(id, includeWallets: true);
 
-            var registrantModel = _mapper.Map<RegistrantModel>(registrantServiceModel);
+            var registrantModel = _mapper.Map<RegistrantDetailsViewModel>(registrantServiceModel);
 
             return View(registrantModel);
         }
@@ -40,6 +42,8 @@ namespace Mini_Bank.Controllers
         [HttpGet]
         public IActionResult DisplayRegistrants(string sortBy = "", int pageIndex = 1)
         {
+            pageIndex = pageIndex > 0 ? pageIndex : 1;
+
             ViewBag.CurrentPage = pageIndex;
             ViewBag.CurrentSort = sortBy;
 

@@ -43,7 +43,57 @@
 </h5>
 @if (Model.Accounts.Count > 0)
 {
-    <partial name="~/Views/Account/DisplayAccounts.cshtml" model="@Model.Accounts" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                    <label asp-for="@Model.Accounts.FirstOrDefault().Id"></label>
+            </th>
+            <th>
+                    <label asp-for="@Model.Accounts.FirstOrDefault().IBAN"></label>
+            </th>
+            <th>
+                    <label asp-for="@Model.Accounts.FirstOrDefault().Balance"></label>
+            </th>
+            <th>
+                    <label asp-for="@Model.Accounts.FirstOrDefault().CurrencyId"></label>
+            </th>
+            <th>
+                    <label asp-for="@Model.Accounts.FirstOrDefault().AccountStatusId"></label>
+            </th>
+            <th>
+                <label>Options</label>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Accounts)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.IBAN
+                </td>
+                <td>
+                    @item.Balance.ToString("N")
+                </td>
+                <td>
+                    @item.Currency.Name
+                </td>
+                <td>
+                    @item.Status.Name
+                </td>
+                <td>
+                    <a asp-controller="Account" asp-action="DetailsAccount" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="Account" asp-action="EditAccountView" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller="Account" asp-action="DeleteAccount" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 }
 else
 {

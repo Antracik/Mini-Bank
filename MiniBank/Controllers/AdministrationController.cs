@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Mini_Bank.Models;
 using Mini_Bank.Models.ViewModels;
+using Mini_Bank.Models.ViewModels.SharedViewModels;
+using Mini_Bank.Models.ViewModels.UtilityModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Schema;
 using Services.Models;

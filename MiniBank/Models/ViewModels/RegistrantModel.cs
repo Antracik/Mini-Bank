@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Mini_Bank.Models.ViewModels.SharedViewModels;
 using Shared;
+using X.PagedList;
 
 namespace Mini_Bank.Models
 {
@@ -43,16 +45,6 @@ namespace Mini_Bank.Models
         public int? EditedById { get; set; }
         public UserModel EditedByUser { get; set; }
         public DateTime? DateEdited { get; set; }
-
-        public RegistrantModel(int id, string firstName, string lastName, int countryId, string address, List<WalletModel> wallets)
-        {
-            Id = id;
-            FirstName = firstName;
-            LastName = lastName;
-            CountryId = countryId;
-            Address = address;
-            Wallets = wallets;
-        }
 
         public RegistrantModel() { }
     }
