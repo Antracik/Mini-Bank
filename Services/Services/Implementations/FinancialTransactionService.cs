@@ -16,18 +16,15 @@ namespace Services.Services.Implementations
         private readonly IMapper _mapper;
         private readonly IDateService _dateService;
         private readonly ICurrencyService _currencyService;
-        private readonly INomenclatureService _nomenclatureService;
 
         public FinancialTransactionService(UnitOfWork unitOfWork,
                                             IMapper mapper,
                                             IDateService dateService,
-                                            ICurrencyService currencyService,
-                                            INomenclatureService nomenclatureService)
+                                            ICurrencyService currencyService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _dateService = dateService;
-            _nomenclatureService = nomenclatureService;
             _currencyService = currencyService;
         }
 
@@ -72,7 +69,7 @@ namespace Services.Services.Implementations
                             // do we have the exchange rate
                             if (rate == double.MinValue)
                             {
-                                // see if exchange rate exists backwards
+                                // exchange rate should at least exist backwards
                                 rate = _currencyService.GetExchangeRate(recipient.CurrencyId, sender.CurrencyId);
 
                                 amount /= decimal.Parse(rate.ToString());

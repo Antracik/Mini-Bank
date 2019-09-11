@@ -384,6 +384,9 @@ namespace Services.Services.Implementations
         {
             var user = await _userManager.GetUserAsync(User);
 
+            if (user == null)
+                return false;
+
             return user.EmailConfirmed;
         }
     }

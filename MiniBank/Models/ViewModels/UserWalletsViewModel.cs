@@ -13,7 +13,6 @@ namespace Mini_Bank.Models.ViewModels
         public List<UserWallets> Wallets { get; set; }
         public UserWalletTransaction InputTransaction { get; set; }
 
-
         public class UserWallets
         {
             public List<UserWalletAccounts> Accounts { get; set; }
