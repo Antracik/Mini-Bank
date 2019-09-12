@@ -28,6 +28,7 @@ namespace Data
         public DbSet<FileEntityModel> File { get; set; }
         public DbSet<CurrencyExchangeEntityModel> CurrencyExchange { get; set; }
         public DbQuery<AllWalletsWithSums> AllWalletsWithSumsQuery { get; set; }
+        public DbQuery<NewUsersIn30Days> NewUsersIn30DaysQuery { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.NodeServices;
+using Mini_Bank.Models.Charts;
+using Newtonsoft.Json;
+using Services.Services;
 
 namespace Mini_Bank.Controllers
 {
@@ -23,29 +27,20 @@ namespace Mini_Bank.Controllers
 
     public class DashboardController : Controller
     {
-        private readonly INodeServices _nodeServices;
+        private readonly IDashboardService _dashboardService;
 
-        public DashboardController(INodeServices nodeServices)
+        public DashboardController(IDashboardService dashboardService)
         {
-            _nodeServices = nodeServices;
+            _dashboardService = dashboardService;
         }
 
         public IActionResult Index()
         {
-            var options = new { width = 400, height = 200 };
+            var serviceModel = _dashboardService.GetNewUsersIn30Days();
 
-            List<AgeInfo> ls = new List<AgeInfo>();
-            ls.Add(new AgeInfo("<5", 2704659));
-            ls.Add(new AgeInfo("5-13", 4499890));
-            ls.Add(new AgeInfo("14-17", 2159981));
-            ls.Add(new AgeInfo("18-24", 3853788));
-            ls.Add(new AgeInfo("25-44", 14106543));
-            ls.Add(new AgeInfo("45-64", 8819342));
-            ls.Add(new AgeInfo("≥65", 612463));
+            var model = new NewUsersIn30DaysChart { JsonData = JsonConvert.SerializeObject(serviceModel) }; 
 
-            //ViewData["Chart"] = await _nodeServices.InvokeAsync<string>("NodeChart.js", options, ls);
-
-            return View("Chart");
+            return View("Chart", model);
         }
     }
 }

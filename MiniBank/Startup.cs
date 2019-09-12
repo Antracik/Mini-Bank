@@ -121,6 +121,7 @@ namespace Mini_Bank
             services.AddScoped(typeof(IFileService), typeof(FileService));
             services.AddScoped(typeof(ICurrencyService), typeof(CurrencyService));
             services.AddScoped(typeof(IFinancialTransactionService), typeof(FinancialTransactionService));
+            services.AddScoped(typeof(IDashboardService), typeof(DashboardService));
             services.AddTransient(typeof(IEmailSender), typeof(EmailSender));
             services.AddTransient(typeof(IMongoRepository), typeof(MongoRepository));
             services.AddScoped(typeof(IAdministrationService), typeof(AdministrationService));

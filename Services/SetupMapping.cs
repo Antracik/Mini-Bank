@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Data.Entities;
+using Data.Queries;
 using Services.Models;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,8 @@ namespace Services
                                                                             .ReverseMap();
             CreateMap<FinancialTransactionTypeServiceModel, TransactionTypeEntityModel>().ReverseMap();
             CreateMap<FinancialTransactionServiceModel, TransactionEntityModel>().ReverseMap();
+
+            CreateMap<NewUsersIn30DaysServiceModel, NewUsersIn30Days>().ReverseMap();
         }
     }
 }
