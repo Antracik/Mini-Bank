@@ -6,52 +6,22 @@
 <h2>@ViewData["Title"]</h2>
 
 @section Styles{
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
 }
 
 <script src="https://d3js.org/d3.v4.js"></script>
 <p><div id="barplot"></div></p>
 
-<canvas id="chartjs-1" style="display: block; width: 1415px; height: 707px;" width="1415" height="707" class="chartjs-render-monitor"></canvas>
+<canvas id="New30Days" style="display: block; width: 1415px; height: 707px;" width="1415" height="707" class="chartjs-render-monitor"></canvas>
 <hr />
 
 @section Scripts{
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
-<script>
-
-    var json = @Html.Raw(Model.JsonData);
-
-    var labels = [];
-    var data = [];
-
-    for (var i = 0; i < json.length; i++) {
-        labels.push(json[i].Day + "");
-        data.push(json[i].UserCount);
-    }
-
-    new Chart(document.getElementById("chartjs-1"), {
-        "type": "bar",
-        "data": {
-            "labels": labels,
-            "datasets": [{
-                "label": "Number of new users in last 30 days",
-                "data": data,
-                "fill": true,
-                "backgroundColor": "rgba(255, 99, 132, 0.2)" ,
-                "borderColor": "rgba(255, 99, 132)",
-                "borderWidth": 1
-            }]
-        },
-        "options": {
-            "scales": {
-                "yAxes": [{
-                    "ticks": {
-                        "beginAtZero": true
-                    }
-                }]
-            }
-        }
-    });
-
-</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            var json = @Html.Raw(Model.JsonData);
+            var ctx = $("#New30Days");
+            render30DaysChart(json, ctx);
+            });
+    </script>
 }
