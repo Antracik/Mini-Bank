@@ -1,4 +1,5 @@
-﻿using Mini_Bank.Models.ViewModels.UtilityModels;
+﻿using Mini_Bank.Models.ViewModels.SharedViewModels;
+using Mini_Bank.Models.ViewModels.UtilityModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ namespace Mini_Bank.Models.ViewModels
     public class UserWalletsViewModel
     {
         public List<UserWallets> Wallets { get; set; }
-        public UserWalletTransaction InputTransaction { get; set; }
+        public TransactionViewModel InputTransaction { get; set; }
         public string Message{ get; set; }
     }
 

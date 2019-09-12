@@ -10,6 +10,7 @@ namespace Services.Services
     {
         FinancialTransactionServiceModel GetTransactionById(int id);
         IEnumerable<FinancialTransactionServiceModel> GetAllTransactions();
+        IEnumerable<FinancialTransactionServiceModel> GetTransactionByUniqueTransactionIdentifier(string uniqueTransactionIdentifier);
         int AddTransaction(FinancialTransactionServiceModel transaction);
         int EnactTransaction(AccountServiceModel sender, decimal amount, int currentUserId, string toIBAN, AccountServiceModel recipient = null);
     }

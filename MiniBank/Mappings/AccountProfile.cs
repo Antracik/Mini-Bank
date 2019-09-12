@@ -23,6 +23,11 @@ namespace Mini_Bank.Mappings
             CreateMap<AccountServiceModel, VerifyWalletAccounts>()
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.CurrencyRelation.Name))
                 .ReverseMap();
+
+            CreateMap<AccountServiceModel, AccountDetailsViewModel>()
+                .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.CurrencyRelation))
+                .ForMember(dest => dest.AccountStatus, opt => opt.MapFrom(src => src.Status))
+                .ReverseMap();
         }
     }
 }

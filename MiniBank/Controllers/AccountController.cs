@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mini_Bank.Extensions;
 using Mini_Bank.Models;
+using Mini_Bank.Models.ViewModels;
 using Mini_Bank.Models.ViewModels.SharedViewModels;
 using Services.Models;
 using Services.Services;
@@ -54,7 +55,7 @@ namespace Mini_Bank.Controllers
         {
             var accountServiceModel = _accountService.GetAccountById(id);
 
-            var accountModel = _mapper.Map<AccountModel>(accountServiceModel);
+            var accountModel = _mapper.Map<AccountDetailsViewModel>(accountServiceModel);
 
             return View(accountModel); 
         }

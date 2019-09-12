@@ -7,6 +7,7 @@ using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Mini_Bank.Extensions;
 using Mini_Bank.Models;
 using Mini_Bank.Models.ViewModels;
 using Mini_Bank.Models.ViewModels.SharedViewModels;
@@ -31,18 +32,21 @@ namespace Mini_Bank.Controllers
         private readonly IMapper _mapper;
         private readonly INomenclatureService _nomenclatureService;
         private readonly IAccountService _accountService;
+        private readonly IFinancialTransactionService _financialTransactionService;
 
         public AdministrationController(IAdministrationService administraionService,
                                         IMapper mapper,
                                         IUserService userService,
                                         IAccountService accountService,
                                         IWalletService walletService,
+                                        IFinancialTransactionService financialTransactionService,
                                         INomenclatureService nomenclatureService)
         {
             _administraionService = administraionService;
             _mapper = mapper;
             _accountService = accountService;
             _userService = userService;
+            _financialTransactionService = financialTransactionService;
             _walletService = walletService;
             _nomenclatureService = nomenclatureService;
         }
@@ -51,6 +55,55 @@ namespace Mini_Bank.Controllers
         public IActionResult CreateRole()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Transaction(AccountDetailsViewModel input)
+        {
+            var model = TempData.Get<AccountDetailsViewModel>("Model");
+
+            if (ModelState.IsValid)
+            {
+                var sender = _accountService.GetAccountById(input.InputTransaction.FromAccountWithId);
+
+                if (sender == null)
+                {
+                    model.Message = "Error, account does not exist, please try again!";
+                    return View("../Account/DetailsAccount", model);
+                }
+
+                // is the senders balance sufficient
+                if (sender.Balance <= input.InputTransaction.Amount)
+                {
+                    model.Message = "Error, insufficient funds in user account!";
+                    return View("../Account/DetailsAccount", model);
+                }
+
+                var recipient = _accountService.GetAccountByIBAN(input.InputTransaction.ToIBAN);
+
+                if (recipient != null)
+                {
+                    if (sender.Id == recipient.Id)
+                    {
+                        model.Message = "Error, can't send money to same user account!";
+                        return View("../Account/DetailsAccount", model);
+                    }
+                }
+
+                int currentUserId = int.Parse(_userService.GetUserId(User));
+
+                int transactionId = _financialTransactionService.EnactTransaction(sender, input.InputTransaction.Amount, currentUserId, input.InputTransaction.ToIBAN, recipient);
+                
+                if(transactionId == int.MinValue)
+                {
+                    model.Message = "There was an error while enacting the transaction, please try again later.";
+                    return View("../Account/DetailsAccount", model);
+                }
+
+                return RedirectToAction("DetailsAccount", "Account", new { model.Id });
+            }
+
+            return View("../Account/DetailsAccount", model);
         }
 
         [HttpPost]

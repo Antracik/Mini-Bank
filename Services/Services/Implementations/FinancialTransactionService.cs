@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using AutoMapper;
@@ -120,9 +121,10 @@ namespace Services.Services.Implementations
                     _dateService.SetDateCreatedNow(ref senderTransactionEntity);
                     transactionRepo.AddItem(senderTransactionEntity);
 
+                    _unitOfWork.Save();
+
                     senderTransactionId = senderTransactionEntity.Id;
 
-                    _unitOfWork.Save();
                     dbTransaction.Commit();
                 }
                 catch (Exception)
@@ -149,6 +151,17 @@ namespace Services.Services.Implementations
             var entity = _unitOfWork.Add<TransactionEntityModel>().GetRepository<TransactionEntityModel>().GetById(id);
 
             var serviceModel = _mapper.Map<FinancialTransactionServiceModel>(entity);
+
+            return serviceModel;
+        }
+
+        public IEnumerable<FinancialTransactionServiceModel> GetTransactionByUniqueTransactionIdentifier(string uniqueTransactionIdentifier)
+        {
+            var entity = _unitOfWork.Add<TransactionEntityModel>()
+                                    .GetRepository<TransactionEntityModel>()
+                                    .Get(x => x.UniqueTransactionIdentifier == uniqueTransactionIdentifier, includeProperties: "Account,Currency,TransactionType,CreatedByUser");
+
+            var serviceModel = _mapper.Map<List<FinancialTransactionServiceModel>>(entity);
 
             return serviceModel;
         }
