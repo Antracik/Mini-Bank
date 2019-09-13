@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Mini_Bank.Hubs;
 using Mini_Bank.Middleware;
 using MongoDb;
 using Services.Services;
@@ -108,6 +109,7 @@ namespace Mini_Bank
                 });
             });
 
+            services.AddSignalR();
 
             services.AddScoped(typeof(IUserService),typeof(UserService));
             services.AddScoped(typeof(IRegistrantService), typeof(RegistrantService));
@@ -159,6 +161,11 @@ namespace Mini_Bank
             app.UseAuthentication();
 
             //app.UseRequestResponseLoggerMiddleware();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
 
             app.UseMvc(routes =>
             {
