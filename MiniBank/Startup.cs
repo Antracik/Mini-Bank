@@ -76,7 +76,7 @@ namespace Mini_Bank
                 options.Password.RequiredUniqueChars = 1;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
-                options.SignIn.RequireConfirmedEmail = false; // REMEMBER TO CHANGE !!!!
+                options.SignIn.RequireConfirmedEmail = false; //CHANGE back to true
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<BankContext>()
               .AddDefaultTokenProviders();
@@ -111,24 +111,25 @@ namespace Mini_Bank
 
             services.AddSignalR();
 
-            services.AddScoped(typeof(IUserService),typeof(UserService));
-            services.AddScoped(typeof(IRegistrantService), typeof(RegistrantService));
-            services.AddScoped(typeof(IWalletService), typeof(WalletService));
-            services.AddScoped(typeof(IAccountService), typeof(AccountService));
-            services.AddScoped(typeof(INomenclatureService), typeof(NomenclatureService));
-            services.AddScoped(typeof(IDbRepository<>), typeof(DbRepository<>));
-            services.AddScoped(typeof(IMongoLoggerService),typeof(MongoLoggerService));
-            services.AddScoped(typeof(IDataSeedService), typeof(DataSeedService));
-            services.AddScoped(typeof(IDateService), typeof(DateService));
-            services.AddScoped(typeof(IFileService), typeof(FileService));
-            services.AddScoped(typeof(ICurrencyService), typeof(CurrencyService));
-            services.AddScoped(typeof(IFinancialTransactionService), typeof(FinancialTransactionService));
-            services.AddScoped(typeof(IDashboardService), typeof(DashboardService));
-            services.AddTransient(typeof(IEmailSender), typeof(EmailSender));
-            services.AddTransient(typeof(IMongoRepository), typeof(MongoRepository));
-            services.AddScoped(typeof(IAdministrationService), typeof(AdministrationService));
+            services.AddScoped(typeof(IUserService),typeof(UserService))
+                    .AddScoped(typeof(IRegistrantService), typeof(RegistrantService))
+                    .AddScoped(typeof(IWalletService), typeof(WalletService))
+                    .AddScoped(typeof(IAccountService), typeof(AccountService))
+                    .AddScoped(typeof(INomenclatureService), typeof(NomenclatureService))
+                    .AddScoped(typeof(IDbRepository<>), typeof(DbRepository<>))
+                    .AddScoped(typeof(IMongoLoggerService),typeof(MongoLoggerService))
+                    .AddScoped(typeof(IDataSeedService), typeof(DataSeedService))
+                    .AddScoped(typeof(IDateService), typeof(DateService))
+                    .AddScoped(typeof(IFileService), typeof(FileService))
+                    .AddScoped(typeof(ICurrencyService), typeof(CurrencyService))
+                    .AddScoped(typeof(IFinancialTransactionService), typeof(FinancialTransactionService))
+                    .AddScoped(typeof(IDashboardService), typeof(DashboardService))
+                    .AddScoped(typeof(IAdministrationService), typeof(AdministrationService))
+                    .AddScoped<UnitOfWork>();
+
+            services.AddTransient(typeof(IEmailSender), typeof(EmailSender))
+                    .AddTransient(typeof(IMongoRepository), typeof(MongoRepository));
             // services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
-            services.AddScoped<UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

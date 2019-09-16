@@ -15,18 +15,28 @@ namespace Data
         {
         }
 
-        //public DbSet<UserDbRepoModel> Users { get; set; }
+        //------------------- Tables -------------------//
+        
+        //******************* Nomenclature *************//
+        public DbSet<CurrencyEntityModel> Currency { get; set; }
+        public DbSet<CountryEntityModel> Countries { get; set; }
+        public DbSet<TransactionTypeEntityModel> TransactionType { get; set; }
+        public DbSet<TicketTypeEntityModel> TicketType { get; set; }
+        public DbSet<TicketStatusEntityModel> TicketStatus { get; set; }
+        //**********************************************//
+
         public DbSet<RegistrantEntityModel> Registrants { get; set; }
         public DbSet<WalletEntityModel> Wallets { get; set; }
         public DbSet<AccountEntityModel> Accounts { get; set; }
-        public DbSet<CurrencyEntityModel> Currency { get; set; }
-        public DbSet<CountryEntityModel> Countries { get; set; }
         public DbSet<StatusEntityModel> Status { get; set; }
         public DbSet<TransactionEntityModel> Transaction { get; set; }
-        public DbSet<TransactionTypeEntityModel> TransactionType { get; set; }
         public DbSet<FileDescriptorEntityModel> Descriptor { get; set; }
         public DbSet<FileEntityModel> File { get; set; }
         public DbSet<CurrencyExchangeEntityModel> CurrencyExchange { get; set; }
+        public DbSet<TicketEntityModel> Ticket { get; set; }
+        public DbSet<TicketMessageEntityModel> TicketMessage { get; set; }
+
+        //------------------- Queries -------------------//
         public DbQuery<AllWalletsWithSums> AllWalletsWithSumsQuery { get; set; }
         public DbQuery<UserTotalMoneyByCurrency> UserTotalMoneyByCurrencyQuery { get; set; }
         public DbQuery<TotalMoneyInBankByCurrency> TotalMoneyInBankByCurrencyQuery { get; set; }
@@ -35,19 +45,6 @@ namespace Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<UserDbRepoModel>()
-            //    .HasOne(p => p.CreatedByUser)
-            //    .WithOne();
-            //modelBuilder.Entity<UserDbRepoModel>()
-            //    .HasOne(p => p.EditedByUser)
-            //    .WithOne();
-
-            //modelBuilder.Entity<RegistrantDbRepoModel>()
-            //    .HasOne(p => p.CreatedByUser)
-            //    .WithOne();
-            //modelBuilder.Entity<RegistrantDbRepoModel>()
-            //    .HasOne(p => p.EditedByUser)
-            //    .WithOne();
 
             modelBuilder.Entity<CurrencyExchangeEntityModel>()
                 .HasOne(x => x.FromCurrency)

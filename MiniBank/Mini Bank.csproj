@@ -17,6 +17,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190905100340_TransactionTable.cs" />
     <Compile Remove="Migrations\20190905100340_TransactionTable.Designer.cs" />
+    <Compile Remove="Migrations\20190916133100_SupportTickets.cs" />
+    <Compile Remove="Migrations\20190916133100_SupportTickets.Designer.cs" />
+    <Compile Remove="Migrations\20190916133811_SupportTickets.cs" />
+    <Compile Remove="Migrations\20190916133811_SupportTickets.Designer.cs" />
+    <Compile Remove="Migrations\20190916134548_SupportTickets.cs" />
+    <Compile Remove="Migrations\20190916134548_SupportTickets.Designer.cs" />
   </ItemGroup>
 
 
