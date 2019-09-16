@@ -34,10 +34,16 @@ namespace Services
 
             CreateMap<FileDownloadServiceModel, FileDescriptorEntityModel>().ForPath(dest => dest.File.Data, opt => opt.MapFrom( src => src.Data ))
                                                                             .ReverseMap();
+
             CreateMap<FinancialTransactionTypeServiceModel, TransactionTypeEntityModel>().ReverseMap();
+
             CreateMap<FinancialTransactionServiceModel, TransactionEntityModel>().ReverseMap();
 
             CreateMap<NewUsersIn30DaysServiceModel, NewUsersIn30Days>().ReverseMap();
+
+            CreateMap<UserTotalMoneyByCurrencyServiceModel, UserTotalMoneyByCurrency>().ReverseMap();
+
+            CreateMap<TotalMoneyInBankByCurrencyServiceModel, TotalMoneyInBankByCurrency>().ReverseMap();
         }
     }
 }

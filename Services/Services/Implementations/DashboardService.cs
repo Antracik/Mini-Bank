@@ -48,5 +48,27 @@ namespace Services.Services.Implementations
 
             return serviceModel;    
         }
+
+        public IEnumerable<UserTotalMoneyByCurrencyServiceModel> GetTotalMoneyByCurrencyForUser(int userId)
+        {
+            var entity = _unitOfWork.Add<UserTotalMoneyByCurrency>()
+                                    .GetRepository<UserTotalMoneyByCurrency>()
+                                    .FromSQL(new UserTotalMoneyByCurrency().GetQuery(userId));
+
+            var serviceModel = _mapper.Map<List<UserTotalMoneyByCurrencyServiceModel>>(entity);
+
+            return serviceModel;
+        }
+
+        public IEnumerable<TotalMoneyInBankByCurrencyServiceModel> GetTotalMoneyInBankByCurrency()
+        {
+            var entity = _unitOfWork.Add<TotalMoneyInBankByCurrency>()
+                                    .GetRepository<TotalMoneyInBankByCurrency>()
+                                    .FromSQL(new TotalMoneyInBankByCurrency().GetQuery());
+
+            var serviceModel = _mapper.Map<List<TotalMoneyInBankByCurrencyServiceModel>>(entity);
+
+            return serviceModel;
+        }
     }
 }

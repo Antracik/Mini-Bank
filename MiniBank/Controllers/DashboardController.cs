@@ -3,44 +3,66 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.NodeServices;
 using Mini_Bank.Models.Charts;
+using Mini_Bank.Models.ViewModels;
 using Newtonsoft.Json;
 using Services.Services;
 
 namespace Mini_Bank.Controllers
 {
-    public class AgeInfo
-    {
-
-        public string age;
-        public int population;
-
-        public AgeInfo(string prmAge, int prmPop)
-        {
-            this.age = prmAge;
-            this.population = prmPop;
-        }
-
-    }
-
     public class DashboardController : Controller
     {
         private readonly IDashboardService _dashboardService;
+        private readonly IUserService _userService;
 
-        public DashboardController(IDashboardService dashboardService)
+        public DashboardController(IDashboardService dashboardService,
+                                    IUserService userService)
         {
+            _userService = userService;
             _dashboardService = dashboardService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminDashboard()
         {
-            var serviceModel = _dashboardService.GetNewUsersIn30Days();
+            var newUsers = _dashboardService.GetNewUsersIn30Days();
+            var totalMoney = _dashboardService.GetTotalMoneyInBankByCurrency();
 
-            var model = new NewUsersIn30DaysChart { JsonData = JsonConvert.SerializeObject(serviceModel) }; 
+            var model = new AdminDashboardViewModel
+            {
+                NewUsers = new NewUsersIn30DaysChart
+                {
+                    JsonData = JsonConvert.SerializeObject(newUsers)
+                },
+                TotalMoney = new TotalMoneyInBankByCurrencyChart
+                {
+                    JsonData = JsonConvert.SerializeObject(totalMoney)
+                }
+            };
 
-            return View("Chart", model);
+            return View(model);
         }
+
+        [HttpGet]
+        public IActionResult UserDashboard()
+        {
+            int userId = int.Parse(_userService.GetUserId(User));
+            var totalMoney = _dashboardService.GetTotalMoneyByCurrencyForUser(userId);
+
+            var model = new UserDashboardViewModel
+            {
+                TotalMoneyByCurrency = new UserTotalMoneyByCurrencyChart
+                    {
+                        JsonData = JsonConvert.SerializeObject(totalMoney)
+                    }
+            };
+
+            return View(model);
+        }
+
     }
 }

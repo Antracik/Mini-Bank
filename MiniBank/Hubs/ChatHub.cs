@@ -31,6 +31,7 @@ namespace Mini_Bank.Hubs
                 user = _userService.IsUserSignedInAsAdmin(Context.User) ? "Admin" : user;
                 await Clients.Others.SendAsync("ReceiveMessage", "System", $" {user} has joined the chat, say hello!");
             }
+
             await base.OnConnectedAsync();
         }
 

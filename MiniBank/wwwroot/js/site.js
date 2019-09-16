@@ -43,3 +43,46 @@ function render30DaysChart(jsonIn, chartEelement) {
         }
     });
 }
+
+function renderTotalMoneyCurrency(jsonIn, chartElement) {
+    var json = jsonIn;
+
+    var labels = [];
+    var data = [];
+    var colors = [];
+
+    for (var i = 0; i < json.length; i++)
+    {
+        labels.push(json[i].Currency);
+        data.push(json[i].Total);
+        colors.push(getRandomColor());
+    }
+
+    new Chart(chartElement, {
+        "type": "pie",
+        "data": {
+            "labels": labels,
+            "datasets": [{
+                "data": data,
+                "fill": true,
+                "backgroundColor": colors
+            }]
+        },
+        "options": {
+            //responsive : true,
+            title: {
+                display: true,
+                text: 'Total Money By Currency'
+            }
+        }
+    });
+}
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}

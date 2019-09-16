@@ -168,3 +168,26 @@ SELECT * FROM Account
   GROUP BY DATEDIFF(DAY, DateCreated, GETDATE())
   ORDER BY DATEDIFF(DAY, DateCreated, GETDATE())
 
+
+  SELECT SUM(ac.Balance) AS Total, cur.Name FROM Account AS ac
+  INNER JOIN Currency AS cur ON cur.Id = ac.CurrencyId
+  INNER JOIN Wallet AS wal ON wal.Id = ac.WalletId
+  INNER JOIN Registrant AS reg ON reg.Id = wal.RegistrantId
+  WHERE reg.UserId = 3
+  GROUP BY  cur.Name
+
+  SELECT 
+  SUM(ac.Balance) AS Total, 
+  cur.[Name] AS Currency FROM Account AS ac
+  INNER JOIN Currency AS cur ON cur.Id = ac.CurrencyId
+  INNER JOIN Wallet AS wal ON wal.Id = ac.WalletId
+  INNER JOIN Registrant AS reg ON reg.Id = wal.RegistrantId
+  WHERE reg.UserId = 4
+  GROUP BY  cur.[Name]
+
+  SELECT 
+  SUM(ac.Balance) AS Total, 
+  cur.[Name] AS Currency FROM Account AS ac
+  INNER JOIN Currency AS cur ON cur.Id = ac.CurrencyId
+  GROUP BY  cur.[Name]
+  
