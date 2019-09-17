@@ -18,7 +18,7 @@ namespace Services.Services.Implementations
 
         public int GetCurrencyId(string currency)
         {
-            return _unitOfWork.Add<CurrencyEntityModel>()
+            return _unitOfWork.AddRepository<CurrencyEntityModel>()
                               .GetRepository<CurrencyEntityModel>()
                               .Get(x => x.Name == currency)
                               .FirstOrDefault()
@@ -35,7 +35,7 @@ namespace Services.Services.Implementations
 
         public double GetExchangeRate(int currencyIdFrom, int currencyIdTo)
         {
-            var repo = _unitOfWork.Add<CurrencyExchangeEntityModel>()
+            var repo = _unitOfWork.AddRepository<CurrencyExchangeEntityModel>()
                                   .GetRepository<CurrencyExchangeEntityModel>();
 
             var exchange = repo.Get(x => x.FromCurrencyId == currencyIdFrom && x.ToCurrencyId == currencyIdTo).FirstOrDefault();

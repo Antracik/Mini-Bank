@@ -44,6 +44,14 @@ namespace Services
             CreateMap<UserTotalMoneyByCurrencyServiceModel, UserTotalMoneyByCurrency>().ReverseMap();
 
             CreateMap<TotalMoneyInBankByCurrencyServiceModel, TotalMoneyInBankByCurrency>().ReverseMap();
+
+            CreateMap<TicketStatusServiceModel, TicketStatusEntityModel>().ReverseMap();
+
+            CreateMap<TicketTypeServiceModel, TicketTypeEntityModel>().ReverseMap();
+
+            CreateMap<TicketMessageServiceModel, TicketMessageEntityModel>().ReverseMap();
+
+            CreateMap<TicketServiceModel, TicketEntityModel>().ReverseMap();
         }
     }
 }

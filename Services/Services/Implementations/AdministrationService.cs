@@ -81,7 +81,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<AllWalletsWithSums> GetAllWalletsWithSums(string orderBy, AllWalletsWithSumsFiltersServiceModel filters)
         {
-            var repo = _unitOfWork.Add<AllWalletsWithSums>().GetRepository<AllWalletsWithSums>();
+            var repo = _unitOfWork.AddRepository<AllWalletsWithSums>().GetRepository<AllWalletsWithSums>();
             var allWalletsWithSums = new List<AllWalletsWithSums>();
             var rawSql = new AllWalletsWithSums().GetQuery();
 

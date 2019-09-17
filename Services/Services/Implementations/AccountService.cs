@@ -25,7 +25,7 @@ namespace Services.Services.Implementations
         public int CreateAccount(AccountServiceModel account)
         {
 
-            _unitOfWork.Add<AccountEntityModel>();
+            _unitOfWork.AddRepository<AccountEntityModel>();
 
             var accountEntity = _mapper.Map<AccountEntityModel>(account);
 
@@ -41,7 +41,7 @@ namespace Services.Services.Implementations
         {
             int wallId;
 
-            _unitOfWork.Add<AccountEntityModel>();
+            _unitOfWork.AddRepository<AccountEntityModel>();
 
             var accountRepo = _unitOfWork.GetRepository<AccountEntityModel>();
 
@@ -56,7 +56,7 @@ namespace Services.Services.Implementations
 
         public AccountServiceModel GetAccountById(int id)
         {
-            _unitOfWork.Add<AccountEntityModel>();
+            _unitOfWork.AddRepository<AccountEntityModel>();
 
             var accountEnity = _unitOfWork.GetRepository<AccountEntityModel>().Get(acc => acc.Id == id, null, "Status,CurrencyRelation").FirstOrDefault();
 
@@ -67,7 +67,7 @@ namespace Services.Services.Implementations
 
         public AccountServiceModel GetAccountByIBAN(string IBAN)
         {
-            _unitOfWork.Add<AccountEntityModel>();
+            _unitOfWork.AddRepository<AccountEntityModel>();
 
             var accountEnity = _unitOfWork.GetRepository<AccountEntityModel>().Get(acc => acc.IBAN == IBAN, null, "Status,CurrencyRelation").FirstOrDefault();
 
@@ -78,7 +78,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<AccountServiceModel> GetAllAccountsWithWalledId(int walletId)
         {
-            _unitOfWork.Add<AccountEntityModel>();
+            _unitOfWork.AddRepository<AccountEntityModel>();
 
             var accountEntities = _unitOfWork.GetRepository<AccountEntityModel>().Get( acc => acc.WalletId == walletId, null, "Status,CurrencyRelation").ToList();
 
@@ -89,7 +89,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<AccountServiceModel> GetAllAccounts()
         {
-            _unitOfWork.Add<AccountEntityModel>();
+            _unitOfWork.AddRepository<AccountEntityModel>();
             
             var accountEntities = _unitOfWork.GetRepository<AccountEntityModel>().Get(null, null, "Status,CurrencyRelation").ToList();
 
@@ -100,7 +100,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<AccountServiceModel> GetAllAccounts(string orderBy, string filter)
         {
-            var repo =  _unitOfWork.Add<AccountEntityModel>().GetRepository<AccountEntityModel>();
+            var repo =  _unitOfWork.AddRepository<AccountEntityModel>().GetRepository<AccountEntityModel>();
 
             var accountEntities = new List<AccountEntityModel>();
 
@@ -148,7 +148,7 @@ namespace Services.Services.Implementations
 
         public void UpdateAccount(AccountServiceModel account)
         {
-            _unitOfWork.Add<AccountEntityModel>();
+            _unitOfWork.AddRepository<AccountEntityModel>();
            
             var accountEntity = _mapper.Map<AccountEntityModel>(account);
 

@@ -23,7 +23,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<NewUsersIn30DaysServiceModel> GetNewUsersIn30Days()
         {
-            var entity = _unitOfWork.Add<NewUsersIn30Days>()
+            var entity = _unitOfWork.AddRepository<NewUsersIn30Days>()
                                     .GetRepository<NewUsersIn30Days>()
                                     .FromSQL(new NewUsersIn30Days().GetQuery());
 
@@ -51,7 +51,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<UserTotalMoneyByCurrencyServiceModel> GetTotalMoneyByCurrencyForUser(int userId)
         {
-            var entity = _unitOfWork.Add<UserTotalMoneyByCurrency>()
+            var entity = _unitOfWork.AddRepository<UserTotalMoneyByCurrency>()
                                     .GetRepository<UserTotalMoneyByCurrency>()
                                     .FromSQL(new UserTotalMoneyByCurrency().GetQuery(userId));
 
@@ -62,7 +62,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<TotalMoneyInBankByCurrencyServiceModel> GetTotalMoneyInBankByCurrency()
         {
-            var entity = _unitOfWork.Add<TotalMoneyInBankByCurrency>()
+            var entity = _unitOfWork.AddRepository<TotalMoneyInBankByCurrency>()
                                     .GetRepository<TotalMoneyInBankByCurrency>()
                                     .FromSQL(new TotalMoneyInBankByCurrency().GetQuery());
 

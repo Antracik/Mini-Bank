@@ -81,7 +81,7 @@ namespace Services.Services.Implementations
         {
             string include = includeFileData ? "File" : "";
 
-            var file = _unitOfWork.Add<FileDescriptorEntityModel>()
+            var file = _unitOfWork.AddRepository<FileDescriptorEntityModel>()
                                   .GetRepository<FileDescriptorEntityModel>()
                                   .Get(x => x.Id == fileId, null, include)
                                   .FirstOrDefault();
@@ -95,7 +95,7 @@ namespace Services.Services.Implementations
         {
             string include = includeFileData ? "File" : "";
 
-            var files = _unitOfWork.Add<FileDescriptorEntityModel>()
+            var files = _unitOfWork.AddRepository<FileDescriptorEntityModel>()
                                   .GetRepository<FileDescriptorEntityModel>()
                                   .Get(includeProperties: include);
 
@@ -108,7 +108,7 @@ namespace Services.Services.Implementations
         {
             string include = includeFileData ? "File" : "";
 
-            var file = _unitOfWork.Add<FileDescriptorEntityModel>()
+            var file = _unitOfWork.AddRepository<FileDescriptorEntityModel>()
                                   .GetRepository<FileDescriptorEntityModel>()
                                   .Get(x => x.UniqueFileName == uniqueFileName, null, include)
                                   .FirstOrDefault();
@@ -146,13 +146,13 @@ namespace Services.Services.Implementations
                     var fileDescriptor = GetFileDescription(inputFile);
 
                     //Try adding file
-                    _unitOfWork.Add<FileEntityModel>().GetRepository<FileEntityModel>().AddItem(file);
+                    _unitOfWork.AddRepository<FileEntityModel>().GetRepository<FileEntityModel>().AddItem(file);
                     _unitOfWork.Save();
 
                     //If file is added, it now has an Id and we must add it to the file descriptor
                     fileDescriptor.FileId = file.Id;
 
-                    _unitOfWork.Add<FileDescriptorEntityModel>().GetRepository<FileDescriptorEntityModel>().AddItem(fileDescriptor);
+                    _unitOfWork.AddRepository<FileDescriptorEntityModel>().GetRepository<FileDescriptorEntityModel>().AddItem(fileDescriptor);
                     _unitOfWork.Save();
 
                     //If we get this far, all should be good!

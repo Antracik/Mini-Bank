@@ -35,7 +35,7 @@ namespace Services.Services.Implementations
 
             _dateService.SetDateCreatedNow(ref entity);
 
-            _unitOfWork.Add<TransactionEntityModel>()
+            _unitOfWork.AddRepository<TransactionEntityModel>()
                        .GetRepository<TransactionEntityModel>()
                        .AddItem(entity);
 
@@ -52,7 +52,7 @@ namespace Services.Services.Implementations
             {
                 try
                 {
-                    _unitOfWork.Add<AccountEntityModel>().Add<TransactionEntityModel>();
+                    _unitOfWork.AddRepository<AccountEntityModel>().AddRepository<TransactionEntityModel>();
 
                     var accountRepo = _unitOfWork.GetRepository<AccountEntityModel>();
                     var transactionRepo = _unitOfWork.GetRepository<TransactionEntityModel>();
@@ -139,7 +139,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<FinancialTransactionServiceModel> GetAllTransactions()
         {
-            var entities = _unitOfWork.Add<TransactionEntityModel>().GetRepository<TransactionEntityModel>().Get();
+            var entities = _unitOfWork.AddRepository<TransactionEntityModel>().GetRepository<TransactionEntityModel>().Get();
 
             var serviceModels = _mapper.Map<List<FinancialTransactionServiceModel>>(entities);
 
@@ -148,7 +148,7 @@ namespace Services.Services.Implementations
 
         public FinancialTransactionServiceModel GetTransactionById(int id)
         {
-            var entity = _unitOfWork.Add<TransactionEntityModel>().GetRepository<TransactionEntityModel>().GetById(id);
+            var entity = _unitOfWork.AddRepository<TransactionEntityModel>().GetRepository<TransactionEntityModel>().GetById(id);
 
             var serviceModel = _mapper.Map<FinancialTransactionServiceModel>(entity);
 
@@ -157,7 +157,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<FinancialTransactionServiceModel> GetTransactionByUniqueTransactionIdentifier(string uniqueTransactionIdentifier)
         {
-            var entity = _unitOfWork.Add<TransactionEntityModel>()
+            var entity = _unitOfWork.AddRepository<TransactionEntityModel>()
                                     .GetRepository<TransactionEntityModel>()
                                     .Get(x => x.UniqueTransactionIdentifier == uniqueTransactionIdentifier, includeProperties: "Account,Currency,TransactionType,CreatedByUser");
 

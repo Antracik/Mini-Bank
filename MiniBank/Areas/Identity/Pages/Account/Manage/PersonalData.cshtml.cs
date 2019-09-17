@@ -99,15 +99,16 @@ namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
 
                 if (registrant == null)
                 {
-                    registrant = new RegistrantServiceModel();
+                    registrant = new RegistrantServiceModel
+                    {
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName,
+                        Address = Input.Adress,
+                        Country = Input.CountryId,
 
-                    registrant.FirstName = Input.FirstName;
-                    registrant.LastName = Input.LastName;
-                    registrant.Address = Input.Adress;
-                    registrant.Country = Input.CountryId;
-
-                    registrant.CreatedById = userId;
-                    registrant.UserId = userId;
+                        CreatedById = userId,
+                        UserId = userId
+                    };
 
                     _registrantService.CreateRegistrant(registrant);
                 }

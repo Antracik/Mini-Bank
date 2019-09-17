@@ -20,7 +20,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<CountryServiceModel> GetCountries()
         {
-            _unitOfWork.Add<CountryEntityModel>();
+            _unitOfWork.AddRepository<CountryEntityModel>();
             
             var countriesRepoModel = _unitOfWork.GetRepository<CountryEntityModel>().Get().ToList();
 
@@ -31,7 +31,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<CurrencyServiceModel> GetCurrencies()
         {
-            _unitOfWork.Add<CurrencyEntityModel>();
+            _unitOfWork.AddRepository<CurrencyEntityModel>();
             
             var currenciesRepoModel = _unitOfWork.GetRepository<CurrencyEntityModel>().Get().ToList();
 
@@ -42,7 +42,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<StatusServiceModel> GetStatuses()
         {
-            _unitOfWork.Add<StatusEntityModel>();
+            _unitOfWork.AddRepository<StatusEntityModel>();
             
             var statussesRepoModel = _unitOfWork.GetRepository<StatusEntityModel>().Get().ToList();
 
@@ -53,13 +53,35 @@ namespace Services.Services.Implementations
 
         public IEnumerable<FinancialTransactionTypeServiceModel> GetFinancialTransactionTypes()
         {
-            _unitOfWork.Add<TransactionTypeEntityModel>();
+            _unitOfWork.AddRepository<TransactionTypeEntityModel>();
 
             var transactionTypes = _unitOfWork.GetRepository<TransactionTypeEntityModel>().Get().ToList();
 
             var transactionTypesServiceModel = _mapper.Map<List<FinancialTransactionTypeServiceModel>>(transactionTypes);
 
             return transactionTypesServiceModel;
+        }
+
+        public IEnumerable<TicketTypeServiceModel> GetTicketTypes()
+        {
+            _unitOfWork.AddRepository<TicketTypeEntityModel>();
+
+            var ticketTypes = _unitOfWork.GetRepository<TicketTypeEntityModel>().Get();
+
+            var ticketTypesServiceModel = _mapper.Map<List<TicketTypeServiceModel>>(ticketTypes);
+
+            return ticketTypesServiceModel;
+        }
+
+        public IEnumerable<TicketStatusServiceModel> GetTicketStatuses()
+        {
+            _unitOfWork.AddRepository<TicketStatusEntityModel>();
+
+            var ticketStatuses = _unitOfWork.GetRepository<TicketTypeEntityModel>().Get();
+
+            var ticketStatusesServiceModel = _mapper.Map<List<TicketStatusServiceModel>>(ticketStatuses);
+
+            return ticketStatusesServiceModel;
         }
     }
 }

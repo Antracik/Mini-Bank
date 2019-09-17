@@ -7,6 +7,6 @@ namespace Services.Models
     public class NewUsersIn30DaysServiceModel
     {
         public int UserCount { get; set; }
-        public int Day{ get; set; }
+        public int Day { get; set; }
     }
 }

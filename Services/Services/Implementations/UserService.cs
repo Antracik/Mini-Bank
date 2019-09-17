@@ -55,7 +55,7 @@ namespace Services.Services.Implementations
 
         public bool DeleteUser(int id)
         {
-            _unitOfWork.Add<UserEntityModel>();
+            _unitOfWork.AddRepository<UserEntityModel>();
 
             var userRepo = _unitOfWork.GetRepository<UserEntityModel>();
 
@@ -74,7 +74,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<UserServiceModel> GetAllUsers()
         {
-            _unitOfWork.Add<UserEntityModel>();
+            _unitOfWork.AddRepository<UserEntityModel>();
 
             var userEntities = _unitOfWork.GetRepository<UserEntityModel>().Get().ToList();
 
@@ -86,7 +86,7 @@ namespace Services.Services.Implementations
         public IEnumerable<UserServiceModel> GetAllUsers(string orderBy, string filter)
         {
 
-            var repo = _unitOfWork.Add<UserEntityModel>().GetRepository<UserEntityModel>();
+            var repo = _unitOfWork.AddRepository<UserEntityModel>().GetRepository<UserEntityModel>();
 
             var userEntities = repo.Get();
 
@@ -133,7 +133,7 @@ namespace Services.Services.Implementations
 
         public UserServiceModel GetUserByEmail(string email)
         {
-            _unitOfWork.Add<UserEntityModel>();
+            _unitOfWork.AddRepository<UserEntityModel>();
 
             var userEntity = _unitOfWork.GetRepository<UserEntityModel>().Get(user => user.Email == email).FirstOrDefault();
 
@@ -146,7 +146,7 @@ namespace Services.Services.Implementations
         {
             var userEntity = new UserEntityModel();
 
-            _unitOfWork.Add<UserEntityModel>();
+            _unitOfWork.AddRepository<UserEntityModel>();
 
             if (includeRegistrant)
             {
@@ -164,7 +164,7 @@ namespace Services.Services.Implementations
 
         public void UpdateUser(UserServiceModel user)
         {
-            _unitOfWork.Add<UserEntityModel>();
+            _unitOfWork.AddRepository<UserEntityModel>();
 
             var userEntity = _mapper.Map<UserEntityModel>(user);
 

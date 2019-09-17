@@ -25,7 +25,7 @@ namespace Services.Services.Implementations
         public int CreateRegistrant(RegistrantServiceModel registrant)
         {
 
-            _unitOfWork.Add<RegistrantEntityModel>();
+            _unitOfWork.AddRepository<RegistrantEntityModel>();
 
             var registrantEntity = _mapper.Map<RegistrantEntityModel>(registrant);
 
@@ -41,7 +41,7 @@ namespace Services.Services.Implementations
         {
             int userId;
 
-            _unitOfWork.Add<RegistrantEntityModel>();
+            _unitOfWork.AddRepository<RegistrantEntityModel>();
 
             var registrantRepo = _unitOfWork.GetRepository<RegistrantEntityModel>();
 
@@ -63,7 +63,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<RegistrantServiceModel> GetAllRegistrants()
         {
-            _unitOfWork.Add<RegistrantEntityModel>();
+            _unitOfWork.AddRepository<RegistrantEntityModel>();
            
             var registrantEntities = _unitOfWork.GetRepository<RegistrantEntityModel>().Get(null, null, "CountryRelation").ToList();
 
@@ -74,7 +74,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<RegistrantServiceModel> GetAllRegistrants(string orderBy, string filterBy)
         {
-            var repo = _unitOfWork.Add<RegistrantEntityModel>().GetRepository<RegistrantEntityModel>();
+            var repo = _unitOfWork.AddRepository<RegistrantEntityModel>().GetRepository<RegistrantEntityModel>();
 
             var registrantEntities = new List<RegistrantEntityModel>();
 
@@ -124,7 +124,7 @@ namespace Services.Services.Implementations
         {
             var registrantEntity = new RegistrantEntityModel();
 
-            _unitOfWork.Add<RegistrantEntityModel>().Add<WalletEntityModel>();
+            _unitOfWork.AddRepository<RegistrantEntityModel>().AddRepository<WalletEntityModel>();
 
             if (includeWallets)
             {
@@ -146,7 +146,7 @@ namespace Services.Services.Implementations
         {
             var registrantEntity = new RegistrantEntityModel();
 
-            _unitOfWork.Add<RegistrantEntityModel>().Add<WalletEntityModel>();
+            _unitOfWork.AddRepository<RegistrantEntityModel>().AddRepository<WalletEntityModel>();
             
             if (includeWallets)
             {
@@ -166,7 +166,7 @@ namespace Services.Services.Implementations
 
         public void UpdateRegistrant(RegistrantServiceModel registrant)
         {
-            _unitOfWork.Add<RegistrantEntityModel>();
+            _unitOfWork.AddRepository<RegistrantEntityModel>();
             
             var registrantEntity = _mapper.Map<RegistrantEntityModel>(registrant);
 

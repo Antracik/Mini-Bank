@@ -125,6 +125,7 @@ namespace Mini_Bank
                     .AddScoped(typeof(IFinancialTransactionService), typeof(FinancialTransactionService))
                     .AddScoped(typeof(IDashboardService), typeof(DashboardService))
                     .AddScoped(typeof(IAdministrationService), typeof(AdministrationService))
+                    .AddScoped(typeof(ITicketService), typeof(TicketService))
                     .AddScoped<UnitOfWork>();
 
             services.AddTransient(typeof(IEmailSender), typeof(EmailSender))

@@ -9,5 +9,8 @@ namespace Services.Services
         IEnumerable<CurrencyServiceModel> GetCurrencies();
         IEnumerable<StatusServiceModel> GetStatuses();
         IEnumerable<FinancialTransactionTypeServiceModel> GetFinancialTransactionTypes();
+        IEnumerable<TicketTypeServiceModel> GetTicketTypes();
+        IEnumerable<TicketStatusServiceModel> GetTicketStatuses();
+
     }
 }

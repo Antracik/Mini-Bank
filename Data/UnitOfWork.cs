@@ -28,7 +28,7 @@ namespace Data
             new DataSeeder(_context).SeedDatabase(motherOfAllSeeds);
         }
 
-        public UnitOfWork Add<T>() where T : class, IBaseModel
+        public UnitOfWork AddRepository<T>() where T : class, IBaseModel
         {
             DbRepository<T> repo = new DbRepository<T>(_context);
             _repos.Add(repo);

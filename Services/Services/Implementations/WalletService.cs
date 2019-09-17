@@ -26,7 +26,7 @@ namespace Services.Services.Implementations
 
         public int CreateWallet(WalletServiceModel wallet)
         {
-            _unitOfWork.Add<WalletEntityModel>();
+            _unitOfWork.AddRepository<WalletEntityModel>();
             
             var walletEntity = _mapper.Map<WalletEntityModel>(wallet);
 
@@ -44,7 +44,7 @@ namespace Services.Services.Implementations
         {
             int registrantId;
 
-            _unitOfWork.Add<WalletEntityModel>();
+            _unitOfWork.AddRepository<WalletEntityModel>();
             var walletRepo = _unitOfWork.GetRepository<WalletEntityModel>();
 
             var walletEntity = walletRepo.Get(reg => reg.Id == id, null, "Accounts").FirstOrDefault();
@@ -65,7 +65,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<WalletServiceModel> GetAllWallets()
         {
-            _unitOfWork.Add<WalletEntityModel>();
+            _unitOfWork.AddRepository<WalletEntityModel>();
             
             var walletEntities = _unitOfWork.GetRepository<WalletEntityModel>().Get(null, null, "Status").ToList();
 
@@ -77,7 +77,7 @@ namespace Services.Services.Implementations
         public IEnumerable<WalletServiceModel> GetAllWallets(Expression<Func<WalletEntityModel, bool>> filter = null,
             Func<IQueryable<WalletEntityModel>, IOrderedQueryable<WalletEntityModel>> orderBy = null)
         {
-            _unitOfWork.Add<WalletEntityModel>();
+            _unitOfWork.AddRepository<WalletEntityModel>();
 
             var walletEntities = _unitOfWork.GetRepository<WalletEntityModel>().Get(filter, orderBy, "Status").ToList();
 
@@ -88,7 +88,7 @@ namespace Services.Services.Implementations
 
         public IEnumerable<WalletServiceModel> GetAllWallets(string orderBy, string filter)
         {
-            var repo = _unitOfWork.Add<WalletEntityModel>().GetRepository<WalletEntityModel>();
+            var repo = _unitOfWork.AddRepository<WalletEntityModel>().GetRepository<WalletEntityModel>();
 
             var walletEntities = new List<WalletEntityModel>();
 
@@ -132,7 +132,7 @@ namespace Services.Services.Implementations
         {
             var walletEntity = new WalletEntityModel();
 
-            _unitOfWork.Add<WalletEntityModel>().Add<AccountEntityModel>();
+            _unitOfWork.AddRepository<WalletEntityModel>().AddRepository<AccountEntityModel>();
 
             walletEntity = _unitOfWork.GetRepository<WalletEntityModel>().Get(wallet => wallet.Id == id, null, "Status").FirstOrDefault();
             
@@ -151,7 +151,7 @@ namespace Services.Services.Implementations
         {
             var walletEntity = new WalletEntityModel();
 
-            _unitOfWork.Add<WalletEntityModel>().Add<AccountEntityModel>();
+            _unitOfWork.AddRepository<WalletEntityModel>().AddRepository<AccountEntityModel>();
 
             walletEntity = _unitOfWork.GetRepository<WalletEntityModel>().Get(wallet => wallet.RegistrantId == registrantId, null, "Status").FirstOrDefault();
 
@@ -168,7 +168,7 @@ namespace Services.Services.Implementations
 
         public WalletServiceModel GetWalletByWalletNumber(int walletNumber, bool includeAccounts = false)
         {
-            _unitOfWork.Add<WalletEntityModel>().Add<AccountEntityModel>();
+            _unitOfWork.AddRepository<WalletEntityModel>().AddRepository<AccountEntityModel>();
 
             var walletEntity = _unitOfWork.GetRepository<WalletEntityModel>().Get(x => x.Number == walletNumber, null, "Status").FirstOrDefault();
 
@@ -186,7 +186,7 @@ namespace Services.Services.Implementations
 
         public void UpdateWallet(WalletServiceModel wallet)
         {
-            _unitOfWork.Add<WalletEntityModel>();
+            _unitOfWork.AddRepository<WalletEntityModel>();
             
             var walletEntity = _mapper.Map<WalletEntityModel>(wallet);
 
