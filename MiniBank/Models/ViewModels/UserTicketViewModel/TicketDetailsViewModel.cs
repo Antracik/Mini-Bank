@@ -1,14 +1,12 @@
-﻿using Mini_Bank.Models.ViewModels.SharedViewModels;
-using Mini_Bank.Models.ViewModels.UtilityModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Mini_Bank.Models.ViewModels.UtilityModels
+namespace Mini_Bank.Models.ViewModels
 {
-    public class UserTicketViewModel
+    public class TicketDetailsViewModel
     {
         public int Id { get; set; }
 
@@ -19,10 +17,10 @@ namespace Mini_Bank.Models.ViewModels.UtilityModels
 
         public string Description { get; set; }
 
-        [DisplayName("Ticket Type")]
-        public TicketTypeViewModel TicketType { get; set; }
+        [DisplayName("Type")]
+        public string TicketType { get; set; }
 
         [DisplayName("Status")]
-        public TicketStatusViewModel TicketStatus { get; set; }
+        public string TicketStatus { get; set; }
     }
 }

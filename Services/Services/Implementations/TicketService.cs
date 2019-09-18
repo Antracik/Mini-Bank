@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using AutoMapper;
 using Data;
@@ -45,7 +46,7 @@ namespace Services.Services.Implementations
         {
             var ticketRepo = _unitOfWork.AddRepository<TicketEntityModel>().GetRepository<TicketEntityModel>();
 
-            var entities = ticketRepo.Get();
+            var entities = ticketRepo.Get(includeProperties: "TicketStatus,TicketType");
 
             var serviceModels = _mapper.Map<List<TicketServiceModel>>(entities);
 
@@ -56,7 +57,18 @@ namespace Services.Services.Implementations
         {
             var ticketRepo = _unitOfWork.AddRepository<TicketEntityModel>().GetRepository<TicketEntityModel>();
 
-            var entity = ticketRepo.GetById(id);
+            var entity = ticketRepo.Get(x => x.Id == id, includeProperties: "TicketStatus,TicketType");
+
+            var serviceModel = _mapper.Map<TicketServiceModel>(entity);
+
+            return serviceModel;
+        }
+
+        public TicketServiceModel GetTicket(int userId, int ticketId)
+        {
+            var ticketRepo = _unitOfWork.AddRepository<TicketEntityModel>().GetRepository<TicketEntityModel>();
+
+            var entity = ticketRepo.Get(x => x.Id == ticketId && x.CreatedById == userId, includeProperties: "TicketStatus,TicketType").FirstOrDefault();
 
             var serviceModel = _mapper.Map<TicketServiceModel>(entity);
 

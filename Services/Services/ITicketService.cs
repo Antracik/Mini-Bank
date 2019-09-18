@@ -9,6 +9,7 @@ namespace Services.Services
     {
         int CreateTicket(TicketServiceModel ticket);
         TicketServiceModel GetTicketById(int id);
+        TicketServiceModel GetTicket(int userId, int ticketId);
         IEnumerable<TicketServiceModel> GetAllTickets();
     }
 }

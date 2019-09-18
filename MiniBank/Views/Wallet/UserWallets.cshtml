@@ -59,7 +59,7 @@
                                             @acc.Currency
                                         </td>
                                         <td>
-                                            <a class="btn btn-primary" href="#" id="modal" data-toggle="modal" data-account="@acc.Id" data-target="#Modal">Transaction</a>
+                                            <a class="btn btn-primary" href="#" @*id="modal"*@ data-toggle="modal" data-account="@acc.Id" data-target="#Modal">Transaction</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -112,7 +112,9 @@
     <script>
         $('#Modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
+            console.log(button);
             var id = button.data('account'); // Extract info from data-* attributes
+            console.log(id);
             var model = $(this);
             model.find("#hiddenId").val(id);
         })

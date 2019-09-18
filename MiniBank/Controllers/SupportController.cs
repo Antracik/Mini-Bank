@@ -14,6 +14,7 @@ using Shared;
 
 namespace Mini_Bank.Controllers
 {
+    [Route("[controller]/[action]")]
     public class SupportController : Controller
     {
         private readonly IUserService _userService;
@@ -21,8 +22,8 @@ namespace Mini_Bank.Controllers
         private readonly IMapper _mapper;
         private readonly INomenclatureService _nomenclatureService;
 
-        public SupportController(IUserService userService, 
-                                    ITicketService ticketService, 
+        public SupportController(IUserService userService,
+                                    ITicketService ticketService,
                                     IMapper mapper,
                                     INomenclatureService nomenclatureService)
         {
@@ -53,7 +54,7 @@ namespace Mini_Bank.Controllers
         {
             var model = TempData.Get<TicketViewModel>("Model");
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var serviceModel = _mapper.Map<TicketServiceModel>(ticket.TicketRequest);
 
@@ -70,6 +71,21 @@ namespace Mini_Bank.Controllers
             model.Message = "Error, please try again";
 
             return View("Index", model);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetTicketDetails(int id)
+        {
+            int userId = int.Parse(_userService.GetUserId(User));
+
+            var entity = _ticketService.GetTicket(userId, id);
+
+            if (entity == null)
+                return NotFound();
+
+            var serviceModel = _mapper.Map<TicketDetailsViewModel>(entity);
+
+            return new JsonResult(serviceModel);
         }
     }
 }

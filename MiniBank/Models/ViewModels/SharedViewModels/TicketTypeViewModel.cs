@@ -10,6 +10,7 @@ namespace Mini_Bank.Models.ViewModels.SharedViewModels
     {
         public int Id { get; set; }
 
+        [DisplayName("Type")]
         public string Name { get; set; }
     }
 }

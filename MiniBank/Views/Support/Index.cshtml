@@ -8,16 +8,58 @@
 
 <h1>Under Construction</h1>
 
-<partial name="_StatusMessage" model="@Model.Message"/>
+<partial name="_StatusMessage" model="@Model.Message" />
 
-<a class="btn btn-primary" href="#" id="modal" data-toggle="modal" data-target="#Modal">Open a new Ticket</a>
+<a class="btn btn-primary mb-4" href="#" data-toggle="modal" data-target="#Modal">Open a new Ticket</a>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().TicketType.Name"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().TicketStatus.Name"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().Title"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().DateCreated"></label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserTickets)
+        {
+            <tr data-ticket="@item.Id">
+                <td>
+                    @item.TicketType.Name
+                </td>
+                <td>
+                    @item.TicketStatus.Name
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.DateCreated
+                </td>
+                <td>
+                    <a href="#" class="btn btn-primary js-get-ticket" data-toggle="modal" data-target="#Ticket-Details">Details(TO DO)</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 
 <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="Modal">Ticket submit</h5>
+                <h5 class="modal-title">Ticket submit</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -51,7 +93,94 @@
     </div>
 </div>
 
+<div class="modal fade" id="Ticket-Details" tabindex="-1" role="dialog" aria-labelledby="Ticket-Details" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ticket Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl class="row js-set-ticket-details">
+                    <dt class="col-sm-3">
+                        <label for="TicketTitle">Title</label>
+                    </dt>
+                    <dd class="col-sm-9 js-set-ticket-details-data modal-body-wrap">
+
+                    </dd>
+                    <dt class="col-sm-3">
+                        <label for="TicketType">Type</label>
+                    </dt>
+                    <dd class="col-sm-9 js-set-ticket-details-data">
+                    
+                    </dd>
+                    <dt class="col-sm-3">
+                        <label for="TicketStatus">Status</label>
+                    </dt>
+                    <dd class="col-sm-9 js-set-ticket-details-data">
+                    
+                    </dd>
+                    <dt class="col-sm-3">
+                        <label for="TicketRequestData">Date</label>
+                    </dt>
+                    <dd class="col-sm-9 js-set-ticket-details-data">
+
+                    </dd>
+                    <dt class="col-sm-3">
+                        <label for="Description">Description</label>
+                    </dt>
+                    <dd class="col-sm-9 js-set-ticket-details-data modal-body-wrap">
+                        
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts
 {
+    <script src="~/lib/notifyjs/notify.min.js"></script>
+    <script>
+        $(document).on('click', '.js-get-ticket', function () {
+            var id = $(this.closest('tr')).attr('data-ticket');
+
+            $.ajax({
+                type: 'GET',
+                url: '/Support/GetTicketDetails/' + id,
+                success: function (result) {
+                    console.log(result);
+                    loadTicketDetailsModal(result);
+                },
+                error: function () {
+                    $.notify("Error getting details...", "error");
+                }
+            });
+        });
+
+        function loadTicketDetailsModal(json) {
+            var title = json.title;
+            var description = json.description;
+            var ticketType = json.ticketType;
+            var ticketStatus = json.ticketStatus;
+
+            var date = new Date(json.dateCreated);
+            var time = date.toTimeString();
+            time = time.substring(0, time.indexOf(' '));
+
+            var dateFormatted = date.toDateString() + " " + time;
+
+            var elements = $('.js-set-ticket-details').children('.js-set-ticket-details-data');
+
+            elements[0].innerHTML = title;
+            elements[1].innerHTML = ticketType;
+            elements[2].innerHTML = ticketStatus;
+            elements[3].innerHTML = dateFormatted;
+            elements[4].innerHTML = description;
+        }
+    </script>
+
     <partial name="_ValidationScriptsPartial" />
 }

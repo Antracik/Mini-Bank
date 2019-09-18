@@ -18,6 +18,9 @@ namespace Mini_Bank.Mappings
             CreateMap<TicketRequestViewModel, TicketServiceModel>().ReverseMap();
             CreateMap<TicketTypeViewModel, TicketTypeServiceModel>().ReverseMap();
             CreateMap<TicketStatusViewModel, TicketStatusServiceModel>().ReverseMap();
+            CreateMap<TicketServiceModel, TicketDetailsViewModel>()
+                .ForPath(dest => dest.TicketStatus, opt => opt.MapFrom(src => src.TicketStatus.Name))
+                .ForPath(dest => dest.TicketType, opt => opt.MapFrom(src => src.TicketType.Name));
 
             //CreateMap<TicketMessageViewModel, TicketMessageServiceModel>().ReverseMap();
         }
