@@ -1,9 +1,0 @@
-﻿@using Services.Services
-@inject IUserService  UserService
-
-@if (await UserService.IsUserEmailConfirmedAsync(User))
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="UserDashboard">Dashboard</a>
-    </li>
-}

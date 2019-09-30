@@ -16,5 +16,7 @@ namespace Mini_Bank.Models.ViewModels
         public List<TicketTypeViewModel> TicketTypes { get; set; }
 
         public TicketRequestViewModel TicketRequest { get; set; }
+
+        public TicketMessageViewModel MessageSend { get; set; }
     }
 }

@@ -180,6 +180,13 @@ namespace Services.Services.Implementations
             return (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"));
         }
 
+        public async Task<bool> IsUserInRoleAsync(int userId, string roleName)
+        {
+            var entity = await GetUserByIdAsync(userId.ToString());
+
+            return await _userManager.IsInRoleAsync(entity, roleName);
+        }
+
         public Task<IEnumerable<AuthenticationScheme>> GetExternalLoginAuthenticationSchemesAsync()
         {
             return _signInManager.GetExternalAuthenticationSchemesAsync();
