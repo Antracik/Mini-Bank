@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Mini_Bank.Models.Charts
 {
-    public class NewUsersIn30DaysChart
+    public class NewUsersIn30DaysChart : ChartBase
     {
-        public string JsonData { get; set; }
+        
     }
 }

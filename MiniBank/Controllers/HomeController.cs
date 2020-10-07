@@ -18,31 +18,13 @@ namespace Mini_Bank.Controllers
     [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
-        private readonly IDataSeedService _dataSeedService;
-
-        // testing, remove later//
-        private readonly UnitOfWork _unitOfWork;
-
-        public HomeController(IDataSeedService dataSeedService, UnitOfWork unitOfWork)
+        public HomeController()
         {
-            _dataSeedService = dataSeedService;
-            _unitOfWork = unitOfWork;
         }
 
         [HttpGet("/")]
         public IActionResult Index()
         {
-            //_dataSeedService.SeedDb();
-
-            //_unitOfWork.Add<AllWalletsWithSums>();
-
-            //var walletsWithSums = new AllWalletsWithSums();
-
-            //var test = _unitOfWork.GetRepository<AllWalletsWithSums>().
-            //                        FromSQL(walletsWithSums.GetQuery(), x => x.Currency.Equals(CurrencyEnum.Currency.BGN.ToString()),
-            //                                z => z.OrderBy(y => y.ClientName))
-            //                        .ToList();
-
             return View();
         }
 

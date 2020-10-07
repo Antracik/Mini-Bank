@@ -40,8 +40,7 @@ namespace MongoDb
 
         private ObjectId GetInternalId(string id)
         {
-            ObjectId internalId;
-            if (!ObjectId.TryParse(id, out internalId))
+            if (!ObjectId.TryParse(id, out ObjectId internalId))
                 internalId = ObjectId.Empty;
 
             return internalId;

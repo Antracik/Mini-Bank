@@ -23,11 +23,6 @@ namespace Data
 
         public BankContext BankContext { get {return _context; } }
 
-        public void SeedDb(bool motherOfAllSeeds)
-        {
-            new DataSeeder(_context).SeedDatabase(motherOfAllSeeds);
-        }
-
         public UnitOfWork AddRepository<T>() where T : class, IBaseModel
         {
             DbRepository<T> repo = new DbRepository<T>(_context);
@@ -39,9 +34,9 @@ namespace Data
         {
             foreach(object repo in _repos)
             {
-                if (repo is DbRepository<T>)
+                if (repo is DbRepository<T> repository)
                 {
-                    return (DbRepository<T>)repo;
+                    return repository;
                 }
             }
             return null;

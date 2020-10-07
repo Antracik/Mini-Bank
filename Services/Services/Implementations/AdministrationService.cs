@@ -87,7 +87,6 @@ namespace Services.Services.Implementations
 
             if (filters != null)
             {
-                DateTime dateFrom, dateTo;
                 IEnumerable<AllWalletsWithSums> query = new List<AllWalletsWithSums>();
 
                 if (filters.Countries.Any())
@@ -96,8 +95,8 @@ namespace Services.Services.Implementations
                 if (!query.Any())
                     query = repo.FromSQL(rawSql);
 
-                if (DateTime.TryParseExact(filters.RegisteredFrom, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateFrom)
-                    && DateTime.TryParseExact(filters.RegisteredTo, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTo))
+                if (DateTime.TryParseExact(filters.RegisteredFrom, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateFrom)
+                    && DateTime.TryParseExact(filters.RegisteredTo, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateTo))
                 {
                     query = query.Where(x => x.Date >= dateFrom && x.Date <= dateTo);
                 }

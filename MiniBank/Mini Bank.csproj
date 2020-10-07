@@ -23,6 +23,8 @@
     <Compile Remove="Migrations\20190916133811_SupportTickets.Designer.cs" />
     <Compile Remove="Migrations\20190916134548_SupportTickets.cs" />
     <Compile Remove="Migrations\20190916134548_SupportTickets.Designer.cs" />
+    <Compile Remove="Migrations\20201004115127_TestAdminAdd.cs" />
+    <Compile Remove="Migrations\20201004115127_TestAdminAdd.Designer.cs" />
   </ItemGroup>
 
 
@@ -30,7 +32,6 @@
     <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="MongoDB.Driver" Version="2.8.1" />

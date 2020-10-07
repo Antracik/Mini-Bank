@@ -11,7 +11,6 @@ namespace Mini_Bank.Mappings
     {
         public WalletProfile()
         {
-            //CreateMap<WalletModel, WalletRepoModel>().ReverseMap();
             CreateMap<WalletModel, WalletServiceModel>().ReverseMap();
 
             CreateMap<UserWallets, WalletServiceModel>()

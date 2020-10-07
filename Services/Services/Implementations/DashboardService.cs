@@ -32,7 +32,7 @@ namespace Services.Services.Implementations
             var serviceModel = new List<NewUsersIn30DaysServiceModel>();
 
             int index = 0;
-            for (int i = 1; i <= 30; i++)
+            for (int i = 0; i <= 29; i++)
             {
                 if (temp.Any(x => x.Day == i))
                 {

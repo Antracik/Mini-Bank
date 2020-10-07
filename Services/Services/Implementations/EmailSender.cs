@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Services.Services.Implementations
 {

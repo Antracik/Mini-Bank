@@ -23,7 +23,7 @@ namespace Data.Queries
                       COUNT(Id) AS UserCount, 
                       DATEDIFF(DAY, DateCreated, GETDATE()) AS [Day] 
                       FROM AspNetUsers
-                      WHERE DATEDIFF(DAY, DateCreated, GETDATE())  BETWEEN 1 AND 30
+                      WHERE DATEDIFF(DAY, DateCreated, GETDATE())  BETWEEN 0 AND 29
                       GROUP BY DATEDIFF(DAY, DateCreated, GETDATE())
                       ORDER BY DATEDIFF(DAY, DateCreated, GETDATE())";
         }

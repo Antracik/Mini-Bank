@@ -171,7 +171,7 @@ namespace Mini_Bank.Controllers
         }
 
         [HttpPost]
-        public IActionResult VerifyWallet(VerifyWalletAccounts account, int walletNumber, bool verify = false)
+        public IActionResult VerifyWallet(AccountInputModel account, int walletNumber, bool verify = false)
         {
             var wallet = _walletService.GetWalletByWalletNumber(walletNumber, true);
 
@@ -199,14 +199,11 @@ namespace Mini_Bank.Controllers
                 return View(model);
             }
 
-            //ADD check to see if we already have this IBAN in our system
-
             var acc = _mapper.Map<AccountServiceModel>(account);
 
             acc.WalletId = wallet.Id;
             acc.AccountStatusId = (int)StatusEnum.Status.Okay;
             acc.CreatedById = int.Parse(_userService.GetUserId(User));
-            acc.CurrencyRelation = null; // Stop ef from being a dick and stopping us from setting the currency for the account
 
             _accountService.CreateAccount(acc);
 
@@ -245,7 +242,7 @@ namespace Mini_Bank.Controllers
 
             if (role == null)
             {
-                return RedirectToAction("Error", "Error", new ErrorViewModel { RequestId = $@"Role with Id: {tempId.ToString()} not found" });
+                return RedirectToAction("Error", "Error", new ErrorViewModel { RequestId = $@"Role with Id: {tempId} not found" });
             }
             else
             {

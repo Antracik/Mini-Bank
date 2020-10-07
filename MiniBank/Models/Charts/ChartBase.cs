@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace Mini_Bank.Models.Charts
 {
-    public class TotalMoneyInBankByCurrencyChart : ChartBase
+    public class ChartBase
     {
+        public string JsonData { get; set; }
     }
 }

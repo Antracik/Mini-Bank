@@ -26,7 +26,7 @@ namespace Mini_Bank.Models.ViewModels
 
         public List<CurrencyModel> CurrencyList { get; set; }
 
-        public VerifyWalletAccounts Account { get; set; }
+        public AccountInputModel Account { get; set; }
 
         public List<VerifyWalletAccounts> Accounts { get; set; }
     }

@@ -129,8 +129,11 @@ namespace Services.Services.Implementations
             if (includeWallets)
             {
                 registrantEntity = _unitOfWork.GetRepository<RegistrantEntityModel>().Get(reg => reg.UserId == userId, null, "CountryRelation").FirstOrDefault();
-                var wallets = _unitOfWork.GetRepository<WalletEntityModel>().Get(wallet => wallet.RegistrantId == registrantEntity.Id, null, "Status").ToList();
-                registrantEntity.Wallets = wallets;
+                if (registrantEntity != null)
+                {
+                    var wallets = _unitOfWork.GetRepository<WalletEntityModel>().Get(wallet => wallet.RegistrantId == registrantEntity.Id, null, "Status").ToList();
+                    registrantEntity.Wallets = wallets;
+                }
             }
             else
             {

@@ -4,14 +4,16 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mini_Bank.Migrations
 {
     [DbContext(typeof(BankContext))]
-    partial class BankContextModelSnapshot : ModelSnapshot
+    [Migration("20201003095724_PrepForImmedis")]
+    partial class PrepForImmedis
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,7 +71,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(1151),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(9760),
                             IBAN = "BG27TTBB94008486163628",
                             WalletId = 1
                         },
@@ -79,7 +81,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 2,
                             Balance = 0m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2034),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(887),
                             IBAN = "BG77TTBB94006739924496",
                             WalletId = 1
                         },
@@ -89,7 +91,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2057),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(915),
                             IBAN = "BG82BNPA94402678339673",
                             WalletId = 1
                         },
@@ -99,7 +101,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2063),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(925),
                             IBAN = "BG11TTBB94009636993256",
                             WalletId = 2
                         },
@@ -109,7 +111,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 2,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2069),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(934),
                             IBAN = "BG84IORT80944383911889",
                             WalletId = 2
                         },
@@ -119,7 +121,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 2,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2074),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(943),
                             IBAN = "BG30STSA93001743638279",
                             WalletId = 2
                         },
@@ -129,7 +131,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2079),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(952),
                             IBAN = "BG61TTBB94002569752388",
                             WalletId = 3
                         },
@@ -139,7 +141,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2084),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(960),
                             IBAN = "BG79BNPA94401326493795",
                             WalletId = 3
                         },
@@ -149,7 +151,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 2,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2091),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(969),
                             IBAN = "BG71BNPA94403364212612",
                             WalletId = 3
                         },
@@ -159,7 +161,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2096),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(977),
                             IBAN = "BE98798249248593",
                             WalletId = 4
                         },
@@ -169,7 +171,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 2,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2101),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(986),
                             IBAN = "BE39519894248419",
                             WalletId = 4
                         },
@@ -179,7 +181,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2106),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(996),
                             IBAN = "BE51999467219162",
                             WalletId = 4
                         },
@@ -189,7 +191,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2112),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1005),
                             IBAN = "BE27812249819173",
                             WalletId = 5
                         },
@@ -199,7 +201,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 2,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2117),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1013),
                             IBAN = "BE86549411157550",
                             WalletId = 5
                         },
@@ -209,7 +211,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 2,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2123),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1022),
                             IBAN = "BE45999614884989",
                             WalletId = 5
                         },
@@ -219,7 +221,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2128),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1030),
                             IBAN = "BE08735678488413",
                             WalletId = 6
                         },
@@ -229,7 +231,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2134),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1039),
                             IBAN = "BE80978224831777",
                             WalletId = 6
                         },
@@ -239,7 +241,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 2,
                             Balance = 0m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2139),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1047),
                             IBAN = "BE59549568634626",
                             WalletId = 6
                         },
@@ -249,7 +251,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2144),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1056),
                             IBAN = "DE73500105172747763277",
                             WalletId = 7
                         },
@@ -259,7 +261,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 2,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2150),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1065),
                             IBAN = "DE73500105175222722351",
                             WalletId = 7
                         },
@@ -269,7 +271,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2155),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1074),
                             IBAN = "DE19500105179421415465",
                             WalletId = 7
                         },
@@ -279,7 +281,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 2,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2160),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1084),
                             IBAN = "DE09500105171626724371",
                             WalletId = 8
                         },
@@ -289,7 +291,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2165),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1092),
                             IBAN = "DE85500105175574577219",
                             WalletId = 8
                         },
@@ -299,7 +301,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2240),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1100),
                             IBAN = "DE66500105177765152229",
                             WalletId = 8
                         },
@@ -309,7 +311,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 2,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2246),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1109),
                             IBAN = "DE69500105171238446744",
                             WalletId = 9
                         },
@@ -319,7 +321,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2251),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1117),
                             IBAN = "DE69500105171238446744",
                             WalletId = 9
                         },
@@ -329,7 +331,7 @@ namespace Mini_Bank.Migrations
                             AccountStatusId = 1,
                             Balance = 0m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(2257),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(1125),
                             IBAN = "DE42500105173178734641",
                             WalletId = 9
                         },
@@ -337,9 +339,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 28,
                             AccountStatusId = 1,
-                            Balance = 6502m,
+                            Balance = 8863m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3367),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2297),
                             IBAN = "BG27TTBB94008486163628",
                             WalletId = 10
                         },
@@ -347,9 +349,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 29,
                             AccountStatusId = 1,
-                            Balance = 8693m,
+                            Balance = 2068m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3404),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2483),
                             IBAN = "BG77TTBB94006739924496",
                             WalletId = 10
                         },
@@ -357,9 +359,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 30,
                             AccountStatusId = 1,
-                            Balance = 9304m,
+                            Balance = 6513m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3411),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2495),
                             IBAN = "BG82BNPA94402678339673",
                             WalletId = 10
                         },
@@ -367,9 +369,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 31,
                             AccountStatusId = 1,
-                            Balance = 9509m,
+                            Balance = 3487m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3417),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2505),
                             IBAN = "BG11TTBB94009636993256",
                             WalletId = 11
                         },
@@ -377,9 +379,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 32,
                             AccountStatusId = 1,
-                            Balance = 1600m,
+                            Balance = 2317m,
                             CurrencyId = 2,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3424),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2514),
                             IBAN = "BG84IORT80944383911889",
                             WalletId = 11
                         },
@@ -387,9 +389,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 33,
                             AccountStatusId = 1,
-                            Balance = 7468m,
+                            Balance = 3192m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3431),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2524),
                             IBAN = "BG30STSA93001743638279",
                             WalletId = 11
                         },
@@ -397,9 +399,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 34,
                             AccountStatusId = 1,
-                            Balance = 7746m,
+                            Balance = 198m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3437),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2533),
                             IBAN = "BG61TTBB94002569752388",
                             WalletId = 12
                         },
@@ -407,9 +409,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 35,
                             AccountStatusId = 1,
-                            Balance = 3847m,
+                            Balance = 7362m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3443),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2544),
                             IBAN = "BG79BNPA94401326493795",
                             WalletId = 12
                         },
@@ -417,9 +419,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 36,
                             AccountStatusId = 1,
-                            Balance = 9744m,
+                            Balance = 6551m,
                             CurrencyId = 2,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3449),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2554),
                             IBAN = "BG71BNPA94403364212612",
                             WalletId = 12
                         },
@@ -427,9 +429,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 37,
                             AccountStatusId = 1,
-                            Balance = 1648m,
+                            Balance = 5468m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3455),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2562),
                             IBAN = "BE98798249248593",
                             WalletId = 13
                         },
@@ -437,9 +439,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 38,
                             AccountStatusId = 1,
-                            Balance = 9520m,
+                            Balance = 4223m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3461),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2572),
                             IBAN = "BE39519894248419",
                             WalletId = 13
                         },
@@ -447,9 +449,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 39,
                             AccountStatusId = 1,
-                            Balance = 5938m,
+                            Balance = 4374m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3467),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2581),
                             IBAN = "BE51999467219162",
                             WalletId = 13
                         },
@@ -457,9 +459,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 40,
                             AccountStatusId = 1,
-                            Balance = 4269m,
+                            Balance = 6512m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3473),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2591),
                             IBAN = "BE27812249819173",
                             WalletId = 14
                         },
@@ -467,9 +469,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 41,
                             AccountStatusId = 1,
-                            Balance = 4374m,
+                            Balance = 7126m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3479),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2600),
                             IBAN = "BE86549411157550",
                             WalletId = 14
                         },
@@ -477,9 +479,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 42,
                             AccountStatusId = 1,
-                            Balance = 2210m,
+                            Balance = 2666m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3485),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2610),
                             IBAN = "BE45999614884989",
                             WalletId = 14
                         },
@@ -487,9 +489,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 43,
                             AccountStatusId = 1,
-                            Balance = 7089m,
+                            Balance = 3211m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3491),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2619),
                             IBAN = "BE08735678488413",
                             WalletId = 15
                         },
@@ -497,9 +499,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 44,
                             AccountStatusId = 1,
-                            Balance = 6236m,
+                            Balance = 8866m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3496),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2628),
                             IBAN = "BE80978224831777",
                             WalletId = 15
                         },
@@ -507,9 +509,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 45,
                             AccountStatusId = 1,
-                            Balance = 7390m,
+                            Balance = 6917m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3503),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2636),
                             IBAN = "BE59549568634626",
                             WalletId = 15
                         },
@@ -517,9 +519,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 46,
                             AccountStatusId = 1,
-                            Balance = 3425m,
+                            Balance = 5139m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3509),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2646),
                             IBAN = "DE73500105172747763277",
                             WalletId = 16
                         },
@@ -527,9 +529,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 47,
                             AccountStatusId = 1,
-                            Balance = 6800m,
+                            Balance = 7998m,
                             CurrencyId = 2,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3515),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2655),
                             IBAN = "DE73500105175222722351",
                             WalletId = 16
                         },
@@ -537,9 +539,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 48,
                             AccountStatusId = 1,
-                            Balance = 4886m,
+                            Balance = 5901m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3521),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2664),
                             IBAN = "DE19500105179421415465",
                             WalletId = 16
                         },
@@ -547,9 +549,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 49,
                             AccountStatusId = 1,
-                            Balance = 1197m,
+                            Balance = 8515m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3527),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2674),
                             IBAN = "DE09500105171626724371",
                             WalletId = 17
                         },
@@ -557,9 +559,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 50,
                             AccountStatusId = 1,
-                            Balance = 3719m,
+                            Balance = 311m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3533),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2684),
                             IBAN = "DE85500105175574577219",
                             WalletId = 17
                         },
@@ -567,9 +569,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 51,
                             AccountStatusId = 1,
-                            Balance = 2319m,
+                            Balance = 4044m,
                             CurrencyId = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3539),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2694),
                             IBAN = "DE66500105177765152229",
                             WalletId = 17
                         },
@@ -577,9 +579,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 52,
                             AccountStatusId = 1,
-                            Balance = 4882m,
+                            Balance = 2240m,
                             CurrencyId = 2,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3545),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2703),
                             IBAN = "DE69500105171238446744",
                             WalletId = 18
                         },
@@ -587,9 +589,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 53,
                             AccountStatusId = 1,
-                            Balance = 5078m,
+                            Balance = 1478m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3550),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2712),
                             IBAN = "DE69500105171238446744",
                             WalletId = 18
                         },
@@ -597,9 +599,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 54,
                             AccountStatusId = 1,
-                            Balance = 5305m,
+                            Balance = 5519m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3556),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2722),
                             IBAN = "DE42500105173178734641",
                             WalletId = 18
                         },
@@ -607,9 +609,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 55,
                             AccountStatusId = 1,
-                            Balance = 6727m,
+                            Balance = 8332m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3562),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2731),
                             IBAN = "DE42500105173178734641",
                             WalletId = 19
                         },
@@ -617,9 +619,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 56,
                             AccountStatusId = 1,
-                            Balance = 5585m,
+                            Balance = 6262m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3568),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2741),
                             IBAN = "DE42500105173178734641",
                             WalletId = 19
                         },
@@ -627,9 +629,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 57,
                             AccountStatusId = 1,
-                            Balance = 6992m,
+                            Balance = 665m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3575),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2750),
                             IBAN = "DE42500105173178734641",
                             WalletId = 19
                         },
@@ -637,9 +639,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 58,
                             AccountStatusId = 1,
-                            Balance = 2026m,
+                            Balance = 1396m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3581),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2759),
                             IBAN = "DE42500105173178734641",
                             WalletId = 20
                         },
@@ -647,9 +649,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 59,
                             AccountStatusId = 1,
-                            Balance = 1041m,
+                            Balance = 1581m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3587),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2769),
                             IBAN = "DE42500105173178734641",
                             WalletId = 20
                         },
@@ -657,9 +659,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 60,
                             AccountStatusId = 1,
-                            Balance = 7444m,
+                            Balance = 2625m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3593),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2778),
                             IBAN = "DE42500105173178734641",
                             WalletId = 20
                         },
@@ -667,9 +669,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 61,
                             AccountStatusId = 1,
-                            Balance = 9157m,
+                            Balance = 1287m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3599),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2787),
                             IBAN = "DE42500105173178734641",
                             WalletId = 21
                         },
@@ -677,9 +679,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 62,
                             AccountStatusId = 1,
-                            Balance = 1702m,
+                            Balance = 7670m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3605),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2796),
                             IBAN = "DE42500105173178734641",
                             WalletId = 21
                         },
@@ -687,9 +689,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 63,
                             AccountStatusId = 1,
-                            Balance = 2098m,
+                            Balance = 2645m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3611),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2806),
                             IBAN = "DE42500105173178734641",
                             WalletId = 21
                         },
@@ -697,9 +699,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 64,
                             AccountStatusId = 1,
-                            Balance = 4118m,
+                            Balance = 494m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3617),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2815),
                             IBAN = "DE42500105173178734641",
                             WalletId = 22
                         },
@@ -707,9 +709,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 65,
                             AccountStatusId = 1,
-                            Balance = 4065m,
+                            Balance = 1019m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3623),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2824),
                             IBAN = "DE42500105173178734641",
                             WalletId = 22
                         },
@@ -717,9 +719,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 66,
                             AccountStatusId = 1,
-                            Balance = 6234m,
+                            Balance = 6282m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3629),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2833),
                             IBAN = "DE42500105173178734641",
                             WalletId = 22
                         },
@@ -727,9 +729,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 67,
                             AccountStatusId = 1,
-                            Balance = 8171m,
+                            Balance = 9126m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3635),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2842),
                             IBAN = "DE42500105173178734641",
                             WalletId = 23
                         },
@@ -737,9 +739,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 68,
                             AccountStatusId = 1,
-                            Balance = 1460m,
+                            Balance = 9061m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3641),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2851),
                             IBAN = "DE42500105173178734641",
                             WalletId = 23
                         },
@@ -747,9 +749,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 69,
                             AccountStatusId = 1,
-                            Balance = 4923m,
+                            Balance = 315m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3648),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2861),
                             IBAN = "DE42500105173178734641",
                             WalletId = 23
                         },
@@ -757,9 +759,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 70,
                             AccountStatusId = 1,
-                            Balance = 6754m,
+                            Balance = 4051m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3654),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2870),
                             IBAN = "DE42500105173178734641",
                             WalletId = 24
                         },
@@ -767,9 +769,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 71,
                             AccountStatusId = 1,
-                            Balance = 3638m,
+                            Balance = 5301m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3660),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2880),
                             IBAN = "DE42500105173178734641",
                             WalletId = 24
                         },
@@ -777,9 +779,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 72,
                             AccountStatusId = 1,
-                            Balance = 8827m,
+                            Balance = 8408m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3666),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2889),
                             IBAN = "DE42500105173178734641",
                             WalletId = 24
                         },
@@ -787,9 +789,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 73,
                             AccountStatusId = 1,
-                            Balance = 9954m,
+                            Balance = 7235m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3671),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2899),
                             IBAN = "DE42500105173178734641",
                             WalletId = 25
                         },
@@ -797,9 +799,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 74,
                             AccountStatusId = 1,
-                            Balance = 5927m,
+                            Balance = 3815m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3677),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2908),
                             IBAN = "DE42500105173178734641",
                             WalletId = 25
                         },
@@ -807,9 +809,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 75,
                             AccountStatusId = 1,
-                            Balance = 6144m,
+                            Balance = 2529m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3683),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2918),
                             IBAN = "DE42500105173178734641",
                             WalletId = 25
                         },
@@ -817,9 +819,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 76,
                             AccountStatusId = 1,
-                            Balance = 383m,
+                            Balance = 5120m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3689),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2928),
                             IBAN = "DE42500105173178734641",
                             WalletId = 26
                         },
@@ -827,9 +829,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 77,
                             AccountStatusId = 1,
-                            Balance = 3603m,
+                            Balance = 6020m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3695),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2937),
                             IBAN = "DE42500105173178734641",
                             WalletId = 26
                         },
@@ -837,9 +839,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 78,
                             AccountStatusId = 1,
-                            Balance = 8573m,
+                            Balance = 7640m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3700),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2950),
                             IBAN = "DE42500105173178734641",
                             WalletId = 26
                         },
@@ -847,9 +849,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 79,
                             AccountStatusId = 1,
-                            Balance = 1719m,
+                            Balance = 4708m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3706),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2959),
                             IBAN = "DE42500105173178734641",
                             WalletId = 27
                         },
@@ -857,9 +859,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 80,
                             AccountStatusId = 1,
-                            Balance = 439m,
+                            Balance = 713m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3712),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2968),
                             IBAN = "DE42500105173178734641",
                             WalletId = 27
                         },
@@ -867,9 +869,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 81,
                             AccountStatusId = 1,
-                            Balance = 7871m,
+                            Balance = 7552m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3718),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2978),
                             IBAN = "DE42500105173178734641",
                             WalletId = 27
                         },
@@ -877,9 +879,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 82,
                             AccountStatusId = 1,
-                            Balance = 738m,
+                            Balance = 9127m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3724),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2987),
                             IBAN = "DE42500105173178734641",
                             WalletId = 28
                         },
@@ -887,9 +889,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 83,
                             AccountStatusId = 1,
-                            Balance = 5306m,
+                            Balance = 348m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3730),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(2998),
                             IBAN = "DE42500105173178734641",
                             WalletId = 28
                         },
@@ -897,9 +899,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 84,
                             AccountStatusId = 1,
-                            Balance = 4975m,
+                            Balance = 1757m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3814),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3007),
                             IBAN = "DE42500105173178734641",
                             WalletId = 28
                         },
@@ -907,9 +909,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 85,
                             AccountStatusId = 1,
-                            Balance = 6985m,
+                            Balance = 2469m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3820),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3015),
                             IBAN = "DE42500105173178734641",
                             WalletId = 29
                         },
@@ -917,9 +919,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 86,
                             AccountStatusId = 1,
-                            Balance = 4627m,
+                            Balance = 1247m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3827),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3029),
                             IBAN = "DE42500105173178734641",
                             WalletId = 29
                         },
@@ -927,9 +929,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 87,
                             AccountStatusId = 1,
-                            Balance = 6520m,
+                            Balance = 840m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3832),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3038),
                             IBAN = "DE42500105173178734641",
                             WalletId = 29
                         },
@@ -937,9 +939,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 88,
                             AccountStatusId = 1,
-                            Balance = 2163m,
+                            Balance = 7671m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3839),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3046),
                             IBAN = "DE42500105173178734641",
                             WalletId = 30
                         },
@@ -947,9 +949,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 89,
                             AccountStatusId = 1,
-                            Balance = 1020m,
+                            Balance = 1864m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3845),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3056),
                             IBAN = "DE42500105173178734641",
                             WalletId = 30
                         },
@@ -957,9 +959,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 90,
                             AccountStatusId = 1,
-                            Balance = 8260m,
+                            Balance = 1100m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3851),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3134),
                             IBAN = "DE42500105173178734641",
                             WalletId = 30
                         },
@@ -967,9 +969,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 91,
                             AccountStatusId = 1,
-                            Balance = 2752m,
+                            Balance = 5887m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3857),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3145),
                             IBAN = "DE42500105173178734641",
                             WalletId = 31
                         },
@@ -977,9 +979,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 92,
                             AccountStatusId = 1,
-                            Balance = 9620m,
+                            Balance = 4072m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3863),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3155),
                             IBAN = "DE42500105173178734641",
                             WalletId = 31
                         },
@@ -987,9 +989,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 93,
                             AccountStatusId = 1,
-                            Balance = 8479m,
+                            Balance = 2642m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3869),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3165),
                             IBAN = "DE42500105173178734641",
                             WalletId = 31
                         },
@@ -997,9 +999,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 94,
                             AccountStatusId = 1,
-                            Balance = 8493m,
+                            Balance = 1749m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3876),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3174),
                             IBAN = "DE42500105173178734641",
                             WalletId = 32
                         },
@@ -1007,9 +1009,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 95,
                             AccountStatusId = 1,
-                            Balance = 5111m,
+                            Balance = 5225m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3882),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3184),
                             IBAN = "DE42500105173178734641",
                             WalletId = 32
                         },
@@ -1017,9 +1019,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 96,
                             AccountStatusId = 1,
-                            Balance = 2673m,
+                            Balance = 9455m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3887),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3194),
                             IBAN = "DE42500105173178734641",
                             WalletId = 32
                         },
@@ -1027,9 +1029,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 97,
                             AccountStatusId = 1,
-                            Balance = 112m,
+                            Balance = 21m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3893),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3203),
                             IBAN = "DE42500105173178734641",
                             WalletId = 33
                         },
@@ -1037,9 +1039,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 98,
                             AccountStatusId = 1,
-                            Balance = 2971m,
+                            Balance = 2717m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3899),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3212),
                             IBAN = "DE42500105173178734641",
                             WalletId = 33
                         },
@@ -1047,9 +1049,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 99,
                             AccountStatusId = 1,
-                            Balance = 2171m,
+                            Balance = 7848m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3905),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3221),
                             IBAN = "DE42500105173178734641",
                             WalletId = 33
                         },
@@ -1057,9 +1059,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 100,
                             AccountStatusId = 1,
-                            Balance = 1157m,
+                            Balance = 636m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3911),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3231),
                             IBAN = "DE42500105173178734641",
                             WalletId = 34
                         },
@@ -1067,9 +1069,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 101,
                             AccountStatusId = 1,
-                            Balance = 5253m,
+                            Balance = 6011m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3917),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3242),
                             IBAN = "DE42500105173178734641",
                             WalletId = 34
                         },
@@ -1077,9 +1079,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 102,
                             AccountStatusId = 1,
-                            Balance = 5341m,
+                            Balance = 8936m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3922),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3251),
                             IBAN = "DE42500105173178734641",
                             WalletId = 34
                         },
@@ -1087,9 +1089,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 103,
                             AccountStatusId = 1,
-                            Balance = 9961m,
+                            Balance = 5586m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3928),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3260),
                             IBAN = "DE42500105173178734641",
                             WalletId = 35
                         },
@@ -1097,9 +1099,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 104,
                             AccountStatusId = 1,
-                            Balance = 4441m,
+                            Balance = 4465m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3934),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3270),
                             IBAN = "DE42500105173178734641",
                             WalletId = 35
                         },
@@ -1107,9 +1109,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 105,
                             AccountStatusId = 1,
-                            Balance = 82m,
+                            Balance = 5009m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3940),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3280),
                             IBAN = "DE42500105173178734641",
                             WalletId = 35
                         },
@@ -1117,9 +1119,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 106,
                             AccountStatusId = 1,
-                            Balance = 3490m,
+                            Balance = 5634m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3947),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3289),
                             IBAN = "DE42500105173178734641",
                             WalletId = 36
                         },
@@ -1127,9 +1129,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 107,
                             AccountStatusId = 1,
-                            Balance = 4927m,
+                            Balance = 5003m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3953),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3298),
                             IBAN = "DE42500105173178734641",
                             WalletId = 36
                         },
@@ -1137,9 +1139,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 108,
                             AccountStatusId = 1,
-                            Balance = 9150m,
+                            Balance = 7662m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3959),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3308),
                             IBAN = "DE42500105173178734641",
                             WalletId = 36
                         },
@@ -1147,9 +1149,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 109,
                             AccountStatusId = 1,
-                            Balance = 9160m,
+                            Balance = 2991m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3965),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3318),
                             IBAN = "DE42500105173178734641",
                             WalletId = 37
                         },
@@ -1157,9 +1159,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 110,
                             AccountStatusId = 1,
-                            Balance = 6344m,
+                            Balance = 3213m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3971),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3327),
                             IBAN = "DE42500105173178734641",
                             WalletId = 37
                         },
@@ -1167,9 +1169,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 111,
                             AccountStatusId = 1,
-                            Balance = 1983m,
+                            Balance = 242m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3976),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3335),
                             IBAN = "DE42500105173178734641",
                             WalletId = 37
                         },
@@ -1177,9 +1179,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 112,
                             AccountStatusId = 1,
-                            Balance = 8418m,
+                            Balance = 3023m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3982),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3344),
                             IBAN = "DE42500105173178734641",
                             WalletId = 38
                         },
@@ -1187,9 +1189,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 113,
                             AccountStatusId = 1,
-                            Balance = 308m,
+                            Balance = 6687m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3988),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3353),
                             IBAN = "DE42500105173178734641",
                             WalletId = 38
                         },
@@ -1197,9 +1199,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 114,
                             AccountStatusId = 1,
-                            Balance = 603m,
+                            Balance = 868m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3994),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3362),
                             IBAN = "DE42500105173178734641",
                             WalletId = 38
                         },
@@ -1207,9 +1209,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 115,
                             AccountStatusId = 1,
-                            Balance = 9571m,
+                            Balance = 5072m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(3999),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3372),
                             IBAN = "DE42500105173178734641",
                             WalletId = 39
                         },
@@ -1217,9 +1219,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 116,
                             AccountStatusId = 1,
-                            Balance = 8419m,
+                            Balance = 2159m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4005),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3382),
                             IBAN = "DE42500105173178734641",
                             WalletId = 39
                         },
@@ -1227,9 +1229,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 117,
                             AccountStatusId = 1,
-                            Balance = 6395m,
+                            Balance = 7322m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4011),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3392),
                             IBAN = "DE42500105173178734641",
                             WalletId = 39
                         },
@@ -1237,9 +1239,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 118,
                             AccountStatusId = 1,
-                            Balance = 7122m,
+                            Balance = 889m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4017),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3401),
                             IBAN = "DE42500105173178734641",
                             WalletId = 40
                         },
@@ -1247,9 +1249,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 119,
                             AccountStatusId = 1,
-                            Balance = 7131m,
+                            Balance = 8023m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4023),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3410),
                             IBAN = "DE42500105173178734641",
                             WalletId = 40
                         },
@@ -1257,9 +1259,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 120,
                             AccountStatusId = 1,
-                            Balance = 9437m,
+                            Balance = 9770m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4029),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3421),
                             IBAN = "DE42500105173178734641",
                             WalletId = 40
                         },
@@ -1267,9 +1269,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 121,
                             AccountStatusId = 1,
-                            Balance = 9713m,
+                            Balance = 5443m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4035),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3431),
                             IBAN = "DE42500105173178734641",
                             WalletId = 41
                         },
@@ -1277,9 +1279,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 122,
                             AccountStatusId = 1,
-                            Balance = 6008m,
+                            Balance = 1455m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4041),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3440),
                             IBAN = "DE42500105173178734641",
                             WalletId = 41
                         },
@@ -1287,9 +1289,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 123,
                             AccountStatusId = 1,
-                            Balance = 441m,
+                            Balance = 7197m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4046),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3449),
                             IBAN = "DE42500105173178734641",
                             WalletId = 41
                         },
@@ -1297,9 +1299,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 124,
                             AccountStatusId = 1,
-                            Balance = 6662m,
+                            Balance = 9214m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4052),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3458),
                             IBAN = "DE42500105173178734641",
                             WalletId = 42
                         },
@@ -1307,9 +1309,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 125,
                             AccountStatusId = 1,
-                            Balance = 4002m,
+                            Balance = 8163m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4058),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3467),
                             IBAN = "DE42500105173178734641",
                             WalletId = 42
                         },
@@ -1317,9 +1319,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 126,
                             AccountStatusId = 1,
-                            Balance = 4016m,
+                            Balance = 1230m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4064),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3476),
                             IBAN = "DE42500105173178734641",
                             WalletId = 42
                         },
@@ -1327,9 +1329,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 127,
                             AccountStatusId = 1,
-                            Balance = 349m,
+                            Balance = 5767m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4070),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3486),
                             IBAN = "DE42500105173178734641",
                             WalletId = 43
                         },
@@ -1337,9 +1339,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 128,
                             AccountStatusId = 1,
-                            Balance = 1462m,
+                            Balance = 5487m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4076),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3495),
                             IBAN = "DE42500105173178734641",
                             WalletId = 43
                         },
@@ -1347,9 +1349,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 129,
                             AccountStatusId = 1,
-                            Balance = 817m,
+                            Balance = 8588m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4082),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3504),
                             IBAN = "DE42500105173178734641",
                             WalletId = 43
                         },
@@ -1357,9 +1359,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 130,
                             AccountStatusId = 1,
-                            Balance = 3472m,
+                            Balance = 3072m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4087),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3513),
                             IBAN = "DE42500105173178734641",
                             WalletId = 44
                         },
@@ -1367,9 +1369,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 131,
                             AccountStatusId = 1,
-                            Balance = 271m,
+                            Balance = 5099m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4093),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3522),
                             IBAN = "DE42500105173178734641",
                             WalletId = 44
                         },
@@ -1377,9 +1379,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 132,
                             AccountStatusId = 1,
-                            Balance = 632m,
+                            Balance = 3303m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4099),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3532),
                             IBAN = "DE42500105173178734641",
                             WalletId = 44
                         },
@@ -1387,9 +1389,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 133,
                             AccountStatusId = 1,
-                            Balance = 6402m,
+                            Balance = 9791m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4104),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3541),
                             IBAN = "DE42500105173178734641",
                             WalletId = 45
                         },
@@ -1397,9 +1399,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 134,
                             AccountStatusId = 1,
-                            Balance = 562m,
+                            Balance = 4073m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4110),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3550),
                             IBAN = "DE42500105173178734641",
                             WalletId = 45
                         },
@@ -1407,9 +1409,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 135,
                             AccountStatusId = 1,
-                            Balance = 5185m,
+                            Balance = 4700m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4116),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3560),
                             IBAN = "DE42500105173178734641",
                             WalletId = 45
                         },
@@ -1417,9 +1419,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 136,
                             AccountStatusId = 1,
-                            Balance = 2531m,
+                            Balance = 8614m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4122),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3569),
                             IBAN = "DE42500105173178734641",
                             WalletId = 46
                         },
@@ -1427,9 +1429,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 137,
                             AccountStatusId = 1,
-                            Balance = 775m,
+                            Balance = 3541m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4128),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3578),
                             IBAN = "DE42500105173178734641",
                             WalletId = 46
                         },
@@ -1437,9 +1439,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 138,
                             AccountStatusId = 1,
-                            Balance = 865m,
+                            Balance = 5882m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4134),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3587),
                             IBAN = "DE42500105173178734641",
                             WalletId = 46
                         },
@@ -1447,9 +1449,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 139,
                             AccountStatusId = 1,
-                            Balance = 4893m,
+                            Balance = 6747m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4140),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3596),
                             IBAN = "DE42500105173178734641",
                             WalletId = 47
                         },
@@ -1457,9 +1459,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 140,
                             AccountStatusId = 1,
-                            Balance = 3496m,
+                            Balance = 6834m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4146),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3605),
                             IBAN = "DE42500105173178734641",
                             WalletId = 47
                         },
@@ -1467,9 +1469,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 141,
                             AccountStatusId = 1,
-                            Balance = 9699m,
+                            Balance = 6243m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4151),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3615),
                             IBAN = "DE42500105173178734641",
                             WalletId = 47
                         },
@@ -1477,9 +1479,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 142,
                             AccountStatusId = 1,
-                            Balance = 7369m,
+                            Balance = 3176m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4158),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3625),
                             IBAN = "DE42500105173178734641",
                             WalletId = 48
                         },
@@ -1487,9 +1489,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 143,
                             AccountStatusId = 1,
-                            Balance = 3002m,
+                            Balance = 4681m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4164),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3635),
                             IBAN = "DE42500105173178734641",
                             WalletId = 48
                         },
@@ -1497,9 +1499,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 144,
                             AccountStatusId = 1,
-                            Balance = 4674m,
+                            Balance = 8649m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4170),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3645),
                             IBAN = "DE42500105173178734641",
                             WalletId = 48
                         },
@@ -1507,9 +1509,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 145,
                             AccountStatusId = 1,
-                            Balance = 6277m,
+                            Balance = 858m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4280),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3654),
                             IBAN = "DE42500105173178734641",
                             WalletId = 49
                         },
@@ -1517,9 +1519,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 146,
                             AccountStatusId = 1,
-                            Balance = 4333m,
+                            Balance = 2864m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4287),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3663),
                             IBAN = "DE42500105173178734641",
                             WalletId = 49
                         },
@@ -1527,9 +1529,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 147,
                             AccountStatusId = 1,
-                            Balance = 9313m,
+                            Balance = 7384m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4293),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3672),
                             IBAN = "DE42500105173178734641",
                             WalletId = 49
                         },
@@ -1537,9 +1539,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 148,
                             AccountStatusId = 1,
-                            Balance = 7877m,
+                            Balance = 1774m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4299),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3682),
                             IBAN = "DE42500105173178734641",
                             WalletId = 50
                         },
@@ -1547,9 +1549,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 149,
                             AccountStatusId = 1,
-                            Balance = 8920m,
+                            Balance = 6675m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4305),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3691),
                             IBAN = "DE42500105173178734641",
                             WalletId = 50
                         },
@@ -1557,9 +1559,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 150,
                             AccountStatusId = 1,
-                            Balance = 6690m,
+                            Balance = 3067m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4310),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3768),
                             IBAN = "DE42500105173178734641",
                             WalletId = 50
                         },
@@ -1567,9 +1569,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 151,
                             AccountStatusId = 1,
-                            Balance = 6277m,
+                            Balance = 2133m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4316),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3779),
                             IBAN = "DE42500105173178734641",
                             WalletId = 51
                         },
@@ -1577,9 +1579,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 152,
                             AccountStatusId = 1,
-                            Balance = 2988m,
+                            Balance = 9130m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4322),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3788),
                             IBAN = "DE42500105173178734641",
                             WalletId = 51
                         },
@@ -1587,9 +1589,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 153,
                             AccountStatusId = 1,
-                            Balance = 5839m,
+                            Balance = 4693m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4328),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3797),
                             IBAN = "DE42500105173178734641",
                             WalletId = 51
                         },
@@ -1597,9 +1599,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 154,
                             AccountStatusId = 1,
-                            Balance = 2733m,
+                            Balance = 8076m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4337),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3807),
                             IBAN = "DE42500105173178734641",
                             WalletId = 52
                         },
@@ -1607,9 +1609,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 155,
                             AccountStatusId = 1,
-                            Balance = 1443m,
+                            Balance = 5191m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4343),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3815),
                             IBAN = "DE42500105173178734641",
                             WalletId = 52
                         },
@@ -1617,9 +1619,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 156,
                             AccountStatusId = 1,
-                            Balance = 9243m,
+                            Balance = 4556m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4349),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3825),
                             IBAN = "DE42500105173178734641",
                             WalletId = 52
                         },
@@ -1627,9 +1629,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 157,
                             AccountStatusId = 1,
-                            Balance = 4900m,
+                            Balance = 1739m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4354),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3836),
                             IBAN = "DE42500105173178734641",
                             WalletId = 53
                         },
@@ -1637,9 +1639,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 158,
                             AccountStatusId = 1,
-                            Balance = 3300m,
+                            Balance = 6371m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4360),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3845),
                             IBAN = "DE42500105173178734641",
                             WalletId = 53
                         },
@@ -1647,9 +1649,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 159,
                             AccountStatusId = 1,
-                            Balance = 440m,
+                            Balance = 6301m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4366),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3855),
                             IBAN = "DE42500105173178734641",
                             WalletId = 53
                         },
@@ -1657,9 +1659,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 160,
                             AccountStatusId = 1,
-                            Balance = 6064m,
+                            Balance = 3779m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4372),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3864),
                             IBAN = "DE42500105173178734641",
                             WalletId = 54
                         },
@@ -1667,9 +1669,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 161,
                             AccountStatusId = 1,
-                            Balance = 3142m,
+                            Balance = 9866m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4378),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3873),
                             IBAN = "DE42500105173178734641",
                             WalletId = 54
                         },
@@ -1677,9 +1679,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 162,
                             AccountStatusId = 1,
-                            Balance = 3465m,
+                            Balance = 9515m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4383),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3883),
                             IBAN = "DE42500105173178734641",
                             WalletId = 54
                         },
@@ -1687,9 +1689,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 163,
                             AccountStatusId = 1,
-                            Balance = 8333m,
+                            Balance = 9072m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4389),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3892),
                             IBAN = "DE42500105173178734641",
                             WalletId = 55
                         },
@@ -1697,9 +1699,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 164,
                             AccountStatusId = 1,
-                            Balance = 5688m,
+                            Balance = 9917m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4395),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3901),
                             IBAN = "DE42500105173178734641",
                             WalletId = 55
                         },
@@ -1707,9 +1709,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 165,
                             AccountStatusId = 1,
-                            Balance = 6074m,
+                            Balance = 8112m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4401),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3910),
                             IBAN = "DE42500105173178734641",
                             WalletId = 55
                         },
@@ -1717,9 +1719,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 166,
                             AccountStatusId = 1,
-                            Balance = 1352m,
+                            Balance = 6937m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4407),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3919),
                             IBAN = "DE42500105173178734641",
                             WalletId = 56
                         },
@@ -1727,9 +1729,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 167,
                             AccountStatusId = 1,
-                            Balance = 2016m,
+                            Balance = 3230m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4414),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3927),
                             IBAN = "DE42500105173178734641",
                             WalletId = 56
                         },
@@ -1737,9 +1739,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 168,
                             AccountStatusId = 1,
-                            Balance = 9744m,
+                            Balance = 2614m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4419),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3937),
                             IBAN = "DE42500105173178734641",
                             WalletId = 56
                         },
@@ -1747,9 +1749,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 169,
                             AccountStatusId = 1,
-                            Balance = 5416m,
+                            Balance = 6167m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4425),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3946),
                             IBAN = "DE42500105173178734641",
                             WalletId = 57
                         },
@@ -1757,9 +1759,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 170,
                             AccountStatusId = 1,
-                            Balance = 7040m,
+                            Balance = 6456m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4431),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3955),
                             IBAN = "DE42500105173178734641",
                             WalletId = 57
                         },
@@ -1767,9 +1769,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 171,
                             AccountStatusId = 1,
-                            Balance = 7645m,
+                            Balance = 8616m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4437),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3964),
                             IBAN = "DE42500105173178734641",
                             WalletId = 57
                         },
@@ -1777,9 +1779,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 172,
                             AccountStatusId = 1,
-                            Balance = 5530m,
+                            Balance = 1440m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4443),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3973),
                             IBAN = "DE42500105173178734641",
                             WalletId = 58
                         },
@@ -1787,9 +1789,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 173,
                             AccountStatusId = 1,
-                            Balance = 2230m,
+                            Balance = 4140m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4448),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3982),
                             IBAN = "DE42500105173178734641",
                             WalletId = 58
                         },
@@ -1797,9 +1799,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 174,
                             AccountStatusId = 1,
-                            Balance = 3636m,
+                            Balance = 1190m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4454),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(3991),
                             IBAN = "DE42500105173178734641",
                             WalletId = 58
                         },
@@ -1807,9 +1809,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 175,
                             AccountStatusId = 1,
-                            Balance = 9737m,
+                            Balance = 3528m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4460),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4000),
                             IBAN = "DE42500105173178734641",
                             WalletId = 59
                         },
@@ -1817,9 +1819,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 176,
                             AccountStatusId = 1,
-                            Balance = 2345m,
+                            Balance = 2267m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4466),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4009),
                             IBAN = "DE42500105173178734641",
                             WalletId = 59
                         },
@@ -1827,9 +1829,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 177,
                             AccountStatusId = 1,
-                            Balance = 3006m,
+                            Balance = 6773m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4472),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4018),
                             IBAN = "DE42500105173178734641",
                             WalletId = 59
                         },
@@ -1837,9 +1839,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 178,
                             AccountStatusId = 1,
-                            Balance = 5766m,
+                            Balance = 8547m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4478),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4027),
                             IBAN = "DE42500105173178734641",
                             WalletId = 60
                         },
@@ -1847,9 +1849,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 179,
                             AccountStatusId = 1,
-                            Balance = 386m,
+                            Balance = 8356m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4484),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4037),
                             IBAN = "DE42500105173178734641",
                             WalletId = 60
                         },
@@ -1857,9 +1859,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 180,
                             AccountStatusId = 1,
-                            Balance = 9667m,
+                            Balance = 5299m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4490),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4047),
                             IBAN = "DE42500105173178734641",
                             WalletId = 60
                         },
@@ -1867,9 +1869,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 181,
                             AccountStatusId = 1,
-                            Balance = 4702m,
+                            Balance = 3844m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4496),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4056),
                             IBAN = "DE42500105173178734641",
                             WalletId = 61
                         },
@@ -1877,9 +1879,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 182,
                             AccountStatusId = 1,
-                            Balance = 2471m,
+                            Balance = 3993m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4502),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4065),
                             IBAN = "DE42500105173178734641",
                             WalletId = 61
                         },
@@ -1887,9 +1889,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 183,
                             AccountStatusId = 1,
-                            Balance = 2540m,
+                            Balance = 8810m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4507),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4075),
                             IBAN = "DE42500105173178734641",
                             WalletId = 61
                         },
@@ -1897,9 +1899,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 184,
                             AccountStatusId = 1,
-                            Balance = 4126m,
+                            Balance = 5522m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4513),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4084),
                             IBAN = "DE42500105173178734641",
                             WalletId = 62
                         },
@@ -1907,9 +1909,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 185,
                             AccountStatusId = 1,
-                            Balance = 7193m,
+                            Balance = 940m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4519),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4093),
                             IBAN = "DE42500105173178734641",
                             WalletId = 62
                         },
@@ -1917,9 +1919,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 186,
                             AccountStatusId = 1,
-                            Balance = 7282m,
+                            Balance = 5968m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4525),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4102),
                             IBAN = "DE42500105173178734641",
                             WalletId = 62
                         },
@@ -1927,9 +1929,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 187,
                             AccountStatusId = 1,
-                            Balance = 4792m,
+                            Balance = 8609m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4531),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4111),
                             IBAN = "DE42500105173178734641",
                             WalletId = 63
                         },
@@ -1937,9 +1939,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 188,
                             AccountStatusId = 1,
-                            Balance = 3669m,
+                            Balance = 1716m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4536),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4121),
                             IBAN = "DE42500105173178734641",
                             WalletId = 63
                         },
@@ -1947,9 +1949,9 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 189,
                             AccountStatusId = 1,
-                            Balance = 9118m,
+                            Balance = 8881m,
                             CurrencyId = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 910, DateTimeKind.Local).AddTicks(4542),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 626, DateTimeKind.Local).AddTicks(4130),
                             IBAN = "DE42500105173178734641",
                             WalletId = 63
                         });
@@ -2058,29 +2060,6 @@ namespace Mini_Bank.Migrations
                     b.HasIndex("ToCurrencyId");
 
                     b.ToTable("CurrencyExchange");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FromCurrencyId = 1,
-                            Rate = 0.59999999999999998,
-                            ToCurrencyId = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FromCurrencyId = 1,
-                            Rate = 0.46000000000000002,
-                            ToCurrencyId = 3
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FromCurrencyId = 3,
-                            Rate = 1.29,
-                            ToCurrencyId = 2
-                        });
                 });
 
             modelBuilder.Entity("Data.Entities.FileDescriptorEntityModel", b =>
@@ -2180,7 +2159,7 @@ namespace Mini_Bank.Migrations
                             Id = 1,
                             Address = "ul. Street 42",
                             Country = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(7256),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(3606),
                             FirstName = "Preslav",
                             LastName = "Panayotov",
                             UserId = 1
@@ -2190,7 +2169,7 @@ namespace Mini_Bank.Migrations
                             Id = 2,
                             Address = "8-mi Primorski",
                             Country = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8545),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(4774),
                             FirstName = "Stefan",
                             LastName = "Dimitrov",
                             UserId = 2
@@ -2200,7 +2179,7 @@ namespace Mini_Bank.Migrations
                             Id = 3,
                             Address = "Liberman 12",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8579),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(4803),
                             FirstName = "Petar",
                             LastName = "Marchev",
                             UserId = 3
@@ -2210,7 +2189,7 @@ namespace Mini_Bank.Migrations
                             Id = 4,
                             Address = "Test3",
                             Country = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8619),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(4843),
                             FirstName = "Test1",
                             LastName = "Test2",
                             UserId = 4
@@ -2220,7 +2199,7 @@ namespace Mini_Bank.Migrations
                             Id = 5,
                             Address = "Test6",
                             Country = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8664),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(4866),
                             FirstName = "Test4",
                             LastName = "Test5",
                             UserId = 5
@@ -2230,7 +2209,7 @@ namespace Mini_Bank.Migrations
                             Id = 6,
                             Address = "Test9",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8696),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(4887),
                             FirstName = "Test7",
                             LastName = "Test8",
                             UserId = 6
@@ -2240,7 +2219,7 @@ namespace Mini_Bank.Migrations
                             Id = 7,
                             Address = "Test12",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8715),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(4909),
                             FirstName = "Test10",
                             LastName = "Test11",
                             UserId = 7
@@ -2250,7 +2229,7 @@ namespace Mini_Bank.Migrations
                             Id = 8,
                             Address = "Test15",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8733),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(4931),
                             FirstName = "Test13",
                             LastName = "Test14",
                             UserId = 8
@@ -2260,7 +2239,7 @@ namespace Mini_Bank.Migrations
                             Id = 9,
                             Address = "Test18",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8754),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(4952),
                             FirstName = "Test16",
                             LastName = "Test17",
                             UserId = 9
@@ -2270,7 +2249,7 @@ namespace Mini_Bank.Migrations
                             Id = 10,
                             Address = "Test21",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8784),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(4974),
                             FirstName = "Test19",
                             LastName = "Test20",
                             UserId = 10
@@ -2280,7 +2259,7 @@ namespace Mini_Bank.Migrations
                             Id = 11,
                             Address = "Test24",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8801),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(4995),
                             FirstName = "Test22",
                             LastName = "Test23",
                             UserId = 11
@@ -2290,7 +2269,7 @@ namespace Mini_Bank.Migrations
                             Id = 12,
                             Address = "Test27",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8832),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(5018),
                             FirstName = "Test25",
                             LastName = "Test26",
                             UserId = 12
@@ -2300,7 +2279,7 @@ namespace Mini_Bank.Migrations
                             Id = 13,
                             Address = "Test30",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8850),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(5039),
                             FirstName = "Test28",
                             LastName = "Test29",
                             UserId = 13
@@ -2310,7 +2289,7 @@ namespace Mini_Bank.Migrations
                             Id = 14,
                             Address = "Test33",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8878),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(5061),
                             FirstName = "Test31",
                             LastName = "Test32",
                             UserId = 14
@@ -2320,7 +2299,7 @@ namespace Mini_Bank.Migrations
                             Id = 15,
                             Address = "Test36",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8905),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(5082),
                             FirstName = "Test34",
                             LastName = "Test35",
                             UserId = 15
@@ -2330,7 +2309,7 @@ namespace Mini_Bank.Migrations
                             Id = 16,
                             Address = "Test39",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8960),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(5103),
                             FirstName = "Test37",
                             LastName = "Test38",
                             UserId = 16
@@ -2340,7 +2319,7 @@ namespace Mini_Bank.Migrations
                             Id = 17,
                             Address = "Test42",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(8993),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(5124),
                             FirstName = "Test40",
                             LastName = "Test41",
                             UserId = 17
@@ -2350,7 +2329,7 @@ namespace Mini_Bank.Migrations
                             Id = 18,
                             Address = "Test45",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(9104),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(5145),
                             FirstName = "Test43",
                             LastName = "Test44",
                             UserId = 18
@@ -2360,7 +2339,7 @@ namespace Mini_Bank.Migrations
                             Id = 19,
                             Address = "Test48",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(9117),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(5165),
                             FirstName = "Test46",
                             LastName = "Test47",
                             UserId = 19
@@ -2370,7 +2349,7 @@ namespace Mini_Bank.Migrations
                             Id = 20,
                             Address = "Test51",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(9131),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(5288),
                             FirstName = "Test49",
                             LastName = "Test50",
                             UserId = 20
@@ -2380,7 +2359,7 @@ namespace Mini_Bank.Migrations
                             Id = 21,
                             Address = "Test54",
                             Country = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(9143),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 624, DateTimeKind.Local).AddTicks(5312),
                             FirstName = "Test52",
                             LastName = "Test53",
                             UserId = 21
@@ -2410,22 +2389,6 @@ namespace Mini_Bank.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ConcurrencyStamp = "ad9053e1-b224-46f1-9af4-acda00408351",
-                            Name = "Basic",
-                            NormalizedName = "BASIC"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ConcurrencyStamp = "66fc5a2f-7ddb-45f0-a380-974c5b8c5d5b",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Data.Entities.StatusEntityModel", b =>
@@ -2537,18 +2500,6 @@ namespace Mini_Bank.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TicketStatus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Open"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Closed"
-                        });
                 });
 
             modelBuilder.Entity("Data.Entities.TicketTypeEntityModel", b =>
@@ -2563,23 +2514,6 @@ namespace Mini_Bank.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TicketType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Finances"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Wallets"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Other"
-                        });
                 });
 
             modelBuilder.Entity("Data.Entities.TransactionEntityModel", b =>
@@ -2634,18 +2568,6 @@ namespace Mini_Bank.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TransactionType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Debit"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Credit"
-                        });
                 });
 
             modelBuilder.Entity("Data.Entities.UserEntityModel", b =>
@@ -2716,13 +2638,11 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1b09edb7-888d-4791-a282-616a36586e2e",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 905, DateTimeKind.Local).AddTicks(3760),
+                            ConcurrencyStamp = "c9ed4f19-bc46-462b-9644-76f119f1504c",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 620, DateTimeKind.Local).AddTicks(6029),
                             Email = "preslav.miroslavov@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "PRESLAV.MIROSLAVOV@GMAIL.COM",
-                            NormalizedUserName = "PRESLAVPANAIOTOV",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "PreslavPanaiotov"
@@ -2731,8 +2651,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ad892afb-a761-4cfa-a6df-b5807ac252e7",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(357),
+                            ConcurrencyStamp = "999b6989-817c-4f95-b3a1-446e88611b98",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4491),
                             Email = "stefan.dimitrov@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2744,8 +2664,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aa01670a-713a-4641-8836-c6339d4aab36",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(390),
+                            ConcurrencyStamp = "a1c2ea1d-9d72-41a1-8075-2d91bd183598",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4536),
                             Email = "petar.marchev@mail.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2757,8 +2677,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2b4fea34-43fc-48f7-babc-a863ad0d45c3",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(434),
+                            ConcurrencyStamp = "5964b971-ead4-4185-b652-3cffefd739b0",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4586),
                             Email = "test1@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2769,8 +2689,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 5,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ad688d05-23a1-4f90-bf8c-e9ba399af16d",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(449),
+                            ConcurrencyStamp = "ad78677a-6545-4774-bab1-a9e332e21490",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4608),
                             Email = "test2@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2781,8 +2701,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 6,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "627e4c11-1ed5-4c8b-acd8-6b0f65b70f5d",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(479),
+                            ConcurrencyStamp = "c352c94d-5136-4866-9bac-26564c0c9cfc",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4629),
                             Email = "test3@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2793,8 +2713,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 7,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2fefb529-da64-4372-9a0f-aaf5169e5bad",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(492),
+                            ConcurrencyStamp = "f8b6634d-31da-4795-8ca5-9d5f93f1ca8e",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4651),
                             Email = "test4@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2805,8 +2725,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 8,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7f78786f-2377-451f-af76-ec27bf5157b1",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(504),
+                            ConcurrencyStamp = "7822515b-baba-4753-9f6b-df98d957a6b9",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4672),
                             Email = "test5@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2817,8 +2737,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 9,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c4bf2bf1-8fd5-4a5b-920d-91fdcc5bc0c6",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(518),
+                            ConcurrencyStamp = "3082155b-6deb-4e6a-83a7-16797c3225ab",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4713),
                             Email = "test6@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2829,8 +2749,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 10,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "543a0168-02b2-44aa-b361-5d7fdb8cbcf9",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(530),
+                            ConcurrencyStamp = "d4df252a-f1b3-4e56-842f-50cc1484f001",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4735),
                             Email = "test7@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2841,8 +2761,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 11,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cb330363-db2f-4a15-b368-06185f530353",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(542),
+                            ConcurrencyStamp = "107f9eff-7f6d-4461-8fa7-bc550afb8310",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4756),
                             Email = "test8@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2853,8 +2773,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 12,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7fe514c5-bbf1-492e-9daa-a981cb58aca4",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(555),
+                            ConcurrencyStamp = "16ac7534-2cfc-4987-a1bd-22a78e67cbbd",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4776),
                             Email = "test9@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2865,8 +2785,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 13,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "114706b5-93d7-4fd9-abaf-c5fe6f2dc310",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(569),
+                            ConcurrencyStamp = "d0a90359-d71f-42ed-a2ef-d8c188eb004b",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4798),
                             Email = "test10@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2877,8 +2797,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 14,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2f18738e-1c52-4b58-80c2-a9f9f79e5baf",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(587),
+                            ConcurrencyStamp = "99dd9cc3-91e5-4e0e-92db-59337d5ee12e",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4818),
                             Email = "test11@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2889,8 +2809,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 15,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c52eb89d-40aa-4675-87c3-4115bae0d44f",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(600),
+                            ConcurrencyStamp = "f85ed93a-0975-40b5-a1b0-2d6dd6ecbd00",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4838),
                             Email = "test12@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2901,8 +2821,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 16,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b6b95d07-6dbf-4be2-9c79-f9cd4e6a0f17",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(765),
+                            ConcurrencyStamp = "613021a2-5306-4511-b236-8addb7c260fd",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4858),
                             Email = "test13@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2913,8 +2833,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 17,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6d220b6b-6eb7-4c91-8f27-829e121513c1",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(778),
+                            ConcurrencyStamp = "a9e7ea8d-3215-4212-8ece-77e80b64159b",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4885),
                             Email = "test14@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2925,8 +2845,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 18,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8936f920-9b9f-41ab-b067-e8873a40e629",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(790),
+                            ConcurrencyStamp = "851db757-91d0-4c0f-9197-372c1c1aa363",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(4994),
                             Email = "test15@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2937,8 +2857,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 19,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b3f582ed-603e-4b0c-9022-9cc9e445947e",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(803),
+                            ConcurrencyStamp = "bfc551be-bdf9-4c4e-9225-429ed7246042",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(5016),
                             Email = "test16@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2949,8 +2869,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 20,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bdebf651-137a-4430-aaab-a09c332faf31",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(815),
+                            ConcurrencyStamp = "a9f88bcc-1cbe-48dd-aab8-47226ed1ce86",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(5037),
                             Email = "test17@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -2961,8 +2881,8 @@ namespace Mini_Bank.Migrations
                         {
                             Id = 21,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e11c3a1d-c747-4cf2-8158-a20ebf1beb3e",
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 908, DateTimeKind.Local).AddTicks(828),
+                            ConcurrencyStamp = "799e7713-d66f-41c6-b167-0fedebc5137a",
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 623, DateTimeKind.Local).AddTicks(5058),
                             Email = "test18@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -3010,7 +2930,7 @@ namespace Mini_Bank.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(4287),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(1681),
                             IsVerified = true,
                             Number = 4188,
                             RegistrantId = 1,
@@ -3019,7 +2939,7 @@ namespace Mini_Bank.Migrations
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5187),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2808),
                             IsVerified = false,
                             Number = 948,
                             RegistrantId = 1,
@@ -3028,7 +2948,7 @@ namespace Mini_Bank.Migrations
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5212),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2838),
                             IsVerified = false,
                             Number = 9809,
                             RegistrantId = 1,
@@ -3037,7 +2957,7 @@ namespace Mini_Bank.Migrations
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5218),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2848),
                             IsVerified = true,
                             Number = 9458,
                             RegistrantId = 2,
@@ -3046,7 +2966,7 @@ namespace Mini_Bank.Migrations
                         new
                         {
                             Id = 5,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5223),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2857),
                             IsVerified = true,
                             Number = 1889,
                             RegistrantId = 2,
@@ -3055,7 +2975,7 @@ namespace Mini_Bank.Migrations
                         new
                         {
                             Id = 6,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5228),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2865),
                             IsVerified = false,
                             Number = 6703,
                             RegistrantId = 2,
@@ -3064,7 +2984,7 @@ namespace Mini_Bank.Migrations
                         new
                         {
                             Id = 7,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5234),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2874),
                             IsVerified = true,
                             Number = 9890,
                             RegistrantId = 3,
@@ -3073,7 +2993,7 @@ namespace Mini_Bank.Migrations
                         new
                         {
                             Id = 8,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5239),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2882),
                             IsVerified = false,
                             Number = 1018,
                             RegistrantId = 3,
@@ -3082,7 +3002,7 @@ namespace Mini_Bank.Migrations
                         new
                         {
                             Id = 9,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5245),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2890),
                             IsVerified = true,
                             Number = 9066,
                             RegistrantId = 3,
@@ -3091,486 +3011,486 @@ namespace Mini_Bank.Migrations
                         new
                         {
                             Id = 10,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5255),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2902),
                             IsVerified = true,
-                            Number = 7929,
+                            Number = 3834,
                             RegistrantId = 4,
                             WalletStatusId = 1
                         },
                         new
                         {
                             Id = 11,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5261),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2911),
                             IsVerified = false,
-                            Number = 9975,
+                            Number = 3870,
                             RegistrantId = 4,
                             WalletStatusId = 1
                         },
                         new
                         {
                             Id = 12,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5266),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2920),
                             IsVerified = false,
-                            Number = 1258,
+                            Number = 7602,
                             RegistrantId = 4,
                             WalletStatusId = 1
                         },
                         new
                         {
                             Id = 13,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5272),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2929),
                             IsVerified = true,
-                            Number = 7187,
+                            Number = 4709,
                             RegistrantId = 5,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 14,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5278),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2939),
                             IsVerified = true,
-                            Number = 3965,
+                            Number = 8530,
                             RegistrantId = 5,
                             WalletStatusId = 1
                         },
                         new
                         {
                             Id = 15,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5285),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2947),
                             IsVerified = false,
-                            Number = 7359,
+                            Number = 6683,
                             RegistrantId = 5,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 16,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5291),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2956),
                             IsVerified = true,
-                            Number = 1113,
+                            Number = 3571,
                             RegistrantId = 6,
                             WalletStatusId = 1
                         },
                         new
                         {
                             Id = 17,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5297),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2965),
                             IsVerified = false,
-                            Number = 2394,
+                            Number = 4352,
                             RegistrantId = 6,
                             WalletStatusId = 1
                         },
                         new
                         {
                             Id = 18,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5302),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2975),
                             IsVerified = true,
-                            Number = 3505,
+                            Number = 8641,
                             RegistrantId = 6,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 19,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5308),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2984),
                             IsVerified = true,
-                            Number = 4983,
+                            Number = 2489,
                             RegistrantId = 7,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 20,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5314),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(2993),
                             IsVerified = true,
-                            Number = 8250,
+                            Number = 3295,
                             RegistrantId = 7,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 21,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5320),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3002),
                             IsVerified = true,
-                            Number = 9146,
+                            Number = 3546,
                             RegistrantId = 7,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 22,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5326),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3011),
                             IsVerified = true,
-                            Number = 3321,
+                            Number = 4295,
                             RegistrantId = 8,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 23,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5331),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3019),
                             IsVerified = true,
-                            Number = 3702,
+                            Number = 7640,
                             RegistrantId = 8,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 24,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5337),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3029),
                             IsVerified = true,
-                            Number = 1462,
+                            Number = 1195,
                             RegistrantId = 8,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 25,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5342),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3038),
                             IsVerified = true,
-                            Number = 9829,
+                            Number = 4035,
                             RegistrantId = 9,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 26,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5348),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3047),
                             IsVerified = true,
-                            Number = 5702,
+                            Number = 5965,
                             RegistrantId = 9,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 27,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5353),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3056),
                             IsVerified = true,
-                            Number = 9158,
+                            Number = 7712,
                             RegistrantId = 9,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 28,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5363),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3065),
                             IsVerified = true,
-                            Number = 6406,
+                            Number = 7531,
                             RegistrantId = 10,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 29,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5368),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3074),
                             IsVerified = true,
-                            Number = 4291,
+                            Number = 4221,
                             RegistrantId = 10,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 30,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5374),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3082),
                             IsVerified = true,
-                            Number = 7926,
+                            Number = 9206,
                             RegistrantId = 10,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 31,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5379),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3091),
                             IsVerified = true,
-                            Number = 9104,
+                            Number = 1973,
                             RegistrantId = 11,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 32,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5385),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3100),
                             IsVerified = true,
-                            Number = 1601,
+                            Number = 7008,
                             RegistrantId = 11,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 33,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5391),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3109),
                             IsVerified = true,
-                            Number = 1699,
+                            Number = 4464,
                             RegistrantId = 11,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 34,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5397),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3118),
                             IsVerified = true,
-                            Number = 5748,
+                            Number = 2624,
                             RegistrantId = 12,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 35,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5402),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3127),
                             IsVerified = true,
-                            Number = 6242,
+                            Number = 5657,
                             RegistrantId = 12,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 36,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5408),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3136),
                             IsVerified = true,
-                            Number = 9386,
+                            Number = 6506,
                             RegistrantId = 12,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 37,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5414),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3144),
                             IsVerified = true,
-                            Number = 6650,
+                            Number = 5944,
                             RegistrantId = 13,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 38,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5419),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3153),
                             IsVerified = true,
-                            Number = 2623,
+                            Number = 7455,
                             RegistrantId = 13,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 39,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5425),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3161),
                             IsVerified = true,
-                            Number = 2022,
+                            Number = 3720,
                             RegistrantId = 13,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 40,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5431),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3169),
                             IsVerified = true,
-                            Number = 5414,
+                            Number = 7688,
                             RegistrantId = 14,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 41,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5436),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3178),
                             IsVerified = true,
-                            Number = 2906,
+                            Number = 8358,
                             RegistrantId = 14,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 42,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5442),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3188),
                             IsVerified = true,
-                            Number = 5304,
+                            Number = 6685,
                             RegistrantId = 14,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 43,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5448),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3197),
                             IsVerified = true,
-                            Number = 8383,
+                            Number = 6881,
                             RegistrantId = 15,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 44,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5454),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3206),
                             IsVerified = true,
-                            Number = 1713,
+                            Number = 5241,
                             RegistrantId = 15,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 45,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5460),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3215),
                             IsVerified = true,
-                            Number = 4081,
+                            Number = 7305,
                             RegistrantId = 15,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 46,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5539),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3224),
                             IsVerified = true,
-                            Number = 4217,
+                            Number = 5054,
                             RegistrantId = 16,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 47,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5547),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3234),
                             IsVerified = true,
-                            Number = 8049,
+                            Number = 8738,
                             RegistrantId = 16,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 48,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5553),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3243),
                             IsVerified = true,
-                            Number = 6076,
+                            Number = 3087,
                             RegistrantId = 16,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 49,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5559),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3252),
                             IsVerified = true,
-                            Number = 9284,
+                            Number = 9332,
                             RegistrantId = 17,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 50,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5564),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3261),
                             IsVerified = true,
-                            Number = 8893,
+                            Number = 7909,
                             RegistrantId = 17,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 51,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5570),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3270),
                             IsVerified = true,
-                            Number = 6849,
+                            Number = 1542,
                             RegistrantId = 17,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 52,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5577),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3368),
                             IsVerified = true,
-                            Number = 5757,
+                            Number = 1693,
                             RegistrantId = 18,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 53,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5583),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3378),
                             IsVerified = true,
-                            Number = 8513,
+                            Number = 3368,
                             RegistrantId = 18,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 54,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5588),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3388),
                             IsVerified = true,
-                            Number = 6304,
+                            Number = 2449,
                             RegistrantId = 18,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 55,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5594),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3396),
                             IsVerified = true,
-                            Number = 1177,
+                            Number = 1294,
                             RegistrantId = 19,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 56,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5600),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3406),
                             IsVerified = true,
-                            Number = 1467,
+                            Number = 9689,
                             RegistrantId = 19,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 57,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5606),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3415),
                             IsVerified = true,
-                            Number = 3332,
+                            Number = 8006,
                             RegistrantId = 19,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 58,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5611),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3425),
                             IsVerified = true,
-                            Number = 1623,
+                            Number = 9307,
                             RegistrantId = 20,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 59,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5617),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3434),
                             IsVerified = true,
-                            Number = 5329,
+                            Number = 6857,
                             RegistrantId = 20,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 60,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5623),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3443),
                             IsVerified = true,
-                            Number = 9198,
+                            Number = 2463,
                             RegistrantId = 20,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 61,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5628),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3453),
                             IsVerified = true,
-                            Number = 4477,
+                            Number = 6265,
                             RegistrantId = 21,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 62,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5634),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3462),
                             IsVerified = true,
-                            Number = 5205,
+                            Number = 5996,
                             RegistrantId = 21,
                             WalletStatusId = 2
                         },
                         new
                         {
                             Id = 63,
-                            DateCreated = new DateTime(2020, 10, 4, 17, 37, 20, 909, DateTimeKind.Local).AddTicks(5641),
+                            DateCreated = new DateTime(2020, 10, 3, 12, 57, 23, 625, DateTimeKind.Local).AddTicks(3471),
                             IsVerified = true,
-                            Number = 6061,
+                            Number = 5526,
                             RegistrantId = 21,
                             WalletStatusId = 2
                         });

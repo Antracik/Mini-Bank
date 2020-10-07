@@ -11,10 +11,10 @@
 
 <partial name="_StatusMessage" for="@Model.Message" />
 
+
 <p>
     <a class="btn btn-primary" asp-action="RequestWallet">Request New Wallet</a>
 </p>
-
 <div id="accordion">
     @foreach (var item in Model.Wallets)
     {
@@ -106,6 +106,7 @@
         </div>
     </div>
 </div>
+}
 
 @section Scripts{
 

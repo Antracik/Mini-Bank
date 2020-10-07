@@ -9,7 +9,7 @@
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <div>
-    <h4>VerifyWalletViewModel</h4>
+    <h4>Verify wallet</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -55,7 +55,7 @@
                         <label asp-for="@Model.Account.Balance"></label>
                     </th>
                     <th>
-                        <label asp-for="@Model.Account.Currency"></label>
+                        <label asp-for="@Model.Account.CurrencyId"></label>
                     </th>
                 </tr>
             </thead>
@@ -70,7 +70,7 @@
                             @item.Balance.ToString("N")
                         </td>
                         <td>
-                            @item.Currency
+                            @item.Currency.Name
                         </td>
                     </tr>
                 </tbody>
@@ -106,8 +106,8 @@
                         <input asp-for="@Model.Account.Balance" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label asp-for="@Model.Account.Currency" class="col-form-label"></label>
-                        <select asp-for="@Model.Account.Currency" asp-items="@(new SelectList(Model.CurrencyList, "Id", "Name"))" class="form-control"> </select>
+                        <label asp-for="@Model.Account.CurrencyId" class="col-form-label"></label>
+                        <select asp-for="@Model.Account.CurrencyId" asp-items="@(new SelectList(Model.CurrencyList, "Id", "Name"))" class="form-control"> </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -48,18 +48,22 @@ namespace Mini_Bank.Controllers
         public IActionResult UserWallets()
         {
             int userId = int.Parse(_userService.GetUserId(User));
+            var model = new UserWalletsViewModel();
 
             var registrant = _registrantService.GetRegistrantByUserId(userId, includeWallets: true);
+
+            if (registrant == null)
+            {
+                //model.Message = "Please enter personal info before attempting to request a new wallet!";
+                return Redirect("/Identity/Account/Manage/PersonalData");
+            }
 
             foreach (var wallet in registrant.Wallets)
             {
                 wallet.Accounts = _accountService.GetAllAccountsWithWalledId(wallet.Id).ToList();
             }
 
-            var model = new UserWalletsViewModel
-            {
-                Wallets = _mapper.Map<List<UserWallets>>(registrant.Wallets)
-            };
+            model.Wallets = _mapper.Map<List<UserWallets>>(registrant.Wallets);
 
             for (int i = 0; i < registrant.Wallets.Count; i++)
             {

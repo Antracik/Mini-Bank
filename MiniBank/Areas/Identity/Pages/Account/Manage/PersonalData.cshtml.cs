@@ -32,7 +32,6 @@ namespace Mini_Bank.Areas.Identity.Pages.Account.Manage
             _mapper = mapper;
         }
 
-        [TempData]
         public string StatusMessage { get; set; }
 
         public List<CountryModel> Countries { get; set; } 
