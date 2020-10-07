@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Mini_Bank.Models.ViewModels.RoleViewModel>
+
+@{
+    ViewData["Title"] = "All Roles";
+}
+
+<h1>List All Roles</h1>
+
+@if (Model.Any())
+{
+<p><a asp-action="CreateRole">Create new Role</a></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().Id"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().Name"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().TotalUsers"></label>
+            </th>
+            <th>
+                <label>Options</label>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @item.Id
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.TotalUsers
+            </td>
+            <td>
+                @*<a asp-controller="Administration" asp-action="DetailsRole" asp-route-Id="@item.Id">Details</a> |*@
+                <a asp-controller="Administration" asp-action="EditRole" asp-route-Id="@item.Id">Edit</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            <h6>No Roles to Display</h6>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Use button below to add a role
+            </h5>
+            <a class="btn btn-light" asp-action="CreateRole" asp-controller="Administration">
+            Create Role
+            </a>
+        </div>
+    </div>
+}

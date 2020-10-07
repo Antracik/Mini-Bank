@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Mini_Bank.Models.ViewModels.FileDownloadViewModel>
+
+@{
+    ViewData["Title"] = "List All Files";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().Id"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().FileName"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().FileExtension"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.FirstOrDefault().UniqueFileName"></label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.FileName
+                </td>
+                <td>
+                    @item.FileContentType
+                </td>
+                <td>
+                    @item.UniqueFileName
+                </td>
+                <td>
+                    <a id="downloadButton" class="btn btn-primary" asp-action="DownloadFile" asp-route-fileId="@item.UniqueFileName">Download</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script src="~/lib/notifyjs/notify.min.js"></script>
+
+    <script>
+        $('#downloadButton').on('click', function () {
+            $.notify("Fetching file for download, please wait!", "info");
+        });
+    </script>
+}

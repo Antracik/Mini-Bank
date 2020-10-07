@@ -1,15 +1,14 @@
-﻿using Mini_Bank.Models.ViewModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Linq;
-using Mini_Bank.Models;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Mini_Bank.Models.EnumModels;
+using Shared;
+using System;
 
-namespace Mini_Bank.FileRepo.Models
+namespace FileRepo.Models
 {
+    [Obsolete]
     [DataContract]
     public class WalletRepoModel : IBaseModel
     {
@@ -22,7 +21,7 @@ namespace Mini_Bank.FileRepo.Models
 
         [DataMember]
         [DisplayName("Wallet Status")]
-        public StatusModel.Status WalletStatus { get; set; }
+        public StatusEnum.Status WalletStatus { get; set; }
 
         [DataMember]
         [DisplayName("Verified")]
@@ -32,7 +31,19 @@ namespace Mini_Bank.FileRepo.Models
         [DataMember]
         public int RegistrantId { get; set; }
 
-        public WalletRepoModel(int id, int number, StatusModel.Status walletStatus, int registrantId, bool isVerified = false)
+        [DataMember]
+        public int? CreatedById { get; set; }
+
+        [DataMember]
+        public DateTime DateCreated { get; set; }
+
+        [DataMember]
+        public int? EditedById { get; set; }
+
+        [DataMember]
+        public DateTime? DateEdited { get; set; }
+
+        public WalletRepoModel(int id, int number, StatusEnum.Status walletStatus, int registrantId, bool isVerified = false)
         {
             Id = id;
             Number = number;
@@ -43,16 +54,6 @@ namespace Mini_Bank.FileRepo.Models
 
         public WalletRepoModel() { }
 
-    }
-
-    public static class WalletEextension
-    {
-        public static IEnumerable<AccountRepoModel> GetWalletAccounts(this WalletRepoModel source, IRepository<AccountRepoModel> repository)
-        {
-            return from accounts in repository.Get()
-                   where accounts.WalletId == source.Id
-                   select accounts;
-        }
     }
 
 }

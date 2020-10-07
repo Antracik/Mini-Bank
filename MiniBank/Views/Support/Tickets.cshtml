@@ -1,0 +1,78 @@
+﻿@model Mini_Bank.Models.ViewModels.TicketViewModel
+
+@using Mini_Bank.Extensions
+@{
+    ViewData["Title"] = "Tickets";
+    TempData.Put("Model", Model);
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<partial name="_StatusMessage" model="@Model.Message" />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().Id"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().TicketType.Name"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().TicketStatus.Name"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().Title"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().DateCreated"></label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserTickets)
+        {
+            <tr data-ticket="@item.Id">
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.TicketType.Name
+                </td>
+                <td class="js-ticket-status">
+                    @item.TicketStatus.Name
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.DateCreated
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Options
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a href="#" class="dropdown-item js-get-ticket" data-toggle="modal" data-target="#Ticket-Details">Details</a>
+                            <a href="#" class="dropdown-item js-get-messages" data-toggle="modal" data-target="#Ticket-Messages">Messages</a>
+                            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#Ticket-Close">Close Ticket</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_TicketClosePartial" />
+<partial name="_TicketDetailsPartial" />
+<partial name="_TicketMessagesPartial" />
+
+@section Scripts
+{
+    <script src="~/lib/notifyjs/notify.min.js"></script>
+    <script src="~/js/tickets.js"></script>
+}

@@ -1,0 +1,28 @@
+﻿@model Mini_Bank.Models.ViewModels.UserDashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+@section Styles{
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+}
+<div class="chart-container" style="position: relative;">
+    <canvas id="TotalMoneyCurrency"></canvas>
+</div>
+<hr />
+
+
+@section Scripts{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+<script>
+        $(document).ready(function () {
+            var json = @Html.Raw(Model.TotalMoneyByCurrency.JsonData);
+            var ctx = $("#TotalMoneyCurrency");
+            renderTotalMoneyCurrency(json, ctx);
+            });
+</script>
+}

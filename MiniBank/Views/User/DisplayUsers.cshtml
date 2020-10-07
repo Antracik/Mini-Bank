@@ -1,0 +1,91 @@
+﻿@model X.PagedList.PagedList<UserModel>
+
+@{
+    ViewData["Title"] = "DisplayUsers";
+}
+
+<h1>User List</h1>
+
+<form method="get" asp-controller="User" asp-action="DisplayUsers">
+    <div class="form-group">
+        <label asp-for="@Model.FirstOrDefault().Email" class="control-label">Filter by Email :</label>
+        <input for="filterEmail" id="filterEmail" name="filterEmail" placeholder="@ViewBag.FilterEmail" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Filter" class="btn btn-primary" />
+        <a class="btn btn-light" asp-controller="User" asp-action="DisplayUsers">Reset</a>
+    </div>
+</form>
+<p><a asp-controller="User" asp-action="CreateUserView">Create User</a></p>
+@*<p><a asp-area="Identity" asp-page="/Account/Register">Create User</a></p>*@
+
+@Html.PagedListPager(Model, pageIndex => Url.Action("DisplayUsers", new { pageIndex, sortBy = ViewBag.CurrentSort, filterEmail = ViewBag.FilterEmail }),
+                                                    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                    {
+                                                        PageClasses = new string[] { "page-link" },
+                                                        LiElementClasses = new string[] { "page-item" },
+                                                        EllipsesElementClass = "page-link"
+                                                    })
+@*Should never throw out of bounds exception if at least !ONE! User is present*@
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="DisplayUsers" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.IdSort" asp-route-filterEmail="@ViewBag.FilterEmail">
+                        <label asp-for="@Model.FirstOrDefault().Id"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="DisplayUsers" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.EmailSort" asp-route-filterEmail="@ViewBag.FilterEmail">
+                        <label asp-for="@Model.FirstOrDefault().Email"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="DisplayUsers" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.EmailConfirmedSort" asp-route-filterEmail="@ViewBag.FilterEmail">
+                        <label asp-for="@Model.FirstOrDefault().EmailConfirmed"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="DisplayUsers" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.DateCreatedSort" asp-route-filterEmail="@ViewBag.FilterEmail">
+                        <label asp-for="@Model.FirstOrDefault().DateCreated"></label>
+                    </a>
+                </th>
+                <th>
+                    <label>Options</label>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.EmailConfirmed
+                    </td>
+                    <td>
+                        @item.DateCreated
+                    </td>
+                    <td>
+                        <a asp-controller="User" asp-action="DetailsUser" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="User" asp-action="EditUserView" asp-route-id="@item.Id">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@Html.PagedListPager(Model, pageIndex => Url.Action("DisplayUsers", new { pageIndex, sortBy = ViewBag.CurrentSort, filterEmail = ViewBag.FilterEmail }),
+                                                    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                    {
+                                                        PageClasses = new string[] { "page-link" },
+                                                        LiElementClasses = new string[] { "page-item" },
+                                                        EllipsesElementClass = "page-link"
+                                                    })

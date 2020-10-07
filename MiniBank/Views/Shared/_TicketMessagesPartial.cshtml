@@ -1,0 +1,35 @@
+﻿<div class="modal fade" id="Ticket-Messages" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Message History</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <input type="hidden" id="hidden-Id" />
+                    <div class="form-group">
+                        <textarea placeholder="Message...(max 1000 characters)" class="form-control js-message-content" ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary js-send-message">Send Message</button>
+                    </div>
+                </form>
+                <hr />
+                <div>
+                    <ul id="message-list" class="modal-body-wrap"></ul>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="button" id="show-more" class="btn btn-primary">Show More</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

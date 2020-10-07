@@ -1,0 +1,113 @@
+﻿@model Mini_Bank.Models.ViewModels.TicketViewModel
+
+@using Mini_Bank.Extensions
+@{
+    ViewData["Title"] = "Tickets";
+    TempData.Put("Model", Model);
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<partial name="_StatusMessage" model="@Model.Message" />
+
+<a class="btn btn-primary mb-4" href="#" data-toggle="modal" data-target="#Modal">Open a new Ticket</a>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().TicketType.Name"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().TicketStatus.Name"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().Title"></label>
+            </th>
+            <th>
+                <label asp-for="@Model.UserTickets.FirstOrDefault().DateCreated"></label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserTickets)
+        {
+            <tr data-ticket="@item.Id">
+                <td>
+                    @item.TicketType.Name
+                </td>
+                <td class="js-ticket-status">
+                    @item.TicketStatus.Name
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.DateCreated
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Options
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a href="#" class="dropdown-item js-get-ticket" data-toggle="modal" data-target="#Ticket-Details">Details</a>
+                            <a href="#" class="dropdown-item js-get-messages" data-toggle="modal" data-target="#Ticket-Messages">Messages</a>
+                            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#Ticket-Close">Close Ticket</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ticket submit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" asp-for="@Model.TicketRequest.Title"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" asp-for="@Model.TicketRequest.Title" placeholder="Title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Type</label>
+                        <div class="col-sm-10">
+                            <select asp-for="@Model.TicketRequest.TicketType.Id" asp-items="@(new SelectList(Model.TicketTypes, "Id","Name" ))" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label asp-for="@Model.TicketRequest.Description"></label>
+                        <textarea class="form-control" asp-for="@Model.TicketRequest.Description"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" asp-action="TicketRequest" class="btn btn-primary">Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_TicketClosePartial" />
+<partial name="_TicketDetailsPartial" />
+<partial name="_TicketMessagesPartial" />
+
+@section Scripts
+{
+    <script src="~/lib/notifyjs/notify.min.js"></script>
+    <script src="~/js/tickets.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}

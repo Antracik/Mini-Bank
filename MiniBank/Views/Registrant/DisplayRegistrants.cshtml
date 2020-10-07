@@ -1,0 +1,90 @@
+﻿@model X.PagedList.PagedList<Mini_Bank.Models.RegistrantModel>
+
+@{
+    ViewData["Title"] = "DisplayRegistrants";
+}
+
+<h1>Registrants</h1>
+
+@if (Model.Any())
+{
+    @Html.PagedListPager(Model, pageIndex => Url.Action("DisplayRegistrants", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+                                                    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                    {
+                                                        PageClasses = new string[] { "page-link" },
+                                                        LiElementClasses = new string[] { "page-item" },
+                                                        EllipsesElementClass = "page-link"
+                                                    })
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="DisplayRegistrants" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.IdSort">
+                        <label asp-for="@Model.FirstOrDefault().Id"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="DisplayRegistrants" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.FirstNameSort">
+                        <label asp-for="@Model.FirstOrDefault().FirstName"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="DisplayRegistrants" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.LastNameSort">
+                        <label asp-for="@Model.FirstOrDefault().LastName"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="DisplayRegistrants" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.CountrySort">
+                        <label asp-for="@Model.FirstOrDefault().CountryId"></label>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="DisplayRegistrants" asp-route-pageIndex="@ViewBag.CurrentPage" asp-route-sortBy="@ViewBag.AddressSort">
+                        <label asp-for="@Model.FirstOrDefault().Address"></label>
+                    </a>
+                </th>
+                <th>
+                    <label>Options</label>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.CountryModel.Name
+                    </td>
+                    <td>
+                        @item.Address
+                    </td>
+                    <td>
+                        <a asp-controller="Registrant" asp-action="DetailsRegistrant" asp-route-Id="@item.Id">Details</a> |
+                        <a asp-controller="Registrant" asp-action="EditRegistrantView" asp-route-id="@item.Id">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.PagedListPager(Model, pageIndex => Url.Action("DisplayRegistrants", new { pageIndex, sortBy = ViewBag.CurrentSort }),
+                                                new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+                                                {
+                                                    PageClasses = new string[] { "page-link" },
+                                                    LiElementClasses = new string[] { "page-item" },
+                                                    EllipsesElementClass = "page-link"
+                                                })
+}
+else
+{
+    <h4>No Registrants</h4>
+}

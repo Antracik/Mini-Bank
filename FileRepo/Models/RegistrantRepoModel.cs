@@ -1,12 +1,13 @@
-﻿using Mini_Bank.Models.ViewModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Shared;
+using System;
 
-namespace Mini_Bank.FileRepo.Models
+namespace FileRepo.Models
 {
+    [Obsolete]
     [DataContract]
     public class RegistrantRepoModel : IBaseModel
     {
@@ -33,6 +34,21 @@ namespace Mini_Bank.FileRepo.Models
         [DataMember]
         public int UserId { get; set; }
 
+        [DataMember]
+        public int WalletId { get; set; }
+
+        [DataMember]
+        public int? CreatedById { get; set; }
+
+        [DataMember]
+        public DateTime DateCreated { get; set; }
+
+        [DataMember]
+        public int? EditedById { get; set; }
+
+        [DataMember]
+        public DateTime? DateEdited { get; set; }
+
         public RegistrantRepoModel(int id, string firstName, string lastName, string country, string address, int userId)
         {
             Id = id;
@@ -46,13 +62,4 @@ namespace Mini_Bank.FileRepo.Models
         public RegistrantRepoModel() {}
     }
 
-    public static class RegistrantExtension
-    {
-        public static IEnumerable<WalletRepoModel> GetRegistrantWallets(this RegistrantRepoModel source, IRepository<WalletRepoModel> fileRepository)
-        {
-            return from wallets in fileRepository.Get()
-                   where wallets.RegistrantId == source.Id
-                    select wallets;
-        }
-    }
 }

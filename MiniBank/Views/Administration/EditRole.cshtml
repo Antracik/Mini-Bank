@@ -1,0 +1,67 @@
+﻿@model Mini_Bank.Models.ViewModels.EditRoleViewModel
+
+@using Mini_Bank.Extensions
+
+@{
+    ViewData["Title"] = "EditRole";
+    TempData["id"] = Model.Id;
+}
+
+<h1>EditRole</h1>
+
+<h4>EditRoleViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-2">
+                <label asp-for="@Model.Id"></label>
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Id
+            </dd>
+            <dt class="col-sm-2">
+                <label asp-for="@Model.Name"></label>
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Name
+            </dd>
+            <dt class="col-sm-2">
+                <label asp-for="@Model.Users"></label>
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Users.Count
+            </dd>
+        </dl>
+        <a asp-action="ListRoles" class="btn btn-primary">Back to List</a>
+        <a asp-controller="Administration" asp-action="EditUsersInRole" asp-route-roleId="@Model.Id" class="btn btn-primary" >Add or Remove Users</a>
+    <br />
+    </div>
+    @if (Model.Users.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <label asp-for="@Model.Users"></label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            @user
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h5>No Users in current role</h5>
+    }
+</div>
+

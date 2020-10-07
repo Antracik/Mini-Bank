@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
-using Mini_Bank.Models.ViewModels;
+﻿using System;
+using System.Collections.Generic;
+using Shared;
 
-namespace Mini_Bank.FileRepo
+namespace FileRepo
 {
+    [Obsolete]
     public interface IRepository<T> where T : IBaseModel
     {
         void AddItem(T item);

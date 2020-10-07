@@ -1,12 +1,13 @@
-﻿using Mini_Bank.Models.ViewModels;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Shared;
+using System;
 
-namespace Mini_Bank.FileRepo.Models
-{ 
+namespace FileRepo.Models
+{
+    [Obsolete]
     [DataContract]
     public class UserRepoModel : IBaseModel
     {
@@ -25,27 +26,26 @@ namespace Mini_Bank.FileRepo.Models
         public string Password { get; set; }
 
         [DataMember]
-        [DisplayName("Admin")]
-        [DefaultValue(false)]
-        public bool IsAdmin { get; set; }
+        public int? CreatedById { get; set; }
 
-        public UserRepoModel(int id, string email, string password, bool isAdmin = false)
+        [DataMember]
+        public DateTime DateCreated { get; set; }
+
+        [DataMember]
+        public int? EditedById { get; set; }
+
+        [DataMember]
+        public DateTime? DateEdited { get; set; }
+
+        public UserRepoModel(int id, string email, string password)
         {
             Id = id;
             Email = email;
             Password = password;
-            IsAdmin = isAdmin;
         }
 
         public UserRepoModel() { }
 
     }
-
-    public static class UserExtension
-    {
-        public static RegistrantRepoModel GetRegistrant(this UserRepoModel source, IRepository<RegistrantRepoModel> repository)
-        {
-            return repository.Get().FirstOrDefault(reg => reg.UserId == source.Id);
-        }
-    }
+   
 }

@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Shared;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
-using Mini_Bank.Models.ViewModels;
 using System.Threading;
 
-namespace Mini_Bank.FileRepo
+namespace FileRepo
 {
-    [Obsolete("File repository is now depreceted, move to Db repository")]
+    [Obsolete("File repository is now depreceted, move to Db repository", true)]
     public class FileRepository<T> : IRepository<T> where T : IBaseModel
     {
         private readonly Semaphore semaphore = new Semaphore(1, 1);
