@@ -7,6 +7,7 @@ namespace Shared
     {
         public enum Countries
         {
+
             [ShortName("BG")]
             [LongName("Bulgaria")]
             Bulgaria = 1,

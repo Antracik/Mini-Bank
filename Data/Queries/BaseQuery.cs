@@ -6,5 +6,6 @@ namespace Data.Queries
 {
     public class BaseQuery
     {
+
     }
 }

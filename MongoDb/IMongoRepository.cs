@@ -11,5 +11,6 @@ namespace MongoDb
         ColModel GetById(string id);
         IEnumerable<ColModel> GetByDate(DateTime dateTime);
 
+
     }
 }
