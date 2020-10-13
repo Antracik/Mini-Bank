@@ -15,7 +15,8 @@ The connection string from sql server must be placed in MiniBank/appsettings.jso
   }
 ```
 
-  In order for the email service to work an API key for SENDGRID https://sendgrid.com/ is required
+  In order for the email service to work an API key for [SENDGRID](https://sendgrid.com/) is required.
+  
   Once acquired, your username and key need to placed in the project as local user secrets. It can be done through the CLI as follows:
   
   ```cs
